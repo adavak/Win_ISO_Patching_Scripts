@@ -24,7 +24,7 @@ powershell -NoProfile Start-Process -FilePath '%COMSPEC%' ^
 
 IF %ERRORLEVEL% GTR 0 (
     echo =====================================================
-	echo 此脚本需要使用管理员权限执行。
+    echo 此脚本需要使用管理员权限执行。
     echo This script needs to be executed as an administrator.
     echo =====================================================
     echo.
