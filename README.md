@@ -1,5 +1,3 @@
-# Win10_ISO_Patching_Scripts for zhCN
-
 Tools:
 7-zip (7-zip.org)
 wimlib (wimlib.net)
