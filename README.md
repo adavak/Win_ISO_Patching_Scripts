@@ -1,7 +1,7 @@
 # Win10_ISO_Patching_Scripts for zhCN
 
 Tools:
-7-zip (www.7-zip.org)
+7-zip (7-zip.org)
 wimlib (wimlib.net)
 aria2 (github.com/aria2/aria2)
 cdimage (Microsoft)
