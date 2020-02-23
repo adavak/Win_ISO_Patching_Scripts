@@ -1,7 +1,3 @@
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2019/01/windows10.0-kb4480056-x64_03a6d426797796ba712e4dbd05b56fd9cbfc2e24.msu
-  out=windows10.0-kb4480056-x64_03a6d426797796ba712e4dbd05b56fd9cbfc2e24-net472.msu
-  checksum=sha-1=03a6d426797796ba712e4dbd05b56fd9cbfc2e24
-  
 http://download.windowsupdate.com/d/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486153-x64_43ee33b302bfdba470542a128a9ee0b58faa5412.msu
   out=windows10.0-kb4486153-x64_43ee33b302bfdba470542a128a9ee0b58faa5412-net48.msu
   checksum=sha-1=43ee33b302bfdba470542a128a9ee0b58faa5412
