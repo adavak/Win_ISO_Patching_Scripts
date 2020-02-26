@@ -350,9 +350,7 @@ if defined isoupdate (
   if exist "!_cabdir!\du\replacementmanifests\" xcopy /CERY "!_cabdir!\du\replacementmanifests" "!target!\sources\replacementmanifests\" %_Nul3%
   rmdir /s /q "!_cabdir!\du\" %_Nul3%
 )
-xcopy /CRY "!target!\efi\microsoft\boot\fonts" "!target!\boot\fonts\" %_Nul1%
-if %_DNF%==1 if exist "!target!\sources\sxs\*netfx3*.cab" (del /f /q "!target!\sources\sxs\*netfx3*.cab" %_Nul1%)
-rem if exist "!target!\sources\uup\" (rmdir /s /q "!target!\sources\uup\" %_Nul1%)
+)
 if %wim2esd%==0 goto :fin
 echo.
 echo ============================================================
@@ -508,6 +506,8 @@ if %errorlevel% equ 1726 (
 %_dism2%:"!_cabdir!" %dismtarget% /Get-Packages %_Nul1%
 if defined cumulative %_dism2%:"!_cabdir!" %dismtarget% /LogPath:"%systemroot%\Logs\DISM\DismLCU.log" /Add-Package %cumulative%
 )
+%_dism2%:"!_cabdir!" %dismtarget% /Remove-Package /PackageName:Package_for_RollupFix~31bf3856ad364e35~amd64~~17763.107.1.3 %_Nul3%
+%_dism2%:"!_cabdir!" %dismtarget% /Remove-Package /PackageName:Package_for_RollupFix~31bf3856ad364e35~amd64~~17763.774.1.12 %_Nul3%
 call :cleanup
 goto :eof
 
@@ -1191,7 +1191,7 @@ echo Creating updated ISO file...
 echo ============================================================
 if exist "!_oscdimg!" (set _ff="!_oscdimg!") else if exist "!_work!\oscdimg.exe" (set _ff="!_work!\oscdimg.exe") else (set _ff="!_work!\cdimage.exe")
 cd /d "!target!"
-!_ff! -m -o -u2 -udfver102 -bootdata:2#p0,e,b".\boot\etfsboot.com"#pEF,e,b".\efi\microsoft\boot\efisys.bin" -l"CES_X64FREV_ZH-CN_DV5" . "%isofile%"
+!_ff! -m -o -u2 -udfver102 -bootdata:2#p0,e,b".\boot\etfsboot.com"#pEF,e,b".\efi\microsoft\boot\efisys.bin" -l"%isover%" . "%isofile%"
 set errcode=%errorlevel%
 if %errcode% equ 0 move /y "%isofile%" "!isodir!\" %_Nul3%
 cd /d "!_work!"
