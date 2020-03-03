@@ -1,0 +1,27 @@
+http://download.windowsupdate.com/c/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486129-x86_d38ebe43baeabaef927675c7ff2295843f19a077.msu
+  out=windows10.0-kb4486129-x86_d38ebe43baeabaef927675c7ff2295843f19a077-net48.msu
+  checksum=sha-1=d38ebe43baeabaef927675c7ff2295843f19a077
+
+http://download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486131-x86_f9b1c5794a9a399a4f3ee2b1b72d9d304b3884ab.msu
+  out=windows10.0-kb4486131-x86_f9b1c5794a9a399a4f3ee2b1b72d9d304b3884ab-net48_zhcn.msu
+  checksum=sha-1=f9b1c5794a9a399a4f3ee2b1b72d9d304b3884ab
+
+http://download.windowsupdate.com/d/msdownload/update/software/crup/2020/01/windows10.0-kb4532820-x86_92399ad5370f56e5639dbac5c3916cb222b6335b.cab
+  out=windows10.0-kb4532820-x86_92399ad5370f56e5639dbac5c3916cb222b6335b-du.cab
+  checksum=sha-1=92399ad5370f56e5639dbac5c3916cb222b6335b
+
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/02/windows10.0-kb4537759-x86_2a049efdcd5ad33958751df87c329c008d689d14.msu
+  out=windows10.0-kb4537759-x86_2a049efdcd5ad33958751df87c329c008d689d14-flash.msu
+  checksum=sha-1=2a049efdcd5ad33958751df87c329c008d689d14
+
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/02/windows10.0-kb4537477-x86-ndp48_02e70dfe2ecb85bd88577d1b788da99fcfa08529.msu
+  out=windows10.0-kb4537477-x86-ndp48_02e70dfe2ecb85bd88577d1b788da99fcfa08529-net48_updt.msu
+  checksum=sha-1=02e70dfe2ecb85bd88577d1b788da99fcfa08529
+
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/11/windows10.0-kb4520724-x86_5909bf7b2440778b541741ea3eb0ba98758ced79.msu
+  out=windows10.0-kb4520724-x86_5909bf7b2440778b541741ea3eb0ba98758ced79-ssu.msu
+  checksum=sha-1=5909bf7b2440778b541741ea3eb0ba98758ced79
+
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2020/02/windows10.0-kb4537806-x86_198111fd13971c938405def79aa4746617c0b008.msu
+  out=windows10.0-kb4537806-x86_198111fd13971c938405def79aa4746617c0b008-cu.msu
+  checksum=sha-1=198111fd13971c938405def79aa4746617c0b008
