@@ -350,7 +350,6 @@ if defined isoupdate (
   if exist "!_cabdir!\du\replacementmanifests\" xcopy /CERY "!_cabdir!\du\replacementmanifests" "!target!\sources\replacementmanifests\" %_Nul3%
   rmdir /s /q "!_cabdir!\du\" %_Nul3%
 )
-)
 if %wim2esd%==0 goto :fin
 echo.
 echo ============================================================
