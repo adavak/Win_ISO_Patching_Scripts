@@ -1,5 +1,5 @@
 @echo off
-title 官方 ISO 打补丁… Patching Official ISO... RS5-1809(LTSC 2019) / CMGE_V2020-L - v17763 x64
+title 官方 ISO 打补丁… Patching Official ISO... RS5-1809(LTSC 2019) / Server 2019 / CMGE_V2020-L - v17763 x64
 
 cd /d "%~dp0"
 if NOT "%cd%"=="%cd: =%" (
@@ -48,6 +48,9 @@ if NOT EXIST %a7z% goto :NO_FILE_ERROR
 if NOT EXIST "%isofile%" (set "isofile=cn_windows_10_business_edition_version_1809_updated_sept_2018_x64_dvd_84ac403f.iso")
 if NOT EXIST "%isofile%" (set "isofile=cn_windows_10_enterprise_ltsc_2019_x64_dvd_d17070a8.iso")
 if NOT EXIST "%isofile%" (set "isofile=CMGE_V2020-L.1207.iso")
+if NOT EXIST "%isofile%" (set "isofile=SW_DVD9_Win_Server_STD_CORE_2019_64Bit_ChnSimp_DC_STD_MLF_X21-96577.ISO")
+if NOT EXIST "%isofile%" (set "isofile=cn_windows_server_2019_x64_dvd_4de40f33.iso")
+if NOT EXIST "%isofile%" (set "isofile=cn_windows_server_version_1809_x64_dvd_ca19666d.iso")
 if NOT EXIST "%isofile%" goto :NO_ISO_ERROR
 
 echo 正在下载补丁…
