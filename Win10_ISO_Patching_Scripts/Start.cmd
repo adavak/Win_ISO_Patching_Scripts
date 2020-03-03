@@ -89,7 +89,7 @@ goto :EOF
 
 :NO_ISO_ERROR
 echo 请把官方 ISO 文件放到脚本同目录下。
-echo Please put official  ISO file next to the script.
+echo Please put official ISO file next to the script.
 pause
 goto :EOF
 
