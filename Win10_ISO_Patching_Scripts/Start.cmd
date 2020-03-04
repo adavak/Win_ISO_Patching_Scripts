@@ -53,6 +53,8 @@ dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /ind
 for /f "tokens=4 delims=:. " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Version :"') do set build=%%#
 for /f "tokens=2 delims=: " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Architecture"') do set arch=%%#
 
+if %build%==18362 (set /a build=18363)
+
 if NOT EXIST %aria2% goto :NO_ARIA2_ERROR
 if NOT EXIST %a7z% goto :NO_FILE_ERROR
 if NOT EXIST "Scripts\script_%build%_%arch%.txt" goto :NOT_SUPPORT
