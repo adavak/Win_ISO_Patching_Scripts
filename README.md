@@ -4,5 +4,5 @@ wimlib (wimlib.net)
 aria2 (github.com/aria2/aria2)
 cdimage (Microsoft)
 
-Script:
+Scripts:
 W10UI (abbodi1406@MDL)
