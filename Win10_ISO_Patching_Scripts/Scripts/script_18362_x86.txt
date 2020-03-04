@@ -2,10 +2,6 @@ https://uupdump.ml/getfile.php?id=312b7c0f-400e-4414-a8b5-f7be0365e061&file=wind
   out=windows10.0-kb4513661-x86_39dfa95f54227f529712d98f1f1651fd74ea392d.cab
   checksum=sha-1=39dfa95f54227f529712d98f1f1651fd74ea392d
 
-http://b1.download.windowsupdate.com/d/upgr/2019/11/windows10.0-kb4517245-x86_8463271782b79ce8214772c62552b8961feb7ccb.cab
-  out=windows10.0-kb4517245-x86_8463271782b79ce8214772c62552b8961feb7ccb-ep.cab
-  checksum=sha-1=8463271782b79ce8214772c62552b8961feb7ccb
-
 http://download.windowsupdate.com/d/msdownload/update/software/crup/2020/02/windows10.0-kb4532692-x86_c74c419c7df7c2200c4e9b5a5295f30446f78cb2.cab
   out=windows10.0-kb4532692-x86_c74c419c7df7c2200c4e9b5a5295f30446f78cb2-du.cab
   checksum=sha-1=c74c419c7df7c2200c4e9b5a5295f30446f78cb2
