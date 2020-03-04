@@ -42,7 +42,7 @@ set "ISODir=ISO"
 set "build="
 set "arch="
 
-:CHECK
+dir /b /a:-d Win10*.iso 1>nul 2>nul && (for /f "delims=" %%# in ('dir /b /a:-d *.iso') do set "isofile=%%#")
 if EXIST "Win10*.iso" goto :NO_ISO_PATCHED_ERROR
 if NOT EXIST "*.iso" goto :NO_ISO_ERROR
 dir /b /a:-d *.iso 1>nul 2>nul && (for /f "delims=" %%# in ('dir /b /a:-d *.iso') do set "isofile=%%#")
@@ -82,7 +82,7 @@ pause
 goto :EOF
 
 :NO_FILE_ERROR
-echo 没发现脚本所需文件。
+echo 未发现脚本所需文件。
 echo We couldn't find one of needed files for this script.
 pause
 goto :EOF
@@ -94,8 +94,9 @@ pause
 goto :EOF
 
 :NO_ISO_PATCHED_ERROR
-echo 发现已打补丁的 ISO 文件，请移除或检查。
-echo Found Patched ISO file, Please remove or check.
+echo 发现可能已打补丁的 ISO 文件，请移除或检查。
+echo Discovering a potentially patched ISO, Please remove or check.
+echo (%isofile%)
 pause
 goto :EOF
 
@@ -108,8 +109,9 @@ goto :EOF
 
 :NOT_SUPPORT
 echo.
-echo 不支持此版本。（版本：%build%、架构：%arch%）
-echo Not support this version. (Version: %build%, Architecture: %arch%)
+echo 不支持此 ISO 版本。
+echo Not support this version ISO. 
+echo Version: %build%, Architecture: %arch%
 pause
 goto :EOF
 
