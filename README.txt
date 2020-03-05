@@ -15,3 +15,12 @@ Some settings (located in the folder root W10UI.ini)
 
 Net35 = 1 (if you do not want to integrate .net 3.5, please change to 0)
 wim2esd = 1 (If you don't want to generate install.esd to reduce space consumption. It takes a lot of time and computer resources, the image size is reduced by about 25%, please change to 0)
+
+Tools:
+7-zip (7-zip.org)
+wimlib (wimlib.net)
+aria2 (github.com/aria2/aria2)
+cdimage (Microsoft)
+
+Script:
+W10UI (abbodi1406@MDL)
