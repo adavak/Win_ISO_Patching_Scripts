@@ -112,6 +112,7 @@ goto :EOF
 
 :NOT_SUPPORT
 echo.
+rmdir /s /q "%~dp0%ISODir%"
 echo 不支持此 ISO 版本。
 echo Not support this version ISO. 
 echo Version: %build%, Architecture: %arch%
