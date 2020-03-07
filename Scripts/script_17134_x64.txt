@@ -1,0 +1,27 @@
+http://download.windowsupdate.com/d/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486153-x64_43ee33b302bfdba470542a128a9ee0b58faa5412.msu
+  out=windows10.0-kb4486153-x64_43ee33b302bfdba470542a128a9ee0b58faa5412-net48.msu
+  checksum=sha-1=43ee33b302bfdba470542a128a9ee0b58faa5412
+
+http://download.windowsupdate.com/d/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486155-x64_78eea67f76d827934139d7620291d5b9897d1b8d.msu
+  out=windows10.0-kb4486155-x64_78eea67f76d827934139d7620291d5b9897d1b8d-net48_zhcn.msu
+  checksum=sha-1=78eea67f76d827934139d7620291d5b9897d1b8d
+
+http://download.windowsupdate.com/d/msdownload/update/software/crup/2019/09/windows10.0-kb4519765-x64_30eeb4f0d7a4edef08a2fb964647e1f02a6dcbe9.cab
+  out=windows10.0-kb4519765-x64_30eeb4f0d7a4edef08a2fb964647e1f02a6dcbe9-du.cab
+  checksum=sha-1=30eeb4f0d7a4edef08a2fb964647e1f02a6dcbe9
+
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/02/windows10.0-kb4537759-x64_81bd9f1a9b559bf3849352759fa2e6d70ba9ed5f.msu
+  out=windows10.0-kb4537759-x64_81bd9f1a9b559bf3849352759fa2e6d70ba9ed5f-flash.msu
+  checksum=sha-1=81bd9f1a9b559bf3849352759fa2e6d70ba9ed5f
+
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/02/windows10.0-kb4537479-x64-ndp48_4ded87e2757858b38574e10b3b825b30d9ea5799.msu
+  out=windows10.0-kb4537479-x64-ndp48_4ded87e2757858b38574e10b3b825b30d9ea5799-net48_updt.msu
+  checksum=sha-1=4ded87e2757858b38574e10b3b825b30d9ea5799
+
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/11/windows10.0-kb4523203-x64_2aaebd36efec61f15df67913a416c34f8e29042c.msu
+  out=windows10.0-kb4523203-x64_2aaebd36efec61f15df67913a416c34f8e29042c-ssu.msu
+  checksum=sha-1=2aaebd36efec61f15df67913a416c34f8e29042c
+
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/02/windows10.0-kb4537795-x64_dab557e19cf27f416faf280efcb488bef455f7d7.msu
+  out=windows10.0-kb4537795-x64_dab557e19cf27f416faf280efcb488bef455f7d7-cu.msu
+  checksum=sha-1=dab557e19cf27f416faf280efcb488bef455f7d7

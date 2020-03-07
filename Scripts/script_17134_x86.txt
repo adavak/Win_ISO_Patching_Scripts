@@ -1,0 +1,27 @@
+http://download.windowsupdate.com/d/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486153-x86_de1c8a0152b298f88ff42dc9114eabfa61d5e957.msu
+  out=windows10.0-kb4486153-x86_de1c8a0152b298f88ff42dc9114eabfa61d5e957-net48.msu
+  checksum=sha-1=de1c8a0152b298f88ff42dc9114eabfa61d5e957
+
+http://download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486155-x86_37656e0328cf02789c27e72e222bcb7fe4a9baed.msu
+  out=windows10.0-kb4486155-x86_37656e0328cf02789c27e72e222bcb7fe4a9baed-net48_zhcn.msu
+  checksum=sha-1=37656e0328cf02789c27e72e222bcb7fe4a9baed
+
+http://download.windowsupdate.com/d/msdownload/update/software/crup/2019/09/windows10.0-kb4519765-x86_052b937f40b9d5a53833ff3e1cb66593c2e62c46.cab
+  out=windows10.0-kb4519765-x86_052b937f40b9d5a53833ff3e1cb66593c2e62c46-du.cab
+  checksum=sha-1=052b937f40b9d5a53833ff3e1cb66593c2e62c46
+
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/02/windows10.0-kb4537759-x86_b0f7438172d6b29037c0caf4f115700f7edeb2b1.msu
+  out=windows10.0-kb4537759-x86_b0f7438172d6b29037c0caf4f115700f7edeb2b1-flash.msu
+  checksum=sha-1=b0f7438172d6b29037c0caf4f115700f7edeb2b1
+
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/02/windows10.0-kb4537479-x86-ndp48_6e77f1189d98d3d25f6c17ffe00f54411ae3d5d7.msu
+  out=windows10.0-kb4537479-x86-ndp48_6e77f1189d98d3d25f6c17ffe00f54411ae3d5d7-net48_updt.msu
+  checksum=sha-1=6e77f1189d98d3d25f6c17ffe00f54411ae3d5d7
+
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/11/windows10.0-kb4523203-x86_46feffd715e086e036f08107630d2d5236edafab.msu
+  out=windows10.0-kb4523203-x86_46feffd715e086e036f08107630d2d5236edafab-ssu.msu
+  checksum=sha-1=46feffd715e086e036f08107630d2d5236edafab
+
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2020/02/windows10.0-kb4537795-x86_bf58b41d8ac2766f9ee458835d55ddf8d76f8e00.msu
+  out=windows10.0-kb4537795-x86_bf58b41d8ac2766f9ee458835d55ddf8d76f8e00-cu.msu
+  checksum=sha-1=bf58b41d8ac2766f9ee458835d55ddf8d76f8e00
