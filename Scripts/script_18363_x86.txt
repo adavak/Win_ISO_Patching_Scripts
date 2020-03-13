@@ -1,4 +1,4 @@
-https://uupdump.ml/getfile.php?id=07493fff-c686-4b67-b124-57c9c229df48&file=windows10.0-kb4513661-x86.cab
+https://uupdump.ml/getfile.php?id=db404046-7a05-488c-8d77-8d3b078f8da9&file=windows10.0-kb4513661-x86.cab
   out=windows10.0-kb4513661-x86_39dfa95f54227f529712d98f1f1651fd74ea392d.cab
   checksum=sha-1=39dfa95f54227f529712d98f1f1651fd74ea392d
 
@@ -22,6 +22,6 @@ http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/03/wind
   out=windows10.0-kb4541338-x86_8aba9b3c75caff7833e37dd5c0a26abcd88def01-ssu.msu
   checksum=sha-1=8aba9b3c75caff7833e37dd5c0a26abcd88def01
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/03/windows10.0-kb4540673-x86_6f88fdf775c2bc27727f08cfa92b1e4859d01af0.msu
-  out=windows10.0-kb4540673-x86_6f88fdf775c2bc27727f08cfa92b1e4859d01af0-cu.msu
-  checksum=sha-1=6f88fdf775c2bc27727f08cfa92b1e4859d01af0
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/03/windows10.0-kb4551762-x86_f092225220ca3ded801e2792e1ab0b6a079b28a8.msu
+  out=windows10.0-kb4551762-x86_f092225220ca3ded801e2792e1ab0b6a079b28a8-cu.msu
+  checksum=sha-1=f092225220ca3ded801e2792e1ab0b6a079b28a8
