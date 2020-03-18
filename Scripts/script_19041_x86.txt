@@ -7,7 +7,7 @@ http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/02/wind
   checksum=sha-1=f83e5fd39784960dd1b3e5d43c7c7a518da27478
 
 http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/01/windows10.0-kb4534170-x86-ndp48_4a47484c069273f8ba3656c55c2962c8f0b8bc8f.cab
-  out=windows10.0-kb4534170-x86-ndp48_4a47484c069273f8ba3656c55c2962c8f0b8bc8f-net48_updt.cab
+  out=windows10.0-kb4534170-x86-ndp48_4a47484c069273f8ba3656c55c2962c8f0b8bc8f-net48_cu_updt.cab
   checksum=sha-1=4a47484c069273f8ba3656c55c2962c8f0b8bc8f
 
 https://uupdump.ml/getfile.php?id=cff447cf-3310-43ab-a7c7-75e58fb9f04b&file=windows10.0-kb4545706-x86.cab

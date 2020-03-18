@@ -15,13 +15,13 @@ http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/02/wind
   checksum=sha-1=81bd9f1a9b559bf3849352759fa2e6d70ba9ed5f
 
 http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/02/windows10.0-kb4537479-x64-ndp48_4ded87e2757858b38574e10b3b825b30d9ea5799.msu
-  out=windows10.0-kb4537479-x64-ndp48_4ded87e2757858b38574e10b3b825b30d9ea5799-net48_updt.msu
+  out=windows10.0-kb4537479-x64-ndp48_4ded87e2757858b38574e10b3b825b30d9ea5799-net48_cu_updt.msu
   checksum=sha-1=4ded87e2757858b38574e10b3b825b30d9ea5799
 
 http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/03/windows10.0-kb4540724-x64_0b6897fb9a65608a472f5b51185a78e281cab1f9.msu
   out=windows10.0-kb4540724-x64_0b6897fb9a65608a472f5b51185a78e281cab1f9-ssu.msu
   checksum=sha-1=0b6897fb9a65608a472f5b51185a78e281cab1f9
 
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/03/windows10.0-kb4540689-x64_b20fe0627ae4106a2cbec26d719a4a5f23891755.msu
-  out=windows10.0-kb4540689-x64_b20fe0627ae4106a2cbec26d719a4a5f23891755-cu.msu
-  checksum=sha-1=b20fe0627ae4106a2cbec26d719a4a5f23891755
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2020/03/windows10.0-kb4541333-x64_99cc30bc339634e609abce0b6d14ef6f35f229c3.msu
+  out=windows10.0-kb4541333-x64_99cc30bc339634e609abce0b6d14ef6f35f229c3-cu.msu
+  checksum=sha-1=99cc30bc339634e609abce0b6d14ef6f35f229c3
