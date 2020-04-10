@@ -1,4 +1,4 @@
-https://uupdump.ml/getfile.php?id=902bd8b4-6c95-49da-8fd9-ff8e235a195d&file=windows10.0-kb4552719-x86.cab
+https://uupdump.ml/getfile.php?id=475a2208-4f77-480f-9da1-ade6bf939c69&file=windows10.0-kb4552719-x86.cab
   out=windows10.0-kb4552719-x86_1454a426c1d159bac5e0e5e358348f5f8743ad1c-du.cab
   checksum=sha-1=1454a426c1d159bac5e0e5e358348f5f8743ad1c
 
@@ -10,10 +10,10 @@ http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/01/wind
   out=windows10.0-kb4534170-x86-ndp48_4a47484c069273f8ba3656c55c2962c8f0b8bc8f-net48_cu.cab
   checksum=sha-1=4a47484c069273f8ba3656c55c2962c8f0b8bc8f
 
-https://uupdump.ml/getfile.php?id=902bd8b4-6c95-49da-8fd9-ff8e235a195d&file=windows10.0-kb4545706-x86.cab
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/03/windows10.0-kb4545706-x86_a9ef3968b0e6899bca94abd4bbb29956b56e8961.cab
   out=windows10.0-kb4545706-x86_a9ef3968b0e6899bca94abd4bbb29956b56e8961-ssu.cab
   checksum=sha-1=a9ef3968b0e6899bca94abd4bbb29956b56e8961
 
-https://uupdump.ml/getfile.php?id=902bd8b4-6c95-49da-8fd9-ff8e235a195d&file=windows10.0-kb4552455-x86.cab
-  out=windows10.0-kb4552455-x86_222e7bf1d289a4f05083a3bedd2d3ac7765791df-cu.cab
-  checksum=sha-1=222e7bf1d289a4f05083a3bedd2d3ac7765791df
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/04/windows10.0-kb4552455-x86_bd7b422858cae772ac1e65d004dbc079a3722fba.cab
+  out=windows10.0-kb4552455-x86_bd7b422858cae772ac1e65d004dbc079a3722fba-cu.cab
+  checksum=sha-1=bd7b422858cae772ac1e65d004dbc079a3722fba
