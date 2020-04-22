@@ -26,6 +26,6 @@ http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/04/wind
   out=windows10.0-kb4552152-x64_705fda69935538eab5054d9d616e1761742816ec-ssu.msu
   checksum=sha-1=705fda69935538eab5054d9d616e1761742816ec
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/04/windows10.0-kb4549951-x64_5411f88ea08bfc0ac98f388f5a3bdc8bcfea3261.msu
-  out=windows10.0-kb4549951-x64_5411f88ea08bfc0ac98f388f5a3bdc8bcfea3261-cu.msu
-  checksum=sha-1=5411f88ea08bfc0ac98f388f5a3bdc8bcfea3261
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/04/windows10.0-kb4550945-x64_8bc93fe5c681ddf741120602899a730c65c155d6.msu
+  out=windows10.0-kb4550945-x64_8bc93fe5c681ddf741120602899a730c65c155d6-cu.msu
+  checksum=sha-1=8bc93fe5c681ddf741120602899a730c65c155d6
