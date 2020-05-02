@@ -62,7 +62,7 @@ if NOT EXIST "Scripts\script_%build%_%arch%.txt" goto :NOT_SUPPORT
 
 echo ÕýÔÚÏÂÔØ²¹¶¡¡­
 echo Patch Downloading...
-"%aria2%" --no-conf -x16 -s16 -j5 -c -R -d"%patchDir%" -i"Scripts\script_%build%_%arch%.txt"
+"%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d"%patchDir%" -i"Scripts\script_%build%_%arch%.txt"
 if %ERRORLEVEL% GTR 0 call :DOWNLOAD_ERROR & exit /b 1
 
 if EXIST W10UI.cmd goto :START_WORKWORK
