@@ -7,7 +7,7 @@ http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/02/wind
   checksum=sha-1=f83e5fd39784960dd1b3e5d43c7c7a518da27478
 
 http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/05/windows10.0-kb4552925-x86_6d5cb54aef9c3af4b57335733d2bda85d809eaad.msu
-  out=windows10.0-kb4552925-x86_6d5cb54aef9c3af4b57335733d2bda85d809eaad-net48_cu.cab
+  out=windows10.0-kb4552925-x86_6d5cb54aef9c3af4b57335733d2bda85d809eaad-net48_cu.msu
   checksum=sha-1=6d5cb54aef9c3af4b57335733d2bda85d809eaad
 
 http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/05/windows10.0-kb4557968-x86_f8b8782b1785a825a965a4f67a1ee4859aa866cf.cab
