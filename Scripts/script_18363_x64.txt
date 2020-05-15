@@ -1,8 +1,8 @@
-https://uupdump.ml/getfile.php?id=f0d3ccb9-6371-48a0-ae2e-8679485a4ee3&file=windows10.0-kb4501374-x64.cab
+https://uupdump.ml/getfile.php?id=613d57e3-a39e-46b7-b590-13f9a87d401f&file=windows10.0-kb4501374-x64.cab
   out=windows10.0-kb4501374-x64_5ceaa441ec2b92ad66ff9912be33dccd127781dd.cab
   checksum=sha-1=5ceaa441ec2b92ad66ff9912be33dccd127781dd
 
-https://uupdump.ml/getfile.php?id=f0d3ccb9-6371-48a0-ae2e-8679485a4ee3&file=windows10.0-kb4513661-x64.cab
+https://uupdump.ml/getfile.php?id=613d57e3-a39e-46b7-b590-13f9a87d401f&file=windows10.0-kb4513661-x64.cab
   out=windows10.0-kb4513661-x64_af1ba82470e25b9d42c29d3fa559b5fa7ed371a0.cab
   checksum=sha-1=af1ba82470e25b9d42c29d3fa559b5fa7ed371a0
 
@@ -18,14 +18,14 @@ http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/02/wind
   out=windows10.0-kb4537759-x64_ea293539b86301f3c89abbae0d4cc70060d00848-flash.msu
   checksum=sha-1=ea293539b86301f3c89abbae0d4cc70060d00848
 
-http://download.windowsupdate.com/d/msdownload/update/software/updt/2020/02/windows10.0-kb4537572-x64-ndp48_3a5beca9ff3bd1e1c72b7afa13beed94d6974ee9.msu
-  out=windows10.0-kb4537572-x64-ndp48_3a5beca9ff3bd1e1c72b7afa13beed94d6974ee9-net48_cu.msu
-  checksum=sha-1=3a5beca9ff3bd1e1c72b7afa13beed94d6974ee9
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/05/windows10.0-kb4552931-x64_2db4f6d9a62833406875986aae69351f82f3ca2b.msu
+  out=windows10.0-kb4552931-x64_2db4f6d9a62833406875986aae69351f82f3ca2b-net48_cu.msu
+  checksum=sha-1=2db4f6d9a62833406875986aae69351f82f3ca2b
 
 http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/04/windows10.0-kb4552152-x64_705fda69935538eab5054d9d616e1761742816ec.msu
   out=windows10.0-kb4552152-x64_705fda69935538eab5054d9d616e1761742816ec-ssu.msu
   checksum=sha-1=705fda69935538eab5054d9d616e1761742816ec
 
-http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/04/windows10.0-kb4550945-x64_8bc93fe5c681ddf741120602899a730c65c155d6.msu
-  out=windows10.0-kb4550945-x64_8bc93fe5c681ddf741120602899a730c65c155d6-cu.msu
-  checksum=sha-1=8bc93fe5c681ddf741120602899a730c65c155d6
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/05/windows10.0-kb4556799-x64_9de920d8738612baa81a751b003ff98f0ce7156b.msu
+  out=windows10.0-kb4556799-x64_9de920d8738612baa81a751b003ff98f0ce7156b-cu.msu
+  checksum=sha-1=9de920d8738612baa81a751b003ff98f0ce7156b
