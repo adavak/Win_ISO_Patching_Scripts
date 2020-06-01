@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v8.1
+@set uiv=v8.2
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -140,12 +140,25 @@ goto :proceed
 
 :ReadINI
 find /i "%1 " W10UI.ini >nul || goto :eof
-for /f "tokens=1* delims==" %%A in ('find /i "%1 " W10UI.ini') do call set "%1=%%~B"
+for /f "skip=2 tokens=1* delims==" %%A in ('find /i "%1 " W10UI.ini') do call set "%1=%%~B"
 goto :eof
 
 :proceed
 if %_Debug% neq 0 set autostart=1
 for /f "tokens=6 delims=[]. " %%# in ('ver') do set winbuild=%%#
+if "!repo!"=="" set "repo=!_work!"
+if "!dismroot!"=="" set "DismRoot=dism.exe"
+if "!_cabdir!"=="" set "_CabDir=W10UItemp"
+if "!mountdir!"=="" set "MountDir=W10UImount"
+if "!winremount!"=="" set "WinreMount=W10UImountre"
+if "%Net35%"=="" set Net35=1
+if "%Cleanup%"=="" set Cleanup=0
+if "%ResetBase%"=="" set ResetBase=0
+if "%WinRE%"=="" set WinRE=1
+if "%ISO%"=="" set ISO=1
+if "%AutoStart%"=="" set AutoStart=0
+if "%Delete_Source%"=="" set Delete_Source=0
+if "%wim2esd%"=="" set wim2esd=0
 set _ADK=0
 set "showdism=Host OS"
 set "_dism2=%dismroot% /English /NoRestart /ScratchDir"
@@ -153,7 +166,6 @@ if /i not "!dismroot!"=="dism.exe" (
 set "showdism=%dismroot%"
 set _dism2="%dismroot%" /English /NoRestart /ScratchDir
 )
-if "!repo!"=="" set "repo=!_work!"
 set _drv=%~d0
 if /i "%_cabdir:~0,5%"=="W10UI" set "_cabdir=%_drv%\W10UItemp"
 set _ntf=NTFS
@@ -182,7 +194,8 @@ set _init=1
 
 :checktarget
 set _DNF=0
-set _Enable=0
+set _actEP=0
+set _chkEP=0
 set directcab=0
 set dvd=0
 set wim=0
@@ -200,7 +213,7 @@ if /i "!target!"=="%SystemDrive%" (
 if %xOS%==amd64 (set arch=x64) else (set arch=x86)
 if %_init%==1 (goto :check) else (goto :mainmenu)
 )
-if "%target:~-4%"==".wim" (
+if /i "%target:~-4%"==".wim" (
 if exist "!target!" (
   set wim=1
   for %%# in ("!target!") do set "targetname=%%~nx#"&setlocal DisableDelayedExpansion&set "targetpath=%%~dp#"&setlocal EnableDelayedExpansion
@@ -362,7 +375,7 @@ cd /d "!_work!"
 goto :fin
 
 :extract
-if %build% gtr 18362 set _Enable=1 
+if %build% geq 18362 set _chkEP=1
 if /i %arch%==x64 (set efifile=bootx64.efi&set sss=amd64) else (set efifile=bootia32.efi&set sss=x86)
 for /f "delims= " %%T in ('robocopy /L . . /njh /njs') do set "TAB=%%T"
 call :cleaner
@@ -584,7 +597,7 @@ rem self note: do not remove " from set "kbver or add " at end
 for /f "tokens=5-7 delims==<. %TAB%" %%i in ('findstr /i Package_for_ "!_cabdir!\check\update.mum"') do set "kbver=%%i%%j%%k
 rmdir /s /q "!_cabdir!\check\"
 if %inver% geq %kbver% set skip=1
-if %skip%==1 if %online%==1 reg query "%_CBS%\Packages\%_pkg%" /v CurrentState 2>nul | find /i "0x70" 1>nul || set skip=0
+if %skip%==1 if %online%==1 reg query "%_CBS%\Packages\%_pkg%" /v CurrentState %_Nul2% | find /i "0x70" %_Nul1% || set skip=0
 goto :eof
 
 :rollversion
@@ -602,7 +615,7 @@ rem self note: do not remove " from set "kbver or add " at end
 for /f "tokens=5-7 delims==<. %TAB%" %%i in ('findstr /i Package_for_RollupFix "!_cabdir!\check\update.mum"') do set "kbver=%%i%%j%%k
 rmdir /s /q "!_cabdir!\check\"
 if %inver% geq %kbver% set skip=1
-if %skip%==1 if %online%==1 reg query "%_CBS%\Packages\%_pkg%" /v CurrentState 2>nul | find /i "0x70" 1>nul || set skip=0
+if %skip%==1 if %online%==1 reg query "%_CBS%\Packages\%_pkg%" /v CurrentState %_Nul2% | find /i "0x70" %_Nul1% || set skip=0
 goto :eof
 
 :netversion
@@ -620,7 +633,7 @@ rem self note: do not remove " from set "kbver or add " at end
 for /f "tokens=5-7 delims==<. %TAB%" %%i in ('findstr /i Package_for_DotNetRollup "!_cabdir!\check\update.mum"') do set "kbver=%%i%%j%%k
 rmdir /s /q "!_cabdir!\check\"
 if %inver% geq %kbver% set skip=1
-if %skip%==1 if %online%==1 reg query "%_CBS%\Packages\%_pkg%" /v CurrentState 2>nul | find /i "0x70" 1>nul || set skip=0
+if %skip%==1 if %online%==1 reg query "%_CBS%\Packages\%_pkg%" /v CurrentState %_Nul2% | find /i "0x70" %_Nul1% || set skip=0
 goto :eof
 
 :enablenet35
@@ -779,7 +792,7 @@ copy /y "!mountdir!\Windows\Boot\PCAT\bootmgr" "!target!\" %_Nul1%
 copy /y "!mountdir!\Windows\Boot\PCAT\memtest.exe" "!target!\boot\" %_Nul1%
 if exist "!target!\setup.exe" copy /y "!mountdir!\setup.exe" "!target!\" %_Nul3%
 for /f "tokens=6,7 delims=_." %%i in ('dir /b /a:-d /od "!mountdir!\Windows\WinSxS\Manifests\%sss%_microsoft-windows-coreos-revision*.manifest"') do set isover=%%i.%%j&set isomajor=%%i
-if %build% equ 18362 if exist "!mountdir!\Windows\servicing\Packages\microsoft-windows-*enablement-package*.mum" set _Enable=1
+if %_chkEP% equ 1 if exist "!mountdir!\Windows\servicing\Packages\microsoft-windows-*enablement-package*.mum" set _actEP=1
 if not exist "!mountdir!\Windows\servicing\Packages\WinPE-Setup-Package~*.mum" if defined isoupdate (
   mkdir "!_cabdir!\du" %_Nul3%
   for %%i in (!isoupdate!) do expand.exe -r -f:* "!repo!\%%~i" "!_cabdir!\du" %_Nul1%
@@ -787,7 +800,7 @@ if not exist "!mountdir!\Windows\servicing\Packages\WinPE-Setup-Package~*.mum" i
   rmdir /s /q "!_cabdir!\du\" %_Nul3%
 )
 if not defined vermajor goto :eof
-if %_Enable% equ 0 goto :eof
+if %_actEP% equ 0 goto :eof
 if %vermajor% gtr %isomajor% set isover=%updtver%
 goto :eof
 
