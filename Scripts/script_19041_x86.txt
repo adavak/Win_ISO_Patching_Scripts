@@ -2,6 +2,10 @@ https://uupdump.ml/getfile.php?id=ae4c8b2b-3349-4403-96d2-2a90a20d6833&file=wind
   out=windows10.0-kb4557955-x86_b7a8d2d01ee395e39c559134cd189abebbc35c1c-du.cab
   checksum=sha-1=b7a8d2d01ee395e39c559134cd189abebbc35c1c
 
+https://uupdump.ml/getfile.php?id=ae4c8b2b-3349-4403-96d2-2a90a20d6833&file=windows10.0-kb4557964-x86.cab
+  out=windows10.0-kb4557964-x86_6c9968016d797ff0190201d7953f92f1f255880a.cab
+  checksum=sha-1=6c9968016d797ff0190201d7953f92f1f255880a
+
 http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/02/windows10.0-kb4537759-x86_f83e5fd39784960dd1b3e5d43c7c7a518da27478.cab
   out=windows10.0-kb4537759-x86_f83e5fd39784960dd1b3e5d43c7c7a518da27478-flash.cab
   checksum=sha-1=f83e5fd39784960dd1b3e5d43c7c7a518da27478
@@ -10,10 +14,10 @@ http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/05/wind
   out=windows10.0-kb4552925-x86_6d5cb54aef9c3af4b57335733d2bda85d809eaad-net48_cu.msu
   checksum=sha-1=6d5cb54aef9c3af4b57335733d2bda85d809eaad
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/05/windows10.0-kb4557968-x86_f8b8782b1785a825a965a4f67a1ee4859aa866cf.cab
-  out=windows10.0-kb4557968-x86_f8b8782b1785a825a965a4f67a1ee4859aa866cf-ssu.cab
-  checksum=sha-1=f8b8782b1785a825a965a4f67a1ee4859aa866cf
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/05/windows10.0-kb4557968-x86_7ef0e9cb796fa1c0be1f999749c726ff1644450f.msu
+  out=windows10.0-kb4557968-x86_7ef0e9cb796fa1c0be1f999749c726ff1644450f-ssu.msu
+  checksum=sha-1=7ef0e9cb796fa1c0be1f999749c726ff1644450f
 
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/05/windows10.0-kb4556803-x86_d938bf3d6da7466425068ab2c45beb9b6d0bf84d.cab
-  out=windows10.0-kb4556803-x86_d938bf3d6da7466425068ab2c45beb9b6d0bf84d-cu.cab
-  checksum=sha-1=d938bf3d6da7466425068ab2c45beb9b6d0bf84d
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/05/windows10.0-kb4556803-x86_7d8f0aa136b841b246259402a0fb722288c2fad6.msu
+  out=windows10.0-kb4556803-x86_7d8f0aa136b841b246259402a0fb722288c2fad6-cu.msu
+  checksum=sha-1=7d8f0aa136b841b246259402a0fb722288c2fad6
