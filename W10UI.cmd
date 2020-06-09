@@ -519,7 +519,7 @@ if defined cumulative %_dism2%:"!_cabdir!" %dismtarget% /LogPath:"%systemroot%\L
 )
 %_dism2%:"!_cabdir!" %dismtarget% /Remove-Package /PackageName:Package_for_RollupFix~31bf3856ad364e35~%sss%~~17763.107.1.3 %_Nul3%
 %_dism2%:"!_cabdir!" %dismtarget% /Remove-Package /PackageName:Package_for_RollupFix~31bf3856ad364e35~%sss%~~17763.774.1.12 %_Nul3%
-%_dism2%:"!_cabdir!" %dismtarget% /Remove-Package /PackageName:Package_for_RollupFix~31bf3856ad364e35~%sss%~~19041.84.1.3 %_Nul3%
+%_dism2%:"!_cabdir!" %dismtarget% /Remove-Package /PackageName:Package_for_RollupFix~31bf3856ad364e35~%sss%~~19041.264.1.6 %_Nul3%
 call :cleanup
 goto :eof
 
