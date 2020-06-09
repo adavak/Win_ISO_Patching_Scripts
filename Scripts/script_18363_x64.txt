@@ -14,18 +14,18 @@ http://download.windowsupdate.com/c/msdownload/update/software/crup/2020/04/wind
   out=windows10.0-kb4549950-x64_e3198713038f15a6089dc5e3dafc292522abcfcb-du.cab
   checksum=sha-1=e3198713038f15a6089dc5e3dafc292522abcfcb
 
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/02/windows10.0-kb4537759-x64_ea293539b86301f3c89abbae0d4cc70060d00848.msu
-  out=windows10.0-kb4537759-x64_ea293539b86301f3c89abbae0d4cc70060d00848-flash.msu
-  checksum=sha-1=ea293539b86301f3c89abbae0d4cc70060d00848
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/06/windows10.0-kb4561600-x64_a4b791e4fcc808a1ecd7b3d051fc0e4113789ef2.msu
+  out=windows10.0-kb4561600-x64_a4b791e4fcc808a1ecd7b3d051fc0e4113789ef2-flash.msu
+  checksum=sha-1=a4b791e4fcc808a1ecd7b3d051fc0e4113789ef2
 
 http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/05/windows10.0-kb4552931-x64_2db4f6d9a62833406875986aae69351f82f3ca2b.msu
   out=windows10.0-kb4552931-x64_2db4f6d9a62833406875986aae69351f82f3ca2b-net48_cu.msu
   checksum=sha-1=2db4f6d9a62833406875986aae69351f82f3ca2b
 
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/04/windows10.0-kb4552152-x64_705fda69935538eab5054d9d616e1761742816ec.msu
-  out=windows10.0-kb4552152-x64_705fda69935538eab5054d9d616e1761742816ec-ssu.msu
-  checksum=sha-1=705fda69935538eab5054d9d616e1761742816ec
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/06/windows10.0-kb4560959-x64_fa9ef89ecea4001891b24f103689cff8ae87d2f1.msu
+  out=windows10.0-kb4560959-x64_fa9ef89ecea4001891b24f103689cff8ae87d2f1-ssu.msu
+  checksum=sha-1=fa9ef89ecea4001891b24f103689cff8ae87d2f1
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/05/windows10.0-kb4556799-x64_9de920d8738612baa81a751b003ff98f0ce7156b.msu
-  out=windows10.0-kb4556799-x64_9de920d8738612baa81a751b003ff98f0ce7156b-cu.msu
-  checksum=sha-1=9de920d8738612baa81a751b003ff98f0ce7156b
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/06/windows10.0-kb4560960-x64_7786ad3160766ceed27566f4a051db8adf2944f6.msu
+  out=windows10.0-kb4560960-x64_7786ad3160766ceed27566f4a051db8adf2944f6-cu.msu
+  checksum=sha-1=7786ad3160766ceed27566f4a051db8adf2944f6
