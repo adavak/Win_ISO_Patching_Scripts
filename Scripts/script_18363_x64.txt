@@ -1,8 +1,8 @@
-https://uupdump.ml/getfile.php?id=613d57e3-a39e-46b7-b590-13f9a87d401f&file=windows10.0-kb4501374-x64.cab
+https://uupdump.ml/getfile.php?id=ac2b20ab-6186-4267-8d55-4b3ca35197d1&file=windows10.0-kb4501374-x64.cab
   out=windows10.0-kb4501374-x64_5ceaa441ec2b92ad66ff9912be33dccd127781dd.cab
   checksum=sha-1=5ceaa441ec2b92ad66ff9912be33dccd127781dd
 
-https://uupdump.ml/getfile.php?id=613d57e3-a39e-46b7-b590-13f9a87d401f&file=windows10.0-kb4513661-x64.cab
+https://uupdump.ml/getfile.php?id=ac2b20ab-6186-4267-8d55-4b3ca35197d1&file=windows10.0-kb4513661-x64.cab
   out=windows10.0-kb4513661-x64_af1ba82470e25b9d42c29d3fa559b5fa7ed371a0.cab
   checksum=sha-1=af1ba82470e25b9d42c29d3fa559b5fa7ed371a0
 
