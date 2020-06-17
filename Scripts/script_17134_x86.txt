@@ -22,6 +22,6 @@ http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/06/wind
   out=windows10.0-kb4562251-x86_6c93214bd44b786d3dbb8ba00cc203a4f4ea9a84-ssu.msu
   checksum=sha-1=6c93214bd44b786d3dbb8ba00cc203a4f4ea9a84
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/06/windows10.0-kb4561621-x86_287b5e533cef17ced9c784808b1fa0f4276e8dd4.msu
-  out=windows10.0-kb4561621-x86_287b5e533cef17ced9c784808b1fa0f4276e8dd4-cu.msu
-  checksum=sha-1=287b5e533cef17ced9c784808b1fa0f4276e8dd4
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2020/06/windows10.0-kb4567514-x86_03d086cfa6b8200cf43a5bc4e63d76b8dc1b23a2.msu
+  out=windows10.0-kb4567514-x86_03d086cfa6b8200cf43a5bc4e63d76b8dc1b23a2-cu.msu
+  checksum=sha-1=03d086cfa6b8200cf43a5bc4e63d76b8dc1b23a2
