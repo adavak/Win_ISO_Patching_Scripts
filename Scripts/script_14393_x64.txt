@@ -24,4 +24,4 @@ http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/07/wind
 
 http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/07/windows10.0-kb4565511-x64_5d2481cbc9319147ad3c8f42e07a0ee182909be9.msu
   out=windows10.0-kb4565511-x64_5d2481cbc9319147ad3c8f42e07a0ee182909be9-cu.msu
-  checksum=sha-1=0026760a6c77d1a8113855bd853f3c2ea22ada84
+  checksum=sha-1=5d2481cbc9319147ad3c8f42e07a0ee182909be9
