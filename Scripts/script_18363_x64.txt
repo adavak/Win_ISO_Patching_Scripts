@@ -18,14 +18,14 @@ http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/06/wind
   out=windows10.0-kb4561600-x64_a4b791e4fcc808a1ecd7b3d051fc0e4113789ef2-flash.msu
   checksum=sha-1=a4b791e4fcc808a1ecd7b3d051fc0e4113789ef2
 
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/06/windows10.0-kb4565633-x64-ndp48_89a1da5ef1fe7a716623d3e2af3a996be27d6fd7.msu
-  out=windows10.0-kb4565633-x64-ndp48_89a1da5ef1fe7a716623d3e2af3a996be27d6fd7-net48_cu.msu
-  checksum=sha-1=89a1da5ef1fe7a716623d3e2af3a996be27d6fd7
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2020/07/windows10.0-kb4562900-x64-ndp48_ded1605ba5eb962e7df492509cc87b2ad4f4beae.msu
+  out=windows10.0-kb4562900-x64-ndp48_ded1605ba5eb962e7df492509cc87b2ad4f4beae-net48_cu.msu
+  checksum=sha-1=ded1605ba5eb962e7df492509cc87b2ad4f4beae
 
 http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/07/windows10.0-kb4565554-x64_bf1b44fea6244a8642f16b84808105e9d7e1769f.msu
   out=windows10.0-kb4565554-x64_bf1b44fea6244a8642f16b84808105e9d7e1769f-ssu.msu
   checksum=sha-1=bf1b44fea6244a8642f16b84808105e9d7e1769f
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/07/windows10.0-kb4565483-x64_1f6258cf4f9d8d7986e676c47f3d380003711a61.msu
-  out=windows10.0-kb4565483-x64_1f6258cf4f9d8d7986e676c47f3d380003711a61-cu.msu
-  checksum=sha-1=1f6258cf4f9d8d7986e676c47f3d380003711a61
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/07/windows10.0-kb4559004-x64_6f8e99693cf7c08771de7b1d49ceb56c90550391.msu
+  out=windows10.0-kb4559004-x64_6f8e99693cf7c08771de7b1d49ceb56c90550391-cu.msu
+  checksum=sha-1=6f8e99693cf7c08771de7b1d49ceb56c90550391
