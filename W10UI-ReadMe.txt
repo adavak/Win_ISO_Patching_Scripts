@@ -177,6 +177,27 @@ https://forums.mydigitallife.net/threads/44645
 ============================================================
 Changelog:
 ============================================================
+8.5:
+- Added SkipEdge option for EdgeChromium with Feature Update Enablement Package
+- Fixed cosmetic double image cleanup without EdgeChromium update
+
+8.4:
+- Fixed iso version for 19042 / 20H2
+
+8.3:
+- Defer adding EdgeChromium update after CU  
+- Handle Safe OS (WinPE) updates separately  
+- Show when setup dynamic update is added  
+- Identify updates types as possible  
+- winre.wim will not be updated with CU if Safe OS update is detected and added, per Microsoft recommendation  
+https://docs.microsoft.com/en-us/windows/deployment/update/media-dynamic-update
+
+8.2:
+- Added differentiation for Win10 20H1 and 20H2
+
+8.1:
+- Enhanced installed updates detection on live online OS
+
 8.0:
 - Fixed offline installation for secure boot update KB4524244
 
@@ -212,7 +233,7 @@ Changelog:
 7.0:
 - Proper extraction of multilingual dynamic updates to only update existing language directories
 
-- Support for the new 1909 Enablement Package to set the proper version tag
+- Support for the 19H2 Enablement Package to set the proper version tag
 
 6.6:
 - ResetBase will be disabled for build 18362 and later, to avoid breaking future LCU installation

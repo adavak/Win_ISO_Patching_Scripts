@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v8.4
+@set uiv=v8.5
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -32,6 +32,9 @@ set ResetBase=0
 
 :: update winre.wim if detected inside install.wim
 set WinRE=1
+
+:: 1 = do not install EdgeChromium with Feature Update Enablement Package
+set SkipEdge=0
 
 :: optional, set directory for temporary extracted files (default is on the same drive as the script)
 set "_CabDir=W10UItemp"
@@ -124,6 +127,7 @@ net35source
 cleanup
 resetbase
 winre
+skipedge
 _cabdir
 mountdir
 winremount
@@ -155,6 +159,7 @@ if "%Net35%"=="" set Net35=1
 if "%Cleanup%"=="" set Cleanup=0
 if "%ResetBase%"=="" set ResetBase=0
 if "%WinRE%"=="" set WinRE=1
+if "%SkipEdge%"=="" set SkipEdge=1
 if "%ISO%"=="" set ISO=1
 if "%AutoStart%"=="" set AutoStart=0
 if "%Delete_Source%"=="" set Delete_Source=0
@@ -219,7 +224,7 @@ if exist "!target!" (
   for %%# in ("!target!") do set "targetname=%%~nx#"&setlocal DisableDelayedExpansion&set "targetpath=%%~dp#"&setlocal EnableDelayedExpansion
   )
 ) else (
-if exist "!target!\sources\install.wim" set dvd=1 
+if exist "!target!\sources\install.wim" set dvd=1
 if exist "!target!\Windows\regedit.exe" set offline=1
 )
 if %offline%==0 if %wim%==0 if %dvd%==0 (if %_init%==1 (set "target=%SystemDrive%"&goto :check) else (set "MESSAGE=Specified location is not valid"&goto :E_Target))
@@ -582,11 +587,11 @@ set callclean=1
 if !errorlevel! equ 1726 %_dism2%:"!_cabdir!" %dismtarget% /Get-Packages %_Nul1%
 )
 if defined callclean call :cleanup
+if not defined edge goto :eof
 if defined edge (
 %_dism2%:"!_cabdir!" %dismtarget% /LogPath:"%systemroot%\Logs\DISM\DismEdge.log" /Add-Package %edge%
 if !errorlevel! equ 1726 %_dism2%:"!_cabdir!" %dismtarget% /Get-Packages %_Nul1%
 )
-call :cleanup
 goto :eof
 
 :mum
@@ -626,7 +631,9 @@ goto :eof
 )
 if exist "%dest%\*_microsoft-windows-e..-firsttimeinstaller_*.manifest" findstr /i /m "Package_for_RollupFix" "%dest%\update.mum" %_Nul3% || (
 if exist "!mumtarget!\Windows\servicing\Packages\*WinPE-LanguagePack*.mum" (set /a _sum-=1&goto :eof)
-set "edge=!edge! /packagepath:%dest%\update.mum"
+if not exist "%dest%\*enablement-package*.mum" set "edge=!edge! /packagepath:%dest%\update.mum"
+if exist "%dest%\*enablement-package*.mum" if %SkipEdge% equ 0 set "edge=!edge! /packagepath:%dest%\update.mum"
+if exist "%dest%\*enablement-package*.mum" if %SkipEdge% equ 1 for /f %%# in ('dir /b /a:-d "%dest%\*enablement-package~*.mum"') do set "ldr=!ldr! /packagepath:%dest%\%%#"
 goto :eof
 )
 if exist "%dest%\*_microsoft-windows-sysreset_*.manifest" findstr /i /m "Package_for_RollupFix" "%dest%\update.mum" %_Nul3% || (
@@ -871,7 +878,6 @@ for %%# in (%indices%) do %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:%_
 ) else (
 %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:%_wimfile% /All /DestinationImageFile:temp.wim
 )
-%~dp0bin\wimlib-imagex optimize temp.wim
 if %errorlevel% equ 0 (move /y temp.wim %_wimfile% %_Nul1%) else (del /f /q temp.wim %_Nul3%)
 cd /d "!_cabdir!"
 goto :eof
@@ -921,7 +927,6 @@ goto :eof
   if !errorlevel! neq 0 goto :E_MOUNT
   cd /d "!_work!"
   %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:winre.wim /All /DestinationImageFile:temp.wim
-  %~dp0bin\wimlib-imagex optimize temp.wim
   move /y temp.wim winre.wim %_Nul1%
   cd /d "!_cabdir!"
   )
