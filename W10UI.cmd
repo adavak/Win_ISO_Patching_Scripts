@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v8.5
+@set uiv=v8.6
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -493,11 +493,11 @@ set "_type=[EdgeChromium]"
 echo %count%/%_sum%: %package% %_type%
 expand.exe -f:* "!repo!\!package!" "%dest%" %_Null% || (
   rmdir /s /q "%dest%\" %_Nul3%
-  set directcab=!directcab! "!package!"
+  set directcab=!directcab! !package!
 )
 if exist "%dest%\*cablist.ini" expand.exe -f:* "%dest%\*.cab" "%dest%" %_Null% || (
   rmdir /s /q "%dest%\" %_Nul3%
-  set directcab=!directcab! "!package!"
+  set directcab=!directcab! !package!
 )
 if exist "%dest%\*cablist.ini" (
   del /f /q "%dest%\*cablist.ini" %_Nul3%
@@ -592,13 +592,17 @@ if defined edge (
 %_dism2%:"!_cabdir!" %dismtarget% /LogPath:"%systemroot%\Logs\DISM\DismEdge.log" /Add-Package %edge%
 if !errorlevel! equ 1726 %_dism2%:"!_cabdir!" %dismtarget% /Get-Packages %_Nul1%
 )
+call :cleanup
 goto :eof
 
 :mum
 if %listc% geq %ac% (set /a AC+=100&set /a list+=1&set "ldr%list%=%ldr%"&set "ldr=")
 set /a listc+=1
-if not exist "%dest%\update.mum" (set /a _sum-=1&goto :eof)
-if %build% geq 17763 if not exist "!mumtarget!\Windows\servicing\Packages\*WinPE-LanguagePack*.mum" (
+for /f "tokens=2 delims=-" %%V in ('echo "!package!"') do set kb=%%V
+if not exist "%dest%\update.mum" (
+echo %directcab% | findstr /i %kb% %_Nul1% || (set /a _sum-=1&goto :eof)
+)
+if %build% geq 17763 if exist "%dest%\update.mum" if not exist "!mumtarget!\Windows\servicing\Packages\*WinPE-LanguagePack*.mum" (
 findstr /i /m "Package_for_RollupFix" "%dest%\update.mum" %_Nul3% || (findstr /i /m "Microsoft-Windows-NetFx" "%dest%\*.mum" %_Nul3% && (if exist "%dest%\*_*10.0.*.manifest" if not exist "%dest%\*_netfx4clientcorecomp.resources*.manifest" (set "netroll=!netroll! /packagepath:%dest%\update.mum")))
 findstr /i /m "Package_for_OasisAsset" "%dest%\update.mum" %_Nul3% && (if not exist "!mumtarget!\Windows\servicing\packages\*OasisAssets-Package*.mum" set /a _sum-=1&goto :eof)
 findstr /i /m "WinPE" "%dest%\update.mum" %_Nul3% && (
@@ -609,7 +613,6 @@ findstr /i /m "WinPE" "%dest%\update.mum" %_Nul3% && (
 if exist "%dest%\%sss%_microsoft-updatetargeting-clientos*.manifest" if not defined vermajor (
 for /f "tokens=5,6,7 delims=_." %%I in ('dir /b /a:-d /on "%dest%\%sss%_microsoft-updatetargeting-clientos*.manifest"') do set updtver=%%I.%%K&set vermajor=%%I
 )
-for /f "tokens=2 delims=-" %%V in ('echo "!package!"') do set kb=%%V
 set "mumcheck=package_for_%kb%~*.mum"
 if exist "!mumtarget!\Windows\servicing\packages\%mumcheck%" (
 call :mumversion "!mumtarget!"
@@ -652,7 +655,7 @@ if exist "!mumtarget!\Windows\servicing\Packages\*WinPE-LanguagePack*.mum" (set 
 set secureboot=!secureboot! /packagepath:"!repo!\!package!"
 goto :eof
 )
-if exist "!mumtarget!\Windows\servicing\Packages\*WinPE-LanguagePack*.mum" (
+if exist "%dest%\update.mum" if exist "!mumtarget!\Windows\servicing\Packages\*WinPE-LanguagePack*.mum" (
 findstr /i /m "WinPE" "%dest%\update.mum" %_Nul3% || (findstr /i /m "Package_for_RollupFix" "%dest%\update.mum" %_Nul3% || (set /a _sum-=1&goto :eof))
 findstr /i /m "WinPE-NetFx-Package" "%dest%\update.mum" %_Nul3% && (findstr /i /m "Package_for_RollupFix" "%dest%\update.mum" %_Nul3% || (set /a _sum-=1&goto :eof))
 )
@@ -666,11 +669,11 @@ if %build% geq 16299 (
 )
 for %%# in (%directcab%) do (
 if /i "!package!"=="%%~#" (
-  set ldr=!ldr! /packagepath:"!repo!\!package!"
+  set cumulative=!cumulative! /packagepath:"!repo!\!package!"
   goto :eof
   )
 )
-findstr /i /m "Package_for_RollupFix" "%dest%\update.mum" %_Nul3% && (
+if exist "%dest%\update.mum" findstr /i /m "Package_for_RollupFix" "%dest%\update.mum" %_Nul3% && (
 set "cumulative=!cumulative! /packagepath:%dest%\update.mum"
 goto :eof
 )
