@@ -177,6 +177,18 @@ https://forums.mydigitallife.net/threads/44645
 ============================================================
 Changelog:
 ============================================================
+8.8:
+- Added support to integrate Microsoft Defender update (defender-dism-[x86|x64].cab)
+https://support.microsoft.com/en-us/help/4568292
+- Improved integration for 20H2 Enablement/EdgeChromium package
+
+8.7:
+- Implemented specific fixes for build 14393 (WinPE will not be updated with LCU)
+- Enhanced Setup DU updating
+
+8.6:
+- Fixed fail-safe integration using update cab file directly
+
 8.5:
 - Added SkipEdge option for EdgeChromium with Feature Update Enablement Package
 - Fixed cosmetic double image cleanup without EdgeChromium update
@@ -185,11 +197,11 @@ Changelog:
 - Fixed iso version for 19042 / 20H2
 
 8.3:
-- Defer adding EdgeChromium update after CU  
-- Handle Safe OS (WinPE) updates separately  
-- Show when setup dynamic update is added  
-- Identify updates types as possible  
-- winre.wim will not be updated with CU if Safe OS update is detected and added, per Microsoft recommendation  
+- Defer adding EdgeChromium update after CU
+- Handle Safe OS (WinPE) updates separately
+- Show when setup dynamic update is added
+- Identify updates types as possible
+- winre.wim will not be updated with CU if Safe OS update is detected and added, per Microsoft recommendation
 https://docs.microsoft.com/en-us/windows/deployment/update/media-dynamic-update
 
 8.2:
