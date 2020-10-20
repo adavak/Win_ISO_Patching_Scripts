@@ -1,8 +1,8 @@
-https://uupdump.ml/getfile.php?id=d217961c-ad9a-4e03-98ad-01d1e0ab03ca&file=windows10.0-kb4562830-x86.cab
+http://b1.download.windowsupdate.com/c/upgr/2020/10/windows10.0-kb4562830-x86_783bffa980064c0c92179ad454db7d164567cc7a.cab
   out=windows10.0-kb4562830-x86_783bffa980064c0c92179ad454db7d164567cc7a-ep.cab
   checksum=sha-1=783bffa980064c0c92179ad454db7d164567cc7a
 
-https://uupdump.ml/getfile.php?id=d217961c-ad9a-4e03-98ad-01d1e0ab03ca&file=windows10.0-kb4579305-x86.cab
+http://download.windowsupdate.com/d/msdownload/update/software/crup/2020/09/windows10.0-kb4579305-x86_3194c0ccce6dc7f2c9645250e5ed56bd34589172.cab
   out=windows10.0-kb4579305-x86_3194c0ccce6dc7f2c9645250e5ed56bd34589172.cab	
   checksum=sha-1=3194c0ccce6dc7f2c9645250e5ed56bd34589172
 

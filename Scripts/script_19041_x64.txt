@@ -1,4 +1,4 @@
-https://uupdump.ml/getfile.php?id=65d035a2-9d8e-42a2-87cb-bb89f0b9eaed&file=windows10.0-kb4562830-x64.cab
+http://b1.download.windowsupdate.com/c/upgr/2020/10/windows10.0-kb4562830-x64_75cbce76d188e8fdab860946c0131789de35ea64.cab
   out=windows10.0-kb4562830-x64_75cbce76d188e8fdab860946c0131789de35ea64-ep.cab
   checksum=sha-1=75cbce76d188e8fdab860946c0131789de35ea64
 
@@ -6,7 +6,7 @@ https://uupdump.ml/getfile.php?id=65d035a2-9d8e-42a2-87cb-bb89f0b9eaed&file=wind
   out=windows10.0-kb4578910-x64_5d4a9eb9eedef1cfa24eb7208aec6f1cd3572a43.cab
   checksum=sha-1=5d4a9eb9eedef1cfa24eb7208aec6f1cd3572a43
 
-https://uupdump.ml/getfile.php?id=65d035a2-9d8e-42a2-87cb-bb89f0b9eaed&file=windows10.0-kb4579305-x64.cab
+http://download.windowsupdate.com/d/msdownload/update/software/crup/2020/09/windows10.0-kb4579305-x64_b719afd64eeb5e2df6e8ec6b02155510529a02c9.cab
   out=windows10.0-kb4579305-x64_b719afd64eeb5e2df6e8ec6b02155510529a02c9.cab
   checksum=sha-1=b719afd64eeb5e2df6e8ec6b02155510529a02c9
 
