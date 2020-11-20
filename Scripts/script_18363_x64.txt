@@ -24,7 +24,7 @@ http://download.windowsupdate.com/d/msdownload/update/software/updt/2020/11/wind
 
 http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/11/windows10.0-kb4586863-x64_320630e7f8765a00c86d2669399889b2363d6d05.msu
   out=windows10.0-kb4586863-x64_320630e7f8765a00c86d2669399889b2363d6d05-ssu.msu
-  checksum=sha-1=31cb9f2d35c2f2e9f4d9ba67caab858822d3c12c
+  checksum=sha-1=320630e7f8765a00c86d2669399889b2363d6d05
 
 http://download.windowsupdate.com/d/msdownload/update/software/updt/2020/11/windows10.0-kb4586819-x64_306655e9d2358641a4ce9610a7e98b63e6114985.msu
   out=windows10.0-kb4586819-x64_306655e9d2358641a4ce9610a7e98b63e6114985-cu.msu
