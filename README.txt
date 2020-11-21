@@ -1,4 +1,4 @@
-支持 Windows 版本：14393、17763、1836X、19041。
+支持 Windows 版本：14393、17763、18363、19042。
 
 运行 Start.cmd 开始下载最新补丁并开始制作集成补丁的 ISO。下载补丁文件地址为微软官方。
 
@@ -7,7 +7,7 @@
 Net35 = 1（若不想集成 .net 3.5，请改成0）
 wim2esd =1（若不想生成 install.esd 减少空间占用。耗费大量的时间和计算机资源，镜像尺寸缩小25%左右，请改成0）
 
-Supported Windows Version: 14393, 17763, 1836X, 19041.
+Supported Windows Version: 14393, 17763, 18363, 19042.
 
 Run Start.cmd to start downloading the latest patches and start making ISO that integrate patches. The download patch files is from Microsoft official.
 
