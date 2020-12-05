@@ -43,7 +43,7 @@ set "build="
 set "arch="
 
 dir /b /a:-d Win10*.iso 1>nul 2>nul && (for /f "delims=" %%# in ('dir /b /a:-d *.iso') do set "isofile=%%#")
-if EXIST "Win10*.iso" goto :NO_ISO_PATCHED_ERROR
+:: if EXIST "Win10*.iso" goto :NO_ISO_PATCHED_ERROR
 if NOT EXIST "*.iso" goto :NO_ISO_ERROR
 dir /b /a:-d *.iso 1>nul 2>nul && (for /f "delims=" %%# in ('dir /b /a:-d *.iso') do set "isofile=%%#")
 if EXIST "%~dp0%ISODir%" rmdir /s /q "%~dp0%ISODir%"
