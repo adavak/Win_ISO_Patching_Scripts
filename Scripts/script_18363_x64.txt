@@ -1,8 +1,8 @@
-https://uupdump.ml/getfile.php?id=380d667d-647d-4f3d-b2b0-65ceb2b45c80&file=windows10.0-kb4513661-x64.cab
+https://uupdump.ml/getfile.php?id=fbcf5b50-4e5f-4be7-9c72-e9d505860d10&file=windows10.0-kb4513661-x64.cab
   out=windows10.0-kb4513661-x64_af1ba82470e25b9d42c29d3fa559b5fa7ed371a0.cab
   checksum=sha-1=af1ba82470e25b9d42c29d3fa559b5fa7ed371a0
 
-https://uupdump.ml/getfile.php?id=380d667d-647d-4f3d-b2b0-65ceb2b45c80&file=windows10.0-kb4577926-x64.cab
+https://uupdump.ml/getfile.php?id=fbcf5b50-4e5f-4be7-9c72-e9d505860d10&file=windows10.0-kb4577926-x64.cab
   out=windows10.0-kb4577926-x64_bfdff77975d8cb9d4cf924ceb4c1045d91d5f54e.cab
   checksum=sha-1=bfdff77975d8cb9d4cf924ceb4c1045d91d5f54e
 
@@ -26,9 +26,9 @@ http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/11/wind
   out=windows10.0-kb4586863-x64_320630e7f8765a00c86d2669399889b2363d6d05-ssu.msu
   checksum=sha-1=320630e7f8765a00c86d2669399889b2363d6d05
 
-http://download.windowsupdate.com/d/msdownload/update/software/updt/2020/11/windows10.0-kb4586819-x64_306655e9d2358641a4ce9610a7e98b63e6114985.msu
-  out=windows10.0-kb4586819-x64_306655e9d2358641a4ce9610a7e98b63e6114985-cu.msu
-  checksum=sha-1=306655e9d2358641a4ce9610a7e98b63e6114985
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/12/windows10.0-kb4592449-x64_aa193efa8432018464d6173c497ce3de71a581e2.msu
+  out=windows10.0-kb4592449-x64_aa193efa8432018464d6173c497ce3de71a581e2-cu.msu
+  checksum=sha-1=aa193efa8432018464d6173c497ce3de71a581e2
 
 http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/10/windows10.0-kb4584642-x64_4da645371e09b079be11c666d1a3357ca437b2ec.msu
   out=windows10.0-kb4584642-x64_4da645371e09b079be11c666d1a3357ca437b2ec-edge.msu
