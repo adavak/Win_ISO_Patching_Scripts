@@ -10,10 +10,6 @@ http://download.windowsupdate.com/d/msdownload/update/software/crup/2020/01/wind
   out=windows10.0-kb4532820-x64_a968435dc7c3ea237fcbbaefa6456f3c6f7e1944-du.cab
   checksum=sha-1=a968435dc7c3ea237fcbbaefa6456f3c6f7e1944
 
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/10/windows10.0-kb4580325-x64_ebe61757820de6e105ae88def266222f2f42cbac.msu
-  out=windows10.0-kb4580325-x64_ebe61757820de6e105ae88def266222f2f42cbac-flash.msu
-  checksum=sha-1=ebe61757820de6e105ae88def266222f2f42cbac
-
 http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/10/windows10.0-kb4585207-x64-ndp48_62f54bedd78999c5da431111d869fc9f273b991f.msu
   out=windows10.0-kb4585207-x64-ndp48_62f54bedd78999c5da431111d869fc9f273b991f-net48-cu.msu
   checksum=sha-1=62f54bedd78999c5da431111d869fc9f273b991f
@@ -22,6 +18,6 @@ http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/08/wind
   out=windows10.0-kb4576750-x64_c4e0b5e0f0835db971a40058aa17ae9a0d2f1e2a-ssu.msu
   checksum=sha-1=c4e0b5e0f0835db971a40058aa17ae9a0d2f1e2a
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/12/windows10.0-kb4593226-x64_d58938ce2e7c111c8e8f0c0bdc80f0e57defbf4d.msu
-  out=windows10.0-kb4593226-x64_d58938ce2e7c111c8e8f0c0bdc80f0e57defbf4d-cu.msu
-  checksum=sha-1=d58938ce2e7c111c8e8f0c0bdc80f0e57defbf4d
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/01/windows10.0-kb4598243-x64_a96fed949c557064b0e105745a5524717ad72ab2.msu
+  out=windows10.0-kb4598243-x64_a96fed949c557064b0e105745a5524717ad72ab2-cu.msu
+  checksum=sha-1=a96fed949c557064b0e105745a5524717ad72ab2

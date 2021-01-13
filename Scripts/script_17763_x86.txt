@@ -14,21 +14,17 @@ http://download.windowsupdate.com/c/msdownload/update/software/crup/2020/11/wind
   out=windows10.0-kb4586860-x86_ce5baa8ccbde32ef77e53e869d5d9a3d4ba4d62f-du.cab
   checksum=sha-1=ce5baa8ccbde32ef77e53e869d5d9a3d4ba4d62f
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/10/windows10.0-kb4580325-x86_98b1001932470bd804e43b7ce1733e4311701130.msu
-  out=windows10.0-kb4580325-x86_98b1001932470bd804e43b7ce1733e4311701130-flash.msu
-  checksum=sha-1=98b1001932470bd804e43b7ce1733e4311701130
-
 http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/11/windows10.0-kb4586877-x86-ndp48_34c210d4b6f0464d43c623436930d350387b89a2.msu
   out=windows10.0-kb4586877-x86-ndp48_34c210d4b6f0464d43c623436930d350387b89a2-net48-cu.msu
   checksum=sha-1=34c210d4b6f0464d43c623436930d350387b89a2
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/11/windows10.0-kb4587735-x86_f67a582db752d5f01628ea5a71bd61b260f01eac.msu
-  out=windows10.0-kb4587735-x86_f67a582db752d5f01628ea5a71bd61b260f01eac-ssu.msu
-  checksum=sha-1=f67a582db752d5f01628ea5a71bd61b260f01eac
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/01/windows10.0-kb4598480-x86_cf41f4aad0b9fd35f922849d4e3d1f5587e09d2f.msu
+  out=windows10.0-kb4598480-x86_cf41f4aad0b9fd35f922849d4e3d1f5587e09d2f-ssu.msu
+  checksum=sha-1=cf41f4aad0b9fd35f922849d4e3d1f5587e09d2f
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2020/12/windows10.0-kb4592440-x86_3b7ee00f35ee72cf098e745199b9d34040855482.msu
-  out=windows10.0-kb4592440-x86_3b7ee00f35ee72cf098e745199b9d34040855482-cu.msu
-  checksum=sha-1=3b7ee00f35ee72cf098e745199b9d34040855482
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2021/01/windows10.0-kb4598230-x86_54c413174df931928c180e53a2d43f19dab00da2.msu
+  out=windows10.0-kb4598230-x86_54c413174df931928c180e53a2d43f19dab00da2-cu.msu
+  checksum=sha-1=54c413174df931928c180e53a2d43f19dab00da2
 
 http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/10/windows10.0-kb4584642-x86_10717361db5215e526fe5785faf7f3574b9f3f1b.msu
   out=windows10.0-kb4584642-x86_10717361db5215e526fe5785faf7f3574b9f3f1b-edge.msu
