@@ -1,8 +1,8 @@
-https://uupdump.net/getfile.php?id=9acbd1c8-4554-47cb-806d-fac9715fccfd&file=windows10.0-kb4513661-x64.cab
+https://www.uupdump.net/getfile.php?id=d8c17ef9-71b7-4b6c-b4c2-c7c85fb76ed1&file=windows10.0-kb4513661-x64.cab
   out=windows10.0-kb4513661-x64_af1ba82470e25b9d42c29d3fa559b5fa7ed371a0.cab
   checksum=sha-1=af1ba82470e25b9d42c29d3fa559b5fa7ed371a0
 
-https://uupdump.net/getfile.php?id=9acbd1c8-4554-47cb-806d-fac9715fccfd&file=windows10.0-kb4577926-x64.cab
+https://www.uupdump.net/getfile.php?id=d8c17ef9-71b7-4b6c-b4c2-c7c85fb76ed1&file=windows10.0-kb4577926-x64.cab
   out=windows10.0-kb4577926-x64_bfdff77975d8cb9d4cf924ceb4c1045d91d5f54e.cab
   checksum=sha-1=bfdff77975d8cb9d4cf924ceb4c1045d91d5f54e
 
@@ -14,18 +14,22 @@ http://download.windowsupdate.com/d/msdownload/update/software/crup/2020/11/wind
   out=windows10.0-kb4586859-x64_e8ca9930f7d53b3d2350235aa52b59acaf547c96-du.cab
   checksum=sha-1=e8ca9930f7d53b3d2350235aa52b59acaf547c96
 
-http://download.windowsupdate.com/d/msdownload/update/software/updt/2020/11/windows10.0-kb4586878-x64-ndp48_999de1e5d15823c4863dc0a8fffb733447227c73.msu
-  out=windows10.0-kb4586878-x64-ndp48_999de1e5d15823c4863dc0a8fffb733447227c73-net48-cu.msu
-  checksum=sha-1=999de1e5d15823c4863dc0a8fffb733447227c73
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/12/windows10.0-kb4598301-x64-ndp48_43cc2c8af60bd8df6995c0f872583cf3f796512c.msu
+  out=windows10.0-kb4598301-x64-ndp48_43cc2c8af60bd8df6995c0f872583cf3f796512c-net48-cu.msu
+  checksum=sha-1=43cc2c8af60bd8df6995c0f872583cf3f796512c
 
 http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/01/windows10.0-kb4598479-x64_6ba0ac3da31ffd0f8e78eea46ddaaa6673e49bdd.msu
   out=windows10.0-kb4598479-x64_6ba0ac3da31ffd0f8e78eea46ddaaa6673e49bdd-ssu.msu
   checksum=sha-1=6ba0ac3da31ffd0f8e78eea46ddaaa6673e49bdd
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2021/01/windows10.0-kb4598229-x64_5dab2cf1bc856e3c228a7b8d669b11ae6c51065c.msu
-  out=windows10.0-kb4598229-x64_5dab2cf1bc856e3c228a7b8d669b11ae6c51065c-cu.msu
-  checksum=sha-1=5dab2cf1bc856e3c228a7b8d669b11ae6c51065c
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/01/windows10.0-kb4598298-x64_3d328b423d33870ba6f4b7ad33395bf2293736cb.msu
+  out=windows10.0-kb4598298-x64_3d328b423d33870ba6f4b7ad33395bf2293736cb-cu.msu
+  checksum=sha-1=3d328b423d33870ba6f4b7ad33395bf2293736cb
 
 http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/10/windows10.0-kb4584642-x64_4da645371e09b079be11c666d1a3357ca437b2ec.msu
   out=windows10.0-kb4584642-x64_4da645371e09b079be11c666d1a3357ca437b2ec-edge.msu
   checksum=sha-1=4da645371e09b079be11c666d1a3357ca437b2ec
+
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/10/windows10.0-kb4577586-x64_ec16e118cd8b99df185402c7a0c65a31e031a6f0.msu
+  out=windows10.0-kb4577586-x64_ec16e118cd8b99df185402c7a0c65a31e031a6f0-removalflash.msu
+  checksum=sha-1=ec16e118cd8b99df185402c7a0c65a31e031a6f0
