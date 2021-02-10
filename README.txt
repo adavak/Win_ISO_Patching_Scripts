@@ -7,14 +7,7 @@
 Net35 = 1（若不想集成 .net 3.5，请改成0）
 wim2esd =1（若不想生成 install.esd 减少空间占用。耗费大量的时间和计算机资源，镜像尺寸缩小25%左右，请改成0）
 
-Supported Windows Version: 14393, 17763, 18363, 19042.
-
-Run Start.cmd to start downloading the latest patches and start making ISO that integrate patches. The download patch files is from Microsoft official.
-
-Some settings (located in the folder root W10UI.ini)
-
-Net35 = 1 (if you do not want to integrate .net 3.5, please change to 0)
-wim2esd = 1 (If you don't want to generate install.esd to reduce space consumption. It takes a lot of time and computer resources, the image size is reduced by about 25%, please change to 0)
+关于默认集成新的 Edge 浏览器，如果不想集成新版本，请修改 Start.cmd 内 #44 内容 set "edge=1" 为 set "edge=0"
 
 Tools:
 7-zip (7-zip.org)
