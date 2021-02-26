@@ -9,6 +9,9 @@ wim2esd =1（若不想生成 install.esd 减少空间占用。耗费大量的时
 
 关于默认集成新的 Edge 浏览器，如果不想集成新版本，请修改 Start.cmd 内 #44 内容 set "edge=1" 为 set "edge=0"
 
+脚本默认集成全部镜像，如需选择镜像内的特殊版本，比如只选择集成专业版等，请修改 W10UI.ini 内 #23 内容 "AutoStart     =1" 为 "AutoStart     =0"
+脚本运行到最后，按"8"选择版本，选择好后按"0"开始
+
 Tools:
 7-zip (7-zip.org)
 wimlib (wimlib.net)
