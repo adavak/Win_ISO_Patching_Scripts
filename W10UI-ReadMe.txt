@@ -182,6 +182,14 @@ https://forums.mydigitallife.net/threads/44645
 ============================================================
 Changelog:
 ============================================================
+9.7:
+- Fix setup.exe conflict for UUP created ISO
+- Fix cosmetic bug detecting EP KB5000736 as Flash
+- Show W10UI version in the menu header
+
+9.6:
+- Fix setup.exe conflict between boot.wim and DU for ISO distribution
+
 9.5:
 - Added proper detection and integration for the new combined msu/cab files
 
