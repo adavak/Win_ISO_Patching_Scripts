@@ -182,6 +182,9 @@ https://forums.mydigitallife.net/threads/44645
 ============================================================
 Changelog:
 ============================================================
+9.8:
+- Further enhancement to prevent setup.exe conflict (if ISO files dates are newer than DU)
+
 9.7:
 - Fix setup.exe conflict for UUP created ISO
 - Fix cosmetic bug detecting EP KB5000736 as Flash
