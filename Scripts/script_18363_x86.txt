@@ -18,9 +18,9 @@ http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/03/wind
   out=windows10.0-kb5000908-x86_25eeb04d95742fe00cbf9fac7a84fbf4a2b547e4-ssu.msu
   checksum=sha-1=25eeb04d95742fe00cbf9fac7a84fbf4a2b547e4
 
-http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/03/windows10.0-kb5001566-x86_d0134617d527f736cb73e2073b4269642c68d4a4.msu
-  out=windows10.0-kb5001566-x86_d0134617d527f736cb73e2073b4269642c68d4a4-cu.msu
-  checksum=sha-1=d0134617d527f736cb73e2073b4269642c68d4a4
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/03/windows10.0-kb5001648-x64_770175898c1bee1cfbcadc981fa47797c46f8b09.msu
+  out=windows10.0-kb5001648-x64_770175898c1bee1cfbcadc981fa47797c46f8b09-cu.msu
+  checksum=sha-1=770175898c1bee1cfbcadc981fa47797c46f8b09
 
 http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/10/windows10.0-kb4584642-x86_db836b0ea890bbf153816d33d4c8b06e8a363685.msu
   out=windows10.0-kb4584642-x86_db836b0ea890bbf153816d33d4c8b06e8a363685-edge.msu
