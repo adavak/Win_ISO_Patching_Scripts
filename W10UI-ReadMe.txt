@@ -182,6 +182,9 @@ https://forums.mydigitallife.net/threads/44645
 ============================================================
 Changelog:
 ============================================================
+9.9:
+- Extended SkipEdge option to skip EdgeChromium bunded with Cumulative Update
+
 9.8:
 - Further enhancement to prevent setup.exe conflict (if ISO files dates are newer than DU)
 
