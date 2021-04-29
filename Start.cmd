@@ -41,7 +41,6 @@ set "patchDir=patch"
 set "ISODir=ISO"
 set "build="
 set "arch="
-set "edge=1"
 
 dir /b /a:-d Win10*.iso 1>nul 2>nul && (for /f "delims=" %%# in ('dir /b /a:-d *.iso') do set "isofile=%%#")
 :: if EXIST "Win10*.iso" goto :NO_ISO_PATCHED_ERROR
@@ -55,7 +54,8 @@ for /f "tokens=4 delims=:. " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%
 for /f "tokens=2 delims=: " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Architecture"') do set arch=%%#
 
 if %build%==18362 (set /a build=18363)
-if %build%==19041 (set /a build=19042)
+if %build%==19041 (set /a build=19043)
+if %build%==19042 (set /a build=19043)
 if %build%==14393 if %arch%==x86 (goto :NOT_SUPPORT)
 
 if NOT EXIST %aria2% goto :NO_ARIA2_ERROR
@@ -66,8 +66,6 @@ echo ÕýÔÚÏÂÔØ²¹¶¡¡­
 echo Patch Downloading...
 "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d"%patchDir%" -i"Scripts\script_%build%_%arch%.txt"
 if %ERRORLEVEL% GTR 0 call :DOWNLOAD_ERROR & exit /b 1
-
-if %edge%==0 (del /f /q "%patchDir%"\*edge.msu)
 
 if EXIST W10UI.cmd goto :START_WORKWORK
 pause
