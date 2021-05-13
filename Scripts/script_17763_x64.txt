@@ -10,21 +10,21 @@ http://download.windowsupdate.com/c/msdownload/update/software/crup/2019/08/wind
   out=windows10.0-kb4506578-x64_c8bad38b2c405ca3fa0c522df2ca6ef26bfd6d1e.cab
   checksum=sha-1=c8bad38b2c405ca3fa0c522df2ca6ef26bfd6d1e
 
-http://download.windowsupdate.com/c/msdownload/update/software/crup/2021/03/windows10.0-kb5000864-x64_e1146054d06869fc96542b84dda32caccd82a6b5.cab
-  out=windows10.0-kb5000864-x64_e1146054d06869fc96542b84dda32caccd82a6b5-du.cab
-  checksum=sha-1=e1146054d06869fc96542b84dda32caccd82a6b5
+http://download.windowsupdate.com/d/msdownload/update/software/crup/2021/05/windows10.0-kb5003241-x64_ca0d7725d7e27e7385a6a9fabab7b547545f7d40.cab
+  out=windows10.0-kb5003241-x64_ca0d7725d7e27e7385a6a9fabab7b547545f7d40-du.cab
+  checksum=sha-1=ca0d7725d7e27e7385a6a9fabab7b547545f7d40
 
 http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/01/windows10.0-kb4601055-x64-ndp48_433f80c4aa1a9613e8a57357e3f07a2cdccdad1b.msu
   out=windows10.0-kb4601055-x64-ndp48_433f80c4aa1a9613e8a57357e3f07a2cdccdad1b-net48-cu.msu
   checksum=sha-1=433f80c4aa1a9613e8a57357e3f07a2cdccdad1b
 
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/04/windows10.0-kb5001407-x64_6dfbd9b5e713826ad84194d4e72fef836db9e1e2.msu
-  out=windows10.0-kb5001407-x64_6dfbd9b5e713826ad84194d4e72fef836db9e1e2-ssu.msu
-  checksum=sha-1=6dfbd9b5e713826ad84194d4e72fef836db9e1e2
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/05/windows10.0-kb5003243-x64_81350c4efec5a183725fda73091c9ee9d4577bc3.msu
+  out=windows10.0-kb5003243-x64_81350c4efec5a183725fda73091c9ee9d4577bc3-ssu.msu
+  checksum=sha-1=81350c4efec5a183725fda73091c9ee9d4577bc3
 
-http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/04/windows10.0-kb5001384-x64_8f4e0a94fa9bb9b02639a86441b93e33191f81cf.msu
-  out=windows10.0-kb5001384-x64_8f4e0a94fa9bb9b02639a86441b93e33191f81cf-cu.msu
-  checksum=sha-1=8f4e0a94fa9bb9b02639a86441b93e33191f81cf
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/05/windows10.0-kb5003171-x64_30162051d5376b7a19c4c25157347c522e804bbb.msu
+  out=windows10.0-kb5003171-x64_30162051d5376b7a19c4c25157347c522e804bbb-cu.msu
+  checksum=sha-1=30162051d5376b7a19c4c25157347c522e804bbb
 
 http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/10/windows10.0-kb4577586-x64_d0f434327db9e3308b86591c248c825c03687632.msu
   out=windows10.0-kb4577586-x64_d0f434327db9e3308b86591c248c825c03687632-removalflash.msu

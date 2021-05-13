@@ -14,6 +14,6 @@ http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/02/wind
   out=windows10.0-kb4601554-x86-ndp48_5ba9d77edeb2b9c15cf6c4914938fe64146ff857-net48-cu.msu
   checksum=sha-1=5ba9d77edeb2b9c15cf6c4914938fe64146ff857
 
-http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/04/windows10.0-kb5001391-x86_0cdabd10f088e5a3ab868318e408458ae1f6f571.msu
-  out=windows10.0-kb5001391-x86_0cdabd10f088e5a3ab868318e408458ae1f6f571-cu.msu
-  checksum=sha-1=0cdabd10f088e5a3ab868318e408458ae1f6f571
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/05/windows10.0-kb5003173-x86_1a2bd9ed94e30de89880f95d3b84291dfc5ffde6.msu
+  out=windows10.0-kb5003173-x86_1a2bd9ed94e30de89880f95d3b84291dfc5ffde6-cu.msu
+  checksum=sha-1=1a2bd9ed94e30de89880f95d3b84291dfc5ffde6
