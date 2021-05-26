@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.0r
+@set uiv=v10.1
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -640,6 +640,7 @@ expand.exe -f:microsoft-windows-*enablement-package~*.mum "!repo!\!package!" "ch
 if exist "checker\microsoft-windows-*enablement-package~*.mum" set "_type=[Enablement]"
 if exist "checker\Microsoft-Windows-20H2Enablement-Package~*.mum" set "_fixEP=19042"
 if exist "checker\Microsoft-Windows-21H1Enablement-Package~*.mum" set "_fixEP=19043"
+if exist "checker\Microsoft-Windows-21H2Enablement-Package~*.mum" set "_fixEP=19044"
 )
 if %_build% geq 18362 if exist "checker\*enablement-package*.mum" (
 expand.exe -f:*_microsoft-windows-e..-firsttimeinstaller_*.manifest "!repo!\!package!" "checker" %_Null%
@@ -1443,8 +1444,9 @@ set _fixEP=
 set _actEP=1
 if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-20H2Enablement-Package~*.mum" set "_fixEP=19042"
 if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-21H1Enablement-Package~*.mum" set "_fixEP=19043"
+if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-21H2Enablement-Package~*.mum" set "_fixEP=19044"
 if exist "!mountdir!\Windows\WinSxS\Manifests\%sss%_microsoft-updatetargeting-*os_*10.%_fixEP%*.manifest" (
-for /f "tokens=5,6,7 delims=_." %%I in ('dir /b /a:-d /on "!mountdir!\Windows\WinSxS\Manifests\%sss%_microsoft-updatetargeting-*os_*10.%_fixEP%*.manifest"') do set updtver=%%I.%%K&set vermajor=%%I
+for /f "tokens=5,6,7 delims=_." %%I in ('dir /b /a:-d /od "!mountdir!\Windows\WinSxS\Manifests\%sss%_microsoft-updatetargeting-*os_*10.%_fixEP%*.manifest"') do set updtver=%%I.%%K&set vermajor=%%I
 )
 goto :eof
 
