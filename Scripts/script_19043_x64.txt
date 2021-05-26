@@ -2,7 +2,7 @@ http://b1.download.windowsupdate.com/d/upgr/2021/03/windows10.0-kb5000736-x64_88
   out=windows10.0-kb5000736-x64_880844224a175033802b3d7a1f40ec304c0548dd-ep.msu
   checksum=sha-1=880844224a175033802b3d7a1f40ec304c0548dd
 
-https://www.uupdump.net/getfile.php?id=f822ce72-f215-4736-9fb6-b7666336f72d&file=windows10.0-kb5001679-x64.cab
+https://www.uupdump.net/getfile.php?id=0e51fec7-87fd-4a3a-9ddf-53e7be10a522&file=windows10.0-kb5001679-x64.cab
   out=windows10.0-kb5001679-x64_6773983c33c19f68c8874e49d90034800a1e938c.cab
   checksum=sha-1=6773983c33c19f68c8874e49d90034800a1e938c
 
