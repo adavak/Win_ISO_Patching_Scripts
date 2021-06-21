@@ -126,6 +126,10 @@ or set extra manual options below:
 # Net35Source
 specify custom "folder" path for microsoft-windows-netfx3-ondemand-package.cab
 
+# SkipEdge
+1 = do not install EdgeChromium with Enablement Package or Cumulative Update
+2 = alternative workaround to skip EdgeChromium with Cumulative Update only
+
 # wim2esd
 convert install.wim to install.esd, if the target is a distribution
 warning: the process will consume very high amount of CPU and RAM resources
@@ -170,18 +174,41 @@ Debug Mode (for advanced users):
 Credits:
 ============================================================
 
-Created by:
+Created:
 https://forums.mydigitallife.net/members/abbodi1406.204274/
 
-Concept by:
+Concept:
 https://forums.mydigitallife.net/members/burfadel.84828/
 
 WHDownloader:
 https://forums.mydigitallife.net/threads/44645
 
+SxSExpand:
+Melinda Bellemore
+https://forums.mydigitallife.net/members/superbubble.250156/
+
+PSFExtractor:
+th1r5bvn23
+https://www.betaworld.org/
+
 ============================================================
 Changelog:
 ============================================================
+10.2:
+- Build 18362, added alternative workaround to suppress Supplemental Servicing or SkipEdge
+- Build 20231 and later, LCU will be re-extracted from cab file for updating install.wim
+- Build 21382 and later, added support for new LCU PSFX format (cab + psf), require external PSFExtractor/SxSExpand
+
+10.1:
+- Added detection for 19044 / v21H2 Enablement package
+- Fixed wrong ISO version detection in some scenarios
+
+10.0:
+- Added "SkipEdge=2" option to skip LCU's EdgeChromium via "Microsoft\Edge" folder
+- Build 20231 and later, LCU will be added from cab file directly for updating install.wim
+- Build 20231 and later, if ReservicingLCU is detected, .NET CU / LCU will not be re-added after enabling NetFx3 feature
+- Enhanced Flash updates detection to avoid confliction when Flash Removal update is merged with LCU
+
 9.9:
 - Extended SkipEdge option to skip EdgeChromium bunded with Cumulative Update
 
@@ -207,7 +234,7 @@ Changelog:
 - Added "theoretical " support for Windows 10 ARM64 target
 
 9.2:
-- Added detection for 19043 / v21H1 Enablement/EdgeChromium package
+- Added detection for 19043 / v21H1 Enablement package
 - Added detection to install .NET 4.x main pack before .NET LP/Rollup
 - Skip wim2swm if install.wim size is less than 4GB
 
@@ -294,7 +321,6 @@ https://docs.microsoft.com/en-us/windows/deployment/update/media-dynamic-update
 
 7.0:
 - Proper extraction of multilingual dynamic updates to only update existing language directories
-
 - Support for the 19H2 Enablement Package to set the proper version tag
 
 6.6:
