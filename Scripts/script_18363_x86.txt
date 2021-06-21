@@ -10,17 +10,17 @@ http://download.windowsupdate.com/c/msdownload/update/software/crup/2021/05/wind
   out=windows10.0-kb5003715-x86_2130e9d8acb1851ff6eee70c3abceb596a69f7fd-du.cab
   checksum=sha-1=2130e9d8acb1851ff6eee70c3abceb596a69f7fd
 
-http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/04/windows10.0-kb5003256-x86-ndp48_a78d104ab0b543ca71ede2d5d0abf53ac6e99464.msu
-  out=windows10.0-kb5003256-x86-ndp48_a78d104ab0b543ca71ede2d5d0abf53ac6e99464-net48-cu.msu
-  checksum=sha-1=a78d104ab0b543ca71ede2d5d0abf53ac6e99464
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/05/windows10.0-kb5003539-x86-ndp48_ee9a6ee0c219c49a82e625fc121f4e8f0e63b337.msu
+  out=windows10.0-kb5003539-x86-ndp48_ee9a6ee0c219c49a82e625fc121f4e8f0e63b337-net48-cu.msu
+  checksum=sha-1=ee9a6ee0c219c49a82e625fc121f4e8f0e63b337
 
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/05/windows10.0-kb5003710-x86_b450d6f6d190ebca28a09fb4c8503793e29ebb02.msu
-  out=windows10.0-kb5003710-x86_b450d6f6d190ebca28a09fb4c8503793e29ebb02-ssu.msu
-  checksum=sha-1=b450d6f6d190ebca28a09fb4c8503793e29ebb02
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/06/windows10.0-kb5003974-x86_1d7e8d5a5be5f74876b53ce4ed02c7b15c44c448.msu
+  out=windows10.0-kb5003974-x86_1d7e8d5a5be5f74876b53ce4ed02c7b15c44c448-ssu.msu
+  checksum=sha-1=1d7e8d5a5be5f74876b53ce4ed02c7b15c44c448
 
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/06/windows10.0-kb5003635-x86_e2223f49f7f1b777b6dfb753f1d00438b7265a08.msu
-  out=windows10.0-kb5003635-x86_e2223f49f7f1b777b6dfb753f1d00438b7265a08-cu.msu
-  checksum=sha-1=e2223f49f7f1b777b6dfb753f1d00438b7265a08
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/06/windows10.0-kb5003698-x86_a8c07a4dc7a9cc38cd3b700fa4d3861670150a57.msu
+  out=windows10.0-kb5003698-x86_a8c07a4dc7a9cc38cd3b700fa4d3861670150a57-cu.msu
+  checksum=sha-1=a8c07a4dc7a9cc38cd3b700fa4d3861670150a57
 
 http://download.windowsupdate.com/c/msdownload/update/software/updt/2020/10/windows10.0-kb4577586-x86_002b1ffa7fb31836aeaed74007a6949d31a96460.msu
   out=windows10.0-kb4577586-x86_002b1ffa7fb31836aeaed74007a6949d31a96460-removalflash.msu
