@@ -194,6 +194,9 @@ https://www.betaworld.org/
 ============================================================
 Changelog:
 ============================================================
+10.3:
+- Added workaround for long path issue when extracting PSF updates
+
 10.2:
 - Build 18362, added alternative workaround to suppress Supplemental Servicing or SkipEdge
 - Build 20231 and later, LCU will be re-extracted from cab file for updating install.wim
