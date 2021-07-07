@@ -21,7 +21,3 @@ http://download.windowsupdate.com/d/msdownload/update/software/secu/2021/05/wind
 http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/05/windows10.0-kb5003174-x86_bdb2feb1b6446a46c2d425f12cb193ea64356f35.msu
   out=windows10.0-kb5003174-x86_bdb2feb1b6446a46c2d425f12cb193ea64356f35-cu.msu
   checksum=sha-1=bdb2feb1b6446a46c2d425f12cb193ea64356f35
-
-http://download.windowsupdate.com/d/msdownload/update/software/updt/2020/10/windows10.0-kb4577586-x86_b737ffa841d2aab5cbf5e00560b93577a6d0b4d2.msu
-  out=windows10.0-kb4577586-x86_b737ffa841d2aab5cbf5e00560b93577a6d0b4d2-removalflash.msu
-  checksum=sha-1=b737ffa841d2aab5cbf5e00560b93577a6d0b4d2

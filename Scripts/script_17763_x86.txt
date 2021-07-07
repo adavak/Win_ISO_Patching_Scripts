@@ -22,10 +22,6 @@ http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/06/wind
   out=windows10.0-kb5003711-x86_70a7ef9f67506eaeac5ae1747e90220e04e22492-ssu.msu
   checksum=sha-1=70a7ef9f67506eaeac5ae1747e90220e04e22492
 
-http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/06/windows10.0-kb5003703-x86_a500044da5706a5f0bbb14a3e4986bd6e947d114.msu
-  out=windows10.0-kb5003703-x86_a500044da5706a5f0bbb14a3e4986bd6e947d114-cu.msu
-  checksum=sha-1=a500044da5706a5f0bbb14a3e4986bd6e947d114
-
-http://download.windowsupdate.com/d/msdownload/update/software/updt/2020/10/windows10.0-kb4577586-x86_947f151a8bb5a0b0797702e53431c52d56c02c32.msu
-  out=windows10.0-kb4577586-x86_947f151a8bb5a0b0797702e53431c52d56c02c32-removalflash.msu
-  checksum=sha-1=947f151a8bb5a0b0797702e53431c52d56c02c32
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/07/windows10.0-kb5004947-x86_2cd3b09c753c60d39cdc93bdec2d9f076cddf2e5.msu
+  out=windows10.0-kb5004947-x86_2cd3b09c753c60d39cdc93bdec2d9f076cddf2e5-cu.msu
+  checksum=sha-1=2cd3b09c753c60d39cdc93bdec2d9f076cddf2e5
