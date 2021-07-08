@@ -2,9 +2,12 @@
 Info:
 ============================================================
 
-Windows 10 Updates Installer:
+Windows NT 10.0 Updates Installer
 
-Automated batch script to install/integrate Windows 10 Updates
+Automated script to install or integrate updates for:
+- Windows 10
+- Windows 11
+- Windows Server 2016, 2019, 2022
 
 ============================================================
 Features:
@@ -26,8 +29,8 @@ Features:
 # Enable .NET Framework 3.5 if available source detected, and reinstall Cumulative updates afterwards
 valid locations: mounted iso, inserted dvd/usb, sxs folder for distribution target, custom specified folder path
 
-# Detect Windows 10 ADK (Deployment Tools) for offline integration
-https://msdn.microsoft.com/en-us/windows/hardware/dn913721.aspx
+# Detect Windows NT 10.0 ADK (Deployment Tools) for offline integration
+https://docs.microsoft.com/windows-hardware/get-started/adk-install
 
 # Perform pending cleanup operation for online OS after restarting
 
@@ -73,8 +76,8 @@ if a wim file is available besides the script, it will be detected automatically
 location of updates files
 
 3. DISM
-the path for custom Windows 10 dism.exe
-required when the current Host OS is lower than Windows 10 and without ADK installed
+the path for custom dism.exe
+required when the current Host OS is lower than Windows NT 10.0 and without ADK installed
 
 4. Enable .NET 3.5
 enable or disable adding .NET 3.5 feature
@@ -141,7 +144,7 @@ note: if both wim2esd/wim2swm are 1, install.esd takes precedence over split ins
 
 # ISO
 create new iso file, if the target is a distribution
-require Win10 ADK, or place oscdimg.exe or cdimage.exe next to the script
+require Windows ADK, or place oscdimg.exe or cdimage.exe next to the script
 
 # ISODir
 folder path for iso file, leave it blank to create in the script current directory
@@ -194,6 +197,10 @@ https://www.betaworld.org/
 ============================================================
 Changelog:
 ============================================================
+10.4:
+- Rebrand to Windows NT 10.0 Updates Installer
+- Improved PSF files processing, and updated PSFExtractor.exe
+
 10.3:
 - Added workaround for long path issue when extracting PSF updates
 
