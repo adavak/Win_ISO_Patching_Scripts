@@ -14,14 +14,14 @@ http://download.windowsupdate.com/d/msdownload/update/software/crup/2021/05/wind
   out=windows10.0-kb5003714-x64_c08b34a80c679cb862f624e5e1de86652ba11e7c-du.cab
   checksum=sha-1=c08b34a80c679cb862f624e5e1de86652ba11e7c
 
-http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/05/windows10.0-kb5003538-x64-ndp48_cd3b6f374205c026b1da2660db47e7975f97453e.msu
-  out=windows10.0-kb5003538-x64-ndp48_cd3b6f374205c026b1da2660db47e7975f97453e-net48-cu.msu
-  checksum=sha-1=cd3b6f374205c026b1da2660db47e7975f97453e
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/06/windows10.0-kb5004332-x64-ndp48_7d9404b45a7acdf861a74e1677281adc37e1097c.msu
+  out=windows10.0-kb5004332-x64-ndp48_7d9404b45a7acdf861a74e1677281adc37e1097c-net48-cu.msu
+  checksum=sha-1=7d9404b45a7acdf861a74e1677281adc37e1097c
 
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/06/windows10.0-kb5003711-x64_577dc9cfe2e84d23b193aae2678b12e777fc7e55.msu
-  out=windows10.0-kb5003711-x64_577dc9cfe2e84d23b193aae2678b12e777fc7e55-ssu.msu
-  checksum=sha-1=577dc9cfe2e84d23b193aae2678b12e777fc7e55
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/07/windows10.0-kb5004424-x64_1359ead21fc328bf495e400469d7a61c2fff6d2c.msu
+  out=windows10.0-kb5004424-x64_1359ead21fc328bf495e400469d7a61c2fff6d2c-ssu.msu
+  checksum=sha-1=1359ead21fc328bf495e400469d7a61c2fff6d2c
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2021/07/windows10.0-kb5004244-x64_5685623313a6de061e0c42fed3391c29750a6b1b.msu
-  out=windows10.0-kb5004244-x64_5685623313a6de061e0c42fed3391c29750a6b1b-cu.msu
-  checksum=sha-1=5685623313a6de061e0c42fed3391c29750a6b1b
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/07/windows10.0-kb5005394-x64_911ff8871acdfecebdd69bb09c3785236a6984a9.msu
+  out=windows10.0-kb5005394-x64_911ff8871acdfecebdd69bb09c3785236a6984a9-cu.msu
+  checksum=sha-1=911ff8871acdfecebdd69bb09c3785236a6984a9
