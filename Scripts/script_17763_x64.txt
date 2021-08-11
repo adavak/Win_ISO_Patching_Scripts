@@ -10,18 +10,18 @@ http://download.windowsupdate.com/c/msdownload/update/software/crup/2019/08/wind
   out=windows10.0-kb4506578-x64_c8bad38b2c405ca3fa0c522df2ca6ef26bfd6d1e.cab
   checksum=sha-1=c8bad38b2c405ca3fa0c522df2ca6ef26bfd6d1e
 
-http://download.windowsupdate.com/d/msdownload/update/software/crup/2021/05/windows10.0-kb5003714-x64_c08b34a80c679cb862f624e5e1de86652ba11e7c.cab
-  out=windows10.0-kb5003714-x64_c08b34a80c679cb862f624e5e1de86652ba11e7c-du.cab
-  checksum=sha-1=c08b34a80c679cb862f624e5e1de86652ba11e7c
+http://download.windowsupdate.com/d/msdownload/update/software/crup/2021/08/windows10.0-kb5005545-x64_b476c22b52917ad95a4f16c615c9d10c328b0347.cab
+  out=windows10.0-kb5005545-x64_b476c22b52917ad95a4f16c615c9d10c328b0347-du.cab
+  checksum=sha-1=b476c22b52917ad95a4f16c615c9d10c328b0347
 
 http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/06/windows10.0-kb5004332-x64-ndp48_7d9404b45a7acdf861a74e1677281adc37e1097c.msu
   out=windows10.0-kb5004332-x64-ndp48_7d9404b45a7acdf861a74e1677281adc37e1097c-net48-cu.msu
   checksum=sha-1=7d9404b45a7acdf861a74e1677281adc37e1097c
 
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/07/windows10.0-kb5004424-x64_1359ead21fc328bf495e400469d7a61c2fff6d2c.msu
-  out=windows10.0-kb5004424-x64_1359ead21fc328bf495e400469d7a61c2fff6d2c-ssu.msu
-  checksum=sha-1=1359ead21fc328bf495e400469d7a61c2fff6d2c
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2021/08/windows10.0-kb5005112-x64_81d09dc6978520e1a6d44b3b15567667f83eba2c.msu
+  out=windows10.0-kb5005112-x64_81d09dc6978520e1a6d44b3b15567667f83eba2c-ssu.msu
+  checksum=sha-1=81d09dc6978520e1a6d44b3b15567667f83eba2c
 
-http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/07/windows10.0-kb5005394-x64_911ff8871acdfecebdd69bb09c3785236a6984a9.msu
-  out=windows10.0-kb5005394-x64_911ff8871acdfecebdd69bb09c3785236a6984a9-cu.msu
-  checksum=sha-1=911ff8871acdfecebdd69bb09c3785236a6984a9
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/08/windows10.0-kb5005030-x64_222160abfb75f543a693ca773dbcd0553ace6f03.msu
+  out=windows10.0-kb5005030-x64_222160abfb75f543a693ca773dbcd0553ace6f03-cu.msu
+  checksum=sha-1=222160abfb75f543a693ca773dbcd0553ace6f03
