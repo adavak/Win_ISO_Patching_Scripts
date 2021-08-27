@@ -1823,6 +1823,9 @@ del /f /q "!mumtarget!\Windows\inf\*.log" %_Nul3%
 )
 for /f "tokens=* delims=" %%# in ('dir /b /ad "!mumtarget!\Windows\CbsTemp\" %_Nul6%') do rmdir /s /q "!mumtarget!\Windows\CbsTemp\%%#\" %_Nul3%
 del /s /f /q "!mumtarget!\Windows\CbsTemp\*" %_Nul3%
+if exist "!mumtarget!\INF\setupapi.offline.log" (
+del /f /q "!mumtarget!\Windows\INF\setupapi.offline.log" %_Nul3%
+)
 if exist "!mumtarget!\Windows\*.log" (
 del /f /q "!mumtarget!\Windows\*.log" %_Nul3%
 )
