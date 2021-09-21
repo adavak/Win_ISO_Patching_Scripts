@@ -136,7 +136,10 @@ Configuration options (for advanced users):
 or set extra manual options below:
 
 # Net35Source
-specify custom "folder" path for microsoft-windows-netfx3-ondemand-package.cab
+specify custom "folder" path which contain microsoft-windows-netfx3-ondemand-package.cab
+
+# LCUwinre
+force updating winre.wim with Cumulative Update even if SafeOS update detected
 
 # SkipEdge
 1 = do not install EdgeChromium with Enablement Package or Cumulative Update
@@ -208,6 +211,18 @@ https://github.com/AveYo/Compressed2TXT
 ============================================================
 Changelog:
 ============================================================
+10.11:
+- Added support for Windows 11 Combined UUP updates
+- Updated Windows Defender cab integration routine
+- If AutoStart option is active, the script will not clear initial screen, and will auto exit at the end
+
+10.10:
+- Added workaround for updating 1904x images on Host OS below Windows 10 1803
+
+10.9:
+- Added manual option "LCUwinre" to force updating winre.wim with Cumulative Update
+- Fixed architecture detection for already mounted WinPE images
+
 10.8:
 - Fix updated iso label for Windows 10 1909
 
