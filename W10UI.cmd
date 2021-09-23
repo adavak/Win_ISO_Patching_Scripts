@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.11
+@set uiv=v10.12
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -574,8 +574,8 @@ if %online%==0 if exist "!repo!\*defender-dism*%arch%*.cab" for /f "tokens=* del
 if exist "!repo!\*Windows10*KB*%arch%*.cab" for /f "tokens=* delims=" %%# in ('dir /b /on "!repo!\*Windows10*KB*%arch%*.cab"') do (call set /a _sum+=1)
 set count=0&set isoupdate=&set tmpcmp=
 if %online%==0 if exist "!repo!\*defender-dism*%arch%*.cab" for /f "tokens=* delims=" %%# in ('dir /b "!repo!\*defender-dism*%arch%*.cab"') do (set "package=%%#"&set "dest=%%~n#"&call :cab2)
-if exist "!repo!\*Windows10*KB*%arch%*.cab" for /f "tokens=* delims=" %%# in ('dir /b /on "!repo!\*Windows10*KB*%arch%*.cab"') do (set "package=%%#"&set "dest=%%~n#"&call :cab2)
-if defined tmpcmp if exist "!repo!\Windows10.0-*%arch%_inout.cab" for /f "tokens=* delims=" %%# in ('dir /b /on "!repo!\Windows10.0-*%arch%_inout.cab"') do (set "package=%%#"&set "dest=%%~n#"&call :cab2)
+if exist "!repo!\*Windows10*KB*%arch%*.cab" for /f "tokens=* delims=" %%# in ('dir /b /on "!repo!\*Windows10*KB*%arch%*.cab"') do (set "pkgn=%%~n#"&set "package=%%#"&set "dest=%%~n#"&call :cab2)
+if defined tmpcmp if exist "!repo!\Windows10.0-*%arch%_inout.cab" for /f "tokens=* delims=" %%# in ('dir /b /on "!repo!\Windows10.0-*%arch%_inout.cab"') do (set "pkgn=%%~n#"&set "package=%%#"&set "dest=%%~n#"&call :cab2)
 goto :eof
 
 :cab1def
@@ -647,9 +647,9 @@ goto :eof
 :cab2
 if %_embd% equ 0 if exist "%dest%\" rmdir /s /q "%dest%\" %_Nul3%
 if not exist "%dest%\" mkdir "%dest%"
+set /a count+=1
 set uupcab=0
 expand.exe -d -f:*Windows*.psf "!repo!\!package!" | findstr /i %arch%\.psf %_Nul3% && set uupcab=1
-set /a count+=1
 if %uupcab% equ 1 (
 echo %count%/%_sum%: %package% [Combined UUP]
 expand.exe -f:* "!repo!\!package!" "%dest%" %_Null%
@@ -675,7 +675,7 @@ goto :eof
 expand.exe -f:*.psf.cix.xml "!repo!\!package!" "checker" %_Null%
 if exist "checker\*.psf.cix.xml" (
 rem findstr /i /m "PSFX" "checker\update.mum" %_Nul3% || (rmdir /s /q "checker\" %_Nul3%&goto :eof)
-if not exist "!repo!\%package:~0,-4%.psf" (
+if not exist "!repo!\%pkgn%.psf" if not exist "!repo!\%pkgn:~0,-8%*.psf" (
   echo %count%/%_sum%: %package% / PSF file is missing
   rmdir /s /q "checker\" %_Nul3%
   goto :eof
@@ -685,7 +685,7 @@ if %psfnet% equ 0 (
   rmdir /s /q "checker\" %_Nul3%
   goto :eof
   )
-set psf_%package%=1
+set psf_%pkgn%=1
 )
 if not defined isodate findstr /i /m "Package_for_RollupFix" "checker\update.mum" %_Nul3% && (
 if not exist "%SystemRoot%\temp\" mkdir "%SystemRoot%\temp" %_Nul3%
@@ -773,12 +773,13 @@ if exist "%dest%\*cablist.ini" (
   del /f /q "%dest%\*.cab" %_Nul3%
 )
 set _sbst=0
-if defined psf_%package% (
+if defined psf_%pkgn% (
 if not exist "%dest%\express.psf.cix.xml" for /f %%# in ('dir /b /a:-d "%dest%\*.psf.cix.xml"') do rename "%dest%\%%#" express.psf.cix.xml %_Nul3%
 subst %_sdr% "!_cabdir!" %_Nul3% && set _sbst=1
 if !_sbst! equ 1 pushd %_sdr%
 if not exist "%package%" (
-  copy /y "!repo!\%package:~0,-4%.*" . %_Nul3%
+  copy /y "!repo!\%pkgn%.*" . %_Nul3%
+  if not exist "%pkgn%.psf" for /f %%# in ('dir /b /a:-d "!repo!\%pkgn:~0,-8%*.psf"') do copy /y "!repo!\%%#" %pkgn%.psf %_Nul3%
   )
 if not exist "PSFExtractor.exe" (
   %_Nul3% powershell -nop -c "$d='!cd!';$f=[IO.File]::ReadAllText('!_batp!') -split ':embdbin\:.*';iex ($f[1]);X 1"
@@ -787,7 +788,7 @@ PSFExtractor.exe %package% %_Null%
 if !errorlevel! neq 0 (
   echo Error: failed to extract PSF update
   rmdir /s /q "%dest%\" %_Nul3%
-  set psf_%package%=
+  set psf_%pkgn%=
   )
 if !_sbst! equ 1 popd
 if !_sbst! equ 1 subst %_sdr% /d %_Nul3%
@@ -1109,6 +1110,7 @@ subst %_sdr% "!_cabdir!" %_Nul3% && set _sbst=1
 if !_sbst! equ 1 pushd %_sdr%
 if not exist "%lcupkg%" (
   copy /y "!repo!\%lcupkg:~0,-4%.*" . %_Nul3%
+  if not exist "%lcupkg:~0,-4%.psf" for /f %%# in ('dir /b /a:-d "!repo!\%lcupkg:~0,-12%*.psf"') do copy /y "!repo!\%%#" %lcupkg:~0,-4%.psf %_Nul3%
   )
 if not exist "PSFExtractor.exe" (
   %_Nul3% powershell -nop -c "$d='!cd!';$f=[IO.File]::ReadAllText('!_batp!') -split ':embdbin\:.*';iex ($f[1]);X 1"
@@ -2344,6 +2346,7 @@ echo ============================================================
 echo.
 )
 if %_embd% neq 0 goto :eof
+if %autostart% neq 0 goto :eof
 if %_Debug% neq 0 goto :eof
 echo.
 echo Press 9 to exit.

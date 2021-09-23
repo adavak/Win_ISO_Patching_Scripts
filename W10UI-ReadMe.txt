@@ -211,6 +211,9 @@ https://github.com/AveYo/Compressed2TXT
 ============================================================
 Changelog:
 ============================================================
+10.12:
+- Added support for the new UUP dump file name scheme (PSF updates)
+
 10.11:
 - Added support for Windows 11 Combined UUP updates
 - Updated Windows Defender cab integration routine
