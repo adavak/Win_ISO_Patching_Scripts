@@ -10,10 +10,10 @@ http://download.windowsupdate.com/d/msdownload/update/software/crup/2021/08/wind
   out=windows10.0-kb5005109-x86_e6b93a8c9d3c68d44f3d6b1b3a709efbbf79fd9b-du.cab
   checksum=sha-1=e6b93a8c9d3c68d44f3d6b1b3a709efbbf79fd9b
 
-http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/06/windows10.0-kb5004333-x86-ndp48_298465543e6993907621e82b8abf1f5969b4620f.msu
-  out=windows10.0-kb5004333-x86-ndp48_298465543e6993907621e82b8abf1f5969b4620f-net48-cu.msu
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/08/windows10.0-kb5005541-x86-ndp48_9364c60f891588cfe0d33e6a78e702de4299401c.msu
+  out=windows10.0-kb5005541-x86-ndp48_9364c60f891588cfe0d33e6a78e702de4299401c-net48-cu.msu
   checksum=sha-1=298465543e6993907621e82b8abf1f5969b4620f
 
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/09/windows10.0-kb5005566-x86_abadb75dda6444c514fd9da659c9ed91cff5c61c.msu
-  out=windows10.0-kb5005566-x86_abadb75dda6444c514fd9da659c9ed91cff5c61c-cu.msu
-  checksum=sha-1=abadb75dda6444c514fd9da659c9ed91cff5c61c
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/09/windows10.0-kb5005624-x86_d5e5a74000dafb1399dc6fa94db84c34a89294d4.msu
+  out=windows10.0-kb5005624-x86_d5e5a74000dafb1399dc6fa94db84c34a89294d4-cu.msu
+  checksum=sha-1=d5e5a74000dafb1399dc6fa94db84c34a89294d4
