@@ -1,6 +1,6 @@
-http://download.windowsupdate.com/c/msdownload/update/software/crup/2021/08/windows10.0-kb5005444-x64_0d29e7165dafb24b746a8a7adf33d7dfef7dd249.cab
-  out=windows10.0-kb5005444-x64_0d29e7165dafb24b746a8a7adf33d7dfef7dd249-du.cab
-  checksum=sha-1=0d29e7165dafb24b746a8a7adf33d7dfef7dd249
+http://download.windowsupdate.com/d/msdownload/update/software/crup/2021/09/windows10.0-kb5005696-x64_908d123d86c57b0e8d8e23ad58fe676424098dc6.cab
+  out=windows10.0-kb5005696-x64_908d123d86c57b0e8d8e23ad58fe676424098dc6-du.cab
+  checksum=sha-1=908d123d86c57b0e8d8e23ad58fe676424098dc6
 
 http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/08/windows10.0-kb5005538-x64-ndp48_451a4214d51de628ef2c3c8a69c87826b2ab43c8.msu
   out=windows10.0-kb5005538-x64-ndp48_451a4214d51de628ef2c3c8a69c87826b2ab43c8-net48-cu.msu
