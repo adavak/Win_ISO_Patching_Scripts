@@ -1,6 +1,6 @@
-http://b1.download.windowsupdate.com/d/upgr/2021/03/windows10.0-kb5000736-x86_428ba21ee5118bac619f4de6977de69c1f65b066.msu
-  out=windows10.0-kb5000736-x86_428ba21ee5118bac619f4de6977de69c1f65b066-ep.msu
-  checksum=sha-1=428ba21ee5118bac619f4de6977de69c1f65b066
+http://b1.download.windowsupdate.com/c/upgr/2021/08/windows10.0-kb5003791-x86_faeb8ca98a01bb326efd734b11aa2e1affdc0470.msu
+  out=windows10.0-kb5003791-x86_faeb8ca98a01bb326efd734b11aa2e1affdc0470-ep.msu
+  checksum=sha-1=faeb8ca98a01bb326efd734b11aa2e1affdc0470
 
 http://download.windowsupdate.com/d/msdownload/update/software/crup/2021/09/windows10.0-kb5005645-x86_ab6ce9cf70952e115c56d4f153dd854050230df0.cab
   out=windows10.0-kb5005645-x86_ab6ce9cf70952e115c56d4f153dd854050230df0.cab	
