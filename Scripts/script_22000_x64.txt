@@ -1,0 +1,15 @@
+http://download.windowsupdate.com/c/msdownload/update/software/crup/2021/09/windows10.0-kb5006587-x64_27aa191291bf64f5c3de446aa874b4ee54cb9acb.cab
+  out=windows10.0-kb5006587-x64_27aa191291bf64f5c3de446aa874b4ee54cb9acb-du.cab
+  checksum=sha-1=27aa191291bf64f5c3de446aa874b4ee54cb9acb
+
+http://download.windowsupdate.com/c/msdownload/update/software/crup/2021/09/windows10.0-kb5007040-x64_31645fd9837ea17e580f2277df9ca444727b1151.cab
+  out=windows10.0-kb5007040-x64_31645fd9837ea17e580f2277df9ca444727b1151.cab
+  checksum=sha-1=31645fd9837ea17e580f2277df9ca444727b1151
+
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/08/windows10.0-kb5005537-x64-ndp48_5f30e4f308a26108777da3f8488a308dff827ead.msu
+  out=windows10.0-kb5005537-x64-ndp48_5f30e4f308a26108777da3f8488a308dff827ead-net48-cu.msu
+  checksum=sha-1=5f30e4f308a26108777da3f8488a308dff827ead
+
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2021/10/windows10.0-kb5006674-x64_c71b094804f4f592fa810ee9c4484489297c5dfc.msu
+  out=windows10.0-kb5006674-x64_c71b094804f4f592fa810ee9c4484489297c5dfc-cu.msu
+  checksum=sha-1=c71b094804f4f592fa810ee9c4484489297c5dfc
