@@ -211,6 +211,10 @@ https://github.com/AveYo/Compressed2TXT
 ============================================================
 Changelog:
 ============================================================
+10.13:
+- Added workaround for the missing wmic.exe in build 22483 (and later)
+- When running within W10MUI, W10UI will install detected updates, regardless if already installed
+
 10.12:
 - Added support for the new UUP dump file name scheme (PSF updates)
 
