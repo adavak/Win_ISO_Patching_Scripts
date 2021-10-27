@@ -2,18 +2,18 @@ http://b1.download.windowsupdate.com/c/upgr/2021/08/windows10.0-kb5003791-x86_fa
   out=windows10.0-kb5003791-x86_faeb8ca98a01bb326efd734b11aa2e1affdc0470-ep.msu
   checksum=sha-1=faeb8ca98a01bb326efd734b11aa2e1affdc0470
 
-http://download.windowsupdate.com/d/msdownload/update/software/crup/2021/09/windows10.0-kb5005645-x86_ab6ce9cf70952e115c56d4f153dd854050230df0.cab
-  out=windows10.0-kb5005645-x86_ab6ce9cf70952e115c56d4f153dd854050230df0.cab	
-  checksum=sha-1=ab6ce9cf70952e115c56d4f153dd854050230df0
+http://download.windowsupdate.com/d/msdownload/update/software/crup/2021/10/windows10.0-kb5006748-x86_f191a9a58dbdd07b2bb997e3b3712a09f69d74ce.cab
+  out=windows10.0-kb5006748-x86_f191a9a58dbdd07b2bb997e3b3712a09f69d74ce.cab	
+  checksum=sha-1=f191a9a58dbdd07b2bb997e3b3712a09f69d74ce
 
 http://download.windowsupdate.com/d/msdownload/update/software/crup/2021/09/windows10.0-kb5005714-x86_52b59062115c97a212940a1c442f6144c74f7b8f.cab
   out=windows10.0-kb5005714-x86_52b59062115c97a212940a1c442f6144c74f7b8f-du.cab
   checksum=sha-1=52b59062115c97a212940a1c442f6144c74f7b8f
 
-http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/08/windows10.0-kb5005539-x86-ndp48_570d683b73aa06c2bd92e802bf944cfa8313ebcf.msu
-  out=windows10.0-kb5005539-x86-ndp48_570d683b73aa06c2bd92e802bf944cfa8313ebcf-net48-cu.msu
-  checksum=sha-1=570d683b73aa06c2bd92e802bf944cfa8313ebcf
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/09/windows10.0-kb5006365-x86-ndp48_8dd21fb5823df83d353c2fcb1a6c6b0d80512731.msu
+  out=windows10.0-kb5006365-x86-ndp48_8dd21fb5823df83d353c2fcb1a6c6b0d80512731-cu.msu
+  checksum=sha-1=8dd21fb5823df83d353c2fcb1a6c6b0d80512731
 
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/10/windows10.0-kb5006670-x86_6666ab09e61dc4f2f76bb3efc1a3c3631c2fb627.msu
-  out=windows10.0-kb5006670-x86_6666ab09e61dc4f2f76bb3efc1a3c3631c2fb627-cu.msu
-  checksum=sha-1=6666ab09e61dc4f2f76bb3efc1a3c3631c2fb627
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/10/windows10.0-kb5006738-x86_067b4bb276c828fe1c500c111fc068803a9f048a.msu
+  out=windows10.0-kb5006738-x86_067b4bb276c828fe1c500c111fc068803a9f048a-cu.msu
+  checksum=sha-1=067b4bb276c828fe1c500c111fc068803a9f048a
