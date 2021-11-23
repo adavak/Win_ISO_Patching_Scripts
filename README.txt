@@ -15,6 +15,7 @@ Tools:
 wimlib (wimlib.net)
 aria2 (github.com/aria2/aria2)
 oscdimg (Microsoft)
+PSFExtractor (betaworld.cn)
 
 Script:
 W10UI (abbodi1406@MDL)
