@@ -70,6 +70,9 @@ set "ISODir="
 :: delete DVD distribution folder after creating updated ISO
 set Delete_Source=0
 
+:: LTSC 2022 Libs Fix
+set ltscfix="
+
 :: ###################################################################
 :: # NORMALLY THERE IS NO NEED TO CHANGE ANYTHING BELOW THIS COMMENT #
 :: ###################################################################
@@ -208,6 +211,7 @@ iso
 isodir
 delete_source
 autostart
+ltscfix
 ) do (
 call :ReadINI %%#
 )
@@ -1084,6 +1088,12 @@ echo.&echo %%#
 if !errorlevel! equ 1726 %_dism2%:"!_cabdir!" %dismtarget% /Get-Packages %_Nul1%
 if %_build% equ 14393 if %wimfiles% equ 1 call :MeltdownSpectre
 :cumwd
+if %ltscfix%==1 if exist "!mumtarget!\Windows\Servicing\Packages\Microsoft-Windows-EnterpriseS*Edition~31bf3856ad364e35~%sss%~~10.0.19041*.mum" if %LTSC% equ 1 (
+echo Adding VCLibs...
+%_dism2%:"!_cabdir!" %dismtarget% /Add-ProvisionedAppxPackage /PackagePath:"%~dp0bin\Microsoft.VCLibs.140.00_14.0.30704.0_%arch%__8wekyb3d8bbwe.Appx" /SkipLicense %_Nul2%
+echo Adding VP9VideoExtensions...
+%_dism2%:"!_cabdir!" %dismtarget% /Add-ProvisionedAppxPackage /PackagePath:"%~dp0bin\Microsoft.VP9VideoExtensions_1.0.42791.0_%arch%__8wekyb3d8bbwe.Appx" /SkipLicense %_Nul2%
+)
 if defined lcupkg call :ReLCU
 if defined callclean call :cleanup
 if defined mpamfe (
