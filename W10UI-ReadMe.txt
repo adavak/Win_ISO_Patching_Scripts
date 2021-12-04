@@ -198,8 +198,8 @@ WHDownloader:
 https://forums.mydigitallife.net/threads/44645
 
 PSFExtractor:
-th1r5bvn23
-https://www.betaworld.org/
+BetaWorld
+https://github.com/Secant1006/PSFExtractor
 
 SxSExpand:
 Melinda Bellemore
@@ -211,6 +211,9 @@ https://github.com/AveYo/Compressed2TXT
 ============================================================
 Changelog:
 ============================================================
+10.15:
+- Added support to install Windows 11 Combined UUP .msu file directly
+
 10.14:
 - Check and exclude unsupported editions for 19041 WindowsExperienceFeaturePack
 - Fixed: ADK parameter is not enabled when using custom dism.exe
