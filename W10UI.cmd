@@ -70,7 +70,7 @@ set "ISODir="
 :: delete DVD distribution folder after creating updated ISO
 set Delete_Source=0
 
-:: LTSC 2022 Libs Fix
+:: LTSC 2021 Libs Fix
 set ltscfix="
 
 :: ###################################################################
