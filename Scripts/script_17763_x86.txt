@@ -1,6 +1,6 @@
-http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/11/windows10.0-kb5007266-x86_eb28516693d7d7424a30da471b6008b5e46ac61a.msu
-  out=windows10.0-kb5007266-x86_eb28516693d7d7424a30da471b6008b5e46ac61a-cu.msu
-  checksum=sha-1=eb28516693d7d7424a30da471b6008b5e46ac61a
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2021/12/windows10.0-kb5008218-x86_899a286ab4a06c8d75f65199d784cc8e98486d79.msu
+  out=windows10.0-kb5008218-x86_899a286ab4a06c8d75f65199d784cc8e98486d79-cu.msu
+  checksum=sha-1=899a286ab4a06c8d75f65199d784cc8e98486d79
 
 http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/10/windows10.0-kb5007290-x86-ndp48_eb18816e3a2f8d163e97127eb821217d5e91bc84.msu
   out=windows10.0-kb5007290-x86-ndp48_eb18816e3a2f8d163e97127eb821217d5e91bc84-cu.msu
