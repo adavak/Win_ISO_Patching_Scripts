@@ -1,10 +1,10 @@
-http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/12/windows10.0-kb5008212-x86_ae7611462ceaac2536f35f1b1fa34a2add032a63.msu
-  out=windows10.0-kb5008212-x86_ae7611462ceaac2536f35f1b1fa34a2add032a63-cu.msu
-  checksum=sha-1=ae7611462ceaac2536f35f1b1fa34a2add032a63
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2022/01/windows10.0-kb5009543-x86_69e8ed8913acd957d9bd3ab9ccaf0eabeaeb7aea.msu
+  out=windows10.0-kb5009543-x86_69e8ed8913acd957d9bd3ab9ccaf0eabeaeb7aea-cu.msu
+  checksum=sha-1=69e8ed8913acd957d9bd3ab9ccaf0eabeaeb7aea
 
-http://download.windowsupdate.com/c/msdownload/update/software/updt/2021/10/windows10.0-kb5007289-x86-ndp48_57b80824b5ca6d21e5737438c2ad917172b24a4e.msu
-  out=windows10.0-kb5007289-x86-ndp48_57b80824b5ca6d21e5737438c2ad917172b24a4e-cu.msu
-  checksum=sha-1=57b80824b5ca6d21e5737438c2ad917172b24a4e
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2021/12/windows10.0-kb5008876-x86-ndp48_c7d188ed5ffa0bc2fe83c8bbe7d7b88a7d352ae5.msu
+  out=windows10.0-kb5008876-x86-ndp48_c7d188ed5ffa0bc2fe83c8bbe7d7b88a7d352ae5-cu.msu
+  checksum=sha-1=c7d188ed5ffa0bc2fe83c8bbe7d7b88a7d352ae5
 
 http://b1.download.windowsupdate.com/d/upgr/2021/11/windows10.0-kb5003791-x86_ac1fc53b104c6ce0ffa50b70af754b81e56829ce.msu
   out=windows10.0-kb5003791-x86_ac1fc53b104c6ce0ffa50b70af754b81e56829ce-ep.msu

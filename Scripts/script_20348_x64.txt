@@ -1,11 +1,15 @@
-http://download.windowsupdate.com/c/msdownload/update/software/updt/2022/01/windows10.0-kb5010197-x64_f4377b03e1bd50974eb7cea42f08e4073cf4a8d7.msu
-  out=windows10.0-kb5010197-x64_f4377b03e1bd50974eb7cea42f08e4073cf4a8d7-cu.msu
-  checksum=sha-1=f4377b03e1bd50974eb7cea42f08e4073cf4a8d7
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2022/01/windows10.0-kb5009555-x64_46d9cb1b803cca8e4d0731790c05d2305259f7ff.msu
+  out=windows10.0-kb5009555-x64_46d9cb1b803cca8e4d0731790c05d2305259f7ff-cu.msu
+  checksum=sha-1=46d9cb1b803cca8e4d0731790c05d2305259f7ff
 
-http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/10/windows10.0-kb5007293-x64-ndp48_ce2ec2027472bf9c9177e966e26352e17a7f4d87.msu
-  out=windows10.0-kb5007293-x64-ndp48_ce2ec2027472bf9c9177e966e26352e17a7f4d87-cu.msu
-  checksum=sha-1=ce2ec2027472bf9c9177e966e26352e17a7f4d87
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2021/12/windows10.0-kb5008882-x64-ndp48_de71d9350fa8d4632e216799595145f855a97856.msu
+  out=windows10.0-kb5008882-x64-ndp48_de71d9350fa8d4632e216799595145f855a97856-cu.msu
+  checksum=sha-1=de71d9350fa8d4632e216799595145f855a97856
 
-http://download.windowsupdate.com/c/msdownload/update/software/crup/2021/11/windows10.0-kb5007943-x64_e58b9ec221cf226fe37fad55f41bb195f4e01d3c.cab
-  out=windows10.0-kb5007943-x64_e58b9ec221cf226fe37fad55f41bb195f4e01d3c-du.cab
-  checksum=sha-1=e58b9ec221cf226fe37fad55f41bb195f4e01d3c
+http://download.windowsupdate.com/d/msdownload/update/software/crup/2021/12/windows10.0-kb5009340-x64_8d22d744a0c28652c970c2cb0558b0deeebfeb53.cab
+  out=windows10.0-kb5009340-x64_8d22d744a0c28652c970c2cb0558b0deeebfeb53-du.cab
+  checksum=sha-1=8d22d744a0c28652c970c2cb0558b0deeebfeb53
+
+http://download.windowsupdate.com/d/msdownload/update/software/crup/2021/11/windows10.0-kb5007374-x64_2c8bd78e9522f9ca3dd145b2d740fc25979d84e5.cab
+  out=windows10.0-kb5007374-x64_2c8bd78e9522f9ca3dd145b2d740fc25979d84e5-du.cab
+  checksum=sha-1=2c8bd78e9522f9ca3dd145b2d740fc25979d84e5
