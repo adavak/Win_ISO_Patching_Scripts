@@ -18,6 +18,6 @@ http://download.windowsupdate.com/d/msdownload/update/software/secu/2021/09/wind
   out=windows10.0-kb5005698-x86_06f40c13dd0a54b98a69aa146ee4e9aa79a70717-ssu.msu
   checksum=sha-1=06f40c13dd0a54b98a69aa146ee4e9aa79a70717
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2022/01/windows10.0-kb5009546-x86_73496bd12a08c0c89ecddd92473d994a20a763d0.msu
-  out=windows10.0-kb5009546-x86_73496bd12a08c0c89ecddd92473d994a20a763d0-cu.msu
-  checksum=sha-1=73496bd12a08c0c89ecddd92473d994a20a763d0
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2022/01/windows10.0-kb5010790-x86_19c4696dff5f1595c53a42a67f95de358c0d8d5d.msu
+  out=windows10.0-kb5010790-x86_19c4696dff5f1595c53a42a67f95de358c0d8d5d-cu.msu
+  checksum=sha-1=19c4696dff5f1595c53a42a67f95de358c0d8d5d
