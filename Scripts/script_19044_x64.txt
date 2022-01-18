@@ -19,6 +19,6 @@ http://download.windowsupdate.com/c/msdownload/update/software/crup/2021/11/wind
   checksum=sha-1=f1bf61d834bb8d9951c7efa23454643daae195b0
 
 http://download.windowsupdate.com/c/msdownload/update/software/crup/2022/01/windows10.0-kb5009645-x64_4d1366ca0f6c12781d5fc0b783869ed0f5db4613.cab
-  out=windows10.0-kb5009645-x64_4d1366ca0f6c12781d5fc0b783869ed0f5db4613.cab	
+  out=windows10.0-kb5009645-x64_4d1366ca0f6c12781d5fc0b783869ed0f5db4613.cab
   checksum=sha-1=4d1366ca0f6c12781d5fc0b783869ed0f5db4613
 
