@@ -36,7 +36,7 @@ set WinRE=1
 :: Force updating winre.wim with Cumulative Update even if SafeOS update detected
 set LCUwinre=0
 
-:: update ISO boot files bootmgr/bootmgr.efi/efisys.bin
+:: don't update ISO boot files bootmgr/bootmgr.efi/efisys.bin
 set SkipBootFiles=1
 
 :: 1 = do not install EdgeChromium with Enablement Package or Cumulative Update
