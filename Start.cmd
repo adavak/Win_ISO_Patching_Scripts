@@ -3,9 +3,9 @@ title 官方 ISO 打补丁… Patching Official ISO...
 
 cd /d "%~dp0"
 if NOT "%cd%"=="%cd: =%" (
-	echo 当前路径目录包含空格。
-	echo 请移除或重命名目录不包含空格。
-	echo Current directory contains spaces in its path.
+    echo 当前路径目录包含空格。
+    echo 请移除或重命名目录不包含空格。
+    echo Current directory contains spaces in its path.
     echo Please move or rename the directory to one not containing spaces.
     echo.
     pause
