@@ -2,9 +2,9 @@ http://download.windowsupdate.com/c/msdownload/update/software/updt/2022/01/wind
   out=windows10.0-kb5009608-x64_871cfbb8563094bb7850456391b5a9fd2d490909-cu.msu
   checksum=sha-1=871cfbb8563094bb7850456391b5a9fd2d490909
 
-http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/12/windows10.0-kb5009470-arm64-ndp48_2a252fbf309c4f65545d537f8ac053a3ac4c5d2c.msu
-  out=windows10.0-kb5009470-arm64-ndp48_2a252fbf309c4f65545d537f8ac053a3ac4c5d2c-cu.msu
-  checksum=sha-1=2a252fbf309c4f65545d537f8ac053a3ac4c5d2c
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/12/windows10.0-kb5009470-x64-ndp48_bb024317f391de318cc42f12641da9b3253011cf.msu
+  out=windows10.0-kb5009470-x64-ndp48_bb024317f391de318cc42f12641da9b3253011cf-cu.msu
+  checksum=sha-1=bb024317f391de318cc42f12641da9b3253011cf
 
 http://download.windowsupdate.com/d/msdownload/update/software/crup/2021/12/windows10.0-kb5009340-x64_8d22d744a0c28652c970c2cb0558b0deeebfeb53.cab
   out=windows10.0-kb5009340-x64_8d22d744a0c28652c970c2cb0558b0deeebfeb53-du.cab
