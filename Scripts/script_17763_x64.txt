@@ -1,6 +1,6 @@
-http://download.windowsupdate.com/d/msdownload/update/software/updt/2022/01/windows10.0-kb5009616-x64_22ba92a36b2110ae995b35be21da16c43cd38576.msu
-  out=windows10.0-kb5009616-x64_22ba92a36b2110ae995b35be21da16c43cd38576-cu.msu
-  checksum=sha-1=22ba92a36b2110ae995b35be21da16c43cd38576
+http://download.windowsupdate.com/c/msdownload/update/software/secu/2022/02/windows10.0-kb5010351-x64_f7ba53f4c410299fc28400f7a21b7f616f635a7c.msu
+  out=windows10.0-kb5010351-x64_f7ba53f4c410299fc28400f7a21b7f616f635a7c-cu.msu
+  checksum=sha-1=f7ba53f4c410299fc28400f7a21b7f616f635a7c
 
 http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/12/windows10.0-kb5009468-x64-ndp48_e00516b29e6d463dafd7f1d22c8db704e51da178.msu
   out=windows10.0-kb5009468-x64-ndp48_e00516b29e6d463dafd7f1d22c8db704e51da178-cu.msu
