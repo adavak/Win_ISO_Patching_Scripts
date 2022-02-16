@@ -1,18 +1,18 @@
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2022/02/windows10.0-kb5010342-x64_f865479b6847db1aab8d436a37a964f31c853887.msu
-  out=windows10.0-kb5010342-x64_f865479b6847db1aab8d436a37a964f31c853887-cu.msu
-  checksum=sha-1=f865479b6847db1aab8d436a37a964f31c853887
+http://download.windowsupdate.com/c/msdownload/update/software/updt/2022/02/windows10.0-kb5010415-x64_766d3ac841ef044b339f1e4fdd292381d311659b.msu
+  out=windows10.0-kb5010415-x64_766d3ac841ef044b339f1e4fdd292381d311659b-cu.msu
+  checksum=sha-1=766d3ac841ef044b339f1e4fdd292381d311659b
 
-http://download.windowsupdate.com/d/msdownload/update/software/updt/2021/12/windows10.0-kb5009467-x64-ndp48_ab1964ebea987807639c024f82810bf9518ec752.msu
-  out=windows10.0-kb5009467-x64-ndp48_ab1964ebea987807639c024f82810bf9518ec752-cu.msu
-  checksum=sha-1=ab1964ebea987807639c024f82810bf9518ec752
+http://download.windowsupdate.com/d/msdownload/update/software/updt/2022/01/windows10.0-kb5010472-x64-ndp48_2ddef186366792bd766bc55a2ee63819e8770e07.msu
+  out=windows10.0-kb5010472-x64-ndp48_2ddef186366792bd766bc55a2ee63819e8770e07-cu.msu
+  checksum=sha-1=2ddef186366792bd766bc55a2ee63819e8770e07
 
 http://b1.download.windowsupdate.com/d/upgr/2021/11/windows10.0-kb5003791-x64_14e7547b08f1b29cae6e41c9f7da5f1347d9955c.msu
   out=windows10.0-kb5003791-x64_14e7547b08f1b29cae6e41c9f7da5f1347d9955c-ep.msu
   checksum=sha-1=14e7547b08f1b29cae6e41c9f7da5f1347d9955c
 
-http://download.windowsupdate.com/c/msdownload/update/software/crup/2022/01/windows10.0-kb5009647-x64_2670e7d4a06ca31caece82602577cdda7e09ef86.cab
-  out=windows10.0-kb5009647-x64_2670e7d4a06ca31caece82602577cdda7e09ef86-du.cab
-  checksum=sha-1=2670e7d4a06ca31caece82602577cdda7e09ef86
+http://download.windowsupdate.com/c/msdownload/update/software/crup/2022/02/windows10.0-kb5010524-x64_39a338080df5a19e491a1f19ac57117cb8944cba.cab
+  out=windows10.0-kb5010524-x64_39a338080df5a19e491a1f19ac57117cb8944cba-du.cab
+  checksum=sha-1=39a338080df5a19e491a1f19ac57117cb8944cba
 
 http://download.windowsupdate.com/c/msdownload/update/software/crup/2021/11/windows10.0-kb5007401-x64_f1bf61d834bb8d9951c7efa23454643daae195b0.cab
   out=windows10.0-kb5007401-x64_f1bf61d834bb8d9951c7efa23454643daae195b0.cab
