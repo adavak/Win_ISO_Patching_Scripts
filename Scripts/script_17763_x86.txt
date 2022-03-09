@@ -21,4 +21,3 @@ http://download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/wind
 http://download.windowsupdate.com/c/msdownload/update/software/crup/2019/08/windows10.0-kb4506578-x86_0812375148df48be3fda6a36cfa2899c57c1f9e0.cab
   out=windows10.0-kb4506578-x86_0812375148df48be3fda6a36cfa2899c57c1f9e0.cab
   checksum=sha-1=0812375148df48be3fda6a36cfa2899c57c1f9e0
-
