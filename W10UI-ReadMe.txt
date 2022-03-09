@@ -214,6 +214,9 @@ https://github.com/AveYo/Compressed2TXT
 ============================================================
 Changelog:
 ============================================================
+10.17:
+- Added support for the new updates file name "Windows11.0-KB*"
+
 10.16:
 - Added option "SkipBootFiles" for not updating ISO boot files bootmgr/bootmgr.efi/efisys.bin
 
