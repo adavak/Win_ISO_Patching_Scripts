@@ -1,6 +1,6 @@
-http://download.windowsupdate.com/c/msdownload/update/software/updt/2022/02/windows10.0-kb5010415-x86_fc5df9e1b810078b64d46827312b1b7e78ede18f.msu
-  out=windows10.0-kb5010415-x86_fc5df9e1b810078b64d46827312b1b7e78ede18f-cu.msu
-  checksum=sha-1=fc5df9e1b810078b64d46827312b1b7e78ede18f
+http://download.windowsupdate.com/d/msdownload/update/software/secu/2022/03/windows10.0-kb5011487-x86_20b67d209fb6bc488423c8d73e3c4f66bf17281f.msu
+  out=windows10.0-kb5011487-x86_20b67d209fb6bc488423c8d73e3c4f66bf17281f-cu.msu
+  checksum=sha-1=20b67d209fb6bc488423c8d73e3c4f66bf17281f
 
 http://download.windowsupdate.com/d/msdownload/update/software/updt/2022/01/windows10.0-kb5010472-x86-ndp48_d8fe813de5222f209ae8ba6b2dcd75106edc890c.msu
   out=windows10.0-kb5010472-x86-ndp48_d8fe813de5222f209ae8ba6b2dcd75106edc890c-cu.msu
@@ -18,7 +18,7 @@ http://download.windowsupdate.com/c/msdownload/update/software/crup/2021/11/wind
   out=windows10.0-kb5007401-x86_70e75294c8753f96b7d1b036c9caa9ab9ab5e1f2.cab
   checksum=sha-1=70e75294c8753f96b7d1b036c9caa9ab9ab5e1f2
 
-http://download.windowsupdate.com/c/msdownload/update/software/crup/2022/01/windows10.0-kb5009645-x86_953437a416f4c5d21ad77c44fed690a0599352b4.cab
-  out=windows10.0-kb5009645-x86_953437a416f4c5d21ad77c44fed690a0599352b4.cab
-  checksum=sha-1=953437a416f4c5d21ad77c44fed690a0599352b4
+http://download.windowsupdate.com/c/msdownload/update/software/crup/2022/03/windows10.0-kb5012419-x86_baa5ed7f9c1bee62752b5f5750058557b4862885.cab
+  out=windows10.0-kb5012419-x86_baa5ed7f9c1bee62752b5f5750058557b4862885.cab
+  checksum=sha-1=baa5ed7f9c1bee62752b5f5750058557b4862885
 
