@@ -1,8 +1,8 @@
-http://download.windowsupdate.com/c/msdownload/update/software/updt/2022/03/windows10.0-kb5011543-x86_1efdf4a5f31aab995eaddf51cab2a5ec48f66023.msu
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/03/windows10.0-kb5011543-x86_1efdf4a5f31aab995eaddf51cab2a5ec48f66023.msu
   out=windows10.0-kb5011543-x86_1efdf4a5f31aab995eaddf51cab2a5ec48f66023-cu.msu
   checksum=sha-1=1efdf4a5f31aab995eaddf51cab2a5ec48f66023
 
-http://download.windowsupdate.com/d/msdownload/update/software/updt/2022/01/windows10.0-kb5010472-x86-ndp48_d8fe813de5222f209ae8ba6b2dcd75106edc890c.msu
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/01/windows10.0-kb5010472-x86-ndp48_d8fe813de5222f209ae8ba6b2dcd75106edc890c.msu
   out=windows10.0-kb5010472-x86-ndp48_d8fe813de5222f209ae8ba6b2dcd75106edc890c-cu.msu
   checksum=sha-1=d8fe813de5222f209ae8ba6b2dcd75106edc890c
 
@@ -10,14 +10,14 @@ http://b1.download.windowsupdate.com/d/upgr/2021/11/windows10.0-kb5003791-x86_ac
   out=windows10.0-kb5003791-x86_ac1fc53b104c6ce0ffa50b70af754b81e56829ce-ep.msu
   checksum=sha-1=ac1fc53b104c6ce0ffa50b70af754b81e56829ce
 
-http://download.windowsupdate.com/c/msdownload/update/software/crup/2022/02/windows10.0-kb5010524-x86_85975e359639e679131d7ef6cb83e0496d750088.cab
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/02/windows10.0-kb5010524-x86_85975e359639e679131d7ef6cb83e0496d750088.cab
   out=windows10.0-kb5010524-x86_85975e359639e679131d7ef6cb83e0496d750088-du.cab
   checksum=sha-1=85975e359639e679131d7ef6cb83e0496d750088
 
-http://download.windowsupdate.com/c/msdownload/update/software/crup/2021/11/windows10.0-kb5007401-x86_70e75294c8753f96b7d1b036c9caa9ab9ab5e1f2.cab
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2021/11/windows10.0-kb5007401-x86_70e75294c8753f96b7d1b036c9caa9ab9ab5e1f2.cab
   out=windows10.0-kb5007401-x86_70e75294c8753f96b7d1b036c9caa9ab9ab5e1f2.cab
   checksum=sha-1=70e75294c8753f96b7d1b036c9caa9ab9ab5e1f2
 
-http://download.windowsupdate.com/d/msdownload/update/software/crup/2022/03/windows10.0-kb5011577-x86_e03a1ab57e5ecce7168dff5050ae3a63894b8291.cab
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/03/windows10.0-kb5011577-x86_e03a1ab57e5ecce7168dff5050ae3a63894b8291.cab
   out=windows10.0-kb5011577-x86_e03a1ab57e5ecce7168dff5050ae3a63894b8291.cab
   checksum=sha-1=e03a1ab57e5ecce7168dff5050ae3a63894b8291

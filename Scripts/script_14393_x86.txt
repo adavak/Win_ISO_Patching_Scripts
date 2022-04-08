@@ -1,23 +1,23 @@
-http://download.windowsupdate.com/c/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486129-x86_d38ebe43baeabaef927675c7ff2295843f19a077.msu
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486129-x86_d38ebe43baeabaef927675c7ff2295843f19a077.msu
   out=windows10.0-kb4486129-x86_d38ebe43baeabaef927675c7ff2295843f19a077-net48.msu
   checksum=sha-1=d38ebe43baeabaef927675c7ff2295843f19a077
 
-http://download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486131-x86_f9b1c5794a9a399a4f3ee2b1b72d9d304b3884ab.msu
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486131-x86_f9b1c5794a9a399a4f3ee2b1b72d9d304b3884ab.msu
   out=windows10.0-kb4486131-x86_f9b1c5794a9a399a4f3ee2b1b72d9d304b3884ab-net48_zhcn.msu
   checksum=sha-1=f9b1c5794a9a399a4f3ee2b1b72d9d304b3884ab
 
-http://download.windowsupdate.com/d/msdownload/update/software/crup/2020/01/windows10.0-kb4532820-x86_92399ad5370f56e5639dbac5c3916cb222b6335b.cab
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2020/01/windows10.0-kb4532820-x86_92399ad5370f56e5639dbac5c3916cb222b6335b.cab
   out=windows10.0-kb4532820-x86_92399ad5370f56e5639dbac5c3916cb222b6335b-du.cab
   checksum=sha-1=92399ad5370f56e5639dbac5c3916cb222b6335b
 
-http://download.windowsupdate.com/c/msdownload/update/software/updt/2022/01/windows10.0-kb5010460-x86-ndp48_d223b4cab8fcf6dba8ac2dac84e958cddf270256.msu
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/01/windows10.0-kb5010460-x86-ndp48_d223b4cab8fcf6dba8ac2dac84e958cddf270256.msu
   out=windows10.0-kb5010460-x86-ndp48_d223b4cab8fcf6dba8ac2dac84e958cddf270256-cu.msu
   checksum=sha-1=d223b4cab8fcf6dba8ac2dac84e958cddf270256
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2022/02/windows10.0-kb5011570-x86_ade59b32c325a319b24da544e7fbb741f50a792f.msu
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/02/windows10.0-kb5011570-x86_ade59b32c325a319b24da544e7fbb741f50a792f.msu
   out=windows10.0-kb5011570-x86_ade59b32c325a319b24da544e7fbb741f50a792f-ssu.msu
   checksum=sha-1=ade59b32c325a319b24da544e7fbb741f50a792f
 
-http://download.windowsupdate.com/d/msdownload/update/software/secu/2022/03/windows10.0-kb5011495-x86_f275c41b70004653d97499963fc1ae453f6ba577.msu
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/03/windows10.0-kb5011495-x86_f275c41b70004653d97499963fc1ae453f6ba577.msu
   out=windows10.0-kb5011495-x86_f275c41b70004653d97499963fc1ae453f6ba577-cu.msu
   checksum=sha-1=f275c41b70004653d97499963fc1ae453f6ba577
