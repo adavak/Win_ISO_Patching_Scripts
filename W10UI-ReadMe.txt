@@ -214,6 +214,10 @@ https://github.com/AveYo/Compressed2TXT
 ============================================================
 Changelog:
 ============================================================
+10.18:
+- Enhanced detection for wmic.exe
+- Changed option "SkipBootFiles" to "UpdtBootFiles" to avoid confusion
+
 10.17:
 - Added support for the new updates file name "Windows11.0-KB*"
 
