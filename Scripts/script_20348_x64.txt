@@ -1,14 +1,14 @@
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/04/windows10.0-kb5012604-x64_5f87da7f16722756067645bb9c1d0c208f7df0b7.msu
-  out=windows10.0-kb5012604-x64_5f87da7f16722756067645bb9c1d0c208f7df0b7-cu.msu
-  checksum=sha-1=5f87da7f16722756067645bb9c1d0c208f7df0b7
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/04/windows10.0-kb5012637-x64_6a7459b60e226b0ad0d30b34a4be069bee4d2867.msu
+  out=windows10.0-kb5012637-x64_6a7459b60e226b0ad0d30b34a4be069bee4d2867-cu.msu
+  checksum=sha-1=6a7459b60e226b0ad0d30b34a4be069bee4d2867
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/03/windows10.0-kb5012123-x64-ndp48_4282a8819bc4340af2768184ec2913170f66d5d6.msu
-  out=windows10.0-kb5012123-x64-ndp48_4282a8819bc4340af2768184ec2913170f66d5d6-cu.msu
-  checksum=sha-1=4282a8819bc4340af2768184ec2913170f66d5d6
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/03/windows10.0-kb5012160-x64-ndp48_c784a6778b57fc2f75e7c4d763e3becfd8a62932.msu
+  out=windows10.0-kb5012160-x64-ndp48_c784a6778b57fc2f75e7c4d763e3becfd8a62932-cu.msu
+  checksum=sha-1=c784a6778b57fc2f75e7c4d763e3becfd8a62932
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/03/windows10.0-kb5011653-x64_7f345563665f9d6f3552983f160c9b8597dfb718.cab
-  out=windows10.0-kb5011653-x64_7f345563665f9d6f3552983f160c9b8597dfb718-du.cab
-  checksum=sha-1=7f345563665f9d6f3552983f160c9b8597dfb718
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/04/windows10.0-kb5012799-x64_d23aa2c3e86721bce8db6b31b88d61348de6e535.cab
+  out=windows10.0-kb5012799-x64_d23aa2c3e86721bce8db6b31b88d61348de6e535-du.cab
+  checksum=sha-1=d23aa2c3e86721bce8db6b31b88d61348de6e535
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/03/windows10.0-kb5011578-x64_e8014badb8c3a29f2d238fb17044946a33424b27.cab
   out=windows10.0-kb5011578-x64_e8014badb8c3a29f2d238fb17044946a33424b27.cab
