@@ -1,10 +1,10 @@
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/04/windows10.0-kb5012643-x64_a29610770b67091e324340e3e9eb236b1974cbee.msu
-  out=windows10.0-kb5012643-x64_a29610770b67091e324340e3e9eb236b1974cbee-cu.msu
-  checksum=sha-1=a29610770b67091e324340e3e9eb236b1974cbee
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/05/windows10.0-kb5013943-x64_f865dda1e54da004a9b0ae10e5574951266a2863.msu
+  out=windows10.0-kb5013943-x64_f865dda1e54da004a9b0ae10e5574951266a2863-cu.msu
+  checksum=sha-1=f865dda1e54da004a9b0ae10e5574951266a2863
   
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/03/windows10.0-kb5012159-x64-ndp48_d5f0ff8b737f7ee7f04468b68664ccde8c41bd5a.msu
-  out=windows10.0-kb5012159-x64-ndp48_d5f0ff8b737f7ee7f04468b68664ccde8c41bd5a-cu.msu
-  checksum=sha-1=d5f0ff8b737f7ee7f04468b68664ccde8c41bd5a
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/04/windows10.0-kb5013628-x64-ndp48_83caaa60a02f4383db836bccb99787ee3e58e884.msu
+  out=windows10.0-kb5013628-x64-ndp48_83caaa60a02f4383db836bccb99787ee3e58e884-cu.msu
+  checksum=sha-1=83caaa60a02f4383db836bccb99787ee3e58e884
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/04/windows10.0-kb5012678-x64_b6e01cb1801810d1581e29dede0e48f635521e44.cab
   out=windows10.0-kb5012678-x64_b6e01cb1801810d1581e29dede0e48f635521e44-du.cab

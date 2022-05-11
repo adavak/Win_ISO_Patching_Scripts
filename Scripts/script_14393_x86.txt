@@ -10,14 +10,14 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2
   out=windows10.0-kb4532820-x86_92399ad5370f56e5639dbac5c3916cb222b6335b-du.cab
   checksum=sha-1=92399ad5370f56e5639dbac5c3916cb222b6335b
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/03/windows10.0-kb5012118-x86-ndp48_8259b862b561528c5cda6a8924faf38c726eb592.msu
-  out=windows10.0-kb5012118-x86-ndp48_8259b862b561528c5cda6a8924faf38c726eb592-cu.msu
-  checksum=sha-1=8259b862b561528c5cda6a8924faf38c726eb592
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/04/windows10.0-kb5013625-x86-ndp48_6158c30fba18479f9f78fb9b9fd0aec6bc77e7e4.msu
+  out=windows10.0-kb5013625-x86-ndp48_6158c30fba18479f9f78fb9b9fd0aec6bc77e7e4-cu.msu
+  checksum=sha-1=6158c30fba18479f9f78fb9b9fd0aec6bc77e7e4
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/02/windows10.0-kb5011570-x86_ade59b32c325a319b24da544e7fbb741f50a792f.msu
-  out=windows10.0-kb5011570-x86_ade59b32c325a319b24da544e7fbb741f50a792f-ssu.msu
-  checksum=sha-1=ade59b32c325a319b24da544e7fbb741f50a792f
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/05/windows10.0-kb5014026-x86_3932a25aaa5b39d8184be730f779db103bec3a72.msu
+  out=windows10.0-kb5014026-x86_3932a25aaa5b39d8184be730f779db103bec3a72-ssu.msu
+  checksum=sha-1=3932a25aaa5b39d8184be730f779db103bec3a72
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/04/windows10.0-kb5012596-x86_59e0c3e402a5088a407894da98c7e9b87a69f20a.msu
-  out=windows10.0-kb5012596-x86_59e0c3e402a5088a407894da98c7e9b87a69f20a-cu.msu
-  checksum=sha-1=59e0c3e402a5088a407894da98c7e9b87a69f20a
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/05/windows10.0-kb5013952-x86_b2adf7f0b5163f0efc86cd13bc9fbb59b5ede70f.msu
+  out=windows10.0-kb5013952-x86_b2adf7f0b5163f0efc86cd13bc9fbb59b5ede70f-cu.msu
+  checksum=sha-1=b2adf7f0b5163f0efc86cd13bc9fbb59b5ede70f
