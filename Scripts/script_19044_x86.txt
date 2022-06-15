@@ -1,6 +1,6 @@
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/05/windows10.0-kb5014023-x86_5ddd1d3b9a7923695b39ba25b4426f3d3feab0a9.msu
-  out=windows10.0-kb5014023-x86_5ddd1d3b9a7923695b39ba25b4426f3d3feab0a9-cu.msu
-  checksum=sha-1=5ddd1d3b9a7923695b39ba25b4426f3d3feab0a9
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/06/windows10.0-kb5014699-x86_916966df97853467bae23eeb27fe3d9a938e459e.msu
+  out=windows10.0-kb5014699-x86_916966df97853467bae23eeb27fe3d9a938e459e-cu.msu
+  checksum=sha-1=916966df97853467bae23eeb27fe3d9a938e459e
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/04/windows10.0-kb5013887-x86-ndp48_2481ad51ae585b293315da873f4a5b43e3d5ea22.msu
   out=windows10.0-kb5013887-x86-ndp48_2481ad51ae585b293315da873f4a5b43e3d5ea22-cu.msu
