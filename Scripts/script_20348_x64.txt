@@ -10,9 +10,9 @@ https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2
   out=windows10.0-kb5014038-x64_2d3b491b2a218d95b207a19ddfbf4908a094b17c-du.cab
   checksum=sha-1=2d3b491b2a218d95b207a19ddfbf4908a094b17c
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/05/windows10.0-kb5014037-x64_48fb44eab69426fa497b659130078bc95b804102.cab
-  out=windows10.0-kb5014037-x64_48fb44eab69426fa497b659130078bc95b804102.cab
-  checksum=sha-1=48fb44eab69426fa497b659130078bc95b804102
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/06/windows10.0-kb5015022-x64_5e447406db7dceb8e67a69907edf706fab7cb295.cab
+  out=windows10.0-kb5015022-x64_5e447406db7dceb8e67a69907edf706fab7cb295.cab
+  checksum=sha-1=5e447406db7dceb8e67a69907edf706fab7cb295
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2021/11/windows10.0-kb5007374-x64_2c8bd78e9522f9ca3dd145b2d740fc25979d84e5.cab
   out=windows10.0-kb5007374-x64_2c8bd78e9522f9ca3dd145b2d740fc25979d84e5.cab
