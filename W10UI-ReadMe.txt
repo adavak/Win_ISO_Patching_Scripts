@@ -218,6 +218,9 @@ https://github.com/AveYo/Compressed2TXT
 ============================================================
 Changelog:
 ============================================================
+10.20:
+- Restore original timestamp for Package_for_RollupFix .mum for 22621+ MSU integration
+
 10.19:
 - Added support for Windows 11 22622 Enablement Package
 - Fixed Combined UUP update naming scheme for Windows 11 22H2

@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.19
+@set uiv=v10.20
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -686,6 +686,7 @@ set msu_%dest%=1
 if not defined isodate findstr /i /m "Package_for_RollupFix" "%dest%\update.mum" %_Nul3% && (
 if not exist "%SystemRoot%\temp\" mkdir "%SystemRoot%\temp" %_Nul3%
 copy /y "%dest%\update.mum" %SystemRoot%\temp\ %_Nul1%
+if %_build% geq 22621 copy /y "%dest%\update.mum" "!_cabdir!\LCU.mum" %_Nul1%
 call :datemum isodate isotime
 )
 cd /d "!_work!"
@@ -727,6 +728,7 @@ set psf_%pkgn%=1
 if not defined isodate findstr /i /m "Package_for_RollupFix" "checker\update.mum" %_Nul3% && (
 if not exist "%SystemRoot%\temp\" mkdir "%SystemRoot%\temp" %_Nul3%
 copy /y "checker\update.mum" %SystemRoot%\temp\ %_Nul1%
+if %_build% geq 22621 copy /y "checker\update.mum" "!_cabdir!\LCU.mum" %_Nul1%
 call :datemum isodate isotime
 )
 expand.exe -f:toc.xml "!repo!\!package!" "checker" %_Null%
@@ -1117,6 +1119,18 @@ echo.&echo %%#
 )
 if !errorlevel! equ 1726 %_dism2%:"!_cabdir!" %dismtarget% /Get-Packages %_Nul1%
 if %_build% equ 14393 if %wimfiles% equ 1 call :MeltdownSpectre
+if not exist "!mumtarget!\Windows\Servicing\Packages\Package_for_RollupFix*.mum" goto :cumwd
+if %online%==1 goto :cumwd
+for /f %%# in ('dir /b /a:-d /od "!mumtarget!\Windows\Servicing\Packages\Package_for_RollupFix*.mum"') do set "lcumum=%%#"
+if defined lcumsu if %_build% geq 22621 if exist "!_cabdir!\LCU.mum" (
+%_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages\%lcumum%" /save "!_cabdir!\acl.txt"
+%_Nul3% takeown /f "!mumtarget!\Windows\Servicing\Packages\%lcumum%" /A
+%_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages\%lcumum%" /grant *S-1-5-32-544:F
+%_Nul3% copy /y "!_cabdir!\LCU.mum" "!mumtarget!\Windows\Servicing\Packages\%lcumum%"
+%_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages\%lcumum%" /setowner *S-1-5-80-956008885-3418522649-1831038044-1853292631-2271478464
+%_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages" /restore "!_cabdir!\acl.txt"
+%_Nul3% del /f /q "!_cabdir!\acl.txt"
+)
 :cumwd
 if %ltscfix%==1 if exist "!mumtarget!\Windows\Servicing\Packages\Microsoft-Windows-EnterpriseS*Edition~31bf3856ad364e35~%sss%~~10.0.19041*.mum" if %LTSC% equ 1 (
 echo Adding VCLibs...
@@ -1480,7 +1494,7 @@ if not exist "!mumtarget!\Windows\WinSxS\Manifests\%_SxsCom%.manifest" (
 %_Nul3% takeown /f "!mumtarget!\Windows\WinSxS\Manifests" /A
 %_Nul3% icacls "!mumtarget!\Windows\WinSxS\Manifests" /grant:r "*S-1-5-32-544:(OI)(CI)(F)"
 %_Nul3% copy /y "%dest%\%_SxsCom%.manifest" "!mumtarget!\Windows\WinSxS\Manifests\"
-%_Nul3% icacls "!mumtarget!\Windows\WinSxS\Manifests" /setowner "NT SERVICE\TrustedInstaller"
+%_Nul3% icacls "!mumtarget!\Windows\WinSxS\Manifests" /setowner *S-1-5-80-956008885-3418522649-1831038044-1853292631-2271478464
 %_Nul3% icacls "!mumtarget!\Windows\WinSxS" /restore "!_cabdir!\acl.txt"
 %_Nul3% del /f /q "!_cabdir!\acl.txt"
 )
@@ -1889,7 +1903,7 @@ if exist "!mountdir!\Windows\Servicing\Packages\WinPE-Setup-Package~*.mum" xcopy
 del /f /q "!target!\sources\background.bmp" %_Nul3%
 del /f /q "!target!\sources\xmllite.dll" %_Nul3%
 if %UpdtBootFiles% equ 1 (
-copy /y "!mountdir!\Windows\Boot\DVD\EFI\en-US\efisys_noprompt.bin" "!target!\efi\microsoft\boot\" %_Nul1%
+if exist "!mountdir!\Windows\Boot\DVD\EFI\en-US\efisys_noprompt.bin" copy /y "!mountdir!\Windows\Boot\DVD\EFI\en-US\efisys_noprompt.bin" "!target!\efi\microsoft\boot\" %_Nul1%
 if exist "!mountdir!\Windows\Boot\DVD\EFI\en-US\efisys.bin" copy /y "!mountdir!\Windows\Boot\DVD\EFI\en-US\efisys.bin" "!target!\efi\microsoft\boot\" %_Nul1%
 if /i not %arch%==arm64 (
 copy /y "!mountdir!\Windows\Boot\PCAT\bootmgr" "!target!\" %_Nul1%
