@@ -1,14 +1,14 @@
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/07/windows10.0-kb5015827-x64_77f06603437987aedfeab8fa40242592902f931f.msu
-  out=windows10.0-kb5015827-x64_77f06603437987aedfeab8fa40242592902f931f-cu.msu
-  checksum=sha-1=77f06603437987aedfeab8fa40242592902f931f
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/07/windows10.0-kb5015879-x64_d3d21b35480b32403c84cccc9ed0ede3c4009ccc.msu
+  out=windows10.0-kb5015879-x64_d3d21b35480b32403c84cccc9ed0ede3c4009ccc-cu.msu
+  checksum=sha-1=d3d21b35480b32403c84cccc9ed0ede3c4009ccc
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/04/windows10.0-kb5013890-x64-ndp48_db897c9c5f7aa545f2a7f214e42a03497d983757.msu
-  out=windows10.0-kb5013890-x64-ndp48_db897c9c5f7aa545f2a7f214e42a03497d983757-cu.msu
-  checksum=sha-1=db897c9c5f7aa545f2a7f214e42a03497d983757
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/06/windows10.0-kb5015733-x64-ndp48_8efae0094a144001533bc4cb8eb8e9a779e2534d.msu
+  out=windows10.0-kb5015733-x64-ndp48_8efae0094a144001533bc4cb8eb8e9a779e2534d-cu.msu
+  checksum=sha-1=8efae0094a144001533bc4cb8eb8e9a779e2534d
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/05/windows10.0-kb5014038-x64_2d3b491b2a218d95b207a19ddfbf4908a094b17c.cab
-  out=windows10.0-kb5014038-x64_2d3b491b2a218d95b207a19ddfbf4908a094b17c-du.cab
-  checksum=sha-1=2d3b491b2a218d95b207a19ddfbf4908a094b17c
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/07/windows10.0-kb5015900-x64_b64d6b8fd9ac7b456d6663414fa75eda24812e1d.cab
+  out=windows10.0-kb5015900-x64_b64d6b8fd9ac7b456d6663414fa75eda24812e1d-du.cab
+  checksum=sha-1=b64d6b8fd9ac7b456d6663414fa75eda24812e1d
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/06/windows10.0-kb5015022-x64_5e447406db7dceb8e67a69907edf706fab7cb295.cab
   out=windows10.0-kb5015022-x64_5e447406db7dceb8e67a69907edf706fab7cb295.cab
