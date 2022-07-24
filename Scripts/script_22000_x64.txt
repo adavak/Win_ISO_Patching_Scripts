@@ -1,14 +1,14 @@
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/07/windows10.0-kb5015814-x64_db4c15264fec1ac8a6794a442a00fe7881337cd3.msu
-  out=windows10.0-kb5015814-x64_db4c15264fec1ac8a6794a442a00fe7881337cd3-cu.msu
-  checksum=sha-1=db4c15264fec1ac8a6794a442a00fe7881337cd3
-  
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/04/windows10.0-kb5013889-x64-ndp48_852faa94119365c2d2a311a59536bb9b85a5f653.msu
-  out=windows10.0-kb5013889-x64-ndp48_852faa94119365c2d2a311a59536bb9b85a5f653-cu.msu
-  checksum=sha-1=852faa94119365c2d2a311a59536bb9b85a5f653
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/07/windows10.0-kb5015882-x64_921f1f9c99884bedbce20a75c8ef436b930de7fd.msu
+  out=windows10.0-kb5015882-x64_921f1f9c99884bedbce20a75c8ef436b930de7fd-cu.msu
+  checksum=sha-1=921f1f9c99884bedbce20a75c8ef436b930de7fd
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/06/windows10.0-kb5014675-x64_b967298d891f0676a9adf9968f22e4783b79d82f.cab
-  out=windows10.0-kb5014675-x64_b967298d891f0676a9adf9968f22e4783b79d82f-du.cab
-  checksum=sha-1=b967298d891f0676a9adf9968f22e4783b79d82f
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/06/windows10.0-kb5015732-x64-ndp48_55984053df9caac1b6b00b4dfd4cbcba3e61d9c2.msu
+  out=windows10.0-kb5015732-x64-ndp48_55984053df9caac1b6b00b4dfd4cbcba3e61d9c2-cu.msu
+  checksum=sha-1=55984053df9caac1b6b00b4dfd4cbcba3e61d9c2
+
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/07/windows10.0-kb5015901-x64_a09db5d0401d0223e84a77167b612a474acf1636.cab
+  out=windows10.0-kb5015901-x64_a09db5d0401d0223e84a77167b612a474acf1636-du.cab
+  checksum=sha-1=a09db5d0401d0223e84a77167b612a474acf1636
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/06/windows10.0-kb5015021-x64_a0ea5eb222f0bc629879d3c8533f2dfa30457864.cab
   out=windows10.0-kb5015021-x64_a0ea5eb222f0bc629879d3c8533f2dfa30457864.cab
