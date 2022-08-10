@@ -10,14 +10,18 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2
   out=windows10.0-kb4532820-x86_92399ad5370f56e5639dbac5c3916cb222b6335b-du.cab
   checksum=sha-1=92399ad5370f56e5639dbac5c3916cb222b6335b
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/05/windows10.0-kb5014630-x86-ndp48_c5d285919dcea21c88cd026d5b817f797c9d85fe.msu
-  out=windows10.0-kb5014630-x86-ndp48_c5d285919dcea21c88cd026d5b817f797c9d85fe-cu.msu
-  checksum=sha-1=c5d285919dcea21c88cd026d5b817f797c9d85fe
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/07/windows10.0-kb5016373-x86-ndp48_7a9fd2199de4d5cadbe3e560d63bf3c1ea6d945a.msu
+  out=windows10.0-kb5016373-x86-ndp48_7a9fd2199de4d5cadbe3e560d63bf3c1ea6d945a.msu
+  checksum=sha-1=7a9fd2199de4d5cadbe3e560d63bf3c1ea6d945a
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/07/windows10.0-kb5016058-x86_28e5d22c831f720fd2694b7bec2785f714ed68b3.msu
-  out=windows10.0-kb5016058-x86_28e5d22c831f720fd2694b7bec2785f714ed68b3-ssu.msu
-  checksum=sha-1=28e5d22c831f720fd2694b7bec2785f714ed68b3
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5017095-x86_67f30659558127f48914e3ab708b0be8fad70e1a.msu
+  out=windows10.0-kb5017095-x86_67f30659558127f48914e3ab708b0be8fad70e1a-ssu.msu
+  checksum=sha-1=67f30659558127f48914e3ab708b0be8fad70e1a
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/07/windows10.0-kb5015808-x86_6af9866887c4f1d096fa7ee6987d307b1c8981f6.msu
-  out=windows10.0-kb5015808-x86_6af9866887c4f1d096fa7ee6987d307b1c8981f6-cu.msu
-  checksum=sha-1=6af9866887c4f1d096fa7ee6987d307b1c8981f6
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5016622-x86_6c37257accbd13d4954e7371375c0a07cbe70955.msu
+  out=windows10.0-kb5016622-x86_6c37257accbd13d4954e7371375c0a07cbe70955-cu.msu
+  checksum=sha-1=6c37257accbd13d4954e7371375c0a07cbe70955
+
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5012170-x86_85c835ef88ff8a7ee7feee6b38a3fa9945d140cd.msu
+  out=windows10.0-kb5012170-x86_85c835ef88ff8a7ee7feee6b38a3fa9945d140cd.msu
+  checksum=sha-1=85c835ef88ff8a7ee7feee6b38a3fa9945d140cd

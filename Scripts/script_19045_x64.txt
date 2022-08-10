@@ -1,6 +1,6 @@
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/07/windows10.0-kb5015878-x64_3dc7b300371db8672f7fa3b32d4481dccec082b3.msu
-  out=windows10.0-kb5015878-x64_3dc7b300371db8672f7fa3b32d4481dccec082b3-cu.msu
-  checksum=sha-1=3dc7b300371db8672f7fa3b32d4481dccec082b3
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/08/windows10.0-kb5016616-x64_94a65010a34b5bae2324c9433d1cae0b9d906d8c.msu
+  out=windows10.0-kb5016616-x64_94a65010a34b5bae2324c9433d1cae0b9d906d8c-cu.msu
+  checksum=sha-1=94a65010a34b5bae2324c9433d1cae0b9d906d8c
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/06/windows10.0-kb5015730-x64-ndp48_a361afc3e42df2d8a4168a4dbd1d5a850e64b9b1.msu
   out=windows10.0-kb5015730-x64-ndp48_a361afc3e42df2d8a4168a4dbd1d5a850e64b9b1-cu.msu
@@ -21,3 +21,7 @@ https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/03/windows10.0-kb5011577-x64_f6239f5a4459e95dbd3346f178e2836a19f42586.cab
   out=windows10.0-kb5011577-x64_f6239f5a4459e95dbd3346f178e2836a19f42586.cab
   checksum=sha-1=f6239f5a4459e95dbd3346f178e2836a19f42586
+
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5012170-x64_47b8ba3bb35c66bbd0631f5425805ccf1dafaf67.msu
+  out=windows10.0-kb5012170-x64_47b8ba3bb35c66bbd0631f5425805ccf1dafaf67.msu
+  checksum=sha-1=47b8ba3bb35c66bbd0631f5425805ccf1dafaf67
