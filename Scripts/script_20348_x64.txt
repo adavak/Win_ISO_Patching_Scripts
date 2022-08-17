@@ -1,14 +1,14 @@
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/08/windows10.0-kb5016627-x64_46b7a22c4135299fd98ca9775211cf86e1ef7108.msu
-  out=windows10.0-kb5016627-x64_46b7a22c4135299fd98ca9775211cf86e1ef7108-cu.msu
-  checksum=sha-1=46b7a22c4135299fd98ca9775211cf86e1ef7108
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/08/windows10.0-kb5016693-x64_cdae6466553f8a5025611babab46598380a5b83e.msu
+  out=windows10.0-kb5016693-x64_cdae6466553f8a5025611babab46598380a5b83e-cu.msu
+  checksum=sha-1=cdae6466553f8a5025611babab46598380a5b83e
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/06/windows10.0-kb5015733-x64-ndp48_8efae0094a144001533bc4cb8eb8e9a779e2534d.msu
   out=windows10.0-kb5015733-x64-ndp48_8efae0094a144001533bc4cb8eb8e9a779e2534d-cu.msu
   checksum=sha-1=8efae0094a144001533bc4cb8eb8e9a779e2534d
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/07/windows10.0-kb5015900-x64_b64d6b8fd9ac7b456d6663414fa75eda24812e1d.cab
-  out=windows10.0-kb5015900-x64_b64d6b8fd9ac7b456d6663414fa75eda24812e1d-du.cab
-  checksum=sha-1=b64d6b8fd9ac7b456d6663414fa75eda24812e1d
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/08/windows10.0-kb5016774-x64_a16012ff426a34480bbfd7cfb538f8213dc10524.cab
+  out=windows10.0-kb5016774-x64_a16012ff426a34480bbfd7cfb538f8213dc10524-du.cab
+  checksum=sha-1=a16012ff426a34480bbfd7cfb538f8213dc10524
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/06/windows10.0-kb5015022-x64_5e447406db7dceb8e67a69907edf706fab7cb295.cab
   out=windows10.0-kb5015022-x64_5e447406db7dceb8e67a69907edf706fab7cb295.cab
