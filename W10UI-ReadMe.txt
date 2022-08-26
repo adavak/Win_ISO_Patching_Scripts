@@ -218,6 +218,9 @@ https://github.com/AveYo/Compressed2TXT
 ============================================================
 Changelog:
 ============================================================
+10.23:
+- Detect and use external PSFExtractor.exe (located next to the script)
+
 10.22:
 - Fix detection for .NET 4.8.1 pack KB5011048
 - Skip Enablement Package for not applicable editions
