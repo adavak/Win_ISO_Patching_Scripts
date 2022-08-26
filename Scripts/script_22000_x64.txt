@@ -1,14 +1,14 @@
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5016629-x64_5c835cd538774e6191bb98343231c095c7918a72.msu
-  out=windows10.0-kb5016629-x64_5c835cd538774e6191bb98343231c095c7918a72-cu.msu
-  checksum=sha-1=5c835cd538774e6191bb98343231c095c7918a72
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/08/windows10.0-kb5016691-x64_ea6b17542fb9f66fdbc0842f1e1c06a0f40cecec.msu
+  out=windows10.0-kb5016691-x64_ea6b17542fb9f66fdbc0842f1e1c06a0f40cecec-cu.msu
+  checksum=sha-1=ea6b17542fb9f66fdbc0842f1e1c06a0f40cecec
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/06/windows10.0-kb5015732-x64-ndp48_55984053df9caac1b6b00b4dfd4cbcba3e61d9c2.msu
-  out=windows10.0-kb5015732-x64-ndp48_55984053df9caac1b6b00b4dfd4cbcba3e61d9c2-cu.msu
-  checksum=sha-1=55984053df9caac1b6b00b4dfd4cbcba3e61d9c2
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/07/windows10.0-kb5016594-x64-ndp48_074ded2f315d8b9791711847a62a299d8d715276.msu
+  out=windows10.0-kb5016594-x64-ndp48_074ded2f315d8b9791711847a62a299d8d715276.msu
+  checksum=sha-1=074ded2f315d8b9791711847a62a299d8d715276
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/07/windows10.0-kb5015901-x64_a09db5d0401d0223e84a77167b612a474acf1636.cab
-  out=windows10.0-kb5015901-x64_a09db5d0401d0223e84a77167b612a474acf1636-du.cab
-  checksum=sha-1=a09db5d0401d0223e84a77167b612a474acf1636
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/08/windows10.0-kb5016773-x64_94fb06705cdd44bb56505a12b4367f75a85357d1.cab
+  out=windows10.0-kb5016773-x64_94fb06705cdd44bb56505a12b4367f75a85357d1-du.cab
+  checksum=sha-1=94fb06705cdd44bb56505a12b4367f75a85357d1
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/06/windows10.0-kb5015021-x64_a0ea5eb222f0bc629879d3c8533f2dfa30457864.cab
   out=windows10.0-kb5015021-x64_a0ea5eb222f0bc629879d3c8533f2dfa30457864.cab
