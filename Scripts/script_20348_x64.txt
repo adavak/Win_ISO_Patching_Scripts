@@ -1,10 +1,10 @@
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/08/windows10.0-kb5016693-x64_cdae6466553f8a5025611babab46598380a5b83e.msu
-  out=windows10.0-kb5016693-x64_cdae6466553f8a5025611babab46598380a5b83e-cu.msu
-  checksum=sha-1=cdae6466553f8a5025611babab46598380a5b83e
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/09/windows10.0-kb5017316-x64_f80e106e113fe039e5dd39e9b7b2c61922983598.msu
+  out=windows10.0-kb5017316-x64_f80e106e113fe039e5dd39e9b7b2c61922983598-cu.msu
+  checksum=sha-1=f80e106e113fe039e5dd39e9b7b2c61922983598
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/06/windows10.0-kb5015733-x64-ndp48_8efae0094a144001533bc4cb8eb8e9a779e2534d.msu
-  out=windows10.0-kb5015733-x64-ndp48_8efae0094a144001533bc4cb8eb8e9a779e2534d-cu.msu
-  checksum=sha-1=8efae0094a144001533bc4cb8eb8e9a779e2534d
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5017028-x64-ndp48_91c92a44aa0d0ed910f1b993cdff4ab856ce01a0.msu
+  out=windows10.0-kb5017028-x64-ndp48_91c92a44aa0d0ed910f1b993cdff4ab856ce01a0.msu
+  checksum=sha-1=91c92a44aa0d0ed910f1b993cdff4ab856ce01a0
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/08/windows10.0-kb5016774-x64_a16012ff426a34480bbfd7cfb538f8213dc10524.cab
   out=windows10.0-kb5016774-x64_a16012ff426a34480bbfd7cfb538f8213dc10524-du.cab
