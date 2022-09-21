@@ -56,14 +56,18 @@ del /f /q "%~dp0%ISODir%\sources\install.esd"
 
 if NOT EXIST "%~dp0%ISODir%\sources\install.wim" (goto :NOT_SUPPORT)
 
-dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 | find /i "Version : 10.0" 1>nul || (set "MESSAGE=发现 wim 版本不是 Windows 10 或 11 / Detected wim version is not Windows 10 or 11"&goto :EOF)
+dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 | find /i "Version : 10." 1>nul || (
+dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 | find /i "Version : 11." 1>nul || (set "MESSAGE=发现 wim 版本不是 Windows 10 或 11 / Detected wim version is not Windows 10 or 11"&goto :EOF)
+)
 for /f "tokens=4 delims=:. " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Version :"') do set build=%%#
 for /f "tokens=2 delims=: " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Architecture"') do set arch=%%#
 
-if %build%==19041 (set /a build=19045)
-if %build%==19042 (set /a build=19045)
-if %build%==19043 (set /a build=19045)
-if %build%==19044 (set /a build=19045)
+if %build%==19042 (set /a build=19041)
+if %build%==19043 (set /a build=19041)
+if %build%==19044 (set /a build=19041)
+if %build%==19045 (set /a build=19041)
+if %build%==22622 (set /a build=22621)
+if %build%==22623 (set /a build=22621)
 if %build%==14393 if %arch%==x86 (goto :NOT_SUPPORT)
 
 if NOT EXIST %aria2% goto :NO_ARIA2_ERROR

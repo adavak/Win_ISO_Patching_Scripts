@@ -1,18 +1,18 @@
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/09/windows10.0-kb5017308-x64_2027053968a06948b45d139d95475ab4feee5654.msu
-  out=windows10.0-kb5017308-x64_2027053968a06948b45d139d95475ab4feee5654-cu.msu
-  checksum=sha-1=2027053968a06948b45d139d95475ab4feee5654
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/09/windows10.0-kb5017380-x64_df4c797cb435503663acb5f5fd48341ea845d334.msu
+  out=windows10.0-kb5017380-x64_df4c797cb435503663acb5f5fd48341ea845d334-cu.msu
+  checksum=sha-1=df4c797cb435503663acb5f5fd48341ea845d334
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5017022-x64-ndp48_ad405b6a81668b45dc4421e154a87ac9023517b5.msu
-  out=windows10.0-kb5017022-x64-ndp48_ad405b6a81668b45dc4421e154a87ac9023517b5.msu
-  checksum=sha-1=ad405b6a81668b45dc4421e154a87ac9023517b5
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/08/windows10.0-kb5017262-x64-ndp48_e542f896b1eeb55650f12ec7002848c0698de45d.msu
+  out=windows10.0-kb5017262-x64-ndp48_e542f896b1eeb55650f12ec7002848c0698de45d.msu
+  checksum=sha-1=e542f896b1eeb55650f12ec7002848c0698de45d
 
 https://catalog.s.download.windowsupdate.com/d/upgr/2021/11/windows10.0-kb5003791-x64_14e7547b08f1b29cae6e41c9f7da5f1347d9955c.msu
   out=windows10.0-kb5003791-x64_14e7547b08f1b29cae6e41c9f7da5f1347d9955c-ep.msu
   checksum=sha-1=14e7547b08f1b29cae6e41c9f7da5f1347d9955c
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/08/windows10.0-kb5016775-x64_9ff096618281340e1ca1ef5ff09b0dbfa0cd242c.cab
-  out=windows10.0-kb5016775-x64_9ff096618281340e1ca1ef5ff09b0dbfa0cd242c-du.cab
-  checksum=sha-1=9ff096618281340e1ca1ef5ff09b0dbfa0cd242c
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/09/windows10.0-kb5017404-x64_e1b9856948149542f2f1318f9648bc9895110b03.cab
+  out=windows10.0-kb5017404-x64_e1b9856948149542f2f1318f9648bc9895110b03-du.cab
+  checksum=sha-1=e1b9856948149542f2f1318f9648bc9895110b03
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2021/11/windows10.0-kb5007401-x64_f1bf61d834bb8d9951c7efa23454643daae195b0.cab
   out=windows10.0-kb5007401-x64_f1bf61d834bb8d9951c7efa23454643daae195b0.cab

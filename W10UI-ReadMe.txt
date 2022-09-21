@@ -218,6 +218,9 @@ https://github.com/AveYo/Compressed2TXT
 ============================================================
 Changelog:
 ============================================================
+10.24:
+- Add support for future Windows 11 22H2 Moments Enablement Packages
+
 10.23:
 - Detect and use external PSFExtractor.exe (located next to the script)
 
@@ -227,7 +230,7 @@ Changelog:
 - Skip rebuilding sources\install.wim if wim2esd is enabled
 
 10.21:
-- Added support for Azure Stack HCI, 22H2 Enablement Package
+- Added support for Azure Stack HCI 22H2 Enablement Package
 
 10.20:
 - Restore original timestamp for Package_for_RollupFix .mum for 22621+ MSU integration

@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.23
+@set uiv=v10.24
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -792,6 +792,11 @@ if exist "checker\Microsoft-Windows-23H2Enablement-Package~*.mum" set "_fixEP=19
 if exist "checker\Microsoft-Windows-ASOSFe22H2Enablement-Package~*.mum" set "_fixEP=20349"
 if exist "checker\Microsoft-Windows-ASOSFe23H2Enablement-Package~*.mum" set "_fixEP=20350"
 if exist "checker\Microsoft-Windows-SV*Enablement-Package~*.mum" set "_fixEP=%_fixSV%"
+if exist "checker\Microsoft-Windows-SV*Enablement-Package~*.mum" for /f "tokens=3 delims=-" %%a in ('dir /b /a:-d /od "checker\Microsoft-Windows-SV*Enablement-Package~*.mum"') do (
+  for /f "tokens=3 delims=eEtT" %%i in ('echo %%a') do (
+    set /a _fixEP=%_build%+%%i
+    )
+  )
 )
 if %_build% geq 18362 if exist "checker\*enablement-package*.mum" (
 expand.exe -f:*_microsoft-windows-e..-firsttimeinstaller_*.manifest "!repo!\!package!" "checker" %_Null%
@@ -1895,6 +1900,11 @@ if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-23H2Enablement
 if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-ASOSFe22H2Enablement-Package~*.mum" set "_fixEP=20349"
 if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-ASOSFe23H2Enablement-Package~*.mum" set "_fixEP=20350"
 if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-SV*Enablement-Package~*.mum" set "_fixEP=%_fixSV%"
+if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-SV*Enablement-Package~*.mum" for /f "tokens=3 delims=-" %%a in ('dir /b /a:-d /od "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-SV*Enablement-Package~*.mum"') do (
+  for /f "tokens=3 delims=eEtT" %%i in ('echo %%a') do (
+    set /a _fixEP=%_build%+%%i
+  )
+)
 set "wnt=31bf3856ad364e35_10"
 if exist "!mountdir!\Windows\WinSxS\Manifests\%sss%_microsoft-updatetargeting-*os_31bf3856ad364e35_11.*.manifest" set "wnt=31bf3856ad364e35_11"
 if exist "!mountdir!\Windows\WinSxS\Manifests\%sss%_microsoft-updatetargeting-*os_%wnt%.%_fixEP%*.manifest" (
