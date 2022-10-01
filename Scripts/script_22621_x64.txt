@@ -1,14 +1,14 @@
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/09/windows11.0-kb5019311-x64_52009517a0a4140927a1c71758cb6a914b817b81.msu
-  out=windows11.0-kb5019311-x64_52009517a0a4140927a1c71758cb6a914b817b81-cu.msu
-  checksum=sha-1=52009517a0a4140927a1c71758cb6a914b817b81
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/09/windows11.0-kb5017389-x64_d00f888f840efb2f30164447b4e0eca6ff621e21.msu
+  out=windows11.0-kb5017389-x64_d00f888f840efb2f30164447b4e0eca6ff621e21-cu.msu
+  checksum=sha-1=d00f888f840efb2f30164447b4e0eca6ff621e21
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows11.0-kb5017026-x64-ndp481_8985f35ce217f2e821a96c34aa68ed6c0cc68373.msu
-  out=windows11.0-kb5017026-x64-ndp481_8985f35ce217f2e821a96c34aa68ed6c0cc68373.msu
-  checksum=sha-1=8985f35ce217f2e821a96c34aa68ed6c0cc68373
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/08/windows11.0-kb5017271-x64-ndp481_abe5d75c317895a38e5b03f59a32d26120f9e0c6.cab
+  out=windows11.0-kb5017271-x64-ndp481_abe5d75c317895a38e5b03f59a32d26120f9e0c6.cab
+  checksum=sha-1=abe5d75c317895a38e5b03f59a32d26120f9e0c6
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/09/windows11.0-kb5016877-x64_dc55d2a7335e2faf3f88fb978dc3bc92d4891892.cab
-  out=windows11.0-kb5016877-x64_dc55d2a7335e2faf3f88fb978dc3bc92d4891892-du.cab
-  checksum=sha-1=dc55d2a7335e2faf3f88fb978dc3bc92d4891892
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/09/windows11.0-kb5017590-x64_44f56356bdb0888fcdefbc9a28a33a168505fdcf.cab
+  out=windows11.0-kb5017590-x64_44f56356bdb0888fcdefbc9a28a33a168505fdcf-du.cab
+  checksum=sha-1=44f56356bdb0888fcdefbc9a28a33a168505fdcf
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/09/windows11.0-kb5017160-x64_d628259e74c96d7b1c72028511d5b48f58511a0e.cab
   out=windows11.0-kb5017160-x64_d628259e74c96d7b1c72028511d5b48f58511a0e.cab
