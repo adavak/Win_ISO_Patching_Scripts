@@ -1153,7 +1153,7 @@ if defined lcumsu if %_build% geq 22621 if exist "!_cabdir!\LCU.mum" (
 :cumwd
 if %ltscfix%==1 if exist "!mumtarget!\Windows\Servicing\Packages\Microsoft-Windows-EnterpriseS*Edition~31bf3856ad364e35~%sss%~~10.0.19041*.mum" if %LTSC% equ 1 (
 echo Adding VP9VideoExtensions...
-%_dism2%:"!_cabdir!" %dismtarget% /Add-ProvisionedAppxPackage /PackagePath:"%~dp0bin\Microsoft.VP9VideoExtensions_1.0.52451.0_%arch%__8wekyb3d8bbwe.Appx" /LicensePath:"%~dp0bin\Microsoft.VP9VideoExtensions_8wekyb3d8bbwe.%arch%.xml" %_Nul2%
+%_dism2%:"!_cabdir!" %dismtarget% /Add-ProvisionedAppxPackage /PackagePath:"%~dp0bin\Microsoft.VP9VideoExtensions_1.0.52781.0_%arch%__8wekyb3d8bbwe.Appx" /LicensePath:"%~dp0bin\Microsoft.VP9VideoExtensions_8wekyb3d8bbwe.%arch%.xml" %_Nul2%
 )
 if defined lcupkg call :ReLCU
 if defined callclean call :cleanup
