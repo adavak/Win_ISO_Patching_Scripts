@@ -1,4 +1,10 @@
-支持 Windows 版本：14393、17763、19044、20348、22000、22621。
+支持 Windows 版本：
+Windows 10 LTSB 2016 - 1607 - 14393
+windows 10 LTSC 2019 - 1809 - 17763
+Windows 10 22H2 - 19045
+Windows Server 2021 - 20348
+Windows 11 21H2 - 22000
+Windows 11 22H2 - 22621
 
 运行 Start.cmd 开始下载最新补丁并开始制作集成补丁的 ISO。下载补丁文件地址为微软官方。
 
