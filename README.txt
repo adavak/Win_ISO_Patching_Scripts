@@ -1,6 +1,10 @@
 支持 Windows 版本：
 Windows 10 LTSB 2016 - 1607 - 14393
 windows 10 LTSC 2019 - 1809 - 17763
+Windows 10 2004 - 19041
+Windows 10 20H2 - 19042
+Windows 10 21H1 - 19043
+Windows 10 21H2 - 19044
 Windows 10 22H2 - 19045
 Windows Server 2021 - 20348
 Windows 11 21H2 - 22000
