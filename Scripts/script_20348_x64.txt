@@ -1,14 +1,14 @@
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/10/windows10.0-kb5020436-x64_de3e9f6f06e089c74bd0d7c39ceca600b894ce31.msu
-  out=windows10.0-kb5020436-x64_de3e9f6f06e089c74bd0d7c39ceca600b894ce31-cu.msu
-  checksum=sha-1=de3e9f6f06e089c74bd0d7c39ceca600b894ce31
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/10/windows10.0-kb5018485-x64_13183a9eaf45a33f681d43fa80c1b283f213991c.msu
+  out=windows10.0-kb5018485-x64_13183a9eaf45a33f681d43fa80c1b283f213991c-cu.msu
+  checksum=sha-1=13183a9eaf45a33f681d43fa80c1b283f213991c
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/08/windows10.0-kb5017265-x64-ndp48_46b2f80bc536319cbca686e16604c7ac82ac39a5.msu
-  out=windows10.0-kb5017265-x64-ndp48_46b2f80bc536319cbca686e16604c7ac82ac39a5.msu
-  checksum=sha-1=46b2f80bc536319cbca686e16604c7ac82ac39a5
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/09/windows10.0-kb5018331-x64-ndp48_42a45526dbff55d98e33a1abf1c8a815c5383960.msu
+  out=windows10.0-kb5018331-x64-ndp48_42a45526dbff55d98e33a1abf1c8a815c5383960.msu
+  checksum=sha-1=42a45526dbff55d98e33a1abf1c8a815c5383960
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/10/windows10.0-kb5019418-x64_25a86e100acf2d44b33e33c37f11670ba88b9b08.cab
-  out=windows10.0-kb5019418-x64_25a86e100acf2d44b33e33c37f11670ba88b9b08-du.cab
-  checksum=sha-1=25a86e100acf2d44b33e33c37f11670ba88b9b08
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/10/windows10.0-kb5019421-x64_8672d93adfe39efd6f87e6f8a8a3d133caf42e11.cab
+  out=windows10.0-kb5019421-x64_8672d93adfe39efd6f87e6f8a8a3d133caf42e11-du.cab
+  checksum=sha-1=8672d93adfe39efd6f87e6f8a8a3d133caf42e11
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/06/windows10.0-kb5015022-x64_5e447406db7dceb8e67a69907edf706fab7cb295.cab
   out=windows10.0-kb5015022-x64_5e447406db7dceb8e67a69907edf706fab7cb295.cab
