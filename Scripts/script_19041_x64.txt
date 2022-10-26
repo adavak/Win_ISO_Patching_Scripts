@@ -2,9 +2,9 @@ https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2
   out=windows10.0-kb5018482-x64_38cac1afd61ebc5d4d09f09f2225711aab67d05d-cu.msu
   checksum=sha-1=38cac1afd61ebc5d4d09f09f2225711aab67d05d
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/08/windows10.0-kb5017262-x64-ndp48_e542f896b1eeb55650f12ec7002848c0698de45d.msu
-  out=windows10.0-kb5017262-x64-ndp48_e542f896b1eeb55650f12ec7002848c0698de45d.msu
-  checksum=sha-1=e542f896b1eeb55650f12ec7002848c0698de45d
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/09/windows10.0-kb5018329-x64-ndp48_0222246a5cb955697996ec41175c8f18041a17c4.msu
+  out=windows10.0-kb5018329-x64-ndp48_0222246a5cb955697996ec41175c8f18041a17c4.msu
+  checksum=sha-1=0222246a5cb955697996ec41175c8f18041a17c4
 
 https://catalog.s.download.windowsupdate.com/c/upgr/2022/07/windows10.0-kb5015684-x64_523c039b86ca98f2d818c4e6706e2cc94b634c4a.msu
   out=windows10.0-kb5015684-x64_523c039b86ca98f2d818c4e6706e2cc94b634c4a-ep.msu
