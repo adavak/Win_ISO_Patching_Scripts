@@ -2,6 +2,10 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2
   out=windows10.0-kb5018485-x64_13183a9eaf45a33f681d43fa80c1b283f213991c-cu.msu
   checksum=sha-1=13183a9eaf45a33f681d43fa80c1b283f213991c
 
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/09/windows10.0-kb5018335-x64-ndp481_dfcd6342e4008c7a656acbbf38e4cc0d636afda6.msu
+  out=windows10.0-kb5018335-x64-ndp481_dfcd6342e4008c7a656acbbf38e4cc0d636afda6.msu
+  checksum=sha-1=dfcd6342e4008c7a656acbbf38e4cc0d636afda6
+
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/09/windows10.0-kb5018331-x64-ndp48_42a45526dbff55d98e33a1abf1c8a815c5383960.msu
   out=windows10.0-kb5018331-x64-ndp48_42a45526dbff55d98e33a1abf1c8a815c5383960.msu
   checksum=sha-1=42a45526dbff55d98e33a1abf1c8a815c5383960
@@ -21,3 +25,7 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5012170-x64_a9d0e4a03991230936232ace729f8f9de3bbfa7f.msu
   out=windows10.0-kb5012170-x64_a9d0e4a03991230936232ace729f8f9de3bbfa7f.msu
   checksum=sha-1=a9d0e4a03991230936232ace729f8f9de3bbfa7f
+
+http://download.visualstudio.microsoft.com/download/pr/6f083c7e-bd40-44d4-9e3f-ffba71ec8b09/f65353179c60c37bb56cb9093a80bd7e/Windows10.0-KB5011048-x64.cab
+  out=windows10.0-KB5011048-x64_7a47ede2aa9ad3bf6eff1af9f4304d9180d9fe5b.cab
+  checksum=sha-1=7a47ede2aa9ad3bf6eff1af9f4304d9180d9fe5b

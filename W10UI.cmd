@@ -76,6 +76,9 @@ set Delete_Source=0
 :: LTSC 2021 Libs Fix
 set ltscfix="
 
+:: .net framework 4.8.1
+set netfx481="
+
 :: ###################################################################
 :: # NORMALLY THERE IS NO NEED TO CHANGE ANYTHING BELOW THIS COMMENT #
 :: ###################################################################
@@ -224,6 +227,7 @@ isodir
 delete_source
 autostart
 ltscfix
+netfx481
 ) do (
 call :ReadINI %%#
 )
@@ -287,6 +291,14 @@ if defined cmd_source if exist "!cmd_source!\sxs\*netfx3*.cab" set "Net35Source=
 if defined cmd_source if exist "!cmd_source!\setup.exe" set _offdu=1
 set AutoStart=1
 set _embd=1
+)
+if netfx481==1 if exist "!repo!\*ndp48_*.msu" if exist "!repo!\*ndp481_*.msu" (
+  del /f /q "!repo!\*ndp48_*.msu" %_Nul1%
+  copy /y "%~dp0bin\windows10.0-kb5011050-x64_02bbcfe63655f135aeb4ead88bcd7d770446b674_net481_zhcn.cab" "!repo!\" %_Nul1%
+)
+if netfx481==0 if exist "!repo!\*ndp481_*.msu" if exist "!repo!\*ndp48_*.msu" (
+  del /f /q "!repo!\*ndp481_*.msu" %_Nul1%
+  del /f /q "!repo!\*KB5011048*.cab"
 )
 if %_embd% equ 0 if exist "!_cabdir!\" (
 echo.
