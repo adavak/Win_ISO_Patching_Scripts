@@ -292,13 +292,16 @@ if defined cmd_source if exist "!cmd_source!\setup.exe" set _offdu=1
 set AutoStart=1
 set _embd=1
 )
-if netfx481==1 if exist "!repo!\*ndp48_*.msu" if exist "!repo!\*ndp481_*.msu" (
-  del /f /q "!repo!\*ndp48_*.msu" %_Nul1%
+if %netfx481%==1 if exist "!repo!\*ndp48_*.*" if exist "!repo!\*ndp481_*.*" (
+  del /f /q "!repo!\*ndp48_*.*" %_Nul1%
+  del /f /q "!repo!\*ndp48.*" %_Nul1%
   copy /y "%~dp0bin\windows10.0-kb5011050-x64_02bbcfe63655f135aeb4ead88bcd7d770446b674_net481_zhcn.cab" "!repo!\" %_Nul1%
 )
-if netfx481==0 if exist "!repo!\*ndp481_*.msu" if exist "!repo!\*ndp48_*.msu" (
-  del /f /q "!repo!\*ndp481_*.msu" %_Nul1%
-  del /f /q "!repo!\*KB5011048*.cab"
+if %netfx481%==0 if exist "!repo!\*ndp481_*.*" if exist "!repo!\*ndp48_*.*" (
+  del /f /q "!repo!\*ndp481_*.*" %_Nul1%
+  del /f /q "!repo!\*ndp481.*" %_Nul1%
+  del /f /q "!repo!\*net481*.*" %_Nul1%
+  del /f /q "!repo!\*5011048*.*" %_Nul1%
 )
 if %_embd% equ 0 if exist "!_cabdir!\" (
 echo.
