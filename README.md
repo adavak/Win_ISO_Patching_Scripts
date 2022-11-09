@@ -4,16 +4,9 @@
 
 |名称|内部版本|
 |---|---|
-|**Windows 10 Enterprise LTSB 2016**|**Build 14393**|
-|**Windows Server 2016**|**Build 14393**|
-|**Windows 10 Enterprise LTSC 2019**|**Build 17763**|
-|**Windows Server 2019**|**Build 17763**|
-|**Windows 10 2004**|**Build 19041**|
-|**Windows 10 20H2**|**Build 19042**|
-|**Windows 10 21H1**|**Build 19043**|
-|**Windows 10 21H2**|**Build 19044**|
-|**Windows 10 Enterprise LTSC 2021**|**Build 19044**|
-|**Windows 10 22H2**|**Build 19045**|
+|**Windows 10 Enterprise LTSB 2016、Windows Server 2016**|**Build 14393**|
+|**Windows 10 Enterprise LTSC 2019、Windows Server 2019**|**Build 17763**|
+|**Windows 10 2004、20H2、21H1、21H2、22H2、Windows 10 Enterprise LTSC 2021**|**Build 1904x**|
 |**Windows Server 2022**|**Build 20348**|
 |**Windows 11 21H2**|**Build 22000**|
 |**Windows 11 22H2**|**Build 22621**|
