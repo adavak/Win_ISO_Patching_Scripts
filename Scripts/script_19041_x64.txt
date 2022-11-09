@@ -26,6 +26,6 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2
   out=windows10.0-kb5012170-x64_47b8ba3bb35c66bbd0631f5425805ccf1dafaf67.msu
   checksum=sha-1=47b8ba3bb35c66bbd0631f5425805ccf1dafaf67
 
-http://download.visualstudio.microsoft.com/download/pr/6f083c7e-bd40-44d4-9e3f-ffba71ec8b09/f65353179c60c37bb56cb9093a80bd7e/Windows10.0-KB5011048-x64.cab
-  out=windows10.0-KB5011048-x64_7a47ede2aa9ad3bf6eff1af9f4304d9180d9fe5b.cab
+https://download.visualstudio.microsoft.com/download/pr/6f083c7e-bd40-44d4-9e3f-ffba71ec8b09/f65353179c60c37bb56cb9093a80bd7e/Windows10.0-KB5011048-x64.cab
+  out=windows10.0-kb5011048-x64_7a47ede2aa9ad3bf6eff1af9f4304d9180d9fe5b.cab
   checksum=sha-1=7a47ede2aa9ad3bf6eff1af9f4304d9180d9fe5b

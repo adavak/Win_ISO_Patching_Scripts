@@ -25,3 +25,7 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5012170-x86_c2557ae14f54f3523ffc156c2f16ce4547254560.msu
   out=windows10.0-kb5012170-x86_c2557ae14f54f3523ffc156c2f16ce4547254560.msu
   checksum=sha-1=c2557ae14f54f3523ffc156c2f16ce4547254560
+
+https://download.visualstudio.microsoft.com/download/pr/6f083c7e-bd40-44d4-9e3f-ffba71ec8b09/32177d65cc3a5322c3e150dbb2bd47f5/Windows10.0-KB5011048-x86.cab
+  out=windows10.0-kb5011048-x86_a2fe51ea970f38d33159afec6dbfbe4b0c536eb5.cab
+  checksum=sha-1=a2fe51ea970f38d33159afec6dbfbe4b0c536eb5
