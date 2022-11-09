@@ -1,14 +1,14 @@
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/10/windows10.0-kb5018485-x64_13183a9eaf45a33f681d43fa80c1b283f213991c.msu
-  out=windows10.0-kb5018485-x64_13183a9eaf45a33f681d43fa80c1b283f213991c-cu.msu
-  checksum=sha-1=13183a9eaf45a33f681d43fa80c1b283f213991c
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/11/windows10.0-kb5019081-x64_b86ce8b493635483eb736473032971c0aa985606.msu
+  out=windows10.0-kb5019081-x64_b86ce8b493635483eb736473032971c0aa985606-cu.msu
+  checksum=sha-1=b86ce8b493635483eb736473032971c0aa985606
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/09/windows10.0-kb5018335-x64-ndp481_dfcd6342e4008c7a656acbbf38e4cc0d636afda6.msu
-  out=windows10.0-kb5018335-x64-ndp481_dfcd6342e4008c7a656acbbf38e4cc0d636afda6.msu
-  checksum=sha-1=dfcd6342e4008c7a656acbbf38e4cc0d636afda6
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/10/windows10.0-kb5020632-x64-ndp481_29e0a50c706d3c634022725a9489aa5b8de8e7a4.msu
+  out=windows10.0-kb5020632-x64-ndp481_29e0a50c706d3c634022725a9489aa5b8de8e7a4.msu
+  checksum=sha-1=29e0a50c706d3c634022725a9489aa5b8de8e7a4
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/09/windows10.0-kb5018331-x64-ndp48_42a45526dbff55d98e33a1abf1c8a815c5383960.msu
-  out=windows10.0-kb5018331-x64-ndp48_42a45526dbff55d98e33a1abf1c8a815c5383960.msu
-  checksum=sha-1=42a45526dbff55d98e33a1abf1c8a815c5383960
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/10/windows10.0-kb5020619-x64-ndp48_882c05a7e4d8180cc07d4fc43d4e6c917a726d9f.msu
+  out=windows10.0-kb5020619-x64-ndp48_882c05a7e4d8180cc07d4fc43d4e6c917a726d9f.msu
+  checksum=sha-1=882c05a7e4d8180cc07d4fc43d4e6c917a726d9f
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/10/windows10.0-kb5019421-x64_8672d93adfe39efd6f87e6f8a8a3d133caf42e11.cab
   out=windows10.0-kb5019421-x64_8672d93adfe39efd6f87e6f8a8a3d133caf42e11-du.cab
