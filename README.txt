@@ -3,7 +3,7 @@
 Windows 10 Enterprise LTSB 2016 - Build 14393
 Windows Server 2016             - Build 14393
 Windows 10 Enterprise LTSC 2019 - Build 17763
-Windows 10 Server 2019          - Build 17763
+Windows Server 2019             - Build 17763
 Windows 10 2004                 - Build 19041
 Windows 10 20H2                 - Build 19042
 Windows 10 21H1                 - Build 19043
