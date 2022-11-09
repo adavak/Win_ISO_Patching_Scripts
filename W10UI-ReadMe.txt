@@ -68,6 +68,7 @@ How to:
 ============================================================
 
 - Recommended Host OS: Windows 8.1 or later
+- Updating offline images of Windows 11 builds 22567 and later, require at least Windows 10 v1607 Host OS
 - Optional: place W10UI.cmd next to the updates (.msu/.cab) to detect them by default
 - Run the script as administrator
 - Change the options to suit your needs, make sure all are set correctly, do not use quotes marks "" in paths
@@ -218,6 +219,13 @@ https://github.com/AveYo/Compressed2TXT
 ============================================================
 Changelog:
 ============================================================
+10.25:
+- Changed integration routine for WinPE images:  
+winre.wim will get SSU + SafeOS only  
+winre.wim will get LCU only if LCUwinre=1 (regardless of SafeOS)  
+boot.wim will not get SafeOS DU (regardless of LCU)  
+boot.wim will get Enablement KB
+
 10.24:
 - Add support for future Windows 11 22H2 Moments Enablement Packages
 
