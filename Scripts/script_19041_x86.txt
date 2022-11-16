@@ -1,6 +1,6 @@
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/11/windows10.0-kb5019959-x86_bf067dc7c43eb41485615592d17106d6151b7515.msu
-  out=windows10.0-kb5019959-x86_bf067dc7c43eb41485615592d17106d6151b7515-cu.msu
-  checksum=sha-1=bf067dc7c43eb41485615592d17106d6151b7515
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/11/windows10.0-kb5020030-x86_fe8521b2fcdc474f9911d6adfebc22dc4d989b65.msu
+  out=windows10.0-kb5020030-x86_fe8521b2fcdc474f9911d6adfebc22dc4d989b65-cu.msu
+  checksum=sha-1=fe8521b2fcdc474f9911d6adfebc22dc4d989b65
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/10/windows10.0-kb5020623-x86-ndp481_6ff48e5814252bd7b679b4e23202d96378f22a86.msu
   out=windows10.0-kb5020623-x86-ndp481_6ff48e5814252bd7b679b4e23202d96378f22a86.msu
@@ -14,9 +14,9 @@ https://catalog.s.download.windowsupdate.com/c/upgr/2022/07/windows10.0-kb501568
   out=windows10.0-kb5015684-x86_556015f4260dd75ca30b3e84484ea5b3ec97fa08-ep.msu
   checksum=sha-1=556015f4260dd75ca30b3e84484ea5b3ec97fa08
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/10/windows10.0-kb5019422-x86_bda88d52690cb1c403e03064d56b2d6742002b81.cab
-  out=windows10.0-kb5019422-x86_bda88d52690cb1c403e03064d56b2d6742002b81-du.cab
-  checksum=sha-1=bda88d52690cb1c403e03064d56b2d6742002b81
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/11/windows10.0-kb5020377-x86_5d4570559a21cba76c4bdf81afe6d6735c382688.cab
+  out=windows10.0-kb5020377-x86_5d4570559a21cba76c4bdf81afe6d6735c382688-du.cab
+  checksum=sha-1=5d4570559a21cba76c4bdf81afe6d6735c382688
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/11/windows10.0-kb5021043-x86_484ed491379e442debef6fdfb6860be749145017.cab
   out=windows10.0-kb5021043-x86_484ed491379e442debef6fdfb6860be749145017.cab
