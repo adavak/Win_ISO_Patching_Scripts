@@ -2,7 +2,7 @@
 
 ###### 支持的 Windows 版本：
 
-|名称|内部版本（最后更新：2022年11月9日）|
+|名称|内部版本（最后更新：2022年11月16日）|
 |---|---|
 |**Windows 10 Enterprise LTSB 2016、Windows Server 2016**|**Build 14393.5501**|
 |**Windows 10 Enterprise LTSC 2019、Windows Server 2019**|**Build 17763.3650**|
