@@ -27,5 +27,5 @@
 |**wimlib**|[wimlib.net](https://wimlib.net)|
 |**aria2**|[aria2](https://github.com/aria2/aria2)|
 |**oscdimg**|[Microsoft](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oscdimg-command-line-options)|
-|**PSFExtractor**|[betaworld.cn](https://www.betaworld.cn)|
-|**W10UI**|[abbodi1406](https://github.com/abbodi1406)|
+|**PSFExtractor**|[PSFExtractor](https://github.com/Secant1006/PSFExtractor)|
+|**W10UI**|[BatUtil](https://github.com/abbodi1406/BatUtil)|
