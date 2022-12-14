@@ -1,14 +1,14 @@
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/11/windows10.0-kb5019157-x64_c468b5e3e841c58ce6cd6e98460918a845e7cba2.msu
-  out=windows10.0-kb5019157-x64_c468b5e3e841c58ce6cd6e98460918a845e7cba2-cu.msu
-  checksum=sha-1=c468b5e3e841c58ce6cd6e98460918a845e7cba2
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/12/windows10.0-kb5021234-x64_f6d3f9b2dd1eafa3d1be5d7470717f230199c0a8.msu
+  out=windows10.0-kb5021234-x64_f6d3f9b2dd1eafa3d1be5d7470717f230199c0a8-cu.msu
+  checksum=sha-1=f6d3f9b2dd1eafa3d1be5d7470717f230199c0a8
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/10/windows11.0-kb5020624-x64-ndp481_ca788f3b7647088de107ffe73fc6f8dfefa172e5.msu
-  out=windows11.0-kb5020624-x64-ndp481_ca788f3b7647088de107ffe73fc6f8dfefa172e5.msu
-  checksum=sha-1=ca788f3b7647088de107ffe73fc6f8dfefa172e5
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/12/windows11.0-kb5020882-x64-ndp481_c1b9ed0bbd7bec142c66c5b27f82533b04ee807a.msu
+  out=windows11.0-kb5020882-x64-ndp481_c1b9ed0bbd7bec142c66c5b27f82533b04ee807a.msu
+  checksum=sha-1=c1b9ed0bbd7bec142c66c5b27f82533b04ee807a
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/10/windows10.0-kb5020617-x64-ndp48_eb3ad36bd7901f388d08b2d271265765d6fbdb4a.msu
-  out=windows10.0-kb5020617-x64-ndp48_eb3ad36bd7901f388d08b2d271265765d6fbdb4a.msu
-  checksum=sha-1=eb3ad36bd7901f388d08b2d271265765d6fbdb4a
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/10/windows10.0-kb5020875-x64-ndp48_f31c2e52893fe44ac2f2f02a2e4ec9cdf1c3b62d.msu
+  out=windows10.0-kb5020875-x64-ndp48_f31c2e52893fe44ac2f2f02a2e4ec9cdf1c3b62d.msu
+  checksum=sha-1=f31c2e52893fe44ac2f2f02a2e4ec9cdf1c3b62d
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/11/windows10.0-kb5020379-x64_98a445b4b370217a29c7aa5cb708037d144aafb9.cab
   out=windows10.0-kb5020379-x64_98a445b4b370217a29c7aa5cb708037d144aafb9-du.cab

@@ -1,14 +1,14 @@
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/11/windows10.0-kb5020032-x64_37136b8418c034179b918c16a69f3257972883c7.msu
-  out=windows10.0-kb5020032-x64_37136b8418c034179b918c16a69f3257972883c7-cu.msu
-  checksum=sha-1=37136b8418c034179b918c16a69f3257972883c7
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/12/windows10.0-kb5021249-x64_b9e3f9ac73fd2a45f932ed787b8323e162102799.msu
+  out=windows10.0-kb5021249-x64_b9e3f9ac73fd2a45f932ed787b8323e162102799-cu.msu
+  checksum=sha-1=b9e3f9ac73fd2a45f932ed787b8323e162102799
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/10/windows10.0-kb5020632-x64-ndp481_29e0a50c706d3c634022725a9489aa5b8de8e7a4.msu
-  out=windows10.0-kb5020632-x64-ndp481_29e0a50c706d3c634022725a9489aa5b8de8e7a4.msu
-  checksum=sha-1=29e0a50c706d3c634022725a9489aa5b8de8e7a4
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/12/windows10.0-kb5020883-x64-ndp481_e73af78018fcd37145c3ff4fd6b94dc0d46070fc.msu
+  out=windows10.0-kb5020883-x64-ndp481_e73af78018fcd37145c3ff4fd6b94dc0d46070fc.msu
+  checksum=sha-1=e73af78018fcd37145c3ff4fd6b94dc0d46070fc
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/10/windows10.0-kb5020619-x64-ndp48_882c05a7e4d8180cc07d4fc43d4e6c917a726d9f.msu
-  out=windows10.0-kb5020619-x64-ndp48_882c05a7e4d8180cc07d4fc43d4e6c917a726d9f.msu
-  checksum=sha-1=882c05a7e4d8180cc07d4fc43d4e6c917a726d9f
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/10/windows10.0-kb5020877-x64-ndp48_f16f6550da2375d2d9c2ffb0ca61e399d303766d.msu
+  out=windows10.0-kb5020877-x64-ndp48_f16f6550da2375d2d9c2ffb0ca61e399d303766d.msu
+  checksum=sha-1=f16f6550da2375d2d9c2ffb0ca61e399d303766d
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/07/windows10.0-kb5014831-x64_9654b12524a58465882b582250b020bffcf8b81a.msu
   out=windows10.0-kb5014831-x64_9654b12524a58465882b582250b020bffcf8b81a.msu
