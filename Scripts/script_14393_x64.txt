@@ -18,9 +18,9 @@ https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2
   out=windows10.0-kb5017396-x64_8db1a993e6115cf3b92d0159f562861ab16ee88d-ssu.msu
   checksum=sha-1=8db1a993e6115cf3b92d0159f562861ab16ee88d
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/12/windows10.0-kb5021235-x64_5d51c0893c43763fff710d3c6bc46feb6446d9f1.msu
-  out=windows10.0-kb5021235-x64_5d51c0893c43763fff710d3c6bc46feb6446d9f1-cu.msu
-  checksum=sha-1=5d51c0893c43763fff710d3c6bc46feb6446d9f1
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/01/windows10.0-kb5022289-x64_79d8b59c2bea46d286f2960920c075f416446445.msu
+  out=windows10.0-kb5022289-x64_79d8b59c2bea46d286f2960920c075f416446445-cu.msu
+  checksum=sha-1=79d8b59c2bea46d286f2960920c075f416446445
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5012170-x64_86ba489f2c26bf1e6073e6584eb2b08f577b5dd7.msu
   out=windows10.0-kb5012170-x64_86ba489f2c26bf1e6073e6584eb2b08f577b5dd7.msu
