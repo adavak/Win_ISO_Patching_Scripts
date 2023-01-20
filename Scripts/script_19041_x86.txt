@@ -1,14 +1,14 @@
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/01/windows10.0-kb5022282-x86_5fb142aca9e3f8c7ed37df9e7806b7f7f56d9599.msu
-  out=windows10.0-kb5022282-x86_5fb142aca9e3f8c7ed37df9e7806b7f7f56d9599.msu
-  checksum=sha-1=5fb142aca9e3f8c7ed37df9e7806b7f7f56d9599
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/01/windows10.0-kb5019275-x86_7ccf175992c97e4bc453ad95b30a972b3210d47c.msu
+  out=windows10.0-kb5019275-x86_7ccf175992c97e4bc453ad95b30a972b3210d47c.msu
+  checksum=sha-1=7ccf175992c97e4bc453ad95b30a972b3210d47c
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/12/windows10.0-kb5020881-x86-ndp481_d91fc4441e18a0bcb4dc825be441ebe1b2d3bb43.msu
-  out=windows10.0-kb5020881-x86-ndp481_d91fc4441e18a0bcb4dc825be441ebe1b2d3bb43.msu
-  checksum=sha-1=d91fc4441e18a0bcb4dc825be441ebe1b2d3bb43
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/12/windows10.0-kb5022408-x86-ndp481_bb806c79a59f008cda6599a102ba9b4a3c62e9c0.msu
+  out=windows10.0-kb5022408-x86-ndp481_bb806c79a59f008cda6599a102ba9b4a3c62e9c0.msu
+  checksum=sha-1=bb806c79a59f008cda6599a102ba9b4a3c62e9c0
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/11/windows10.0-kb5020872-x86-ndp48_2d12d9d77384c93b0fb1e481d7e4a9bf7cb3202c.msu
-  out=windows10.0-kb5020872-x86-ndp48_2d12d9d77384c93b0fb1e481d7e4a9bf7cb3202c.msu
-  checksum=sha-1=2d12d9d77384c93b0fb1e481d7e4a9bf7cb3202c
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/12/windows10.0-kb5022405-x86-ndp48_d9f4607dc1c3187a345b53955691b2abe222cc90.msu
+  out=windows10.0-kb5022405-x86-ndp48_d9f4607dc1c3187a345b53955691b2abe222cc90.msu
+  checksum=sha-1=d9f4607dc1c3187a345b53955691b2abe222cc90
 
 https://catalog.s.download.windowsupdate.com/c/upgr/2022/07/windows10.0-kb5015684-x86_556015f4260dd75ca30b3e84484ea5b3ec97fa08.msu
   out=windows10.0-kb5015684-x86_556015f4260dd75ca30b3e84484ea5b3ec97fa08-ep.msu
