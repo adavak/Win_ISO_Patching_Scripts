@@ -1,18 +1,18 @@
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/01/windows10.0-kb5022287-x64_55641f1989bae2c2d0f540504fb07400a0f187b3.msu
-  out=windows10.0-kb5022287-x64_55641f1989bae2c2d0f540504fb07400a0f187b3.msu
-  checksum=sha-1=55641f1989bae2c2d0f540504fb07400a0f187b3
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/02/windows10.0-kb5022836-x64_36c10f3d655c2a6a2d9dbc7f54b030b91660f970.msu
+  out=windows10.0-kb5022836-x64_36c10f3d655c2a6a2d9dbc7f54b030b91660f970.msu
+  checksum=sha-1=36c10f3d655c2a6a2d9dbc7f54b030b91660f970
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/12/windows11.0-kb5020882-x64-ndp481_c1b9ed0bbd7bec142c66c5b27f82533b04ee807a.msu
-  out=windows11.0-kb5020882-x64-ndp481_c1b9ed0bbd7bec142c66c5b27f82533b04ee807a.msu
-  checksum=sha-1=c1b9ed0bbd7bec142c66c5b27f82533b04ee807a
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/01/windows11.0-kb5022499-x64-ndp481_9f7f77f2d36cc8c67c79370fc502aec132c20119.msu
+  out=windows11.0-kb5022499-x64-ndp481_9f7f77f2d36cc8c67c79370fc502aec132c20119.msu
+  checksum=sha-1=9f7f77f2d36cc8c67c79370fc502aec132c20119
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/10/windows10.0-kb5020875-x64-ndp48_f31c2e52893fe44ac2f2f02a2e4ec9cdf1c3b62d.msu
-  out=windows10.0-kb5020875-x64-ndp48_f31c2e52893fe44ac2f2f02a2e4ec9cdf1c3b62d.msu
-  checksum=sha-1=f31c2e52893fe44ac2f2f02a2e4ec9cdf1c3b62d
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/12/windows10.0-kb5022505-x64-ndp48_b5c889e094b59b542b7392a58ec6d5e6ca932c44.msu
+  out=windows10.0-kb5022505-x64-ndp48_b5c889e094b59b542b7392a58ec6d5e6ca932c44.msu
+  checksum=sha-1=b5c889e094b59b542b7392a58ec6d5e6ca932c44
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/11/windows10.0-kb5020379-x64_98a445b4b370217a29c7aa5cb708037d144aafb9.cab
-  out=windows10.0-kb5020379-x64_98a445b4b370217a29c7aa5cb708037d144aafb9-du.cab
-  checksum=sha-1=98a445b4b370217a29c7aa5cb708037d144aafb9
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2023/01/windows10.0-kb5022370-x64_216ed6897b0f0194f9d48d2142b9f806b69e07f8.cab
+  out=windows10.0-kb5022370-x64_216ed6897b0f0194f9d48d2142b9f806b69e07f8.cab
+  checksum=sha-1=216ed6897b0f0194f9d48d2142b9f806b69e07f8
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/11/windows10.0-kb5021040-x64_2216fe185502d04d7a420a115a53613db35c0af9.cab
   out=windows10.0-kb5021040-x64_2216fe185502d04d7a420a115a53613db35c0af9.cab

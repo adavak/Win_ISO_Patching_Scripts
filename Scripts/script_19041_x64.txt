@@ -1,14 +1,14 @@
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/01/windows10.0-kb5019275-x64_00d644d15b7d944e71fd1dba75ed5a06c1107757.msu
-  out=windows10.0-kb5019275-x64_00d644d15b7d944e71fd1dba75ed5a06c1107757.msu
-  checksum=sha-1=00d644d15b7d944e71fd1dba75ed5a06c1107757
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/02/windows10.0-kb5022834-x64_c58d091338b26bbd3ee10a733681bd3eca8c48ab.msu
+  out=windows10.0-kb5022834-x64_c58d091338b26bbd3ee10a733681bd3eca8c48ab.msu
+  checksum=sha-1=c58d091338b26bbd3ee10a733681bd3eca8c48ab
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/12/windows10.0-kb5022408-x64-ndp481_98f97fc0ff0f7726ded1e55d7640767e3c098b1c.msu
-  out=windows10.0-kb5022408-x64-ndp481_98f97fc0ff0f7726ded1e55d7640767e3c098b1c.msu
-  checksum=sha-1=98f97fc0ff0f7726ded1e55d7640767e3c098b1c
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/12/windows10.0-kb5022498-x64-ndp481_e463ac2254174a29bd0636a781a0cdfd21fc6dc2.msu
+  out=windows10.0-kb5022498-x64-ndp481_e463ac2254174a29bd0636a781a0cdfd21fc6dc2.msu
+  checksum=sha-1=e463ac2254174a29bd0636a781a0cdfd21fc6dc2
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/12/windows10.0-kb5022405-x64-ndp48_d0791062a61457e344650c3f75065a5fb95b3d94.msu
-  out=windows10.0-kb5022405-x64-ndp48_d0791062a61457e344650c3f75065a5fb95b3d94.msu
-  checksum=sha-1=d0791062a61457e344650c3f75065a5fb95b3d94
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/12/windows10.0-kb5022502-x64-ndp48_1c8db95b6897031eb6bbd7ab33e9a217bcf07012.msu
+  out=windows10.0-kb5022502-x64-ndp48_1c8db95b6897031eb6bbd7ab33e9a217bcf07012.msu
+  checksum=sha-1=1c8db95b6897031eb6bbd7ab33e9a217bcf07012
 
 https://catalog.s.download.windowsupdate.com/c/upgr/2022/07/windows10.0-kb5015684-x64_523c039b86ca98f2d818c4e6706e2cc94b634c4a.msu
   out=windows10.0-kb5015684-x64_523c039b86ca98f2d818c4e6706e2cc94b634c4a-ep.msu
