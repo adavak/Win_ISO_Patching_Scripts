@@ -1,6 +1,6 @@
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/02/windows10.0-kb5022834-x86_ff373174d021f85ddb920a2b1386af449d1c9864.msu
-  out=windows10.0-kb5022834-x86_ff373174d021f85ddb920a2b1386af449d1c9864.msu
-  checksum=sha-1=ff373174d021f85ddb920a2b1386af449d1c9864
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/02/windows10.0-kb5022906-x86_d691a93717dc09e34368ff6ebf4cb266af647231.msu
+  out=windows10.0-kb5022906-x86_d691a93717dc09e34368ff6ebf4cb266af647231.msu
+  checksum=sha-1=d691a93717dc09e34368ff6ebf4cb266af647231
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/12/windows10.0-kb5022498-x86-ndp481_d8e24ad9445e1d3c1a085b77579e0375adf284fa.msu
   out=windows10.0-kb5022498-x86-ndp481_d8e24ad9445e1d3c1a085b77579e0375adf284fa.msu
