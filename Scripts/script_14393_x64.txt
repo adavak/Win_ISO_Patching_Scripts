@@ -1,3 +1,11 @@
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/03/windows10.0-kb5023788-x64_33ea5888c89d2888b845cf02e8d3950d13d1d1f9.msu
+  out=windows10.0-kb5023788-x64_33ea5888c89d2888b845cf02e8d3950d13d1d1f9.msu
+  checksum=sha-1=33ea5888c89d2888b845cf02e8d3950d13d1d1f9
+
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/03/windows10.0-kb5023697-x64_0cde92f5aaba06c1a1bfd64615010c90180dcb86.msu
+  out=windows10.0-kb5023697-x64_0cde92f5aaba06c1a1bfd64615010c90180dcb86.msu
+  checksum=sha-1=0cde92f5aaba06c1a1bfd64615010c90180dcb86
+
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486129-x64_0b61d9a03db731562e0a0b49383342a4d8cbe36a.msu
   out=windows10.0-kb4486129-x64_0b61d9a03db731562e0a0b49383342a4d8cbe36a-net48.msu
   checksum=sha-1=0b61d9a03db731562e0a0b49383342a4d8cbe36a
@@ -13,14 +21,6 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/12/windows10.0-kb5022503-x64-ndp48_d375ad9f6acfae313e74610b43f63ae9f4473c7a.msu
   out=windows10.0-kb5022503-x64-ndp48_d375ad9f6acfae313e74610b43f63ae9f4473c7a.msu
   checksum=sha-1=d375ad9f6acfae313e74610b43f63ae9f4473c7a
-
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/09/windows10.0-kb5017396-x64_8db1a993e6115cf3b92d0159f562861ab16ee88d.msu
-  out=windows10.0-kb5017396-x64_8db1a993e6115cf3b92d0159f562861ab16ee88d-ssu.msu
-  checksum=sha-1=8db1a993e6115cf3b92d0159f562861ab16ee88d
-
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/02/windows10.0-kb5022838-x64_459501093357a727a15bd3a1101df5e7213b721c.msu
-  out=windows10.0-kb5022838-x64_459501093357a727a15bd3a1101df5e7213b721c.msu
-  checksum=sha-1=459501093357a727a15bd3a1101df5e7213b721c
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5012170-x64_86ba489f2c26bf1e6073e6584eb2b08f577b5dd7.msu
   out=windows10.0-kb5012170-x64_86ba489f2c26bf1e6073e6584eb2b08f577b5dd7.msu

@@ -1,3 +1,11 @@
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/03/windows10.0-kb5023788-x86_b818152c25a6615ba1db7c58a921705b1d4383c2.msu
+  out=windows10.0-kb5023788-x86_b818152c25a6615ba1db7c58a921705b1d4383c2.msu
+  checksum=sha-1=b818152c25a6615ba1db7c58a921705b1d4383c2
+
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/03/windows10.0-kb5023697-x86_16d244900507fdd477a2a12dacc89dfd5128c7d6.msu
+  out=windows10.0-kb5023697-x86_16d244900507fdd477a2a12dacc89dfd5128c7d6.msu
+  checksum=sha-1=16d244900507fdd477a2a12dacc89dfd5128c7d6
+
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486129-x86_d38ebe43baeabaef927675c7ff2295843f19a077.msu
   out=windows10.0-kb4486129-x86_d38ebe43baeabaef927675c7ff2295843f19a077-net48.msu
   checksum=sha-1=d38ebe43baeabaef927675c7ff2295843f19a077
@@ -13,14 +21,6 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/12/windows10.0-kb5022503-x86-ndp48_73a9acb5c104c58951044d7fb53982c794ea70bf.msu
   out=windows10.0-kb5022503-x86-ndp48_73a9acb5c104c58951044d7fb53982c794ea70bf.msu
   checksum=sha-1=73a9acb5c104c58951044d7fb53982c794ea70bf
-
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2022/09/windows10.0-kb5017396-x86_1f28b02e464e15350a2de79825fe4128ae76de09.msu
-  out=windows10.0-kb5017396-x86_1f28b02e464e15350a2de79825fe4128ae76de09-ssu.msu
-  checksum=sha-1=1f28b02e464e15350a2de79825fe4128ae76de09
-
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/02/windows10.0-kb5022838-x86_6e8241b62e7eb51c4cdcb272963def1a08ac9a5a.msu
-  out=windows10.0-kb5022838-x86_6e8241b62e7eb51c4cdcb272963def1a08ac9a5a.msu
-  checksum=sha-1=6e8241b62e7eb51c4cdcb272963def1a08ac9a5a
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5012170-x86_85c835ef88ff8a7ee7feee6b38a3fa9945d140cd.msu
   out=windows10.0-kb5012170-x86_85c835ef88ff8a7ee7feee6b38a3fa9945d140cd.msu
