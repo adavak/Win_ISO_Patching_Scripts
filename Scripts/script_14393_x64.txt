@@ -2,9 +2,9 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2
   out=windows10.0-kb5023788-x64_33ea5888c89d2888b845cf02e8d3950d13d1d1f9.msu
   checksum=sha-1=33ea5888c89d2888b845cf02e8d3950d13d1d1f9
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/03/windows10.0-kb5023697-x64_0cde92f5aaba06c1a1bfd64615010c90180dcb86.msu
-  out=windows10.0-kb5023697-x64_0cde92f5aaba06c1a1bfd64615010c90180dcb86.msu
-  checksum=sha-1=0cde92f5aaba06c1a1bfd64615010c90180dcb86
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/04/windows10.0-kb5025228-x64_cd9da61ebd73a46181ba5839bdd59f1fe8e55890.msu
+  out=windows10.0-kb5025228-x64_cd9da61ebd73a46181ba5839bdd59f1fe8e55890.msu
+  checksum=sha-1=cd9da61ebd73a46181ba5839bdd59f1fe8e55890
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486129-x64_0b61d9a03db731562e0a0b49383342a4d8cbe36a.msu
   out=windows10.0-kb4486129-x64_0b61d9a03db731562e0a0b49383342a4d8cbe36a-net48.msu

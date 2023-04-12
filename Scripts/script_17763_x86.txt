@@ -1,13 +1,13 @@
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/03/windows10.0-kb5023702-x86_f217f0bcb037cac1d240bfd932e57daafdc04e95.msu
-  out=windows10.0-kb5023702-x86_f217f0bcb037cac1d240bfd932e57daafdc04e95.msu
-  checksum=sha-1=f217f0bcb037cac1d240bfd932e57daafdc04e95
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/04/windows10.0-kb5025229-x86_00753b2d80cf3356dbcc47707823d9d08331ea3a.msu
+  out=windows10.0-kb5025229-x86_00753b2d80cf3356dbcc47707823d9d08331ea3a.msu
+  checksum=sha-1=00753b2d80cf3356dbcc47707823d9d08331ea3a
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/01/windows10.0-kb5022504-x86-ndp48_0fe68818f0cbccd35d603b2236cfac7c9537b55c.msu
   out=windows10.0-kb5022504-x86-ndp48_0fe68818f0cbccd35d603b2236cfac7c9537b55c.msu
   checksum=sha-1=0fe68818f0cbccd35d603b2236cfac7c9537b55c
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2021/08/windows10.0-kb5005545-x86_e38c17580fa129abcc460d127b54c4a52928e632.cab
-  out=windows10.0-kb5005545-x86_e38c17580fa129abcc460d127b54c4a52928e632-du.cab
+  out=windows10.0-kb5005545-x86_e38c17580fa129abcc460d127b54c4a52928e632.cab
   checksum=sha-1=e38c17580fa129abcc460d127b54c4a52928e632
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486153-x86_de1c8a0152b298f88ff42dc9114eabfa61d5e957.msu
