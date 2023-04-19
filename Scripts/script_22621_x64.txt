@@ -2,9 +2,9 @@ https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2
   out=windows11.0-kb5025239-x64_e9f2f715cfce56adc6b875512f0088aa4b3b10eb.msu
   checksum=sha-1=e9f2f715cfce56adc6b875512f0088aa4b3b10eb
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/01/windows11.0-kb5022497-x64-ndp481_92ce32e8d1d29d5b572e929f4ff90e85a012b4d6.msu
-  out=windows11.0-kb5022497-x64-ndp481_92ce32e8d1d29d5b572e929f4ff90e85a012b4d6.msu
-  checksum=sha-1=92ce32e8d1d29d5b572e929f4ff90e85a012b4d6
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/03/windows11.0-kb5025182-x64-ndp481_c8c85ae394629203b59c64aece2c0a4affc6da15.msu
+  out=windows11.0-kb5025182-x64-ndp481_c8c85ae394629203b59c64aece2c0a4affc6da15.msu
+  checksum=sha-1=c8c85ae394629203b59c64aece2c0a4affc6da15
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/02/windows11.0-kb5023360-x64_c468c54177d262cb0c1927283d807b8f9afe3046.cab
   out=windows11.0-kb5023360-x64_c468c54177d262cb0c1927283d807b8f9afe3046.cab
