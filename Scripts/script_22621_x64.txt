@@ -1,6 +1,6 @@
-https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/ea1b1096-640a-407c-99e5-f5de68ec7b05/public/windows11.0-kb5025305-x64_fe30588ba820ad206f75ccd21977d2f8e92319ef.msu
-  out=windows11.0-kb5025305-x64_fe30588ba820ad206f75ccd21977d2f8e92319ef.msu
-  checksum=sha-1=fe30588ba820ad206f75ccd21977d2f8e92319ef
+https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/20a05b31-ee84-41b9-94b2-bc02f95cf9ee/public/windows11.0-kb5026372-x64_d2e542ce70571b093d815adb9013ed467a3e0a85.msu
+  out=windows11.0-kb5026372-x64_d2e542ce70571b093d815adb9013ed467a3e0a85.msu
+  checksum=sha-1=d2e542ce70571b093d815adb9013ed467a3e0a85
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/03/windows11.0-kb5025182-x64-ndp481_c8c85ae394629203b59c64aece2c0a4affc6da15.msu
   out=windows11.0-kb5025182-x64-ndp481_c8c85ae394629203b59c64aece2c0a4affc6da15.msu
