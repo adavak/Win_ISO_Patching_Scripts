@@ -222,6 +222,9 @@ https://github.com/ave9858
 ============================================================
 Changelog:
 ============================================================
+10.27:
+- Updated detection for separate Secure Boot updates
+
 10.26:
 - Added support for new msu wim files (LCU for builds 25336+)
 - Replaced embedded PSFExtractor.exe with Powershell code (external PSFExtractor.exe still supported)
