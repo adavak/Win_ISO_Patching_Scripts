@@ -2,9 +2,9 @@ https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/20a05
   out=windows11.0-kb5026372-x64_d2e542ce70571b093d815adb9013ed467a3e0a85.msu
   checksum=sha-1=d2e542ce70571b093d815adb9013ed467a3e0a85
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/03/windows11.0-kb5025182-x64-ndp481_c8c85ae394629203b59c64aece2c0a4affc6da15.msu
-  out=windows11.0-kb5025182-x64-ndp481_c8c85ae394629203b59c64aece2c0a4affc6da15.msu
-  checksum=sha-1=c8c85ae394629203b59c64aece2c0a4affc6da15
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/04/windows11.0-kb5026515-x64-ndp481_c2934b913ed125ac80bac24c09882213e9b0014b.msu
+  out=windows11.0-kb5026515-x64-ndp481_c2934b913ed125ac80bac24c09882213e9b0014b.msu
+  checksum=sha-1=c2934b913ed125ac80bac24c09882213e9b0014b
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/02/windows11.0-kb5023360-x64_c468c54177d262cb0c1927283d807b8f9afe3046.cab
   out=windows11.0-kb5023360-x64_c468c54177d262cb0c1927283d807b8f9afe3046.cab
