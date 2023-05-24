@@ -1,14 +1,14 @@
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/05/windows10.0-kb5026368-x64_a5523f98635d9c2b93f2f2144e5bacab7ff7d838.msu
-  out=windows10.0-kb5026368-x64_a5523f98635d9c2b93f2f2144e5bacab7ff7d838.msu
-  checksum=sha-1=a5523f98635d9c2b93f2f2144e5bacab7ff7d838
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/05/windows10.0-kb5026436-x64_957718f5cb053e3e728f989108454f1284e7999b.msu
+  out=windows10.0-kb5026436-x64_957718f5cb053e3e728f989108454f1284e7999b.msu
+  checksum=sha-1=957718f5cb053e3e728f989108454f1284e7999b
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/03/windows11.0-kb5025186-x64-ndp481_8799343e15d7307ea2e98914ad4ad0d8b40dd8d7.msu
-  out=windows11.0-kb5025186-x64-ndp481_8799343e15d7307ea2e98914ad4ad0d8b40dd8d7.msu
-  checksum=sha-1=8799343e15d7307ea2e98914ad4ad0d8b40dd8d7
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/05/windows11.0-kb5026517-x64-ndp481_3dfc9d3a2ee40fa9e1da1c6100c918c5763e6661.msu
+  out=windows11.0-kb5026517-x64-ndp481_3dfc9d3a2ee40fa9e1da1c6100c918c5763e6661.msu
+  checksum=sha-1=3dfc9d3a2ee40fa9e1da1c6100c918c5763e6661
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/03/windows10.0-kb5025184-x64-ndp48_0f9199637552ce4454ae3b14bccc60fc16dd4dd4.msu
-  out=windows10.0-kb5025184-x64-ndp48_0f9199637552ce4454ae3b14bccc60fc16dd4dd4.msu
-  checksum=sha-1=0f9199637552ce4454ae3b14bccc60fc16dd4dd4
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/05/windows10.0-kb5026514-x64-ndp48_73af9739a32230344be8f5f6292a805dd8315604.msu
+  out=windows10.0-kb5026514-x64-ndp48_73af9739a32230344be8f5f6292a805dd8315604.msu
+  checksum=sha-1=73af9739a32230344be8f5f6292a805dd8315604
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/03/windows10.0-kb5023848-x64_79ae6f4c98dc4a93600fe456c289af471ab69fc5.cab
   out=windows10.0-kb5023848-x64_79ae6f4c98dc4a93600fe456c289af471ab69fc5.cab

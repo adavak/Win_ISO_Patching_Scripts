@@ -8,7 +8,7 @@
 |**Windows 10 Enterprise LTSC 2019、Windows Server 2019**|**Build 17763.4377**|
 |**Windows 10 2004、20H2、21H1、21H2、22H2、Windows 10 Enterprise LTSC 2021**|**Build 1904x.3031**|
 |**Windows Server 2022**|**Build 20348.1726**|
-|**Windows 11 21H2**|**Build 22000.1936**|
+|**Windows 11 21H2**|**Build 22000.2003**|
 |**Windows 11 22H2**|**Build 22621.1702**|
 
 ###### 一些设置（位于文件夹根目录 W10UI.ini）：
