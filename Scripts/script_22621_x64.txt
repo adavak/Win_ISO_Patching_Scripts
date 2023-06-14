@@ -1,18 +1,18 @@
-https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/2804e87b-301b-4087-b2dd-a124c53338ba/public/windows11.0-kb5026446-x64_e264756c2d8b4a37b6319c7bc36bb72001b38084.msu
-  out=windows11.0-kb5026446-x64_e264756c2d8b4a37b6319c7bc36bb72001b38084.msu
-  checksum=sha-1=e264756c2d8b4a37b6319c7bc36bb72001b38084
+https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/2e1c679e-c4e6-438e-a0f1-d513a58b701a/public/windows11.0-kb5027231-x64_7f2bb7e2c8a46c0ae59c080caf4b2f39b533ffe3.msu
+  out=windows11.0-kb5027231-x64_7f2bb7e2c8a46c0ae59c080caf4b2f39b533ffe3.msu
+  checksum=sha-1=7f2bb7e2c8a46c0ae59c080caf4b2f39b533ffe3
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/05/windows11.0-kb5026515-x64-ndp481_4d84d22adb0953d71578b862202994ba9455bd7d.msu
-  out=windows11.0-kb5026515-x64-ndp481_4d84d22adb0953d71578b862202994ba9455bd7d.msu
-  checksum=sha-1=4d84d22adb0953d71578b862202994ba9455bd7d
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/05/windows11.0-kb5027119-x64-ndp481_604c0d1f3bd95ee4e06048ca115ffefac024d77a.msu
+  out=windows11.0-kb5027119-x64-ndp481_604c0d1f3bd95ee4e06048ca115ffefac024d77a.msu
+  checksum=sha-1=604c0d1f3bd95ee4e06048ca115ffefac024d77a
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/02/windows11.0-kb5023360-x64_c468c54177d262cb0c1927283d807b8f9afe3046.cab
   out=windows11.0-kb5023360-x64_c468c54177d262cb0c1927283d807b8f9afe3046.cab
   checksum=sha-1=c468c54177d262cb0c1927283d807b8f9afe3046
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/02/windows11.0-kb5023527-x64_076cd9782ebb8aed56ad5d99c07201035d92e66a.cab
-  out=windows11.0-kb5023527-x64_076cd9782ebb8aed56ad5d99c07201035d92e66a.cab
-  checksum=sha-1=076cd9782ebb8aed56ad5d99c07201035d92e66a
+https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/56452627-7f3e-46f1-8295-851b8d320b6b/public/windows11.0-kb5027573-x64_5501f9473cdf67bd6c63858c986a2636d2d3d4a9.cab
+  out=windows11.0-kb5027573-x64_5501f9473cdf67bd6c63858c986a2636d2d3d4a9.cab
+  checksum=sha-1=5501f9473cdf67bd6c63858c986a2636d2d3d4a9
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows11.0-kb5012170-x64_a7bdcaed87329716522cf6d0b464363d2599fb1c.msu
   out=windows10.0-kb5012170-x64_a7bdcaed87329716522cf6d0b464363d2599fb1c.msu
