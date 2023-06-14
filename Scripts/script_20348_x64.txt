@@ -18,9 +18,9 @@ https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2
   out=windows10.0-kb5020378-x64_c8c744b9f49901840cdaeca11b6d255a87078ea1-du.cab
   checksum=sha-1=c8c744b9f49901840cdaeca11b6d255a87078ea1
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/11/windows10.0-kb5020594-x64_f4378d0a57589335eb3b42ae8a5282198a59dfd0.cab
-  out=windows10.0-kb5020594-x64_f4378d0a57589335eb3b42ae8a5282198a59dfd0.cab
-  checksum=sha-1=f4378d0a57589335eb3b42ae8a5282198a59dfd0
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/06/windows10.0-kb5027388-x64_1790eeed872acc22ca22db59acb1cb423bac5cbd.cab
+  out=windows10.0-kb5027388-x64_1790eeed872acc22ca22db59acb1cb423bac5cbd.cab
+  checksum=sha-1=1790eeed872acc22ca22db59acb1cb423bac5cbd
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2021/11/windows10.0-kb5007374-x64_2c8bd78e9522f9ca3dd145b2d740fc25979d84e5.cab
   out=windows10.0-kb5007374-x64_2c8bd78e9522f9ca3dd145b2d740fc25979d84e5.cab
