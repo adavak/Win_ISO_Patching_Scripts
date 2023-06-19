@@ -222,6 +222,12 @@ https://github.com/ave9858
 ============================================================
 Changelog:
 ============================================================
+10.29:
+- ISO files bootmgr.efi/bootmgfw.efi will be always updated, regardless UpdtBootFiles option
+
+10.28:
+- Added conditional support for SV2 beta builds 22631+
+
 10.27:
 - Updated detection for separate Secure Boot updates
 

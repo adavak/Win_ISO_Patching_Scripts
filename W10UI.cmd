@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.27
+@set uiv=v10.29
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -36,7 +36,7 @@ set WinRE=1
 :: Force updating winre.wim with Cumulative Update regardless if SafeOS update detected
 set LCUwinre=0
 
-:: update ISO boot files bootmgr/bootmgr.efi/efisys.bin from Cumulative Update
+:: update ISO boot files bootmgr/memtest/efisys.bin from Cumulative Update
 set UpdtBootFiles=0
 
 :: 1 = do not install EdgeChromium with Enablement Package or Cumulative Update
@@ -871,6 +871,9 @@ if exist "checker\Microsoft-Windows-SV*Enablement-Package~*.mum" for /f "tokens=
     )
   )
 )
+if exist "checker\Microsoft-Windows-SV2Moment4Enablement-Package~*.mum" set "_fixEP=22631"
+if exist "checker\Microsoft-Windows-SV2Moment5Enablement-Package~*.mum" set "_fixEP=22632"
+if exist "checker\Microsoft-Windows-SV2Moment6Enablement-Package~*.mum" set "_fixEP=22633"
 if %_build% geq 18362 if exist "checker\*enablement-package*.mum" (
 expand.exe -f:*_microsoft-windows-e..-firsttimeinstaller_*.manifest "!repo!\!package!" "checker" %_Null%
 if exist "checker\*_microsoft-windows-e..-firsttimeinstaller_*.manifest" set "_type=[Enablement / EdgeChromium]"
@@ -1331,6 +1334,7 @@ findstr /i /m "Package_for_WindowsExperienceFeaturePack" "%dest%\update.mum" %_N
 )
 set "wnt=31bf3856ad364e35_10"
 if exist "%dest%\%sss%_microsoft-updatetargeting-*os_31bf3856ad364e35_11.*.manifest" set "wnt=31bf3856ad364e35_11"
+if exist "%dest%\%sss%_microsoft-updatetargeting-*os_31bf3856ad364e35_12.*.manifest" set "wnt=31bf3856ad364e35_12"
 if exist "%dest%\%sss%_microsoft-updatetargeting-*os_%wnt%.%_fixEP%*.manifest" if not defined uupmaj (
 for /f "tokens=5-7 delims=_." %%I in ('dir /b /a:-d /on "%dest%\%sss%_microsoft-updatetargeting-*os_%wnt%.%_fixEP%*.manifest"') do (set uupver=%%I.%%K&set uupmaj=%%I&set uupmin=%%K)
 if %_fixEP% equ 0 for /f "tokens=5-7 delims=_." %%I in ('dir /b /a:-d /on "%dest%\%sss%_microsoft-updatetargeting-*os_%wnt%.%_fixEP%*.manifest"') do (set uupver=%%J.%%K&set uupmaj=%%J&set uupmin=%%K)
@@ -1974,8 +1978,12 @@ if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-SV*Enablement-
     set /a _fixEP=%_build%+%%i
   )
 )
+if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-SV2Moment4Enablement-Package~*.mum" set "_fixEP=22631"
+if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-SV2Moment5Enablement-Package~*.mum" set "_fixEP=22632"
+if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-SV2Moment6Enablement-Package~*.mum" set "_fixEP=22633"
 set "wnt=31bf3856ad364e35_10"
 if exist "!mountdir!\Windows\WinSxS\Manifests\%sss%_microsoft-updatetargeting-*os_31bf3856ad364e35_11.*.manifest" set "wnt=31bf3856ad364e35_11"
+if exist "!mountdir!\Windows\WinSxS\Manifests\%sss%_microsoft-updatetargeting-*os_31bf3856ad364e35_12.*.manifest" set "wnt=31bf3856ad364e35_12"
 if exist "!mountdir!\Windows\WinSxS\Manifests\%sss%_microsoft-updatetargeting-*os_%wnt%.%_fixEP%*.manifest" (
 for /f "tokens=5-7 delims=_." %%I in ('dir /b /a:-d /od "!mountdir!\Windows\WinSxS\Manifests\%sss%_microsoft-updatetargeting-*os_%wnt%.%_fixEP%*.manifest"') do (set uupver=%%I.%%K&set uupmaj=%%I&set uupmin=%%K)
 if %_fixEP% equ 0 for /f "tokens=5-7 delims=_." %%I in ('dir /b /a:-d /od "!mountdir!\Windows\WinSxS\Manifests\%sss%_microsoft-updatetargeting-*os_%wnt%.%_fixEP%*.manifest"') do (set uupver=%%J.%%K&set uupmaj=%%J&set uupmin=%%K)
@@ -2025,6 +2033,7 @@ copy /y "!mountdir!\Windows\Boot\EFI\memtest.efi" "!target!\efi\microsoft\boot\"
 copy /y "!mountdir!\Windows\Boot\PCAT\memtest.exe" "!target!\boot\" %_Nul1%
 )
 )
+if exist "!target!\efi\boot\bootmgfw.efi" copy /y "!mountdir!\Windows\Boot\EFI\bootmgfw.efi" "!target!\efi\boot\bootmgfw.efi" %_Nul1%
 copy /y "!mountdir!\Windows\Boot\EFI\bootmgfw.efi" "!target!\efi\boot\%efifile%" %_Nul1%
 copy /y "!mountdir!\Windows\Boot\EFI\bootmgr.efi" "!target!\" %_Nul1%
 if exist "!target!\setup.exe" copy /y "!mountdir!\setup.exe" "!target!\" %_Nul3%
