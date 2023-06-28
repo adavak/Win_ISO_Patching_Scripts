@@ -2,9 +2,9 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2
   out=windows10.0-kb5023788-x86_b818152c25a6615ba1db7c58a921705b1d4383c2.msu
   checksum=sha-1=b818152c25a6615ba1db7c58a921705b1d4383c2
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/06/windows10.0-kb5027219-x86_a2a4973ee0003c63c5657103686b68cda40cafae.msu
-  out=windows10.0-kb5027219-x86_a2a4973ee0003c63c5657103686b68cda40cafae.msu
-  checksum=sha-1=a2a4973ee0003c63c5657103686b68cda40cafae
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/06/windows10.0-kb5028623-x86_b8a063f171cc86890703e8b18a6fc71749bc8a91.msu
+  out=windows10.0-kb5028623-x86_b8a063f171cc86890703e8b18a6fc71749bc8a91.msu
+  checksum=sha-1=b8a063f171cc86890703e8b18a6fc71749bc8a91
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/05/windows10.0-kb5027123-x86-ndp48_b096cdc966c99f6597dafdaafcc8e8c10670b750.msu
   out=windows10.0-kb5027123-x86-ndp48_b096cdc966c99f6597dafdaafcc8e8c10670b750.msu
@@ -25,7 +25,3 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/06/windows10.0-kb5027386-x86_81557a45d8ac8f3bc82d7da91ff6f35127578b99.cab
   out=windows10.0-kb5027386-x86_81557a45d8ac8f3bc82d7da91ff6f35127578b99.cab
   checksum=sha-1=81557a45d8ac8f3bc82d7da91ff6f35127578b99
-
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5012170-x86_85c835ef88ff8a7ee7feee6b38a3fa9945d140cd.msu
-  out=windows10.0-kb5012170-x86_85c835ef88ff8a7ee7feee6b38a3fa9945d140cd.msu
-  checksum=sha-1=85c835ef88ff8a7ee7feee6b38a3fa9945d140cd

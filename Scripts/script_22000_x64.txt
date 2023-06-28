@@ -6,9 +6,17 @@ https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2
   out=windows11.0-kb5026517-x64-ndp481_3dfc9d3a2ee40fa9e1da1c6100c918c5763e6661.msu
   checksum=sha-1=3dfc9d3a2ee40fa9e1da1c6100c918c5763e6661
 
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/06/windows11.0-kb5028575-x64-ndp481_b216931fc55590da18f781f150f4c0f297553aec.msu
+  out=windows11.0-kb5028575-x64-ndp481_b216931fc55590da18f781f150f4c0f297553aec.msu
+  checksum=sha-1=b216931fc55590da18f781f150f4c0f297553aec
+
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/05/windows10.0-kb5026514-x64-ndp48_73af9739a32230344be8f5f6292a805dd8315604.msu
   out=windows10.0-kb5026514-x64-ndp48_73af9739a32230344be8f5f6292a805dd8315604.msu
   checksum=sha-1=73af9739a32230344be8f5f6292a805dd8315604
+
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/06/windows10.0-kb5028582-x64-ndp48_43a4ec76b36b4346aa0fcefb46ab258115252714.msu
+  out=windows10.0-kb5028582-x64-ndp48_43a4ec76b36b4346aa0fcefb46ab258115252714.msu
+  checksum=sha-1=43a4ec76b36b4346aa0fcefb46ab258115252714
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/03/windows10.0-kb5023848-x64_79ae6f4c98dc4a93600fe456c289af471ab69fc5.cab
   out=windows10.0-kb5023848-x64_79ae6f4c98dc4a93600fe456c289af471ab69fc5.cab
@@ -21,10 +29,6 @@ https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2021/11/windows10.0-kb5007575-x64_28e206f7d3a99eb798dfa403e6439dfb5e358e16.cab
   out=windows10.0-kb5007575-x64_28e206f7d3a99eb798dfa403e6439dfb5e358e16.cab
   checksum=sha-1=28e206f7d3a99eb798dfa403e6439dfb5e358e16
-
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5012170-x64_0558b5879de03bfb5319b1244d84ca3735a6a377.msu
-  out=windows10.0-kb5012170-x64_0558b5879de03bfb5319b1244d84ca3735a6a377.msu
-  checksum=sha-1=0558b5879de03bfb5319b1244d84ca3735a6a377
 
 https://download.visualstudio.microsoft.com/download/pr/6f083c7e-bd40-44d4-9e3f-ffba71ec8b09/f65353179c60c37bb56cb9093a80bd7e/Windows10.0-KB5011048-x64.cab
   out=windows10.0-kb5011048-x64_7a47ede2aa9ad3bf6eff1af9f4304d9180d9fe5b.cab

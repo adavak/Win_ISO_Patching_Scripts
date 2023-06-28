@@ -6,6 +6,10 @@ https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2
   out=windows10.0-kb5027124-x64-ndp48_c83d3e555cafd96ceece9619e05cd6fc3ce14a23.msu
   checksum=sha-1=c83d3e555cafd96ceece9619e05cd6fc3ce14a23
 
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/06/windows10.0-kb5028581-x64-ndp48_0a1ce606f12d7803fdc60fa74f9c848e5f101f62.msu
+  out=windows10.0-kb5028581-x64-ndp48_0a1ce606f12d7803fdc60fa74f9c848e5f101f62.msu
+  checksum=sha-1=0a1ce606f12d7803fdc60fa74f9c848e5f101f62
+
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2021/08/windows10.0-kb5005545-x64_b476c22b52917ad95a4f16c615c9d10c328b0347.cab
   out=windows10.0-kb5005545-x64_b476c22b52917ad95a4f16c615c9d10c328b0347.cab
   checksum=sha-1=b476c22b52917ad95a4f16c615c9d10c328b0347
@@ -21,7 +25,3 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/ftpk/2
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2022/11/windows10.0-kb5021042-x64_19bb9778b2098cc038a03d3c40f4a16bd80e69d3.cab
   out=windows10.0-kb5021042-x64_19bb9778b2098cc038a03d3c40f4a16bd80e69d3.cab
   checksum=sha-1=19bb9778b2098cc038a03d3c40f4a16bd80e69d3
-
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/08/windows10.0-kb5012170-x64_3d468c9eaeeabd42eba636d5429643c386b0beff.msu
-  out=windows10.0-kb5012170-x64_3d468c9eaeeabd42eba636d5429643c386b0beff.msu
-  checksum=sha-1=3d468c9eaeeabd42eba636d5429643c386b0beff
