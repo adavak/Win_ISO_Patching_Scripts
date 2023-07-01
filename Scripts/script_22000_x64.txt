@@ -1,6 +1,6 @@
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/06/windows10.0-kb5027223-x64_bc4eef761966ec8f17c1a3832465f81a57b87fb8.msu
-  out=windows10.0-kb5027223-x64_bc4eef761966ec8f17c1a3832465f81a57b87fb8.msu
-  checksum=sha-1=bc4eef761966ec8f17c1a3832465f81a57b87fb8
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/06/windows10.0-kb5027292-x64_d3723789ce08dbc092cb019587c1ae1ead8dbc83.msu
+  out=windows10.0-kb5027292-x64_d3723789ce08dbc092cb019587c1ae1ead8dbc83.msu
+  checksum=sha-1=d3723789ce08dbc092cb019587c1ae1ead8dbc83
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/05/windows11.0-kb5026517-x64-ndp481_3dfc9d3a2ee40fa9e1da1c6100c918c5763e6661.msu
   out=windows11.0-kb5026517-x64-ndp481_3dfc9d3a2ee40fa9e1da1c6100c918c5763e6661.msu
@@ -18,9 +18,13 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2
   out=windows10.0-kb5028582-x64-ndp48_43a4ec76b36b4346aa0fcefb46ab258115252714.msu
   checksum=sha-1=43a4ec76b36b4346aa0fcefb46ab258115252714
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/03/windows10.0-kb5023848-x64_79ae6f4c98dc4a93600fe456c289af471ab69fc5.cab
-  out=windows10.0-kb5023848-x64_79ae6f4c98dc4a93600fe456c289af471ab69fc5.cab
-  checksum=sha-1=79ae6f4c98dc4a93600fe456c289af471ab69fc5
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/06/windows10.0-kb5029007-x64-ndp48_73b07fb67e292bc58c78cabb527d32ed53a5495f.msu
+  out=windows10.0-kb5029007-x64-ndp48_73b07fb67e292bc58c78cabb527d32ed53a5495f.msu
+  checksum=sha-1=73b07fb67e292bc58c78cabb527d32ed53a5495f
+
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/06/windows10.0-kb5027317-x64_c0b2edf451906e34768ccb50b795e7bdaba48675.cab
+  out=windows10.0-kb5027317-x64_c0b2edf451906e34768ccb50b795e7bdaba48675.cab
+  checksum=sha-1=c0b2edf451906e34768ccb50b795e7bdaba48675
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/06/windows10.0-kb5027572-x64_2540b19f40241a5c7cae4e782e67c17383965125.cab
   out=windows10.0-kb5027572-x64_2540b19f40241a5c7cae4e782e67c17383965125.cab
