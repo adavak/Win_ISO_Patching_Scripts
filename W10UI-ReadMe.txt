@@ -222,6 +222,10 @@ https://github.com/ave9858
 ============================================================
 Changelog:
 ============================================================
+10.30:
+- Added workaround for using target image dpx.dll to extract updates cab files for builds 22000+
+- Suppress DISM cleanup output for builds 25380+
+
 10.29:
 - ISO files bootmgr.efi/bootmgfw.efi will be always updated, regardless UpdtBootFiles option
 
