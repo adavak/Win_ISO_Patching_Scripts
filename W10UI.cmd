@@ -1182,7 +1182,7 @@ if %verb%==1 set doinstall=1
 if %dowinre%==0 goto :cuboot
 set callclean=1
 if defined cumulative %_dism2%:"!_cabdir!" %dismtarget% /LogPath:"%_dLog%\DismLCU_winre.log" /Add-Package %cumulative%
-if defined lcumsu for %%# in (%lcumsu%) do (
+if %_build% lss 22000 if defined lcumsu for %%# in (%lcumsu%) do (
 echo.&echo %%#
 %_dism2%:"!_cabdir!" %dismtarget% /LogPath:"%_dLog%\DismLCU_winre.log" /Add-Package /PackagePath:"!repo!\%%#"
 )
@@ -1191,7 +1191,7 @@ if !errorlevel! equ 1726 %_dism2%:"!_cabdir!" %dismtarget% /Get-Packages %_Nul1%
 if %doboot%==0 goto :cuinstall
 set callclean=1
 if defined cumulative %_dism2%:"!_cabdir!" %dismtarget% /LogPath:"%_dLog%\DismLCU_boot.log" /Add-Package %cumulative%
-if defined lcumsu for %%# in (%lcumsu%) do (
+if %_build% lss 22000 if defined lcumsu for %%# in (%lcumsu%) do (
 echo.&echo %%#
 %_dism2%:"!_cabdir!" %dismtarget% /LogPath:"%_dLog%\DismLCU_boot.log" /Add-Package /PackagePath:"!repo!\%%#"
 )
