@@ -2,13 +2,17 @@ https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2
   out=windows10.0-kb5023788-x86_b818152c25a6615ba1db7c58a921705b1d4383c2.msu
   checksum=sha-1=b818152c25a6615ba1db7c58a921705b1d4383c2
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/06/windows10.0-kb5028623-x86_b8a063f171cc86890703e8b18a6fc71749bc8a91.msu
-  out=windows10.0-kb5028623-x86_b8a063f171cc86890703e8b18a6fc71749bc8a91.msu
-  checksum=sha-1=b8a063f171cc86890703e8b18a6fc71749bc8a91
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/07/windows10.0-kb5028169-x86_8e89c976af39e8317608923d2664bfd7c71c063a.msu
+  out=windows10.0-kb5028169-x86_8e89c976af39e8317608923d2664bfd7c71c063a.msu
+  checksum=sha-1=8e89c976af39e8317608923d2664bfd7c71c063a
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/05/windows10.0-kb5027123-x86-ndp48_b096cdc966c99f6597dafdaafcc8e8c10670b750.msu
-  out=windows10.0-kb5027123-x86-ndp48_b096cdc966c99f6597dafdaafcc8e8c10670b750.msu
-  checksum=sha-1=b096cdc966c99f6597dafdaafcc8e8c10670b750
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/06/windows10.0-kb5028854-x86-ndp48_b6e9ed96a453e95a24aba2d0b736376cdfa14485.msu
+  out=windows10.0-kb5028854-x86-ndp48_b6e9ed96a453e95a24aba2d0b736376cdfa14485.msu
+  checksum=sha-1=b6e9ed96a453e95a24aba2d0b736376cdfa14485
+
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/06/windows10.0-kb5028913-x86_e8551f2a2fc6642ca95d92a4c945e312b03ee862.msu
+  out=windows10.0-kb5028913-x86_e8551f2a2fc6642ca95d92a4c945e312b03ee862.msu
+  checksum=sha-1=e8551f2a2fc6642ca95d92a4c945e312b03ee862
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486129-x86_d38ebe43baeabaef927675c7ff2295843f19a077.msu
   out=windows10.0-kb4486129-x86_d38ebe43baeabaef927675c7ff2295843f19a077-net48.msu

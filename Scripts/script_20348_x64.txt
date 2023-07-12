@@ -1,30 +1,22 @@
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/06/windows10.0-kb5027225-x64_333be68b16a25fe30113059b1a9859f92cb90e81.msu
-  out=windows10.0-kb5027225-x64_333be68b16a25fe30113059b1a9859f92cb90e81.msu
-  checksum=sha-1=333be68b16a25fe30113059b1a9859f92cb90e81
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/07/windows10.0-kb5028171-x64_df2198a9a9ac5cf4b2d60af6b2c14d5902df0594.msu
+  out=windows10.0-kb5028171-x64_df2198a9a9ac5cf4b2d60af6b2c14d5902df0594.msu
+  checksum=sha-1=df2198a9a9ac5cf4b2d60af6b2c14d5902df0594
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/05/windows10.0-kb5027121-x64-ndp481_8c9cf4c36d9b8a85c18529f845a5b3d3698bf788.msu
-  out=windows10.0-kb5027121-x64-ndp481_8c9cf4c36d9b8a85c18529f845a5b3d3698bf788.msu
-  checksum=sha-1=8c9cf4c36d9b8a85c18529f845a5b3d3698bf788
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/06/windows10.0-kb5028852-x64-ndp481_9e53a1316e2925c1781ba7cb80f832c55bcc981e.msu
+  out=windows10.0-kb5028852-x64-ndp481_9e53a1316e2925c1781ba7cb80f832c55bcc981e.msu
+  checksum=sha-1=9e53a1316e2925c1781ba7cb80f832c55bcc981e
 
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/06/windows10.0-kb5028578-x64-ndp481_544dd283759e7bd851af5d768660fdbc9bba0d2b.msu
-  out=windows10.0-kb5028578-x64-ndp481_544dd283759e7bd851af5d768660fdbc9bba0d2b.msu
-  checksum=sha-1=544dd283759e7bd851af5d768660fdbc9bba0d2b
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/06/windows10.0-kb5028858-x64-ndp48_6609e3df97400e4f5c9c43af16b23e8269e65fdb.msu
+  out=windows10.0-kb5028858-x64-ndp48_6609e3df97400e4f5c9c43af16b23e8269e65fdb.msu
+  checksum=sha-1=6609e3df97400e4f5c9c43af16b23e8269e65fdb
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/05/windows10.0-kb5027127-x64-ndp48_29447fc3099e8ffab3b4a5cf3cd972a640b35934.msu
-  out=windows10.0-kb5027127-x64-ndp48_29447fc3099e8ffab3b4a5cf3cd972a640b35934.msu
-  checksum=sha-1=29447fc3099e8ffab3b4a5cf3cd972a640b35934
+https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/06/windows10.0-kb5028919-x64-ndp48_6c41f2a65059ef375a3dc182cbfd77af4fbb7553.msu
+  out=windows10.0-kb5028919-x64_6c41f2a65059ef375a3dc182cbfd77af4fbb7553.msu
+  checksum=sha-1=6c41f2a65059ef375a3dc182cbfd77af4fbb7553
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/06/windows10.0-kb5028584-x64-ndp48_445a7d8731089ea920043bb7d864503e82e370b3.msu
-  out=windows10.0-kb5028584-x64-ndp48_445a7d8731089ea920043bb7d864503e82e370b3.msu
-  checksum=sha-1=2445a7d8731089ea920043bb7d864503e82e370b3
-
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2022/07/windows10.0-kb5014831-x64_9654b12524a58465882b582250b020bffcf8b81a.msu
-  out=windows10.0-kb5014831-x64_9654b12524a58465882b582250b020bffcf8b81a.msu
-  checksum=sha-1=9654b12524a58465882b582250b020bffcf8b81a
-
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2022/11/windows10.0-kb5020378-x64_c8c744b9f49901840cdaeca11b6d255a87078ea1.cab
-  out=windows10.0-kb5020378-x64_c8c744b9f49901840cdaeca11b6d255a87078ea1-du.cab
-  checksum=sha-1=c8c744b9f49901840cdaeca11b6d255a87078ea1
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2023/07/windows10.0-kb5028263-x64_a23cf577bdd4d19b829acb507dc77c2d9c1bc98a.cab
+  out=windows10.0-kb5028263-x64_a23cf577bdd4d19b829acb507dc77c2d9c1bc98a.cab
+  checksum=sha-1=a23cf577bdd4d19b829acb507dc77c2d9c1bc98a
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/06/windows10.0-kb5027388-x64_1790eeed872acc22ca22db59acb1cb423bac5cbd.cab
   out=windows10.0-kb5027388-x64_1790eeed872acc22ca22db59acb1cb423bac5cbd.cab
