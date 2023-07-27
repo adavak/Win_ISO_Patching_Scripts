@@ -1,19 +1,15 @@
-https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/1d2264b0-bd38-4c9c-bbe6-fc7a48e99d72/public/windows11.0-kb5028185-x64_c78aa5899ba74efdd0e354dfab80940402b3efa4.msu
-  out=windows11.0-kb5028185-x64_c78aa5899ba74efdd0e354dfab80940402b3efa4.msu
-  checksum=sha-1=c78aa5899ba74efdd0e354dfab80940402b3efa4
+https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/a34c7a2c-9bce-41ca-8beb-b95113405699/public/windows11.0-kb5028254-x64_d39314973f404fca4cc205e6c2fc848fea4c25ed.msu
+  out=windows11.0-kb5028254-x64_d39314973f404fca4cc205e6c2fc848fea4c25ed.msu
+  checksum=sha-1=d39314973f404fca4cc205e6c2fc848fea4c25ed
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/06/windows11.0-kb5028851-x64-ndp481_9a38be0dbeb4686ec47dc3f9e24be8e38718384c.msu
-  out=windows11.0-kb5028851-x64-ndp481_9a38be0dbeb4686ec47dc3f9e24be8e38718384c.msu
-  checksum=sha-1=9a38be0dbeb4686ec47dc3f9e24be8e38718384c
+https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/07/windows11.0-kb5028017-x64-ndp481_d0d356d7c09c4edfc82baeda70c959fbd82bbbf7.msu
+  out=windows11.0-kb5028017-x64-ndp481_d0d356d7c09c4edfc82baeda70c959fbd82bbbf7.msu
+  checksum=sha-1=d0d356d7c09c4edfc82baeda70c959fbd82bbbf7
 
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/06/windows11.0-kb5029008-x64-ndp481_00b8f5c2fcd70308b4d85211b10baa2d693b080e.msu
-  out=windows11.0-kb5029008-x64-ndp481_00b8f5c2fcd70308b4d85211b10baa2d693b080e.msu
-  checksum=sha-1=00b8f5c2fcd70308b4d85211b10baa2d693b080e
+https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/256882dc-cac6-4ceb-907b-6509fe5e83a5/public/windows11.0-kb5028554-x64_dc99deb36eb1dc692fc59a3180f88d46dc272367.cab
+  out=windows11.0-kb5028554-x64_dc99deb36eb1dc692fc59a3180f88d46dc272367.cab
+  checksum=sha-1=dc99deb36eb1dc692fc59a3180f88d46dc272367
 
-https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/86266ccb-31a6-4a0c-a0d6-fcab3b67e397/public/windows11.0-kb5028314-x64_d669cacca791870fad214b273e0d11a90c39c8ac.cab
-  out=windows11.0-kb5028314-x64_d669cacca791870fad214b273e0d11a90c39c8ac.cab
-  checksum=sha-1=d669cacca791870fad214b273e0d11a90c39c8ac
-
-https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/56452627-7f3e-46f1-8295-851b8d320b6b/public/windows11.0-kb5027573-x64_5501f9473cdf67bd6c63858c986a2636d2d3d4a9.cab
-  out=windows11.0-kb5027573-x64_5501f9473cdf67bd6c63858c986a2636d2d3d4a9.cab
-  checksum=sha-1=5501f9473cdf67bd6c63858c986a2636d2d3d4a9
+https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/fd6044df-9ac1-4633-a7f7-0964783d317c/public/windows11.0-kb5028495-x64_d16975c555b3b952605ecf2005c3f5cd75243eb6.cab
+  out=windows11.0-kb5028495-x64_d16975c555b3b952605ecf2005c3f5cd75243eb6.cab
+  checksum=sha-1=d16975c555b3b952605ecf2005c3f5cd75243eb6
