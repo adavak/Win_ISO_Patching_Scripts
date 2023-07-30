@@ -6,7 +6,7 @@
 |---|---|
 |**Windows 10 Enterprise LTSB 2016、Windows Server 2016**|**Build 14393.6085**|
 |**Windows 10 Enterprise LTSC 2019、Windows Server 2019**|**Build 17763.4645**|
-|**Windows 10 2004、20H2、21H1、21H2、22H2、Windows 10 Enterprise LTSC 2021**|**Build 1904x.3271**|
+|**Windows 10 21H2、22H2、Windows 10 Enterprise LTSC 2021**|**Build 1904x.3271**|
 |**Windows Server 2022**|**Build 20348.1850**|
 |**Windows 11 21H2**|**Build 22000.2245**|
 |**Windows 11 22H2**|**Build 22621.2070**|
