@@ -1,3 +1,7 @@
+### Win_ISO_Patching_Scripts_zhCN
+
+<a href="https://github.com/adavak/Win_ISO_Patching_Scripts_zhCN/releases"><img src="https://img.shields.io/github/v/release/adavak/Win_ISO_Patching_Scripts_zhCN"></a>
+
 ##### 用法：把 Windows 映像（ISO 格式）放入文件夹根目录，运行 Start.cmd 开始下载最新补丁并开始制作集成补丁的 ISO。下载补丁文件地址为微软官方。
 
 ###### 支持的 Windows 版本：
