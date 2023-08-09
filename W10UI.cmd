@@ -378,7 +378,6 @@ if %netfx481%==0 if exist "!repo!\*ndp481_*.*" if exist "!repo!\*ndp48_*.*" (
   del /f /q "!repo!\*ndp481_*.*" %_Nul3%
   del /f /q "!repo!\*ndp481.*" %_Nul3%
   del /f /q "!repo!\*net481*.*" %_Nul3%
-  del /f /q "!repo!\*5011048*.*" %_Nul3%
 )
 if %wim%==1 (
 echo.
