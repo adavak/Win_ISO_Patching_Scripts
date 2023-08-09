@@ -1240,7 +1240,7 @@ echo Adding VP9VideoExtensions...
 %_dism2%:"!_cabdir!" %dismtarget% /Add-ProvisionedAppxPackage /PackagePath:"%~dp0bin\Microsoft.VP9VideoExtensions_8wekyb3d8bbwe.%arch%.Appx" /LicensePath:"%~dp0bin\Microsoft.VP9VideoExtensions_8wekyb3d8bbwe.%arch%.xml" %_Nul2%
 )
 if %nosuggapp%==1 (
-echo Turn off Third-Party Apps...
+echo Disable download Third-Party Apps...
 reg.exe load "HKLM\Usertemp" "!mumtarget!\Users\Default\NTUSER.DAT" %_Nul3%
 reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "ContentDeliveryAllowed"/t REG_DWORD /d "0" /f %_Nul1%
 reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "DesktopSpotlightOemEnabled"/t REG_DWORD /d "0" /f %_Nul1%
@@ -1256,7 +1256,7 @@ reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeli
 reg.exe unload "HKLM\Usertemp" %_Nul3%
 )
 if %nosuggtip%==1 (
-echo Disable Suggestions...
+echo Disable unused Suggestions...
 reg.exe load "HKLM\Usertemp" "!mumtarget!\Users\Default\NTUSER.DAT" %_Nul3%
 reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-310093Enabled"/t REG_DWORD /d "0" /f %_Nul1%
 reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338389Enabled"/t REG_DWORD /d "0" /f %_Nul1%
