@@ -22,10 +22,6 @@ https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2
   out=windows10.0-kb5027389-x64_8d1880d95f920fc8a4c2d96ca8d3b44f3e044581-safeos.cab
   checksum=sha-1=8d1880d95f920fc8a4c2d96ca8d3b44f3e044581
 
-https://catalog.s.download.windowsupdate.com/c/upgr/2022/07/windows10.0-kb5015684-x64_523c039b86ca98f2d818c4e6706e2cc94b634c4a.msu
-  out=windows10.0-kb5015684-x64_523c039b86ca98f2d818c4e6706e2cc94b634c4a.msu
-  checksum=sha-1=523c039b86ca98f2d818c4e6706e2cc94b634c4a
-
 https://download.visualstudio.microsoft.com/download/pr/6f083c7e-bd40-44d4-9e3f-ffba71ec8b09/f65353179c60c37bb56cb9093a80bd7e/Windows10.0-KB5011048-x64.cab
   out=windows10.0-kb5011048-x64-ndp481_7a47ede2aa9ad3bf6eff1af9f4304d9180d9fe5b.cab
   checksum=sha-1=7a47ede2aa9ad3bf6eff1af9f4304d9180d9fe5b
