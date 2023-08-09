@@ -12,7 +12,7 @@ https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2
 
 https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2023/07/windows10.0-kb5028263-x64_a23cf577bdd4d19b829acb507dc77c2d9c1bc98a.cab
   out=windows10.0-kb5028263-x64_a23cf577bdd4d19b829acb507dc77c2d9c1bc98a-ldu.cab
-  checksum=sha-1=a23cf577bdd4d19b829acb507dc77c2d9c1bc98a  
+  checksum=sha-1=a23cf577bdd4d19b829acb507dc77c2d9c1bc98a
 
 https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/06/windows10.0-kb5027388-x64_1790eeed872acc22ca22db59acb1cb423bac5cbd.cab
   out=windows10.0-kb5027388-x64_1790eeed872acc22ca22db59acb1cb423bac5cbd-safeos.cab
