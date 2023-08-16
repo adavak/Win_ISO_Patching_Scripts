@@ -1,0 +1,8 @@
+﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
+	<file name="windows10.0-kb5028951-x86_33ddd62e7330fd8d2dc35402208e3e7890390ee6.msu">
+		<language>neutral</language>
+		<hash type="sha-1">33ddd62e7330fd8d2dc35402208e3e7890390ee6</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/07/windows10.0-kb5028951-x86_33ddd62e7330fd8d2dc35402208e3e7890390ee6.msu</url>
+	</file>
+</metalink>

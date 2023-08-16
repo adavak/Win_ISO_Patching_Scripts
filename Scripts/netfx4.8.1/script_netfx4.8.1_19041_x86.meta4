@@ -1,0 +1,128 @@
+﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
+	<file name="windows10.0-kb5011048-x86_0c1809d3b7c73987b930ef760fd44e119af45109.msu">
+		<language>neutral</language>
+		<hash type="sha-1">0c1809d3b7c73987b930ef760fd44e119af45109</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/ftpk/2023/07/windows10.0-kb5011048-x86_0c1809d3b7c73987b930ef760fd44e119af45109.msu</url>
+	</file>
+	<file name="windows10.0-kb5028946-x86_fb0ebd46fc69a2744b7c1b94825a4999877bced6.msu">
+		<language>neutral</language>
+		<hash type="sha-1">fb0ebd46fc69a2744b7c1b94825a4999877bced6</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/07/windows10.0-kb5028946-x86_fb0ebd46fc69a2744b7c1b94825a4999877bced6.msu</url>
+	</file>
+	<file name="windows10.0-kb5011049-x86_9d2673d56f6c4376b97316f74bd29961838fec94.msu">
+		<language>ar-SA</language>
+		<hash type="sha-1">9d2673d56f6c4376b97316f74bd29961838fec94</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011049-x86_9d2673d56f6c4376b97316f74bd29961838fec94.msu</url>
+	</file>
+	<file name="windows10.0-kb5011050-x86_d542c979ed8093b6cc2cdc4d77c6eb504b946dc1.msu">
+		<language>zh-CN</language>
+		<hash type="sha-1">d542c979ed8093b6cc2cdc4d77c6eb504b946dc1</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011050-x86_d542c979ed8093b6cc2cdc4d77c6eb504b946dc1.msu</url>
+	</file>
+	<file name="windows10.0-kb5011051-x86_f3489ed9dcfe3bb1934218a60370aec8f77927d3.msu">
+		<language>zh-TW</language>
+		<hash type="sha-1">f3489ed9dcfe3bb1934218a60370aec8f77927d3</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011051-x86_f3489ed9dcfe3bb1934218a60370aec8f77927d3.msu</url>
+	</file>
+	<file name="windows10.0-kb5011052-x86_fcf19bc857a6f1a2eb247f4950a06d90b1f28fcf.msu">
+		<language>cs-CZ</language>
+		<hash type="sha-1">fcf19bc857a6f1a2eb247f4950a06d90b1f28fcf</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011052-x86_fcf19bc857a6f1a2eb247f4950a06d90b1f28fcf.msu</url>
+	</file>
+	<file name="windows10.0-kb5011053-x86_2f60eeae0b20eb478e29a67e19526e723022ffb7.msu">
+		<language>da-DK</language>
+		<hash type="sha-1">2f60eeae0b20eb478e29a67e19526e723022ffb7</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011053-x86_2f60eeae0b20eb478e29a67e19526e723022ffb7.msu</url>
+	</file>
+	<file name="windows10.0-kb5011054-x86_7262b2d0fbf79e39c30061be8ba34a7f86f6dbe3.msu">
+		<language>de-DE</language>
+		<hash type="sha-1">7262b2d0fbf79e39c30061be8ba34a7f86f6dbe3</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011054-x86_7262b2d0fbf79e39c30061be8ba34a7f86f6dbe3.msu</url>
+	</file>
+	<file name="windows10.0-kb5011055-x86_ef5bf621ca24bd54e156368b264f57e2171f8ea5.msu">
+		<language>el-GR</language>
+		<hash type="sha-1">ef5bf621ca24bd54e156368b264f57e2171f8ea5</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011055-x86_ef5bf621ca24bd54e156368b264f57e2171f8ea5.msu</url>
+	</file>
+	<file name="windows10.0-kb5011056-x86_569394952ee5f29655439f5126c5e3df88ce1774.msu">
+		<language>es-ES</language>
+		<hash type="sha-1">569394952ee5f29655439f5126c5e3df88ce1774</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011056-x86_569394952ee5f29655439f5126c5e3df88ce1774.msu</url>
+	</file>
+	<file name="windows10.0-kb5011057-x86_b6362289a8f91fae09e87a2c0f02dbfcbf8a3b7b.msu">
+		<language>fi-FI</language>
+		<hash type="sha-1">b6362289a8f91fae09e87a2c0f02dbfcbf8a3b7b</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011057-x86_b6362289a8f91fae09e87a2c0f02dbfcbf8a3b7b.msu</url>
+	</file>
+	<file name="windows10.0-kb5011058-x86_09769937c504ba830627ecbac9986e1196ff33c3.msu">
+		<language>fr-FR</language>
+		<hash type="sha-1">09769937c504ba830627ecbac9986e1196ff33c3</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011058-x86_09769937c504ba830627ecbac9986e1196ff33c3.msu</url>
+	</file>
+	<file name="windows10.0-kb5011059-x86_a25640e7b9d804303f20ef64ef905d92a45d1f9a.msu">
+		<language>he-IL</language>
+		<hash type="sha-1">a25640e7b9d804303f20ef64ef905d92a45d1f9a</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011059-x86_a25640e7b9d804303f20ef64ef905d92a45d1f9a.msu</url>
+	</file>
+	<file name="windows10.0-kb5011060-x86_56183a42046a52eed99dec31aee2ec14f1497a6b.msu">
+		<language>hu-HU</language>
+		<hash type="sha-1">56183a42046a52eed99dec31aee2ec14f1497a6b</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011060-x86_56183a42046a52eed99dec31aee2ec14f1497a6b.msu</url>
+	</file>
+	<file name="windows10.0-kb5011061-x86_7dac8e7aa17f74cc0fe3d1e72e6fc463cb08fc21.msu">
+		<language>it-IT</language>
+		<hash type="sha-1">7dac8e7aa17f74cc0fe3d1e72e6fc463cb08fc21</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011061-x86_7dac8e7aa17f74cc0fe3d1e72e6fc463cb08fc21.msu</url>
+	</file>
+	<file name="windows10.0-kb5011062-x86_5143e65cbf26d776247ee499d095468856dea731.msu">
+		<language>ja-JP</language>
+		<hash type="sha-1">5143e65cbf26d776247ee499d095468856dea731</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011062-x86_5143e65cbf26d776247ee499d095468856dea731.msu</url>
+	</file>
+	<file name="windows10.0-kb5011063-x86_4abf8458aada3c324b8d13b0c0719a628c8c88e9.msu">
+		<language>ko-KR</language>
+		<hash type="sha-1">4abf8458aada3c324b8d13b0c0719a628c8c88e9</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011063-x86_4abf8458aada3c324b8d13b0c0719a628c8c88e9.msu</url>
+	</file>
+	<file name="windows10.0-kb5011064-x86_7cf16422cfe1c11f5220a17f1ee814e382771434.msu">
+		<language>nl-NL</language>
+		<hash type="sha-1">7cf16422cfe1c11f5220a17f1ee814e382771434</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011064-x86_7cf16422cfe1c11f5220a17f1ee814e382771434.msu</url>
+	</file>
+	<file name="windows10.0-kb5011065-x86_8f4275f7c73e9789c237b2c94f646006be52fc29.msu">
+		<language>nb-NO</language>
+		<hash type="sha-1">8f4275f7c73e9789c237b2c94f646006be52fc29</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011065-x86_8f4275f7c73e9789c237b2c94f646006be52fc29.msu</url>
+	</file>
+	<file name="windows10.0-kb5011066-x86_4eb1e404bb6b0aa225727c01725b62e8b880d208.msu">
+		<language>pl-PL</language>
+		<hash type="sha-1">4eb1e404bb6b0aa225727c01725b62e8b880d208</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011066-x86_4eb1e404bb6b0aa225727c01725b62e8b880d208.msu</url>
+	</file>
+	<file name="windows10.0-kb5011067-x86_51edfbf7260e9347a1dbb5bd55f6e289105c3d28.msu">
+		<language>pt-BR</language>
+		<hash type="sha-1">51edfbf7260e9347a1dbb5bd55f6e289105c3d28</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011067-x86_51edfbf7260e9347a1dbb5bd55f6e289105c3d28.msu</url>
+	</file>
+	<file name="windows10.0-kb5011068-x86_1a240bc3e821f9bfe1ebd7c2148628d27ed2ce0a.msu">
+		<language>pt-PT</language>
+		<hash type="sha-1">1a240bc3e821f9bfe1ebd7c2148628d27ed2ce0a</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011068-x86_1a240bc3e821f9bfe1ebd7c2148628d27ed2ce0a.msu</url>
+	</file>
+	<file name="windows10.0-kb5011069-x86_90b3e86bec34bd54034889e27804a5c745337ad7.msu">
+		<language>ru-RU</language>
+		<hash type="sha-1">90b3e86bec34bd54034889e27804a5c745337ad7</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011069-x86_90b3e86bec34bd54034889e27804a5c745337ad7.msu</url>
+	</file>
+	<file name="windows10.0-kb5011070-x86_83eb15c2205ea85990ec6d0a226ce435e57a2ff6.msu">
+		<language>sv-SE</language>
+		<hash type="sha-1">83eb15c2205ea85990ec6d0a226ce435e57a2ff6</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011070-x86_83eb15c2205ea85990ec6d0a226ce435e57a2ff6.msu</url>
+	</file>
+	<file name="windows10.0-kb5011071-x86_0f3e3d9249064a7cd5b22d8bf49abb95c417a83b.msu">
+		<language>tr-TR</language>
+		<hash type="sha-1">0f3e3d9249064a7cd5b22d8bf49abb95c417a83b</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/06/windows10.0-kb5011071-x86_0f3e3d9249064a7cd5b22d8bf49abb95c417a83b.msu</url>
+	</file>
+</metalink>

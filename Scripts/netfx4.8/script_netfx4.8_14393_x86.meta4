@@ -1,0 +1,128 @@
+﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
+		<file name="windows10.0-kb4486129-x86_d38ebe43baeabaef927675c7ff2295843f19a077.msu">
+		<language>neutral</language>
+		<hash type="sha-1">d38ebe43baeabaef927675c7ff2295843f19a077</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486129-x86_d38ebe43baeabaef927675c7ff2295843f19a077.msu</url>
+	</file>
+	<file name="windows10.0-kb5028952-x86_32e6201347839a22cab155fdcd17850250800572.msu">
+		<language>neutral</language>
+		<hash type="sha-1">32e6201347839a22cab155fdcd17850250800572</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/07/windows10.0-kb5028952-x86_32e6201347839a22cab155fdcd17850250800572.msu</url>
+	</file>
+	<file name="windows10.0-kb4486130-x86_2f13d180f47d3db30af63d48ea0d1c76becf14fc.msu">
+		<language>ar-SA</language>
+		<hash type="sha-1">2f13d180f47d3db30af63d48ea0d1c76becf14fc</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486130-x86_2f13d180f47d3db30af63d48ea0d1c76becf14fc.msu</url>
+	</file>
+	<file name="windows10.0-kb4486131-x86_f9b1c5794a9a399a4f3ee2b1b72d9d304b3884ab.msu">
+		<language>zh-CN</language>
+		<hash type="sha-1">f9b1c5794a9a399a4f3ee2b1b72d9d304b3884ab</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486131-x86_f9b1c5794a9a399a4f3ee2b1b72d9d304b3884ab.msu</url>
+	</file>
+	<file name="windows10.0-kb4486132-x86_b48a70bcce683483fed1edc0fc595b8158c95db2.msu">
+		<language>zh-TW</language>
+		<hash type="sha-1">b48a70bcce683483fed1edc0fc595b8158c95db2</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486132-x86_b48a70bcce683483fed1edc0fc595b8158c95db2.msu</url>
+	</file>
+	<file name="windows10.0-kb4486133-x86_ea0ddbfb5309873fba725ca3d4922bc105c2ff08.msu">
+		<language>cs-CZ</language>
+		<hash type="sha-1">ea0ddbfb5309873fba725ca3d4922bc105c2ff08</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486133-x86_ea0ddbfb5309873fba725ca3d4922bc105c2ff08.msu</url>
+	</file>
+	<file name="windows10.0-kb4486134-x86_b6fe3454fae5ae51b80769078c0a34c20444b6b5.msu">
+		<language>da-DK</language>
+		<hash type="sha-1">b6fe3454fae5ae51b80769078c0a34c20444b6b5</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486134-x86_b6fe3454fae5ae51b80769078c0a34c20444b6b5.msu</url>
+	</file>
+	<file name="windows10.0-kb4486135-x86_0aacc9c69807ae868882ec279e275d4da3ae7beb.msu">
+		<language>de-DE</language>
+		<hash type="sha-1">0aacc9c69807ae868882ec279e275d4da3ae7beb</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486135-x86_0aacc9c69807ae868882ec279e275d4da3ae7beb.msu</url>
+	</file>
+	<file name="windows10.0-kb4486136-x86_a946d4887ce8eb86486757c41441d4437f00580d.msu">
+		<language>el-GR</language>
+		<hash type="sha-1">a946d4887ce8eb86486757c41441d4437f00580d</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486136-x86_a946d4887ce8eb86486757c41441d4437f00580d.msu</url>
+	</file>
+	<file name="windows10.0-kb4486137-x86_858fa135eec9af95367e6a96e3200374a28fac8f.msu">
+		<language>es-ES</language>
+		<hash type="sha-1">858fa135eec9af95367e6a96e3200374a28fac8f</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486137-x86_858fa135eec9af95367e6a96e3200374a28fac8f.msu</url>
+	</file>
+	<file name="windows10.0-kb4486138-x86_6a817eba6c0d1dc8251617d00b0d1bccc6909a5b.msu">
+		<language>fi-FI</language>
+		<hash type="sha-1">6a817eba6c0d1dc8251617d00b0d1bccc6909a5b</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486138-x86_6a817eba6c0d1dc8251617d00b0d1bccc6909a5b.msu</url>
+	</file>
+	<file name="windows10.0-kb4486139-x86_d208937c561ff60985e3dea427205f0208c39f47.msu">
+		<language>fr-FR</language>
+		<hash type="sha-1">d208937c561ff60985e3dea427205f0208c39f47</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486139-x86_d208937c561ff60985e3dea427205f0208c39f47.msu</url>
+	</file>
+	<file name="windows10.0-kb4486140-x86_035d96e2b3423c2ef94c67919565f7d89da07d5c.msu">
+		<language>he-IL</language>
+		<hash type="sha-1">035d96e2b3423c2ef94c67919565f7d89da07d5c</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486140-x86_035d96e2b3423c2ef94c67919565f7d89da07d5c.msu</url>
+	</file>
+	<file name="windows10.0-kb4486141-x86_f2e034a3efaf588edfc3a94b1337901dd01f89bf.msu">
+		<language>hu-HU</language>
+		<hash type="sha-1">f2e034a3efaf588edfc3a94b1337901dd01f89bf</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486141-x86_f2e034a3efaf588edfc3a94b1337901dd01f89bf.msu</url>
+	</file>
+	<file name="windows10.0-kb4486142-x86_279e23325ace3ad7d5416fa13421f0678726a5c8.msu">
+		<language>it-IT</language>
+		<hash type="sha-1">279e23325ace3ad7d5416fa13421f0678726a5c8</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486142-x86_279e23325ace3ad7d5416fa13421f0678726a5c8.msu</url>
+	</file>
+	<file name="windows10.0-kb4486143-x86_fca6b0d79d834e7edebf7d00fdffa45d9e2c4477.msu">
+		<language>ja-JP</language>
+		<hash type="sha-1">fca6b0d79d834e7edebf7d00fdffa45d9e2c4477</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486143-x86_fca6b0d79d834e7edebf7d00fdffa45d9e2c4477.msu</url>
+	</file>
+	<file name="windows10.0-kb4486144-x86_e11dae34a09f05eb762a3667b173cb7a9bb7d604.msu">
+		<language>ko-KR</language>
+		<hash type="sha-1">e11dae34a09f05eb762a3667b173cb7a9bb7d604</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486144-x86_e11dae34a09f05eb762a3667b173cb7a9bb7d604.msu</url>
+	</file>
+	<file name="windows10.0-kb4486145-x86_1c8df639ba75b30257eaf106f9151bf7537f61e8.msu">
+		<language>nl-NL</language>
+		<hash type="sha-1">1c8df639ba75b30257eaf106f9151bf7537f61e8</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486145-x86_1c8df639ba75b30257eaf106f9151bf7537f61e8.msu</url>
+	</file>
+	<file name="windows10.0-kb4486146-x86_18b628c22081fe31702dd44444f1feb4e7066c9a.msu">
+		<language>nb-NO</language>
+		<hash type="sha-1">18b628c22081fe31702dd44444f1feb4e7066c9a</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486146-x86_18b628c22081fe31702dd44444f1feb4e7066c9a.msu</url>
+	</file>
+	<file name="windows10.0-kb4486147-x86_b71bdc830d61d815f32e165a352dbff0f1db1165.msu">
+		<language>pl-PL</language>
+		<hash type="sha-1">b71bdc830d61d815f32e165a352dbff0f1db1165</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486147-x86_b71bdc830d61d815f32e165a352dbff0f1db1165.msu</url>
+	</file>
+	<file name="windows10.0-kb4486148-x86_143ff731a89ec7a7e22d85ad37390cfe86ae21c8.msu">
+		<language>pt-BR</language>
+		<hash type="sha-1">143ff731a89ec7a7e22d85ad37390cfe86ae21c8</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486148-x86_143ff731a89ec7a7e22d85ad37390cfe86ae21c8.msu</url>
+	</file>
+	<file name="windows10.0-kb4486149-x86_093311cc4b56448d68af9414e07b86eb4fe8f12e.msu">
+		<language>pt-PT</language>
+		<hash type="sha-1">093311cc4b56448d68af9414e07b86eb4fe8f12e</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486149-x86_093311cc4b56448d68af9414e07b86eb4fe8f12e.msu</url>
+	</file>
+	<file name="windows10.0-kb4486150-x86_7ea7a2a64fbf2c19b603157d47d717705c9aaedc.msu">
+		<language>ru-RU</language>
+		<hash type="sha-1">7ea7a2a64fbf2c19b603157d47d717705c9aaedc</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486150-x86_7ea7a2a64fbf2c19b603157d47d717705c9aaedc.msu</url>
+	</file>
+	<file name="windows10.0-kb4486151-x86_5d87cc69200ca229deeb31d2444a395ba7c52b5b.msu">
+		<language>sv-SE</language>
+		<hash type="sha-1">5d87cc69200ca229deeb31d2444a395ba7c52b5b</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486151-x86_5d87cc69200ca229deeb31d2444a395ba7c52b5b.msu</url>
+	</file>
+	<file name="windows10.0-kb4486152-x86_a0d78f419ae23cb56b927ef379760044b7d23f96.msu">
+		<language>tr-TR</language>
+		<hash type="sha-1">a0d78f419ae23cb56b927ef379760044b7d23f96</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2019/08/windows10.0-kb4486152-x86_a0d78f419ae23cb56b927ef379760044b7d23f96.msu</url>
+	</file>
+</metalink>

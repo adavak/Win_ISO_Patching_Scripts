@@ -76,9 +76,6 @@ set Delete_Source=0
 :: LTSC 2021 Libs Fix
 set ltscfix="
 
-:: .net framework 4.8.1
-set netfx481="
-
 :: disable automatically installing suggested apps
 set nosuggapp="
 
@@ -239,7 +236,6 @@ isodir
 delete_source
 autostart
 ltscfix
-netfx481
 nosuggapp
 nosuggtip
 norestorage
@@ -363,21 +359,6 @@ set "mountdir=!target!"
 set arch=x86
 if exist "!target!\Windows\Servicing\Packages\*~amd64~~*.mum" set arch=x64
 if exist "!target!\Windows\Servicing\Packages\*~arm64~~*.mum" set arch=arm64
-)
-if %netfx481%==1 if exist "!repo!\*ndp48_*.*" if exist "!repo!\*ndp481_*.*" if %arch%==x64 (
-  del /f /q "!repo!\*ndp48_*.*" %_Nul3%
-  del /f /q "!repo!\*ndp48.*" %_Nul3%
-  copy /y "%~dp0bin\windows10.0-kb5011050-x64_02bbcfe63655f135aeb4ead88bcd7d770446b674_net481_zhcn.cab" "!repo!\" %_Nul1%
-)
-if %netfx481%==1 if exist "!repo!\*ndp48_*.*" if exist "!repo!\*ndp481_*.*" if %arch%==x86 (
-  del /f /q "!repo!\*ndp48_*.*" %_Nul3%
-  del /f /q "!repo!\*ndp48.*" %_Nul3%
-  copy /y "%~dp0bin\windows10.0-kb5011050-x86_387b07d30821f250092085c532fd2a2f463e5df3_net481_zhcn.cab" "!repo!\" %_Nul1%
-)
-if %netfx481%==0 if exist "!repo!\*ndp481_*.*" if exist "!repo!\*ndp48_*.*" (
-  del /f /q "!repo!\*ndp481_*.*" %_Nul3%
-  del /f /q "!repo!\*ndp481.*" %_Nul3%
-  del /f /q "!repo!\*net481*.*" %_Nul3%
 )
 if %wim%==1 (
 echo.

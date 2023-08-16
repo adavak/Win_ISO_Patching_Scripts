@@ -1,10 +1,11 @@
 @echo off
-title ¹Ù·½ ISO ´ò²¹¶¡¡­ Patching Official ISO...
+chcp 65001
+title å®˜æ–¹ ISO æ‰“è¡¥ä¸â€¦ Patching Official ISO...
 
 cd /d "%~dp0"
 if NOT "%cd%"=="%cd: =%" (
-    echo µ±Ç°Â·¾¶Ä¿Â¼°üº¬¿Õ¸ñ¡£
-    echo ÇëÒÆ³ı»òÖØÃüÃûÄ¿Â¼²»°üº¬¿Õ¸ñ¡£
+    echo å½“å‰è·¯å¾„ç›®å½•åŒ…å«ç©ºæ ¼ã€‚
+    echo è¯·ç§»é™¤æˆ–é‡å‘½åç›®å½•ä¸åŒ…å«ç©ºæ ¼ã€‚
     echo Current directory contains spaces in its path.
     echo Please move or rename the directory to one not containing spaces.
     echo.
@@ -24,7 +25,7 @@ powershell -NoProfile Start-Process -FilePath '%COMSPEC%' ^
 
 IF %ERRORLEVEL% GTR 0 (
     echo =====================================================
-    echo ´Ë½Å±¾ĞèÒªÊ¹ÓÃ¹ÜÀíÔ±È¨ÏŞÖ´ĞĞ¡£
+    echo æ­¤è„šæœ¬éœ€è¦ä½¿ç”¨ç®¡ç†å‘˜æƒé™æ‰§è¡Œã€‚
     echo This script needs to be executed as an administrator.
     echo =====================================================
     echo.
@@ -57,27 +58,57 @@ del /f /q "%~dp0%ISODir%\sources\install.esd"
 if NOT EXIST "%~dp0%ISODir%\sources\install.wim" (goto :NOT_SUPPORT)
 
 dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 | find /i "Version : 10." 1>nul || (
-dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 | find /i "Version : 11." 1>nul || (set "MESSAGE=·¢ÏÖ wim °æ±¾²»ÊÇ Windows 10 »ò 11 / Detected wim version is not Windows 10 or 11"&goto :EOF)
+dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 | find /i "Version : 11." 1>nul || (set "MESSAGE=å‘ç° wim ç‰ˆæœ¬ä¸æ˜¯ Windows 10 æˆ– 11 / Detected wim version is not Windows 10 or 11"&goto :EOF)
 )
 for /f "tokens=4 delims=:. " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Version :"') do set build=%%#
 for /f "tokens=2 delims=: " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Architecture"') do set arch=%%#
+for /f "tokens=1" %%i in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Default"') do set lang=%%i
 
+if %build%==14393 if %arch%==x86 (goto :NOT_SUPPORT)
 if %build%==19042 (set /a build=19041)
 if %build%==19043 (set /a build=19041)
 if %build%==19044 (set /a build=19041)
 if %build%==19045 (set /a build=19041)
+if %build%==20349 (set /a build=20348)
 if %build%==22622 (set /a build=22621)
 if %build%==22623 (set /a build=22621)
-if %build%==14393 if %arch%==x86 (goto :NOT_SUPPORT)
 
 if NOT EXIST %aria2% goto :NO_ARIA2_ERROR
 if NOT EXIST %a7z% goto :NO_FILE_ERROR
-if NOT EXIST "Scripts\script_%build%_%arch%.txt" goto :NOT_SUPPORT
+if NOT EXIST "Scripts\script_%build%_%arch%.meta4" goto :NOT_SUPPORT
 
-echo ÕıÔÚÏÂÔØ²¹¶¡¡­
-echo Patch Downloading...
-"%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d"%patchDir%" -i"Scripts\script_%build%_%arch%.txt"
+echo æ­£åœ¨ä¸‹è½½è¡¥ä¸â€¦
+echo Patches Downloading...
+"%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\script_%build%_%arch%.meta4"
 if %ERRORLEVEL% GTR 0 call :DOWNLOAD_ERROR & exit /b 1
+
+set netfx481=
+for /f "tokens=2 delims==" %%i in ('findstr netfx481 W10UI.ini') do (
+set netfx481=%%i
+)
+
+if "%netfx481%" equ "1" (
+if "%build%" geq "19041" if "%build%" leq "22000" (
+if exist "Scripts\netfx4.8.1\script_netfx4.8.1_%build%_%arch%.meta4" (
+"%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8.1\script_netfx4.8.1_%build%_%arch%.meta4" --metalink-language="neutral"
+))
+if "%lang%" neq "en-US" (
+"%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8.1\script_netfx4.8.1_%build%_%arch%.meta4" --metalink-language="%lang%"
+))
+
+if "%netfx481%" equ "0" (
+if "%build%" geq "19041" if "%build%" leq "22000" (
+if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
+"%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" --metalink-language="neutral"
+)))
+
+if "%build%" geq "14393" if "%build%" leq "17763" (
+if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
+"%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" --metalink-language="neutral"
+))
+if "%lang%" neq "en-US" (
+"%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" --metalink-language="%lang%"
+)
 
 if EXIST W10UI.cmd goto :START_WORKWORK
 pause
@@ -88,10 +119,10 @@ call W10UI.cmd
 goto :EOF
 
 :NO_ARIA2_ERROR
-echo µ±Ç°Ä¿Â¼Î´ÕÒµ½ %aria2%¡£
+echo å½“å‰ç›®å½•æœªæ‰¾åˆ° %aria2%ã€‚
 echo We couldn't find %aria2% in current directory.
 echo.
-echo ¿ÉÒÔ´Ó´ËÏÂÔØ aria2£º
+echo å¯ä»¥ä»æ­¤ä¸‹è½½ aria2ï¼š
 echo You can download aria2 from:
 echo https://aria2.github.io/
 echo.
@@ -99,19 +130,19 @@ pause
 goto :EOF
 
 :NO_FILE_ERROR
-echo Î´·¢ÏÖ½Å±¾ËùĞèÎÄ¼ş¡£
+echo æœªå‘ç°è„šæœ¬æ‰€éœ€æ–‡ä»¶ã€‚
 echo We couldn't find one of needed files for this script.
 pause
 goto :EOF
 
 :NO_ISO_ERROR
-echo Çë°Ñ¹Ù·½ ISO ÎÄ¼ş·Åµ½½Å±¾Í¬Ä¿Â¼ÏÂ¡£
+echo è¯·æŠŠå®˜æ–¹ ISO æ–‡ä»¶æ”¾åˆ°è„šæœ¬åŒç›®å½•ä¸‹ã€‚
 echo Please put official ISO file next to the script.
 pause
 goto :EOF
 
 :NO_ISO_PATCHED_ERROR
-echo ·¢ÏÖ¿ÉÄÜÒÑ´ò²¹¶¡µÄ ISO ÎÄ¼ş£¬ÇëÒÆ³ı»ò¼ì²é¡£
+echo å‘ç°å¯èƒ½å·²æ‰“è¡¥ä¸çš„ ISO æ–‡ä»¶ï¼Œè¯·ç§»é™¤æˆ–æ£€æŸ¥ã€‚
 echo Discovering a potentially patched ISO, Please remove or check.
 echo (%isofile%)
 pause
@@ -119,7 +150,7 @@ goto :EOF
 
 :DOWNLOAD_ERROR
 echo.
-echo ÏÂÔØÎÄ¼ş´íÎó£¬ÇëÖØĞÂ³¢ÊÔ¡£
+echo ä¸‹è½½æ–‡ä»¶é”™è¯¯ï¼Œè¯·é‡æ–°å°è¯•ã€‚
 echo We have encountered an error while downloading files.
 pause
 goto :EOF
@@ -127,13 +158,14 @@ goto :EOF
 :NOT_SUPPORT
 echo.
 rmdir /s /q "%~dp0%ISODir%"
-echo ²»Ö§³Ö´Ë ISO °æ±¾¡£»ò ISO ÎÄ¼şÒì³£¡£
+echo ä¸æ”¯æŒæ­¤ ISO ç‰ˆæœ¬ã€‚æˆ– ISO æ–‡ä»¶å¼‚å¸¸ã€‚
+echo ç‰ˆæœ¬ï¼š%build%ï¼Œæ¶æ„ï¼š%arch%
 echo Not support this version ISO. or the ISO file error.
 echo Version: %build%, Architecture: %arch%
 pause
 goto :EOF
 
-echo ÊäÈë 7 ÍË³ö¡£
+echo è¾“å…¥ 7 é€€å‡ºã€‚
 echo Press 7 to exit.
 choice /c 7 /n
 if errorlevel 1 (goto :eof) else (rem.)
