@@ -1,6 +1,8 @@
 ### Win_ISO_Patching_Scripts
 
-[(简体中文) Simplified Chinese ](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README.md)   [(英文) English](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README_en.md)
+[English Readme](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README_en.md)
+
+[简体中文说明](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README_cn.md)
 
 <a href="https://github.com/adavak/Win_ISO_Patching_Scripts/releases/latest"><img src="https://img.shields.io/github/v/release/adavak/Win_ISO_Patching_Scripts"></a>
 <a href="https://github.com/adavak/Win_ISO_Patching_Scripts/releases/latest"><img src="https://img.shields.io/github/release-date-pre/adavak/Win_ISO_Patching_Scripts"></a>
