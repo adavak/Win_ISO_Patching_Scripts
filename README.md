@@ -1,7 +1,9 @@
-### Win_ISO_Patching_Scripts_zhCN
+### Win_ISO_Patching_Scripts
 
-<a href="https://github.com/adavak/Win_ISO_Patching_Scripts_zhCN/releases/latest"><img src="https://img.shields.io/github/v/release/adavak/Win_ISO_Patching_Scripts_zhCN"></a>
-<a href="https://github.com/adavak/Win_ISO_Patching_Scripts_zhCN/releases/latest"><img src="https://img.shields.io/github/release-date-pre/adavak/Win_ISO_Patching_Scripts_zhCN"></a>
+[(简体中文) Simplified Chinese ](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README.md)   [(英文) English](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README_en.md)
+
+<a href="https://github.com/adavak/Win_ISO_Patching_Scripts/releases/latest"><img src="https://img.shields.io/github/v/release/adavak/Win_ISO_Patching_Scripts"></a>
+<a href="https://github.com/adavak/Win_ISO_Patching_Scripts/releases/latest"><img src="https://img.shields.io/github/release-date-pre/adavak/Win_ISO_Patching_Scripts"></a>
 
 ##### 用法：把 Windows 映像（ISO 格式）放入文件夹根目录，运行 Start.cmd 开始下载最新补丁并开始制作集成补丁的 ISO。下载补丁文件地址为微软官方。
 
