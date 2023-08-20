@@ -87,20 +87,16 @@ for /f "tokens=2 delims==" %%i in ('findstr netfx481 W10UI.ini') do (
 set netfx481=%%i
 )
 
-if "%netfx481%" equ "1" (
 if "%build%" geq "19041" if "%build%" leq "22000" (
+if "%netfx481%" equ "1" (
 if exist "Scripts\netfx4.8.1\script_netfx4.8.1_%build%_%arch%.meta4" (
 "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8.1\script_netfx4.8.1_%build%_%arch%.meta4" --metalink-language="neutral"
-))
+)
 if "%lang%" neq "en-US" (
 "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8.1\script_netfx4.8.1_%build%_%arch%.meta4" --metalink-language="%lang%"
-))
-
-if "%netfx481%" equ "0" (
-if "%build%" geq "19041" if "%build%" leq "22000" (
-if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
+)) else if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
 "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" --metalink-language="neutral"
-)))
+))
 
 if "%build%" geq "14393" if "%build%" leq "17763" (
 if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
