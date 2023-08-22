@@ -1248,9 +1248,9 @@ reg.exe unload "HKLM\Usertemp" %_Nul3%
 if %norestorage%==1 (
 echo Disable Reserved Storage...
 reg.exe load "HKLM\Softtemp" "!mumtarget!\Windows\System32\Config\SOFTWARE" %_Nul3%
-reg.exe add "HKLM\Softtemp\Microsoft\Windows\CurrentVersion\ReserveManager" /v "MiscPolicyInfo" /t REG_DWORD/t REG_DWORD /d "2" /f %_Nul1%
-reg.exe add "HKLM\Softtemp\Microsoft\Windows\CurrentVersion\ReserveManager" /v "PassedPolicy" /t REG_DWORD/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Softtemp\Microsoft\Windows\CurrentVersion\ReserveManager" /v "ShippedWithReserves" /t REG_DWORD/t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Softtemp\Microsoft\Windows\CurrentVersion\ReserveManager" /v "MiscPolicyInfo" /t REG_DWORD /d "2" /f %_Nul1%
+reg.exe add "HKLM\Softtemp\Microsoft\Windows\CurrentVersion\ReserveManager" /v "PassedPolicy" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Softtemp\Microsoft\Windows\CurrentVersion\ReserveManager" /v "ShippedWithReserves" /t REG_DWORD /d "0" /f %_Nul1%
 reg.exe unload "HKLM\Softtemp" %_Nul3%
 )
 :cuwd
