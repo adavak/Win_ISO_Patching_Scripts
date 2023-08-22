@@ -1,8 +1,8 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5029253-x64_309cc54ae55dfd11d258e5d2002615950acb75af-lcu.msu">
-		<hash type="sha-1">309cc54ae55dfd11d258e5d2002615950acb75af</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/08/windows10.0-kb5029253-x64_309cc54ae55dfd11d258e5d2002615950acb75af.msu</url>
+	<file name="windows10.0-kb5029332-x64_b3bf2afe6c70b2f771cd36b230991309e1830cc6-lcu.msu">
+		<hash type="sha-1">b3bf2afe6c70b2f771cd36b230991309e1830cc6</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/08/windows10.0-kb5029332-x64_b3bf2afe6c70b2f771cd36b230991309e1830cc6.msu</url>
 	</file>
 	<file name="windows10.0-kb5028312-x64_656281140d25028a7eba07c5dfb84f241e9000b7-ldu.cab">
 		<hash type="sha-1">656281140d25028a7eba07c5dfb84f241e9000b7</hash>
