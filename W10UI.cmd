@@ -1222,27 +1222,27 @@ echo Adding VP9VideoExtensions...
 if %nosuggapp%==1 (
 echo Disable download Third-Party Apps...
 reg.exe load "HKLM\Usertemp" "!mumtarget!\Users\Default\NTUSER.DAT" %_Nul3%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "ContentDeliveryAllowed"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "DesktopSpotlightOemEnabled"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "FeatureManagementEnabled"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "OemPreInstalledAppsEnabled"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEnabled"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEverEnabled"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "RemediationRequired"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SilentInstalledAppsEnabled"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SlideshowEnabled"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SoftLandingEnabled"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SystemPaneSuggestionsEnabled"/t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "ContentDeliveryAllowed" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "DesktopSpotlightOemEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "FeatureManagementEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "OemPreInstalledAppsEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEverEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "RemediationRequired" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SilentInstalledAppsEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SlideshowEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SoftLandingEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SystemPaneSuggestionsEnabled" /t REG_DWORD /d "0" /f %_Nul1%
 reg.exe unload "HKLM\Usertemp" %_Nul3%
 )
 if %nosuggtip%==1 (
 echo Disable unused Suggestions...
 reg.exe load "HKLM\Usertemp" "!mumtarget!\Users\Default\NTUSER.DAT" %_Nul3%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-310093Enabled"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338389Enabled"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338393Enabled"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-353694Enabled"/t REG_DWORD /d "0" /f %_Nul1%
-reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-353696Enabled"/t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-310093Enabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338389Enabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338393Enabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-353694Enabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-353696Enabled" /t REG_DWORD /d "0" /f %_Nul1%
 reg.exe unload "HKLM\Usertemp" %_Nul3%
 )
 if %norestorage%==1 (
