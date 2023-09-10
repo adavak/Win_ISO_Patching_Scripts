@@ -222,6 +222,12 @@ https://github.com/ave9858
 ============================================================
 Changelog:
 ============================================================
+10.32:
+- Updated detection for Windows 11 23H2 Enablement Package
+
+10.31:
+- Fixed Windows 10 Combined LCU integration for install.wim when used via W10MUI
+
 10.30:
 - Added workaround for using target image dpx.dll to extract updates cab files for builds 22000+
 - Suppress DISM cleanup output for builds 25380+
