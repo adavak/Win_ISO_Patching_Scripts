@@ -101,10 +101,10 @@ if "%lang%" neq "en-US" (
 if "%build%" geq "14393" if "%build%" leq "17763" (
 if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
 "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" --metalink-language="neutral"
-))
+)
 if "%lang%" neq "en-US" (
 "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" --metalink-language="%lang%"
-)
+))
 
 if EXIST W10UI.cmd goto :START_WORKWORK
 pause
