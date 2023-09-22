@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.32
+@set uiv=v10.33
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -280,6 +280,12 @@ if /i not "!dismroot!"=="dism.exe" (
 set _ADK=1
 set "showdism=%dismroot%"
 set _dism2="%dismroot%" /English /NoRestart /ScratchDir
+set "dsv=!dismroot:\=\\!"
+call :DismVer
+) else (
+set "dsv=%SysPath%\dism.exe"
+set "dsv=!dsv:\=\\!"
+call :DismVer
 )
 set _drv=%~d0
 if /i "%_cabdir:~0,5%"=="W10UI" set "_cabdir=%_drv%\W10UItemp"
@@ -340,6 +346,7 @@ set targetname=0
 set _skpd=0
 set _skpp=0
 set uupboot=0
+set _all=1
 if %_init%==1 if "!target!"=="" if exist "*.wim" (for /f "tokens=* delims=" %%# in ('dir /b /a:-d "*.wim"') do set "target=!_work!\%%~nx#")
 if "!target!"=="" set "target=%SystemDrive%"
 if "%target:~-1%"=="\" set "target=!target:~0,-1!"
@@ -422,7 +429,7 @@ if not defined onlineclean goto :main1board
 :main0board
 set _elr=0
 @cls
-echo ======================= W10UI %uiv% ==========================
+echo ====================== W10UI %uiv% =======================
 echo.
 echo Detected pending "Cleanup System Image" for Current OS:
 echo.
@@ -599,7 +606,9 @@ echo ============================================================
 echo Converting install.wim to install.esd ...
 echo ============================================================
 cd /d "!target!"
-%_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:sources\install.wim /All /DestinationImageFile:sources\install.esd /Compress:recovery
+for /f "tokens=2 delims=: " %%# in ('dism.exe /english /get-wiminfo /wimfile:"sources\install.wim" ^| find /i "Index"') do set imgcount=%%#
+if %_all% equ 0 for /L %%# in (1,1,%imgcount%) do %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:sources\install.wim /SourceIndex:%%# /DestinationImageFile:sources\install.esd /Compress:Recovery
+if %_all% equ 1 %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:sources\install.wim /All /DestinationImageFile:sources\install.esd /Compress:Recovery
 if %errorlevel% neq 0 del /f /q sources\install.esd %_Nul3%
 if exist sources\install.esd del /f /q sources\install.wim
 cd /d "!_work!"
@@ -1994,7 +2003,8 @@ cd /d "!_wimpath!"
 if %keep%==1 (
 for %%# in (%indices%) do %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:%_wimfile% /SourceIndex:%%# /DestinationImageFile:temp.wim
 ) else (
-%_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:%_wimfile% /All /DestinationImageFile:temp.wim
+if %_all% equ 0 for /L %%# in (1,1,%imgcount%) do %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:%_wimfile% /SourceIndex:%%# /DestinationImageFile:temp.wim
+if %_all% equ 1 %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:%_wimfile% /All /DestinationImageFile:temp.wim
 )
 %~dp0bin\wimlib-imagex optimize temp.wim
 if %errorlevel% equ 0 (move /y temp.wim %_wimfile% %_Nul1%) else (del /f /q temp.wim %_Nul3%)
@@ -2112,7 +2122,7 @@ goto :eof
   %_dism2%:"!_cabdir!" /Unmount-Wim /MountDir:"!winremount!" /Commit
   if !errorlevel! neq 0 goto :E_MOUNT
   cd /d "!_work!"
-  %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:winre.wim /All /DestinationImageFile:temp.wim
+  %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:winre.wim /SourceIndex:1 /DestinationImageFile:temp.wim
   %~dp0bin\wimlib-imagex optimize temp.wim
   move /y temp.wim winre.wim %_Nul1%
   cd /d "!_cabdir!"
@@ -2148,10 +2158,7 @@ goto :eof
 )
 if %cleanup%==0 call :cleanmanual&goto :eof
 if exist "!mumtarget!\Windows\WinSxS\pending.xml" (
-if %online%==1 (
-  call :onlinepending
-  goto :eof
-  )
+if %online%==1 call :onlinepending&goto :eof
 call :cleanmanual&goto :eof
 )
 set "_Nul8="
@@ -2444,11 +2451,22 @@ if exist "%DandIRoot%\%xOS%\DISM\dism.exe" (
 set _ADK=1
 set "showdism=Windows NT 10.0 ADK"
 set "Path=%DandIRoot%\%xOS%\DISM;%SysPath%;%SystemRoot%;%SysPath%\Wbem;%SysPath%\WindowsPowerShell\v1.0\"
+set "dsv=%DandIRoot%\%xOS%\DISM\dism.exe"
+set "dsv=!dsv:\=\\!"
+call :DismVer
 )
 if exist "%DandIRoot%\%xOS%\Oscdimg\oscdimg.exe" (
 set "_oscdimg=%DandIRoot%\%xOS%\Oscdimg\oscdimg.exe"
 )
 goto :mainmenu
+
+:DismVer
+set "dsmver=10240"
+if %_cwmi% equ 1 for /f "tokens=4 delims==." %%# in ('wmic datafile where "name='!dsv!'" get Version /value') do set "dsmver=%%#" 
+if %_cwmi% equ 0 for /f "tokens=3 delims=." %%# in ('powershell -nop -c "([WMI]'CIM_DataFile.Name=\"!dsv!\"').Version"') do set "dsmver=%%#"
+set _all=1
+if %dsmver% geq 25115 set _all=0
+exit /b
 
 :targetmenu
 @cls
@@ -2508,10 +2526,8 @@ set /p _pp=
 if not defined _pp goto :mainmenu
 set "_pp=%_pp:"=%"
 if not exist "!_pp!" (echo.&echo ERROR: DISM path not found&pause&goto :dismmenu)
-set "cpp=!_pp:\=\\!"
-set "dsmver=10240"
-if %_cwmi% equ 1 for /f "tokens=4 delims==." %%# in ('wmic datafile where "name='!cpp!'" get Version /value') do set "dsmver=%%#" 
-if %_cwmi% equ 0 for /f "tokens=3 delims=." %%# in ('powershell -nop -c "([WMI]'CIM_DataFile.Name=\"!cpp!\"').Version"') do set "dsmver=%%#"
+set "dsv=!_pp:\=\\!"
+call :DismVer
 if %dsmver% lss 10240 (echo.&echo ERROR: DISM version is lower than 10.0.10240.16384&pause&goto :dismmenu)
 set "dismroot=%_pp%"
 set "showdism=%_pp%"
@@ -2588,7 +2604,7 @@ goto :mainmenu
 :mainmenu
 if %autostart%==1 goto :mainboard
 @cls
-echo ======================= W10UI %uiv% ==========================
+echo ====================== W10UI %uiv% =======================
 if /i "!target!"=="%SystemDrive%" (
 if %winbuild% lss 10240 (echo [1] Select offline target) else (echo [1] Target ^(%arch%^): Current OS)
 ) else (

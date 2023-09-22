@@ -222,6 +222,9 @@ https://github.com/ave9858
 ============================================================
 Changelog:
 ============================================================
+10.33:
+- Export wim indexes one at a time if detected Dism.exe version 10.0.25115.1000 or later
+
 10.32:
 - Updated detection for Windows 11 23H2 Enablement Package
 
