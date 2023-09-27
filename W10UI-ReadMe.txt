@@ -174,6 +174,9 @@ keep or delete DVD distribution folder after creating updated ISO
 start the process automatically once you execute the script
 the option will also auto exit at the end without prompt
 
+# UseWimlib
+detect and use wimlib-imagex.exe for exporting wim files instead dism.exe
+
 - Note: Do not change the structure of W10UI.ini, just set your options after the equal sign =
 
 - To restore old behavior and change options by editing the script, simply detele W10UI.ini file
@@ -222,6 +225,10 @@ https://github.com/ave9858
 ============================================================
 Changelog:
 ============================================================
+10.34:
+- Detect and use wimlib-imagex.exe for exporting wim files instead dism.exe
+- Added config option "UseWimlib" to control the new behavior
+
 10.33:
 - Export wim indexes one at a time if detected Dism.exe version 10.0.25115.1000 or later
 

@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.33
+@set uiv=v10.34
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -53,7 +53,10 @@ set "WinreMount=W10UImountre"
 :: start the process directly once you execute the script, as long as the other options are correctly set
 set AutoStart=0
 
-:: # Options for distribution target only #
+:: detect and use wimlib-imagex.exe for exporting wim files instead dism.exe
+set UseWimlib=1
+
+:: ### Options for distribution target only ###
 
 :: convert install.wim to install.esd
 :: warning: the process will consume very high amount of CPU and RAM resources
@@ -230,6 +233,7 @@ winre
 lcuwinre
 updtbootfiles
 skipedge
+usewimlib
 _cabdir
 mountdir
 winremount
@@ -268,11 +272,22 @@ if "%WinRE%"=="" set WinRE=1
 if "%LCUwinre%"=="" set LCUwinre=0
 if "%UpdtBootFiles%"=="" set UpdtBootFiles=0
 if "%SkipEdge%"=="" set SkipEdge=0
+if "%UseWimlib%"=="" set UseWimlib=1
 if "%ISO%"=="" set ISO=1
 if "%AutoStart%"=="" set AutoStart=0
 if "%Delete_Source%"=="" set Delete_Source=0
 if "%wim2esd%"=="" set wim2esd=0
 if "%wim2swm%"=="" set wim2swm=0
+set _wlib=0
+if %UseWimlib% equ 1 for %%# in (wimlib-imagex.exe) do @if not "%%~$PATH:#"=="" (
+set _wlib=1
+set _wimlib=wimlib-imagex.exe
+)
+if %UseWimlib% equ 1 if %_wlib% equ 0 (
+if exist "wimlib-imagex.exe" set _wlib=1&set _wimlib="!_work!\wimlib-imagex.exe"
+if exist "bin\wimlib-imagex.exe" set _wlib=1&set _wimlib="!_work!\bin\wimlib-imagex.exe"
+if /i %xOS%==amd64 if exist "bin\bin64\wimlib-imagex.exe" set _wlib=1&set _wimlib="!_work!\bin\bin64\wimlib-imagex.exe"
+)
 set _ADK=0
 set "showdism=Host OS"
 set "_dism2=%dismroot% /English /NoRestart /ScratchDir"
@@ -607,9 +622,15 @@ echo Converting install.wim to install.esd ...
 echo ============================================================
 cd /d "!target!"
 for /f "tokens=2 delims=: " %%# in ('dism.exe /english /get-wiminfo /wimfile:"sources\install.wim" ^| find /i "Index"') do set imgcount=%%#
+if %_wlib% equ 1 (
+!_wimlib! export sources\install.wim all sources\install.esd --compress=LZMS --solid
+call set errcode=!errorlevel!
+) else (
 if %_all% equ 0 for /L %%# in (1,1,%imgcount%) do %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:sources\install.wim /SourceIndex:%%# /DestinationImageFile:sources\install.esd /Compress:Recovery
 if %_all% equ 1 %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:sources\install.wim /All /DestinationImageFile:sources\install.esd /Compress:Recovery
-if %errorlevel% neq 0 del /f /q sources\install.esd %_Nul3%
+call set errcode=!errorlevel!
+)
+if %errcode% neq 0 del /f /q sources\install.esd %_Nul3%
 if exist sources\install.esd del /f /q sources\install.wim
 cd /d "!_work!"
 goto :fin
@@ -620,8 +641,14 @@ echo ============================================================
 echo Splitting install.wim into install.swm^(s^)...
 echo ============================================================
 cd /d "!target!"
-%_dism2%:"!_cabdir!" /Split-Image /ImageFile:sources\install.wim /SWMFile:sources\install.swm /FileSize:4000
-if %errorlevel% neq 0 del /f /q sources\install*.swm %_Nul3%
+if %_wlib% equ 1 (
+!_wimlib! split sources\install.wim sources\install.swm 3500
+call set errcode=!errorlevel!
+) else (
+%_dism2%:"!_cabdir!" /Split-Image /ImageFile:sources\install.wim /SWMFile:sources\install.swm /FileSize:3500
+call set errcode=!errorlevel!
+)
+if %errcode% neq 0 del /f /q sources\install*.swm %_Nul3%
 if exist sources\install*.swm del /f /q sources\install.wim
 cd /d "!_work!"
 goto :fin
@@ -2000,14 +2027,27 @@ echo ============================================================
 echo Rebuilding %_wimfile% ...
 echo ============================================================
 cd /d "!_wimpath!"
-if %keep%==1 (
-for %%# in (%indices%) do %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:%_wimfile% /SourceIndex:%%# /DestinationImageFile:temp.wim
-) else (
-if %_all% equ 0 for /L %%# in (1,1,%imgcount%) do %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:%_wimfile% /SourceIndex:%%# /DestinationImageFile:temp.wim
-if %_all% equ 1 %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:%_wimfile% /All /DestinationImageFile:temp.wim
+if %keep%==1 for %%# in (%indices%) do (
+if %_wlib% equ 1 (
+    !_wimlib! export %_wimfile% %%# temp.wim --compress=LZX
+    call set errcode=!errorlevel!
+  ) else (
+    %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:%_wimfile% /SourceIndex:%%# /DestinationImageFile:temp.wim
+    call set errcode=!errorlevel!
+  )
+)
+if %keep%==0 (
+if %_wlib% equ 1 (
+    !_wimlib! export %_wimfile% all temp.wim --compress=LZX
+    call set errcode=!errorlevel!
+  ) else (
+    if %_all% equ 0 for /L %%# in (1,1,%imgcount%) do %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:%_wimfile% /SourceIndex:%%# /DestinationImageFile:temp.wim
+    if %_all% equ 1 %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:%_wimfile% /All /DestinationImageFile:temp.wim
+    call set errcode=!errorlevel!
+  )
 )
 %~dp0bin\wimlib-imagex optimize temp.wim
-if %errorlevel% equ 0 (move /y temp.wim %_wimfile% %_Nul1%) else (del /f /q temp.wim %_Nul3%)
+if %errcode% equ 0 (if exist "temp.wim" (move /y temp.wim %_wimfile% %_Nul1%) else (del /f /q temp.wim %_Nul3%))
 cd /d "!_cabdir!"
 goto :eof
 
@@ -2122,7 +2162,11 @@ goto :eof
   %_dism2%:"!_cabdir!" /Unmount-Wim /MountDir:"!winremount!" /Commit
   if !errorlevel! neq 0 goto :E_MOUNT
   cd /d "!_work!"
-  %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:winre.wim /SourceIndex:1 /DestinationImageFile:temp.wim
+  if %_wlib% equ 1 (
+    !_wimlib! export winre.wim 1 temp.wim --compress=LZX --boot
+  ) else (
+    %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:winre.wim /SourceIndex:1 /DestinationImageFile:temp.wim
+  )
   %~dp0bin\wimlib-imagex optimize temp.wim
   move /y temp.wim winre.wim %_Nul1%
   cd /d "!_cabdir!"
