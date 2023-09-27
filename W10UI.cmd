@@ -2046,7 +2046,6 @@ if %_wlib% equ 1 (
     call set errcode=!errorlevel!
   )
 )
-%~dp0bin\wimlib-imagex optimize temp.wim
 if %errcode% equ 0 (if exist "temp.wim" (move /y temp.wim %_wimfile% %_Nul1%) else (del /f /q temp.wim %_Nul3%))
 cd /d "!_cabdir!"
 goto :eof
@@ -2167,7 +2166,6 @@ goto :eof
   ) else (
     %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:winre.wim /SourceIndex:1 /DestinationImageFile:temp.wim
   )
-  %~dp0bin\wimlib-imagex optimize temp.wim
   move /y temp.wim winre.wim %_Nul1%
   cd /d "!_cabdir!"
   )
