@@ -225,6 +225,10 @@ https://github.com/ave9858
 ============================================================
 Changelog:
 ============================================================
+10.35:
+- Fixed wimlib issue with boot.wim
+- Changed "UseWimlib" default state to OFF
+
 10.34:
 - Detect and use wimlib-imagex.exe for exporting wim files instead dism.exe
 - Added config option "UseWimlib" to control the new behavior

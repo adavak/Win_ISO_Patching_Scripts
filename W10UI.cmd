@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.34
+@set uiv=v10.35
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -54,7 +54,7 @@ set "WinreMount=W10UImountre"
 set AutoStart=0
 
 :: detect and use wimlib-imagex.exe for exporting wim files instead dism.exe
-set UseWimlib=1
+set UseWimlib=0
 
 :: ### Options for distribution target only ###
 
@@ -623,6 +623,7 @@ echo ============================================================
 cd /d "!target!"
 for /f "tokens=2 delims=: " %%# in ('dism.exe /english /get-wiminfo /wimfile:"sources\install.wim" ^| find /i "Index"') do set imgcount=%%#
 if %_wlib% equ 1 (
+echo.
 !_wimlib! export sources\install.wim all sources\install.esd --compress=LZMS --solid
 call set errcode=!errorlevel!
 ) else (
@@ -630,8 +631,7 @@ if %_all% equ 0 for /L %%# in (1,1,%imgcount%) do %_dism2%:"!_cabdir!" /Export-I
 if %_all% equ 1 %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:sources\install.wim /All /DestinationImageFile:sources\install.esd /Compress:Recovery
 call set errcode=!errorlevel!
 )
-if %errcode% neq 0 del /f /q sources\install.esd %_Nul3%
-if exist sources\install.esd del /f /q sources\install.wim
+if %errcode% equ 0 (if exist "sources\install.esd" del /f /q sources\install.wim %_Nul1%) else (del /f /q sources\install.esd %_Nul3%)
 cd /d "!_work!"
 goto :fin
 
@@ -642,14 +642,14 @@ echo Splitting install.wim into install.swm^(s^)...
 echo ============================================================
 cd /d "!target!"
 if %_wlib% equ 1 (
+echo.
 !_wimlib! split sources\install.wim sources\install.swm 3500
 call set errcode=!errorlevel!
 ) else (
 %_dism2%:"!_cabdir!" /Split-Image /ImageFile:sources\install.wim /SWMFile:sources\install.swm /FileSize:3500
 call set errcode=!errorlevel!
 )
-if %errcode% neq 0 del /f /q sources\install*.swm %_Nul3%
-if exist sources\install*.swm del /f /q sources\install.wim
+if %errcode% equ 0 (if exist "sources\install*.swm" del /f /q sources\install.wim %_Nul1%) else (del /f /q sources\install*.swm %_Nul3%)
 cd /d "!_work!"
 goto :fin
 
@@ -1970,8 +1970,8 @@ if %dvd%==1 (
 if not defined isomaj for /f "tokens=6,7 delims=_." %%i in ('dir /b /a:-d /od "!mountdir!\Windows\WinSxS\Manifests\%sss%_microsoft-windows-coreos-revision*.manifest"') do (set isover=%%i.%%j&set isomaj=%%i&set isomin=%%j)
 if not defined isolab if not exist "!mountdir!\Windows\Servicing\Packages\*WinPE-LanguagePack*.mum" (
 if %_build% geq 15063 (call :detectLab isolab) else (call :legacyLab isolab)
-if %UpdtBootFiles% equ 1 if exist "!mountdir!\Windows\Boot\EFI\winsipolicy.p7b" if exist "!target!\efi\microsoft\boot\winsipolicy.p7b" copy /y "!mountdir!\Windows\Boot\EFI\winsipolicy.p7b" "!target!\efi\microsoft\boot\winsipolicy.p7b" %_Nul3%
-if %UpdtBootFiles% equ 1 if exist "!mountdir!\Windows\Boot\EFI\CIPolicies\" if exist "!target!\efi\microsoft\boot\cipolicies\" xcopy /CEDRY "!mountdir!\Windows\Boot\EFI\CIPolicies\*" "!target!\efi\microsoft\boot\cipolicies\" %_Nul3%
+if %UpdtBootFiles% equ 1 if exist "!mountdir!\Windows\Boot\EFI\winsipolicy.p7b" if exist "!target!\efi\microsoft\boot\winsipolicy.p7b" copy /y "!mountdir!\Windows\Boot\EFI\winsipolicy.p7b" "!target!\efi\microsoft\boot\" %_Nul3%
+if %UpdtBootFiles% equ 1 if exist "!mountdir!\Windows\Boot\EFI\CIPolicies\" if exist "!target!\efi\microsoft\boot\cipolicies\" xcopy /CERY "!mountdir!\Windows\Boot\EFI\CIPolicies" "!target!\efi\microsoft\boot\cipolicies\" %_Nul3%
 )
 if %_actEP% equ 0 if exist "!mountdir!\Windows\Servicing\Packages\microsoft-windows-*enablement-package~*.mum" if not exist "!mountdir!\Windows\Servicing\Packages\*WinPE-LanguagePack*.mum" call :detectEP
 if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-Server*Edition~*.mum" set _SrvEdt=1
@@ -2029,6 +2029,7 @@ echo ============================================================
 cd /d "!_wimpath!"
 if %keep%==1 for %%# in (%indices%) do (
 if %_wlib% equ 1 (
+    echo.
     !_wimlib! export %_wimfile% %%# temp.wim --compress=LZX
     call set errcode=!errorlevel!
   ) else (
@@ -2038,7 +2039,8 @@ if %_wlib% equ 1 (
 )
 if %keep%==0 (
 if %_wlib% equ 1 (
-    !_wimlib! export %_wimfile% all temp.wim --compress=LZX
+    echo.
+    !_wimlib! optimize %_wimfile%
     call set errcode=!errorlevel!
   ) else (
     if %_all% equ 0 for /L %%# in (1,1,%imgcount%) do %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:%_wimfile% /SourceIndex:%%# /DestinationImageFile:temp.wim
@@ -2046,7 +2048,7 @@ if %_wlib% equ 1 (
     call set errcode=!errorlevel!
   )
 )
-if %errcode% equ 0 (if exist "temp.wim" (move /y temp.wim %_wimfile% %_Nul1%) else (del /f /q temp.wim %_Nul3%))
+if %errcode% equ 0 (if exist "temp.wim" move /y temp.wim %_wimfile% %_Nul1%) else (del /f /q temp.wim %_Nul3%)
 cd /d "!_cabdir!"
 goto :eof
 
@@ -2112,8 +2114,7 @@ if exist "!mountdir!\Windows\Servicing\Packages\WinPE-Setup-Package~*.mum" xcopy
 del /f /q "!target!\sources\background.bmp" %_Nul3%
 del /f /q "!target!\sources\xmllite.dll" %_Nul3%
 if %UpdtBootFiles% equ 1 (
-if exist "!mountdir!\Windows\Boot\DVD\EFI\en-US\efisys_noprompt.bin" copy /y "!mountdir!\Windows\Boot\DVD\EFI\en-US\efisys_noprompt.bin" "!target!\efi\microsoft\boot\" %_Nul1%
-if exist "!mountdir!\Windows\Boot\DVD\EFI\en-US\efisys.bin" copy /y "!mountdir!\Windows\Boot\DVD\EFI\en-US\efisys.bin" "!target!\efi\microsoft\boot\" %_Nul1%
+for %%i in (efisys.bin,efisys_noprompt.bin) do if exist "!mountdir!\Windows\Boot\DVD\EFI\en-US\%%i" (copy /y "!mountdir!\Windows\Boot\DVD\EFI\en-US\%%i" "!target!\efi\microsoft\boot\" %_Nul1%)
 if /i not %arch%==arm64 (
 copy /y "!mountdir!\Windows\Boot\PCAT\bootmgr" "!target!\" %_Nul1%
 copy /y "!mountdir!\Windows\Boot\EFI\memtest.efi" "!target!\efi\microsoft\boot\" %_Nul1%
@@ -2162,11 +2163,12 @@ goto :eof
   if !errorlevel! neq 0 goto :E_MOUNT
   cd /d "!_work!"
   if %_wlib% equ 1 (
-    !_wimlib! export winre.wim 1 temp.wim --compress=LZX --boot
+    echo.
+    !_wimlib! optimize winre.wim
   ) else (
     %_dism2%:"!_cabdir!" /Export-Image /SourceImageFile:winre.wim /SourceIndex:1 /DestinationImageFile:temp.wim
   )
-  move /y temp.wim winre.wim %_Nul1%
+  if exist "temp.wim" move /y temp.wim winre.wim %_Nul1%
   cd /d "!_cabdir!"
   )
   set "mumtarget=!mumtargeb!"
