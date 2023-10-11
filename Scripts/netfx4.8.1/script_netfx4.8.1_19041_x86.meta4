@@ -1,9 +1,9 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5011048-x86_0c1809d3b7c73987b930ef760fd44e119af45109.msu">
+	<file name="windows10.0-kb5011048-x86_74a24b713a0af00a9d437c06904e2f5237fd96c9.msu">
 		<language>neutral</language>
-		<hash type="sha-1">0c1809d3b7c73987b930ef760fd44e119af45109</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/ftpk/2023/07/windows10.0-kb5011048-x86_0c1809d3b7c73987b930ef760fd44e119af45109.msu</url>
+		<hash type="sha-1">74a24b713a0af00a9d437c06904e2f5237fd96c9</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/09/windows10.0-kb5011048-x86_74a24b713a0af00a9d437c06904e2f5237fd96c9.msu</url>
 	</file>
 	<file name="windows10.0-kb5030649-x86-ndp481_89bd159c1e21a4712614ecffb1967bbba1a920b5.msu">
 		<language>neutral</language>
