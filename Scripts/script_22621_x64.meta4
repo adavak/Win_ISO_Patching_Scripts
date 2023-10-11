@@ -1,8 +1,8 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows11.0-kb5030310-x64_2b759815a3b7626cc8f508753553172aa444d454-lcu.msu">
-		<hash type="sha-1">2b759815a3b7626cc8f508753553172aa444d454</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/02a8ad05-42e4-4a6d-aa03-27cf6a0a1533/public/windows11.0-kb5030310-x64_2b759815a3b7626cc8f508753553172aa444d454.msu</url>
+	<file name="windows11.0-kb5031354-x64_3391407e62562e0e48a437c5c7115667305d788c-lcu.msu">
+		<hash type="sha-1">3391407e62562e0e48a437c5c7115667305d788c</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/885dcacb-fb29-4536-88f6-4fd4792a4a65/public/windows11.0-kb5031354-x64_3391407e62562e0e48a437c5c7115667305d788c.msu</url>
 	</file>
 	<file name="windows11.0-kb5030651-x64-ndp481_16588e0f4646956ccde79a96ad7c2a6c7162cbf5-net481.msu">
 		<hash type="sha-1">16588e0f4646956ccde79a96ad7c2a6c7162cbf5</hash>
@@ -12,8 +12,8 @@
 		<hash type="sha-1">c37b1f26a00615dcd863f54d27cc1938c24c9e92</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/2124b0d3-ba04-4b97-91dc-c06def1d0b90/public/windows11.0-kb5030327-x64_c37b1f26a00615dcd863f54d27cc1938c24c9e92.cab</url>
 	</file>
-	<file name="windows11.0-kb5029863-x64_797dc7fed51225246e90b8ef9b2b1b32badc74aa-safeos.cab">
-		<hash type="sha-1">797dc7fed51225246e90b8ef9b2b1b32badc74aa</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/73409b8b-2398-468d-9ec6-fa4861c6aa8e/public/windows11.0-kb5029863-x64_797dc7fed51225246e90b8ef9b2b1b32badc74aa.cab</url>
+	<file name="windows11.0-kb5031476-x64_d93ef6c86b4010a7f00c8a56037af0cc16190f48-safeos.cab">
+		<hash type="sha-1">d93ef6c86b4010a7f00c8a56037af0cc16190f48</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/a872df8d-e847-4bdf-a45e-66a93b9b7a4a/public/windows11.0-kb5031476-x64_d93ef6c86b4010a7f00c8a56037af0cc16190f48.cab</url>
 	</file>
 </metalink>

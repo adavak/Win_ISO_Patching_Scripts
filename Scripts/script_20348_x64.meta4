@@ -1,16 +1,16 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5030216-x64_cbe587155f9818548b75f65d5cd41d341ed2fc61-lcu.msu">
-		<hash type="sha-1">cbe587155f9818548b75f65d5cd41d341ed2fc61</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/09/windows10.0-kb5030216-x64_cbe587155f9818548b75f65d5cd41d341ed2fc61.msu</url>
+	<file name="windows10.0-kb5031364-x64_03606fb9b116659d52e2b5f5a8914bbbaaab6810-lcu.msu">
+		<hash type="sha-1">03606fb9b116659d52e2b5f5a8914bbbaaab6810</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/10/windows10.0-kb5031364-x64_03606fb9b116659d52e2b5f5a8914bbbaaab6810.msu</url>
 	</file>
 	<file name="windows10.0-kb5028263-x64_a23cf577bdd4d19b829acb507dc77c2d9c1bc98a-ldu.cab">
 		<hash type="sha-1">a23cf577bdd4d19b829acb507dc77c2d9c1bc98a</hash>
 		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2023/07/windows10.0-kb5028263-x64_a23cf577bdd4d19b829acb507dc77c2d9c1bc98a.cab</url>
 	</file>
-	<file name="windows10.0-kb5027388-x64_1790eeed872acc22ca22db59acb1cb423bac5cbd-safeos.cab">
-		<hash type="sha-1">1790eeed872acc22ca22db59acb1cb423bac5cbd</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/06/windows10.0-kb5027388-x64_1790eeed872acc22ca22db59acb1cb423bac5cbd.cab</url>
+	<file name="windows10.0-kb5031473-x64_46df3b77d9693c00f79ba60f175102c3f3f81a01-safeos.cab">
+		<hash type="sha-1">46df3b77d9693c00f79ba60f175102c3f3f81a01</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2023/10/windows10.0-kb5031473-x64_46df3b77d9693c00f79ba60f175102c3f3f81a01.cab</url>
 	</file>
 	<file name="windows10.0-kb5007374-x64_2c8bd78e9522f9ca3dd145b2d740fc25979d84e5.cab">
 		<hash type="sha-1">2c8bd78e9522f9ca3dd145b2d740fc25979d84e5</hash>
