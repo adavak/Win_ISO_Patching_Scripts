@@ -225,6 +225,11 @@ https://github.com/ave9858
 ============================================================
 Changelog:
 ============================================================
+10.36:
+- Improved iso label accuracy for Enablement Package fake builds
+- Fixed accidental endless loop when AutoStart=1 and Target/Repo are not detected
+- Update boot files when w10UI.cmd is called from W10MUI.cmd
+
 10.35:
 - Fixed wimlib issue with boot.wim
 - Changed "UseWimlib" default state to OFF
