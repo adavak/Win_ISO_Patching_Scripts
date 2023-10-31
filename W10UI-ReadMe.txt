@@ -225,10 +225,13 @@ https://github.com/ave9858
 ============================================================
 Changelog:
 ============================================================
+10.37:
+- Fixed CIM_DataFile powershell.exe commands (used if wmic.exe is not installed)
+
 10.36:
 - Improved iso label accuracy for Enablement Package fake builds
 - Fixed accidental endless loop when AutoStart=1 and Target/Repo are not detected
-- Update boot files when w10UI.cmd is called from W10MUI.cmd
+- Update boot files when W10UI.cmd is called from W10MUI.cmd
 
 10.35:
 - Fixed wimlib issue with boot.wim
