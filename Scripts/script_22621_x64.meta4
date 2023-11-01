@@ -8,6 +8,10 @@
 		<hash type="sha-1">b4c515251ee2dfc9091608575ea053ed3b9c4ab0</hash>
 		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2023/09/windows11.0-kb5031817-x64-ndp481_b4c515251ee2dfc9091608575ea053ed3b9c4ab0.msu</url>
 	</file>
+	<file name="windows11.0-kb5027397-x64_3a9c368e239bb928c32a790cf1663338d2cad472-ep.msu">
+		<hash type="sha-1">3a9c368e239bb928c32a790cf1663338d2cad472</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/caa3ff4a-6420-4341-aeae-33b2d7f463be/public/windows11.0-kb5027397-x64_3a9c368e239bb928c32a790cf1663338d2cad472.msu</url>
+	</file>
 	<file name="windows11.0-kb5031656-x64_471eb53e78e0418eb19878b3efe7a86e30739556-ldu.cab">
 		<hash type="sha-1">471eb53e78e0418eb19878b3efe7a86e30739556</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/bce37ed6-5e10-44fb-92fb-0bb12a82c87f/public/windows11.0-kb5031656-x64_471eb53e78e0418eb19878b3efe7a86e30739556.cab</url>
