@@ -14,8 +14,8 @@
 
 |Name|Internal version (last updated: November 1, 2023)|
 |---|---|
-|**Windows 10 Enterprise LTSB 2016、Windows Server 2016**|**Build 14393.6351**|
-|**Windows 10 Enterprise LTSC 2019、Windows Server 2019**|**Build 17763.4974**|
+|**Windows 10 Enterprise LTSB 2016, Windows Server 2016**|**Build 14393.6351**|
+|**Windows 10 Enterprise LTSC 2019, Windows Server 2019**|**Build 17763.4974**|
 |**Windows 10 22H2, Windows 10 Enterprise LTSC 2021**|**Build 1904x.3636**|
 |**Windows Server 2022**|**Build 20348.2031**|
 |**Windows 11 21H2**|**Build 22000.2538**|
