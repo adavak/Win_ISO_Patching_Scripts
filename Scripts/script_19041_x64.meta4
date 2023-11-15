@@ -1,16 +1,16 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5031445-x64_418ef5fcb1d37c436c0f455324424d23b1cd3c83-lcu.msu">
-		<hash type="sha-1">418ef5fcb1d37c436c0f455324424d23b1cd3c83</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/10/windows10.0-kb5031445-x64_418ef5fcb1d37c436c0f455324424d23b1cd3c83.msu</url>
+	<file name="windows10.0-kb5032189-x64_0a3b690ba3fa6cd69a2b0f989f273cfeadba745f-lcu.msu">
+		<hash type="sha-1">0a3b690ba3fa6cd69a2b0f989f273cfeadba745f</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/11/windows10.0-kb5032189-x64_0a3b690ba3fa6cd69a2b0f989f273cfeadba745f.msu</url>
 	</file>
 	<file name="windows10.0-kb5015684-x64_523c039b86ca98f2d818c4e6706e2cc94b634c4a-ep.msu">
 		<hash type="sha-1">523c039b86ca98f2d818c4e6706e2cc94b634c4a</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/upgr/2022/07/windows10.0-kb5015684-x64_523c039b86ca98f2d818c4e6706e2cc94b634c4a.msu</url>
 	</file>
-	<file name="windows10.0-kb5028311-x64_8750fa3c7e42f95fc70d36ee33526009a431dd24-ldu.cab">
-		<hash type="sha-1">8750fa3c7e42f95fc70d36ee33526009a431dd24</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2023/07/windows10.0-kb5028311-x64_8750fa3c7e42f95fc70d36ee33526009a431dd24.cab</url>
+	<file name="windows10.0-kb5032906-x64_6c7f60ce1a9cd3a52c1f478bd8e346ef6c7f4e71-ldu.cab">
+		<hash type="sha-1">6c7f60ce1a9cd3a52c1f478bd8e346ef6c7f4e71</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/11/windows10.0-kb5032906-x64_6c7f60ce1a9cd3a52c1f478bd8e346ef6c7f4e71.cab</url>
 	</file>
 	<file name="windows10.0-kb5031474-x64_ea1e6fb79e9d86e464b93e54a661ba3ca446c7e3-safeos.cab">
 		<hash type="sha-1">ea1e6fb79e9d86e464b93e54a661ba3ca446c7e3</hash>

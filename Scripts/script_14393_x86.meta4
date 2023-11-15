@@ -1,12 +1,12 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5030504-x86_ff4bf1cfc8a78a906ba4a7c026fb33fea8a040f7-ssu.msu">
-		<hash type="sha-1">ff4bf1cfc8a78a906ba4a7c026fb33fea8a040f7</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/09/windows10.0-kb5030504-x86_ff4bf1cfc8a78a906ba4a7c026fb33fea8a040f7.msu</url>
+	<file name="windows10.0-kb5032391-x86_207416cc435db64b037d353a8693ccdaf83144fd-ssu.msu">
+		<hash type="sha-1">207416cc435db64b037d353a8693ccdaf83144fd</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/11/windows10.0-kb5032391-x86_207416cc435db64b037d353a8693ccdaf83144fd.msu</url>
 	</file>
-	<file name="windows10.0-kb5031362-x86_07d5ba73d10bd140f0b9f5a22a17cf65b35b2c6d-lcu.msu">
-		<hash type="sha-1">07d5ba73d10bd140f0b9f5a22a17cf65b35b2c6d</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/10/windows10.0-kb5031362-x86_07d5ba73d10bd140f0b9f5a22a17cf65b35b2c6d.msu</url>
+	<file name="windows10.0-kb5032197-x86_c41af0389e0811d11497ed1d094afaa9d66ac6c9-lcu.msu">
+		<hash type="sha-1">c41af0389e0811d11497ed1d094afaa9d66ac6c9</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/11/windows10.0-kb5032197-x86_c41af0389e0811d11497ed1d094afaa9d66ac6c9.msu</url>
 	</file>
 	<file name="windows10.0-kb5028913-x86_e8551f2a2fc6642ca95d92a4c945e312b03ee862.msu">
 		<hash type="sha-1">e8551f2a2fc6642ca95d92a4c945e312b03ee862</hash>
