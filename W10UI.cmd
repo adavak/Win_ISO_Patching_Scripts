@@ -1140,7 +1140,6 @@ set cupdt=
 set dupdt=
 set overall=
 set lcupkg=
-set LTSC=0
 set discard=0
 set discardre=0
 set ldr=&set listc=0&set list=1&set AC=100
