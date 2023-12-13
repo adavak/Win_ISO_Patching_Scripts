@@ -4,9 +4,9 @@
 		<hash type="sha-1">99db9fc196b41a2b8cc633bd1d863b2cbca6777b</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/11/windows10.0-kb5032391-x64_99db9fc196b41a2b8cc633bd1d863b2cbca6777b.msu</url>
 	</file>
-	<file name="windows10.0-kb5032197-x64_7053d3a67b313280f4bf708f519918061c01168d-lcu.msu">
-		<hash type="sha-1">7053d3a67b313280f4bf708f519918061c01168d</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/11/windows10.0-kb5032197-x64_7053d3a67b313280f4bf708f519918061c01168d.msu</url>
+	<file name="windows10.0-kb5033373-x64_f4d44e665cf4786af6838b4dff2928ac801fa672-lcu.msu">
+		<hash type="sha-1">f4d44e665cf4786af6838b4dff2928ac801fa672</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/12/windows10.0-kb5033373-x64_f4d44e665cf4786af6838b4dff2928ac801fa672.msu</url>
 	</file>
 	<file name="windows10.0-kb5028913-x64_f6cadb881817331ddd2577db1faca2382e4e9b30.msu">
 		<hash type="sha-1">f6cadb881817331ddd2577db1faca2382e4e9b30</hash>
