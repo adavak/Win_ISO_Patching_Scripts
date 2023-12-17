@@ -1,4 +1,6 @@
 @echo off
+for /f "tokens=2 delims=:" %%a in ('chcp') do set oldchcp=%%a
+set oldchcp=%oldchcp: =%
 chcp 65001
 title 官方 ISO 打补丁… Patching Official ISO...
 
@@ -110,6 +112,7 @@ pause
 goto :EOF
 
 :START_WORKWORK
+chcp %oldchcp% >nul
 call W10UI.cmd
 goto :EOF
 
