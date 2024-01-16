@@ -1,8 +1,8 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5031988-x86-ndp48_5840121937ccdad5cf19dd480cb9ab7445d9ac96.msu">
+	<file name="windows10.0-kb5033909-x86-ndp48_b4789dbc838881950b33393fd206901c726274d7.msu">
 		<language>neutral</language>
-		<hash type="sha-1">5840121937ccdad5cf19dd480cb9ab7445d9ac96</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/11/windows10.0-kb5031988-x86-ndp48_5840121937ccdad5cf19dd480cb9ab7445d9ac96.msu</url>
+		<hash type="sha-1">b4789dbc838881950b33393fd206901c726274d7</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/12/windows10.0-kb5033909-x86-ndp48_b4789dbc838881950b33393fd206901c726274d7.msu</url>
 	</file>
 </metalink>

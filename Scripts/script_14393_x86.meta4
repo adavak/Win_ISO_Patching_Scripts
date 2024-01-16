@@ -4,17 +4,17 @@
 		<hash type="sha-1">207416cc435db64b037d353a8693ccdaf83144fd</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/11/windows10.0-kb5032391-x86_207416cc435db64b037d353a8693ccdaf83144fd.msu</url>
 	</file>
-	<file name="windows10.0-kb5033373-x86_33926beaf8fc46b5271fe0e625f0da9512a8fbc5-lcu.msu">
-		<hash type="sha-1">33926beaf8fc46b5271fe0e625f0da9512a8fbc5</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2023/12/windows10.0-kb5033373-x86_33926beaf8fc46b5271fe0e625f0da9512a8fbc5.msu</url>
+	<file name="windows10.0-kb5034119-x86_bc12c8bc00fed6d7fc0cf1a952fc6b2cf08b7e46-lcu.msu">
+		<hash type="sha-1">bc12c8bc00fed6d7fc0cf1a952fc6b2cf08b7e46</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2024/01/windows10.0-kb5034119-x86_bc12c8bc00fed6d7fc0cf1a952fc6b2cf08b7e46.msu</url>
 	</file>
 	<file name="windows10.0-kb5028913-x86_e8551f2a2fc6642ca95d92a4c945e312b03ee862.msu">
 		<hash type="sha-1">e8551f2a2fc6642ca95d92a4c945e312b03ee862</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/06/windows10.0-kb5028913-x86_e8551f2a2fc6642ca95d92a4c945e312b03ee862.msu</url>
 	</file>
-	<file name="windows10.0-kb5031471-x86_d833dcd611d516c04a89f16c636d2eaf21c04fa3-safeos.cab">
-		<hash type="sha-1">d833dcd611d516c04a89f16c636d2eaf21c04fa3</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2023/10/windows10.0-kb5031471-x86_d833dcd611d516c04a89f16c636d2eaf21c04fa3.cab</url>
+	<file name="windows10.0-kb5034230-x86_9573cd7cb7afdd8baef933856d69c790310f9cc4-safeos.cab">
+		<hash type="sha-1">9573cd7cb7afdd8baef933856d69c790310f9cc4</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2024/01/windows10.0-kb5034230-x86_9573cd7cb7afdd8baef933856d69c790310f9cc4.cab</url>
 	</file>
 	<file name="windows10.0-kb4532820-x86_92399ad5370f56e5639dbac5c3916cb222b6335b.cab">
 		<hash type="sha-1">92399ad5370f56e5639dbac5c3916cb222b6335b</hash>
