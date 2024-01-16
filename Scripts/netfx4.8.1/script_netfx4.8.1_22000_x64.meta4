@@ -5,10 +5,10 @@
 		<hash type="sha-1">411d40ab5705c99f2bdb576ad3dc3e6ec0f3902e</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2023/09/windows10.0-kb5011048-x64_411d40ab5705c99f2bdb576ad3dc3e6ec0f3902e.msu</url>
 	</file>
-	<file name="windows11.0-kb5032006-x64-ndp481_298da3126424149e3c1f488e964507ed1e7b2505.msu">
+	<file name="windows11.0-kb5033919-x64-ndp481_f636514a78c7d86686856fa1877d3fa00a0a630a.msu">
 		<language>neutral</language>
-		<hash type="sha-1">298da3126424149e3c1f488e964507ed1e7b2505</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/11/windows11.0-kb5032006-x64-ndp481_298da3126424149e3c1f488e964507ed1e7b2505.msu</url>
+		<hash type="sha-1">f636514a78c7d86686856fa1877d3fa00a0a630a</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/12/windows11.0-kb5033919-x64-ndp481_f636514a78c7d86686856fa1877d3fa00a0a630a.msu</url>
 	</file>
 	<file name="windows10.0-kb5011049-x64_6789d5ad63d1f07ca00741c09ecf6eb188665bde.msu">
 		<language>ar-SA</language>
