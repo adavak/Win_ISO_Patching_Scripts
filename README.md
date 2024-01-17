@@ -32,6 +32,7 @@
 |**nosuggapp = 0**|If you want to disable the installation of third-party apps after a new installation of Windows, change it to 1.|
 |**nosuggtip = 0**|If you want to disable the useless suggestion tips in Windows, change it to 1.|
 |**norestorage = 0**|If you want to disable the space usage of the reserved storage, change it to 1.|
+|**nogamebar = 0**|If you want to disable the Game Bar, change it to 1.|
 
 ###### Thanks:
 |Tool|Source|
