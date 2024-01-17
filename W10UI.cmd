@@ -88,6 +88,9 @@ set nosuggtip="
 :: disable reserved storage
 set norestorage="
 
+:: disable game bar
+set nogamebar="
+
 :: ###################################################################
 :: # NORMALLY THERE IS NO NEED TO CHANGE ANYTHING BELOW THIS COMMENT #
 :: ###################################################################
@@ -251,6 +254,7 @@ ltscfix
 nosuggapp
 nosuggtip
 norestorage
+nogamebar
 ) do (
 call :ReadINI %%#
 )
@@ -1332,6 +1336,12 @@ reg.exe add "HKLM\Softtemp\Microsoft\Windows\CurrentVersion\ReserveManager" /v "
 reg.exe add "HKLM\Softtemp\Microsoft\Windows\CurrentVersion\ReserveManager" /v "PassedPolicy" /t REG_DWORD /d "0" /f %_Nul1%
 reg.exe add "HKLM\Softtemp\Microsoft\Windows\CurrentVersion\ReserveManager" /v "ShippedWithReserves" /t REG_DWORD /d "0" /f %_Nul1%
 reg.exe unload "HKLM\Softtemp" %_Nul3%
+)
+if %nogamebar%==1 (
+echo Disable Game Bar...
+reg.exe load "HKLM\Usertemp" "!mumtarget!\Users\Default\NTUSER.DAT" %_Nul3%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\GameBar" /v "UseNexusForGameBarEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe unload "HKLM\Usertemp" %_Nul3%
 )
 :cuwd
 if defined lcupkg call :ReLCU
