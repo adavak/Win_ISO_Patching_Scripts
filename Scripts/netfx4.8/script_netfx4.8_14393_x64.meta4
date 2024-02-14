@@ -5,10 +5,10 @@
 		<hash type="sha-1">0b61d9a03db731562e0a0b49383342a4d8cbe36a</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486129-x64_0b61d9a03db731562e0a0b49383342a4d8cbe36a.msu</url>
 	</file>
-	<file name="windows10.0-kb5033910-x64-ndp48_b1a3e722dbcd8d88b845314b8e9bf5e8fd9b6904.msu">
+	<file name="windows10.0-kb5034614-x64-ndp48_57fe0d79c9a52b7e7d5295c935350c6bf980495e.msu">
 		<language>neutral</language>
-		<hash type="sha-1">b1a3e722dbcd8d88b845314b8e9bf5e8fd9b6904</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2023/12/windows10.0-kb5033910-x64-ndp48_b1a3e722dbcd8d88b845314b8e9bf5e8fd9b6904.msu</url>
+		<hash type="sha-1">57fe0d79c9a52b7e7d5295c935350c6bf980495e</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2024/01/windows10.0-kb5034614-x64-ndp48_57fe0d79c9a52b7e7d5295c935350c6bf980495e.msu</url>
 	</file>
 	<file name="windows10.0-kb4486130-x64_d6142b5af88538a6cfa6330f50d69e38c52b13d7.msu">
 		<language>ar-SA</language>
