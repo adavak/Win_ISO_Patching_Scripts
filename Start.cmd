@@ -66,7 +66,6 @@ for /f "tokens=4 delims=:. " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%
 for /f "tokens=2 delims=: " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Architecture"') do set arch=%%#
 for /f "tokens=1" %%i in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Default"') do set lang=%%i
 
-if %build%==14393 if %arch%==x86 (goto :NOT_SUPPORT)
 if %build%==19042 (set /a build=19041)
 if %build%==19043 (set /a build=19041)
 if %build%==19044 (set /a build=19041)

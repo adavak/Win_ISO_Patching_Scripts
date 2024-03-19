@@ -1,0 +1,19 @@
+﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
+	<file name="windows10.0-kb5035845-arm64_72a3464ca5730bdec419e352f29954dce1c17f9d-lcu.msu">
+		<hash type="sha-1">72a3464ca5730bdec419e352f29954dce1c17f9d</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2024/03/windows10.0-kb5035845-arm64_72a3464ca5730bdec419e352f29954dce1c17f9d.msu</url>
+	</file>
+	<file name="windows10.0-kb5015684-arm64_a4cc6e95084da14adb972e1d67cf573a244ed7a3-ep.msu">
+		<hash type="sha-1">a4cc6e95084da14adb972e1d67cf573a244ed7a3</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/upgr/2022/07/windows10.0-kb5015684-arm64_a4cc6e95084da14adb972e1d67cf573a244ed7a3.msu</url>
+	</file>
+	<file name="windows10.0-kb5032906-arm64_f8efab4f3559ff21ad9e4f397f8621573f02447f-ldu.cab">
+		<hash type="sha-1">f8efab4f3559ff21ad9e4f397f8621573f02447f</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/11/windows10.0-kb5032906-arm64_f8efab4f3559ff21ad9e4f397f8621573f02447f.cab</url>
+	</file>
+	<file name="windows10.0-kb5034232-arm64_95d0a0d252c070e5ab3f5c4ceb49b810f967df6b-safeos.cab">
+		<hash type="sha-1">95d0a0d252c070e5ab3f5c4ceb49b810f967df6b</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2024/01/windows10.0-kb5034232-arm64_95d0a0d252c070e5ab3f5c4ceb49b810f967df6b.cab</url>
+	</file>
+</metalink>
