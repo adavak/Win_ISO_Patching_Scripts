@@ -91,20 +91,22 @@ if "%build%" geq "19041" if "%build%" leq "22000" (
 if "%netfx481%" equ "1" (
 if exist "Scripts\netfx4.8.1\script_netfx4.8.1_%build%_%arch%.meta4" (
 "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8.1\script_netfx4.8.1_%build%_%arch%.meta4" --metalink-language="neutral"
-)
 if "%lang%" neq "en-US" (
 "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8.1\script_netfx4.8.1_%build%_%arch%.meta4" --metalink-language="%lang%"
-)) else if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
+))
+if not exist "Scripts\netfx4.8.1\script_netfx4.8.1_%build%_%arch%.meta4" if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
+"%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" --metalink-language="neutral"
+))
+if "%netfx481%" neq "1" if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
 "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" --metalink-language="neutral"
 ))
 
 if "%build%" geq "14393" if "%build%" leq "17763" (
 if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
 "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" --metalink-language="neutral"
-)
 if "%lang%" neq "en-US" (
 "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" --metalink-language="%lang%"
-))
+)))
 
 if EXIST W10UI.cmd goto :START_WORKWORK
 pause
