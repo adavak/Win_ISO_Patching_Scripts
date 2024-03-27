@@ -1,0 +1,15 @@
+﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
+	<file name="windows10.0-kb5037425-arm64_5aee9f1134c0458203835d614685d250450ee3d0-lcu.msu">
+		<hash type="sha-1">5aee9f1134c0458203835d614685d250450ee3d0</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2024/03/windows10.0-kb5037425-arm64_5aee9f1134c0458203835d614685d250450ee3d0.msu</url>
+	</file>
+	<file name="windows10.0-kb5028310-arm64_80566678779d5ced91e4831ce951047605003884-ldu.cab">
+		<hash type="sha-1">80566678779d5ced91e4831ce951047605003884</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2023/07/windows10.0-kb5028310-arm64_80566678779d5ced91e4831ce951047605003884.cab</url>
+	</file>
+	<file name="windows10.0-kb5034231-arm64_a2e90bc23c1af16ddcd851f7812fb5c80d1b17bf-safeos.cab">
+		<hash type="sha-1">a2e90bc23c1af16ddcd851f7812fb5c80d1b17bf</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2024/01/windows10.0-kb5034231-arm64_a2e90bc23c1af16ddcd851f7812fb5c80d1b17bf.cab</url>
+	</file>
+</metalink>
