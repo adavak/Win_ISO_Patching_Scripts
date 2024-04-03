@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.40
+@set uiv=v10.41
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -1544,6 +1544,8 @@ if not exist "%dest%\*enablement-package*.mum" set "edge=!edge! /PackagePath:%de
 goto :eof
 )
 if exist "%dest%\update.mum" findstr /i /m "Package_for_SafeOSDU" "%dest%\update.mum" %_Nul3% && (
+if not exist "!mumtarget!\Windows\Servicing\Packages\WinPE-Rejuv-Package~*.mum" (set /a _sum-=1&goto :eof)
+if %verb%==1 (set /a _sum-=1&goto :eof)
 set "safeos=!safeos! /PackagePath:%dest%\update.mum"
 goto :eof
 )

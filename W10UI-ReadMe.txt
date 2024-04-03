@@ -249,6 +249,9 @@ https://github.com/asdcorp/haveSxS
 ============================================================
 Changelog:
 ============================================================
+10.41:
+- Fix to skip Package_for_SafeOSDU for boot.wim
+
 10.40:
 - Detect Package_for_SafeOSDU (26080+)
 - Detect and skip HotPatchUpdate for offline target (26058+)
