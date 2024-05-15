@@ -4,9 +4,9 @@
 		<hash type="sha-1">a28aa2576fc6b120b127acfbb901d3546ba9db82</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2024/05/windows10.0-kb5037782-x64_a28aa2576fc6b120b127acfbb901d3546ba9db82.msu</url>
 	</file>
-	<file name="windows10.0-kb5028263-x64_a23cf577bdd4d19b829acb507dc77c2d9c1bc98a-ldu.cab">
-		<hash type="sha-1">a23cf577bdd4d19b829acb507dc77c2d9c1bc98a</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2023/07/windows10.0-kb5028263-x64_a23cf577bdd4d19b829acb507dc77c2d9c1bc98a.cab</url>
+	<file name="windows10.0-kb5037958-x64_f83ab3ad3daed4c8b4aabe15b854f2a0990b338b-ldu.cab">
+		<hash type="sha-1">f83ab3ad3daed4c8b4aabe15b854f2a0990b338b</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2024/05/windows10.0-kb5037958-x64_f83ab3ad3daed4c8b4aabe15b854f2a0990b338b.cab</url>
 	</file>
 	<file name="windows10.0-kb5034235-x64_56366bb71884fc21c948c37ed3341f74aaf6b296-safeos.cab">
 		<hash type="sha-1">56366bb71884fc21c948c37ed3341f74aaf6b296</hash>
