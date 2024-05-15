@@ -4,9 +4,9 @@
 		<hash type="sha-1">2ff781a88dc1bfc25378116bbd0a54ead05c46ae</hash>
 		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2024/04/windows10.0-kb5037016-x86_2ff781a88dc1bfc25378116bbd0a54ead05c46ae.msu</url>
 	</file>
-	<file name="windows10.0-kb5036899-x86_b485d6ff79efd8c3c7c7164128920e6faef9de7b-lcu.msu">
-		<hash type="sha-1">b485d6ff79efd8c3c7c7164128920e6faef9de7b</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2024/04/windows10.0-kb5036899-x86_b485d6ff79efd8c3c7c7164128920e6faef9de7b.msu</url>
+	<file name="windows10.0-kb5037763-x86_649eed3339768e7f26592e9ccc1a44d2d8197ddb-lcu.msu">
+		<hash type="sha-1">649eed3339768e7f26592e9ccc1a44d2d8197ddb</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2024/05/windows10.0-kb5037763-x86_649eed3339768e7f26592e9ccc1a44d2d8197ddb.msu</url>
 	</file>
 	<file name="windows10.0-kb5028913-x86_e8551f2a2fc6642ca95d92a4c945e312b03ee862.msu">
 		<hash type="sha-1">e8551f2a2fc6642ca95d92a4c945e312b03ee862</hash>
