@@ -152,6 +152,9 @@ update ISO boot files bootmgr/bootmgr.efi/efisys.bin from Cumulative Update
 1 = do not install EdgeChromium with Enablement Package or Cumulative Update
 2 = alternative workaround to skip EdgeChromium with Cumulative Update only
 
+# SkipWebView
+do not install Edge WebView with Cumulative Update  
+
 # wim2esd
 convert install.wim to install.esd, if the target is a distribution
 warning: the process will consume very high amount of CPU and RAM resources
@@ -249,6 +252,10 @@ https://github.com/asdcorp/haveSxS
 ============================================================
 Changelog:
 ============================================================
+10.43:
+- Add Edge-WebView suppressor for builds 19041+ < 26080
+- Add config option "SkipWebView" to control the new suppressor
+
 10.42:
 - Fix detection issue where SafeOS DU might get added for install.wim
 - Add fallback dism.exe /Apply-Image command to extract LCU msu wim files if Powershell code failed
