@@ -1,8 +1,8 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows11.0-kb5037853-x64_ea5982b12f310485854313cb8564e03a2735e355-lcu.msu">
-		<hash type="sha-1">ea5982b12f310485854313cb8564e03a2735e355</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/3383e837-002f-42dd-9d0d-f6e81825cb34/public/windows11.0-kb5037853-x64_ea5982b12f310485854313cb8564e03a2735e355.msu</url>
+	<file name="windows11.0-kb5039212-x64_2b67855a5e73c7a873e6bdca512c8c106b429196-lcu.msu">
+		<hash type="sha-1">2b67855a5e73c7a873e6bdca512c8c106b429196</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/a2fe5398-6f24-46ee-a533-372dc30bfd82/public/windows11.0-kb5039212-x64_2b67855a5e73c7a873e6bdca512c8c106b429196.msu</url>
 	</file>
 	<file name="windows11.0-kb5037591-x64-ndp481_c9be84bc9c76e3869fdde0a02c610796fb3d05ce-net481.msu">
 		<hash type="sha-1">c9be84bc9c76e3869fdde0a02c610796fb3d05ce</hash>
