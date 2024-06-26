@@ -12,14 +12,14 @@
 
 ###### Supported Windows versions:
 
-|Name|Internal version (last updated: June 12, 2024)|
+|Name|Internal version (last updated: June 26, 2024)|
 |---|---|
 |**Windows 10 Enterprise LTSB 2016, Windows Server 2016**|**Build 14393.7070**|
 |**Windows 10 Enterprise LTSC 2019, Windows Server 2019**|**Build 17763.5936**|
-|**Windows 10 22H2, Windows 10 Enterprise LTSC 2021**|**Build 1904x.4529**|
+|**Windows 10 22H2, Windows 10 Enterprise LTSC 2021**|**Build 1904x.4598**|
 |**Windows Server 2022**|**Build 20348.2527**|
 |**Windows 11 21H2**|**Build 22000.3019**|
-|**Windows 11 23H2**|**Build 22631.3737**|
+|**Windows 11 23H2**|**Build 22631.3810**|
 
 ###### Some settings (located in the W10UI.ini file in the root directory of the folder):
 |Value|Description|
