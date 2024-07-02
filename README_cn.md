@@ -1,6 +1,6 @@
 ### Win_ISO_Patching_Scripts
 
-[简体中文说明](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README_cn.md)
+[中文说明](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README_cn.md)
 
 [English Readme](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README.md)
 
