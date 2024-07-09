@@ -2540,6 +2540,12 @@ del /f /q "!mumtarget!\Windows\*.log" %_Nul3%
 if exist "!target!\sources\SetupDU_*.spdx.json*" (
 del /f /q "!target!\sources\SetupDU_*.spdx.json*" %_Nul3%
 )
+if exist "!target!\__chunk_data" (
+del /f /q "!target!\__chunk_data" %_Nul3%
+)
+if exist "!target!\sources\_manifest\" (
+rmdir /s /q "!target!\sources\_manifest\" %_Nul3%
+)
 goto :eof
 
 :onlinepending

@@ -1,8 +1,12 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows11.0-kb5039304-x64_b6ca63a05b485b2eab71a710d6a81f2902da5e5f-lcu.msu">
-		<hash type="sha-1">b6ca63a05b485b2eab71a710d6a81f2902da5e5f</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/8a83cb0b-9a4a-490e-a87f-387f00e9175a/public/windows11.0-kb5039304-x64_b6ca63a05b485b2eab71a710d6a81f2902da5e5f.msu</url>
+	<file name="windows11.0-kb5040435-x64_eb3b8638c1576925800434522cbb112fd94aa379-lcu.msu">
+		<hash type="sha-1">eb3b8638c1576925800434522cbb112fd94aa379</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/1fa31054-619d-4e9f-9efd-f61e5ece0413/public/windows11.0-kb5040435-x64_eb3b8638c1576925800434522cbb112fd94aa379.msu</url>
+	</file>
+	<file name="windows11.0-kb5039894-x64-ndp481_505f9eea0fee9fde2dbe5c76e72d4b05d402a74c-net481.msu">
+		<hash type="sha-1">505f9eea0fee9fde2dbe5c76e72d4b05d402a74c</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2024/06/windows11.0-kb5039894-x64-ndp481_505f9eea0fee9fde2dbe5c76e72d4b05d402a74c.msu</url>
 	</file>
 	<file name="windows11.0-kb5039448-x64_3bbdfca7e527dab216c30d4c0696754af90b874d-ldu.cab">
 		<hash type="sha-1">3bbdfca7e527dab216c30d4c0696754af90b874d</hash>
