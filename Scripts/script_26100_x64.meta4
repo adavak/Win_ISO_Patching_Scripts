@@ -1,19 +1,19 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows11.0-kb5040435-x64_eb3b8638c1576925800434522cbb112fd94aa379-lcu.msu">
-		<hash type="sha-1">eb3b8638c1576925800434522cbb112fd94aa379</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/1fa31054-619d-4e9f-9efd-f61e5ece0413/public/windows11.0-kb5040435-x64_eb3b8638c1576925800434522cbb112fd94aa379.msu</url>
+	<file name="windows11.0-kb5040529-x64_fb312553946fb0b8a29324ba9f58c25ff6590979-lcu.msu">
+		<hash type="sha-1">fb312553946fb0b8a29324ba9f58c25ff6590979</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/1a28d3c1-84ce-4108-ba95-3e918453a297/public/windows11.0-kb5040529-x64_fb312553946fb0b8a29324ba9f58c25ff6590979.msu</url>
 	</file>
 	<file name="windows11.0-kb5039894-x64-ndp481_505f9eea0fee9fde2dbe5c76e72d4b05d402a74c-net481.msu">
 		<hash type="sha-1">505f9eea0fee9fde2dbe5c76e72d4b05d402a74c</hash>
 		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2024/06/windows11.0-kb5039894-x64-ndp481_505f9eea0fee9fde2dbe5c76e72d4b05d402a74c.msu</url>
 	</file>
-	<file name="windows11.0-kb5039448-x64_3bbdfca7e527dab216c30d4c0696754af90b874d-ldu.cab">
-		<hash type="sha-1">3bbdfca7e527dab216c30d4c0696754af90b874d</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/d0250367-b508-4d96-ae41-d9429db704b8/public/windows11.0-kb5039448-x64_3bbdfca7e527dab216c30d4c0696754af90b874d.cab</url>
+	<file name="windows11.0-kb5041178-x64_7a3a4b37a44566cdd5c9d210bced490e090feaf9-ldu.cab">
+		<hash type="sha-1">7a3a4b37a44566cdd5c9d210bced490e090feaf9</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/10b42cfa-8a76-4886-bebf-6c6cd8d965c1/public/windows11.0-kb5041178-x64_7a3a4b37a44566cdd5c9d210bced490e090feaf9.cab</url>
 	</file>
-	<file name="windows11.0-kb5041137-x64_4f650755dfea5dd980b48c08feff40be8ba6664d-safeos.cab">
-		<hash type="sha-1">4f650755dfea5dd980b48c08feff40be8ba6664d</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/f2d589d6-641b-4e7a-9b39-452b6b1b44f1/public/windows11.0-kb5041137-x64_4f650755dfea5dd980b48c08feff40be8ba6664d.cab</url>
+	<file name="windows11.0-kb5041979-x64_ebd54f598c4bc6e0b8ef1acc53224b6bc29c725f-safeos.cab">
+		<hash type="sha-1">ebd54f598c4bc6e0b8ef1acc53224b6bc29c725f</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/200847f2-33f2-450e-a62b-b1c7d2292c8f/public/windows11.0-kb5041979-x64_ebd54f598c4bc6e0b8ef1acc53224b6bc29c725f.cab</url>
 	</file>
 </metalink>
