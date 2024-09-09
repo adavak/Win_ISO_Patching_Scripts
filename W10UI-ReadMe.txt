@@ -243,15 +243,27 @@ https://forums.mydigitallife.net/members/superbubble.250156/
 DIR2ISO code / Compressed2TXT:
 https://github.com/AveYo
 
-Powershell .NET Reflection code for msu wim
+Powershell .NET Reflection code for msu wim:
 https://github.com/ave9858
 
-WinSxS Suppressors
+WinSxS Suppressors:
 https://github.com/asdcorp/haveSxS
+
+Special thanks for testing and feedback:
+@Enthousiast, @Paul Mercer, @Clusterhead
 
 ============================================================
 Changelog:
 ============================================================
+10.45:
+- All : Detect SSU(s) version, and install the highest only
+- 24H2: Detect LCU(s) version, and install the highest only (26052+)
+- 24H2: Fix SSU misdetection as .NET rollup in latest updates
+- 24H2: NetFx3 feature will not be enabled if multiple LCUs detected
+- Show defender-dism package versions, and fix detection for arm64
+- Limit LCU .mum timestamp workaround for builds 22621+ < 26052
+- DisableResetbase registry will be always set to 1 for builds 25380+
+
 10.44:
 - Reinstall all LCUs together after NetFx3 feature (26052+)
 
