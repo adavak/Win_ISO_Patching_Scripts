@@ -2692,6 +2692,7 @@ if exist "!mumtarget!\Windows\WinSxS\Temp\PendingRenames\*" (
 takeown /f "!mumtarget!\Windows\WinSxS\Temp\PendingRenames\*" /A %_Null%
 icacls "!mumtarget!\Windows\WinSxS\Temp\PendingRenames\*" /grant *S-1-5-32-544:F %_Null%
 del /f /q "!mumtarget!\Windows\WinSxS\Temp\PendingRenames\*" %_Nul3%
+)
 if exist "!mumtarget!\INF\setupapi.offline.log" (
 del /f /q "!mumtarget!\Windows\INF\setupapi.offline.log" %_Nul3%
 )
