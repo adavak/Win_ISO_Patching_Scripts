@@ -1422,20 +1422,6 @@ echo.&for %%# in (%lcumsu%) do echo %%#
 )
 if !errorlevel! equ 1726 %_dism2%:"!_cabdir!" %dismtarget% /LogPath:"%_dLog%\DismNUL.log" /Get-Packages %_Nul3%
 if %_build% equ 14393 if %wimfiles% equ 1 call :MeltdownSpectre
-if not exist "!mumtarget!\Windows\Servicing\Packages\Package_for_RollupFix*.mum" goto :cuwd
-if %online%==1 goto :cuwd
-if not defined lcumsu goto :cuwd
-if %_build% geq 26052 goto :cuwd
-if not exist "!_cabdir!\LCUmum\*.mum" goto :cuwd
-for /f %%# in ('dir /b /a:-d /od "!mumtarget!\Windows\Servicing\Packages\Package_for_RollupFix*.mum"') do if exist "!_cabdir!\LCUmum\%%#" (
-%_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages\%%#" /save "!_cabdir!\acl.txt"
-%_Nul3% takeown /f "!mumtarget!\Windows\Servicing\Packages\%%#" /A
-%_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages\%%#" /grant *S-1-5-32-544:F
-%_Nul3% copy /y "!_cabdir!\LCUmum\%%#" "!mumtarget!\Windows\Servicing\Packages\%%#"
-%_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages\%%#" /setowner *S-1-5-80-956008885-3418522649-1831038044-1853292631-2271478464
-%_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages" /restore "!_cabdir!\acl.txt"
-%_Nul3% del /f /q "!_cabdir!\acl.txt"
-)
 if %ltscfix%==1 if exist "!mumtarget!\Windows\Servicing\Packages\Microsoft-Windows-EnterpriseS*Edition~31bf3856ad364e35~%sss%~~10.0.19041*.mum" (
 echo Adding VP9VideoExtensions...
 %_dism2%:"!_cabdir!" %dismtarget% /Add-ProvisionedAppxPackage /PackagePath:"%~dp0bin\Microsoft.VP9VideoExtensions_8wekyb3d8bbwe.%arch%.Appx" /LicensePath:"%~dp0bin\Microsoft.VP9VideoExtensions_8wekyb3d8bbwe.%arch%.xml" %_Nul2%
@@ -1479,6 +1465,20 @@ echo Disable Game Bar...
 reg.exe load "HKLM\Usertemp" "!mumtarget!\Users\Default\NTUSER.DAT" %_Nul3%
 reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\GameBar" /v "UseNexusForGameBarEnabled" /t REG_DWORD /d "0" /f %_Nul1%
 reg.exe unload "HKLM\Usertemp" %_Nul3%
+)
+if not exist "!mumtarget!\Windows\Servicing\Packages\Package_for_RollupFix*.mum" goto :cuwd
+if %online%==1 goto :cuwd
+if not defined lcumsu goto :cuwd
+if %_build% geq 26052 goto :cuwd
+if not exist "!_cabdir!\LCUmum\*.mum" goto :cuwd
+for /f %%# in ('dir /b /a:-d /od "!mumtarget!\Windows\Servicing\Packages\Package_for_RollupFix*.mum"') do if exist "!_cabdir!\LCUmum\%%#" (
+%_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages\%%#" /save "!_cabdir!\acl.txt"
+%_Nul3% takeown /f "!mumtarget!\Windows\Servicing\Packages\%%#" /A
+%_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages\%%#" /grant *S-1-5-32-544:F
+%_Nul3% copy /y "!_cabdir!\LCUmum\%%#" "!mumtarget!\Windows\Servicing\Packages\%%#"
+%_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages\%%#" /setowner *S-1-5-80-956008885-3418522649-1831038044-1853292631-2271478464
+%_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages" /restore "!_cabdir!\acl.txt"
+%_Nul3% del /f /q "!_cabdir!\acl.txt"
 )
 :cuwd
 if defined lcupkg call :ReLCU
