@@ -1435,6 +1435,7 @@ for /f %%# in ('dir /b /a:-d /od "!mumtarget!\Windows\Servicing\Packages\Package
 %_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages\%%#" /setowner *S-1-5-80-956008885-3418522649-1831038044-1853292631-2271478464
 %_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages" /restore "!_cabdir!\acl.txt"
 %_Nul3% del /f /q "!_cabdir!\acl.txt"
+)
 if %ltscfix%==1 if exist "!mumtarget!\Windows\Servicing\Packages\Microsoft-Windows-EnterpriseS*Edition~31bf3856ad364e35~%sss%~~10.0.19041*.mum" (
 echo Adding VP9VideoExtensions...
 %_dism2%:"!_cabdir!" %dismtarget% /Add-ProvisionedAppxPackage /PackagePath:"%~dp0bin\Microsoft.VP9VideoExtensions_8wekyb3d8bbwe.%arch%.Appx" /LicensePath:"%~dp0bin\Microsoft.VP9VideoExtensions_8wekyb3d8bbwe.%arch%.xml" %_Nul2%
