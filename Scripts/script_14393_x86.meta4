@@ -1,12 +1,12 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5041576-x86_68ac33395cfd7e042cf80b21cd131076f25c1572-ssu.msu">
-		<hash type="sha-1">68ac33395cfd7e042cf80b21cd131076f25c1572</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2024/08/windows10.0-kb5041576-x86_68ac33395cfd7e042cf80b21cd131076f25c1572.msu</url>
+	<file name="windows10.0-kb5043124-x86_c15b8ff36bfe7fa60681108a76ea9e66ae2d7f1d-ssu.msu">
+		<hash type="sha-1">c15b8ff36bfe7fa60681108a76ea9e66ae2d7f1d</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2024/09/windows10.0-kb5043124-x86_c15b8ff36bfe7fa60681108a76ea9e66ae2d7f1d.msu</url>
 	</file>
-	<file name="windows10.0-kb5041773-x86_297969a6fe4a2a3f545ef49ed0f004944a5ea5e3-lcu.msu">
-		<hash type="sha-1">297969a6fe4a2a3f545ef49ed0f004944a5ea5e3</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2024/08/windows10.0-kb5041773-x86_297969a6fe4a2a3f545ef49ed0f004944a5ea5e3.msu</url>
+	<file name="windows10.0-kb5043051-x86_8d7a25749ad0efe9ae2f2fe76db80e27e5c2cc2c-lcu.msu">
+		<hash type="sha-1">8d7a25749ad0efe9ae2f2fe76db80e27e5c2cc2c</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2024/09/windows10.0-kb5043051-x86_8d7a25749ad0efe9ae2f2fe76db80e27e5c2cc2c.msu</url>
 	</file>
 	<file name="windows10.0-kb5028913-x86_e8551f2a2fc6642ca95d92a4c945e312b03ee862.msu">
 		<hash type="sha-1">e8551f2a2fc6642ca95d92a4c945e312b03ee862</hash>
