@@ -261,8 +261,8 @@ Changelog:
 - 24H2: Fix SSU misdetection as .NET rollup in latest updates
 - 24H2: NetFx3 feature will not be enabled if multiple LCUs detected
 - Show defender-dism package versions, and fix detection for arm64
-- Limit LCU .mum timestamp workaround for builds 22621+ < 26052
 - DisableResetbase registry will be always set to 1 for builds 25380+
+- Extend LCU .mum timestamp preserve workaround for all builds 22621+
 
 10.44:
 - Reinstall all LCUs together after NetFx3 feature (26052+)

@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.45
+@set uiv=v10.45r
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -1469,7 +1469,7 @@ reg.exe unload "HKLM\Usertemp" %_Nul3%
 if not exist "!mumtarget!\Windows\Servicing\Packages\Package_for_RollupFix*.mum" goto :cuwd
 if %online%==1 goto :cuwd
 if not defined lcumsu goto :cuwd
-if %_build% geq 26052 goto :cuwd
+rem if %_build% geq 26052 goto :cuwd
 if not exist "!_cabdir!\LCUmum\*.mum" goto :cuwd
 for /f %%# in ('dir /b /a:-d /od "!mumtarget!\Windows\Servicing\Packages\Package_for_RollupFix*.mum"') do if exist "!_cabdir!\LCUmum\%%#" (
 %_Nul3% icacls "!mumtarget!\Windows\Servicing\Packages\%%#" /save "!_cabdir!\acl.txt"
