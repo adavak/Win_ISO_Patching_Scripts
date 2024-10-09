@@ -145,6 +145,10 @@ specify custom "folder" path which contain microsoft-windows-netfx3-ondemand-pac
 # LCUwinre
 force updating winre.wim with Cumulative Update even if SafeOS update detected
 
+# LCUmsuExpand
+expand Cumulative Update and install from loose files via update.mum, instead adding msu files directly
+applicable only for builds 26052 and later
+
 # UpdtBootFiles
 update ISO boot files bootmgr/bootmgr.efi/efisys.bin from Cumulative Update
 
@@ -191,7 +195,7 @@ How To Use:
 
 enable "AddDrivers" option
 
-place the drivers you want to add inside the proper subfolder:
+place the drivers (loose inf files) you want to add inside the proper subfolder:
 
 ALL   / drivers will be added to all wim files
 OS    / drivers will be added to install.wim only
@@ -255,6 +259,17 @@ Special thanks for testing and feedback:
 ============================================================
 Changelog:
 ============================================================
+10.47:
+- 24H2: Add option "LCUmsuExpand":  
+expand LCUs and install via update.mum, instead adding msu files directly  
+default state is OFF
+- Update PSFExtractor code to support the new PA31 format, using UpdateCompression.dll
+- Detect Package_for_SafeOSDU update for all builds
+
+10.46:
+- 24H2: Always install/reinstall all LCU(s) one by one per version
+- 24H2: Remove the block for NetFx3 feature with multiple LCUs
+
 10.45:
 - All : Detect SSU(s) version, and install the highest only
 - 24H2: Detect LCU(s) version, and install the highest only (26052+)
