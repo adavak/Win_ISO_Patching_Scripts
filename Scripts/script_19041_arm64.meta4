@@ -1,19 +1,19 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5043131-arm64_7a9b60a2423d09bea4724895158f9625efaa6e41-lcu.msu">
-		<hash type="sha-1">7a9b60a2423d09bea4724895158f9625efaa6e41</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2024/09/windows10.0-kb5043131-arm64_7a9b60a2423d09bea4724895158f9625efaa6e41.msu</url>
+	<file name="windows10.0-kb5044273-arm64_784f286d6e5d22cf253968f38f3216930e1bf9a2.msu">
+		<hash type="sha-1">784f286d6e5d22cf253968f38f3216930e1bf9a2</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2024/10/windows10.0-kb5044273-arm64_784f286d6e5d22cf253968f38f3216930e1bf9a2.msu</url>
 	</file>
-	<file name="windows10.0-kb5015684-arm64_a4cc6e95084da14adb972e1d67cf573a244ed7a3-ep.msu">
+	<file name="windows10.0-kb5015684-arm64_a4cc6e95084da14adb972e1d67cf573a244ed7a3.msu">
 		<hash type="sha-1">a4cc6e95084da14adb972e1d67cf573a244ed7a3</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/upgr/2022/07/windows10.0-kb5015684-arm64_a4cc6e95084da14adb972e1d67cf573a244ed7a3.msu</url>
 	</file>
-	<file name="windows10.0-kb5032906-arm64_f8efab4f3559ff21ad9e4f397f8621573f02447f-ldu.cab">
-		<hash type="sha-1">f8efab4f3559ff21ad9e4f397f8621573f02447f</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2023/11/windows10.0-kb5032906-arm64_f8efab4f3559ff21ad9e4f397f8621573f02447f.cab</url>
+	<file name="windows10.0-kb5045523-arm64_04993226d165531659b9439cc9db2dacc07fca19.cab">
+		<hash type="sha-1">04993226d165531659b9439cc9db2dacc07fca19</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2024/10/windows10.0-kb5045523-arm64_04993226d165531659b9439cc9db2dacc07fca19.cab</url>
 	</file>
-	<file name="windows10.0-kb5034232-arm64_95d0a0d252c070e5ab3f5c4ceb49b810f967df6b-safeos.cab">
-		<hash type="sha-1">95d0a0d252c070e5ab3f5c4ceb49b810f967df6b</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2024/01/windows10.0-kb5034232-arm64_95d0a0d252c070e5ab3f5c4ceb49b810f967df6b.cab</url>
+	<file name="windows10.0-kb5044615-arm64_1d9e859fe9304d0e5f68fdebfcef8c48ec93a07f.cab">
+		<hash type="sha-1">1d9e859fe9304d0e5f68fdebfcef8c48ec93a07f</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2024/10/windows10.0-kb5044615-arm64_1d9e859fe9304d0e5f68fdebfcef8c48ec93a07f.cab</url>
 	</file>
 </metalink>

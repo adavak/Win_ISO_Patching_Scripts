@@ -1,6 +1,6 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5039217-arm64_664c2f37cca5286750272eafc8bee77e88da20de-lcu.msu">
+	<file name="windows10.0-kb5039217-arm64_664c2f37cca5286750272eafc8bee77e88da20de.msu">
 		<hash type="sha-1">664c2f37cca5286750272eafc8bee77e88da20de</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2024/06/windows10.0-kb5039217-arm64_664c2f37cca5286750272eafc8bee77e88da20de.msu</url>
 	</file>
