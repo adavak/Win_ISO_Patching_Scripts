@@ -1616,6 +1616,13 @@ reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeli
 reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338393Enabled" /t REG_DWORD /d "0" /f %_Nul1%
 reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-353694Enabled" /t REG_DWORD /d "0" /f %_Nul1%
 reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-353696Enabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "RotatingLockScreenEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338387Enabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Wallpapers" /v "BackgroundType" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\DesktopSpotlight\Settings" /v "EnabledState" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\SearchSettings" /v "IsDynamicSearchBoxEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarDa" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_IrisRecommendations" /t REG_DWORD /d "0" /f %_Nul1%
 reg.exe unload "HKLM\Usertemp" %_Nul3%
 )
 if %norestorage%==1 (
