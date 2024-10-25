@@ -30,7 +30,7 @@
 |**ltscfix = 1**|对 LTSC 2021 和 2024 的库文件修复（官方修正后移除此选项），如不想修复，请改成0|
 |**netfx481 = 1**|对 .net framework 4.8.1 的支持，如不想安装，请改成0|
 |**nosuggapp = 0**|若想禁用 Windows 全新安装后擅自安装三方 App，请改成1|
-|**nosuggtip = 0**|若想禁用 Windows 在各处无用的建议提示，请改成1|
+|**nosuggtip = 0**|若想禁用 Windows 在各处无用的建议提示和功能，请改成1|
 |**norestorage = 0**|若想禁用保留存储的空间占用，请改成1|
 |**nogamebar = 0**|若想禁用游戏栏 Game Bar，请改成1|
 

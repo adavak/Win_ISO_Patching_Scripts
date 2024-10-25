@@ -31,7 +31,7 @@
 |**ltscfix = 1**|Repair the library files for LTSC 2021 & 2024 (this option will be removed after the official patch is released). If you do not want to repair, change it to 0.|
 |**netfx481 = 1**|Support for .NET Framework 4.8.1. If you do not want to install it, change it to 0.|
 |**nosuggapp = 0**|If you want to disable the installation of third-party apps after a new installation of Windows, change it to 1.|
-|**nosuggtip = 0**|If you want to disable the useless suggestion tips in Windows, change it to 1.|
+|**nosuggtip = 0**|If you want to disable the useless suggestion tips and functions in Windows, change it to 1.|
 |**norestorage = 0**|If you want to disable the space usage of the reserved storage, change it to 1.|
 |**nogamebar = 0**|If you want to disable the Game Bar, change it to 1.|
 
