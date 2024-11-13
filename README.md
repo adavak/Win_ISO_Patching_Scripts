@@ -23,7 +23,7 @@
 |**Windows 11 24H2, Windows 11 Enterprise LTSC 2024, Windows Server 2025**|**Build 26100.2314**|
 
 ###### Some settings (located in the W10UI.ini file in the root directory of the folder):
-|Value|Description|
+|Value (Default)|Description|
 |---|---|
 |**Net35 = 1**|If you do not want to integrate .NET 3.5, change it to 0.|
 |**wim2esd = 1**|If you do not want to generate an install.esd file to reduce space usage. This process consumes a lot of time and computer resources, and the image size is reduced by about 25%. Change it to 0.|
