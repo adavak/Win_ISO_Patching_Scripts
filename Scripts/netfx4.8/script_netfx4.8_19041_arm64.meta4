@@ -1,8 +1,8 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5045936-arm64-ndp48_6913f8f30fefd31bfcb3ab0c4bf59fcddfb01c35.msu">
+	<file name="windows10.0-kb5048160-arm64-ndp48_872a93596cb7a24b6f2a8cb03b2cd759fd95bf70.msu">
 		<language>neutral</language>
-		<hash type="sha-1">6913f8f30fefd31bfcb3ab0c4bf59fcddfb01c35</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2024/09/windows10.0-kb5045936-arm64-ndp48_6913f8f30fefd31bfcb3ab0c4bf59fcddfb01c35.msu</url>
+		<hash type="sha-1">872a93596cb7a24b6f2a8cb03b2cd759fd95bf70</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2024/11/windows10.0-kb5048160-arm64-ndp48_872a93596cb7a24b6f2a8cb03b2cd759fd95bf70.msu</url>
 	</file>
 </metalink>
