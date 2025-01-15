@@ -1,8 +1,8 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5048652-x86_b2dc54a3d028f48d79f4395de9411f7db5f6eb0d.msu">
-		<hash type="sha-1">b2dc54a3d028f48d79f4395de9411f7db5f6eb0d</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2024/12/windows10.0-kb5048652-x86_b2dc54a3d028f48d79f4395de9411f7db5f6eb0d.msu</url>
+	<file name="windows10.0-kb5049981-x86_c991f0d6727f0f577a89dfa76b6e00036d83f1f5.msu">
+		<hash type="sha-1">c991f0d6727f0f577a89dfa76b6e00036d83f1f5</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2025/01/windows10.0-kb5049981-x86_c991f0d6727f0f577a89dfa76b6e00036d83f1f5.msu</url>
 	</file>
 	<file name="windows10.0-kb5015684-x86_556015f4260dd75ca30b3e84484ea5b3ec97fa08.msu">
 		<hash type="sha-1">556015f4260dd75ca30b3e84484ea5b3ec97fa08</hash>
@@ -12,8 +12,8 @@
 		<hash type="sha-1">e4776a51efdac12fccaeb72ef31ebd1c032792ac</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2024/11/windows10.0-kb5046905-x86_e4776a51efdac12fccaeb72ef31ebd1c032792ac.cab</url>
 	</file>
-	<file name="windows10.0-kb5046913-x86_1cd4a896d8ef87efbf29e695b150841330f14d93.cab">
-		<hash type="sha-1">1cd4a896d8ef87efbf29e695b150841330f14d93</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2024/11/windows10.0-kb5046913-x86_1cd4a896d8ef87efbf29e695b150841330f14d93.cab</url>
+	<file name="windows10.0-kb5050199-x86_b9bd66aa105090dd336352df5de5a7f39e66e4bb.cab">
+		<hash type="sha-1">b9bd66aa105090dd336352df5de5a7f39e66e4bb</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2025/01/windows10.0-kb5050199-x86_b9bd66aa105090dd336352df5de5a7f39e66e4bb.cab</url>
 	</file>
 </metalink>
