@@ -43,7 +43,7 @@ Creating updated iso file for a distribution target require either of:
 - install Windows ADK
 - place oscdimg.exe or cdimage.exe in the same folder next to W10UI.cmd
 
-otherwise, embedded Powershell/.NET funcion DIR2ISO will be used to create the iso
+otherwise, embedded Powershell/.NET function DIR2ISO will be used to create the iso
 
 ============================================================
 Limitations:
@@ -142,15 +142,24 @@ or set extra manual options below:
 # Net35Source
 specify custom "folder" path which contain microsoft-windows-netfx3-ondemand-package.cab
 
+# ResetBase
+require first to set Cleanup=1
+change to 2 to run rebase after each LCU for builds 26052 and later
+
 # LCUwinre
 force updating winre.wim with Cumulative Update even if SafeOS update detected
+auto enabled for builds 22000-26050, change to 2 to disable
+ignored and auto disabled for builds 26052 and later
 
 # LCUmsuExpand
 expand Cumulative Update and install from loose files via update.mum, instead adding msu files directly
-applicable only for builds 26052 and later
+applicable only for builds 22621 and later
+auto enabled for builds 26052 and later, change to 2 to disable
 
 # UpdtBootFiles
-update ISO boot files bootmgr/bootmgr.efi/efisys.bin from Cumulative Update
+update ISO boot files bootmgr/memtest/efisys.bin from Cumulative Update
+this will also update new UEFI CA 2023 boot files if detected. See KB5053484 for details
+note: the two default files bootmgr.efi/bootmgfw.efi will be updated if this option is OFF
 
 # SkipEdge
 1 = do not install EdgeChromium with Enablement Package or Cumulative Update
@@ -182,13 +191,17 @@ start the process automatically once you execute the script
 the option will also auto exit at the end without prompt
 
 # UseWimlib
-detect and use wimlib-imagex.exe for exporting wim files instead dism.exe
+detect and use wimlib-imagex.exe for exporting wim files / processing msu wim files, instead dism.exe
+
+# WimCreateTime
+change install.wim image creation time to match last modification time
+this option require wimlib-imagex.exe, but it doesn't require to enable UseWimlib option itself
 
 # AddDrivers
 add drivers to install.wim and boot.wim / winre.wim
 
 this is basic feature support, and should be used only with tested working compatible drivers.
-it is ment for simple and boot critical drivers (chipsets, disk controllers, LAN/WiFi..), to allow easier installation, not for large drivers, or drivers that may break setup.
+it is meant for simple and boot critical drivers (chipsets, disk controllers, LAN/WiFi..), to allow easier installation, not for large drivers, or drivers that may break setup.
 it will not check or verify drivers, it simply point DISM towards the drivers folders.
 
 How To Use:
@@ -207,7 +220,7 @@ the folder must contain subfolder for each drivers target, as explained above.
 
 - Note: Do not change the structure of W10UI.ini, just set your options after the equal sign =
 
-- To restore old behavior and change options by editing the script, simply detele W10UI.ini file
+- To restore old behavior and change options by editing the script, simply delete W10UI.ini file
 
 ============================================================
 Debug Mode (for advanced users):
@@ -237,7 +250,7 @@ WHDownloader:
 https://forums.mydigitallife.net/threads/44645
 
 PSFExtractor:
-BetaWorld
+https://www.betaworld.org
 https://github.com/Secant1006/PSFExtractor
 
 SxSExpand:
@@ -259,498 +272,9 @@ Special thanks for testing and feedback:
 ============================================================
 Changelog:
 ============================================================
-10.47:
-- 24H2: Add option "LCUmsuExpand":  
-expand LCUs and install via update.mum, instead adding msu files directly  
-default state is OFF
-- Update PSFExtractor code to support the new PA31 format, using UpdateCompression.dll
-- Detect Package_for_SafeOSDU update for all builds
-- 24H2: Match setuphost.exe version between ISO and boot.wim
 
-10.46:
-- 24H2: Always install/reinstall all LCU(s) one by one per version
-- 24H2: Remove the block for NetFx3 feature with multiple LCUs
+https://github.com/abbodi1406/BatUtil/tree/master/W10UI#changelog
 
-10.45:
-- All : Detect SSU(s) version, and install the highest only
-- 24H2: Detect LCU(s) version, and install the highest only (26052+)
-- 24H2: Fix SSU misdetection as .NET rollup in latest updates
-- 24H2: NetFx3 feature will not be enabled if multiple LCUs detected
-- Show defender-dism package versions, and fix detection for arm64
-- DisableResetbase registry will be always set to 1 for builds 25380+
-- Extend LCU .mum timestamp preserve workaround for all builds 22621+
+or
 
-10.44:
-- Reinstall all LCUs together after NetFx3 feature (26052+)
-
-10.43:
-- Add Edge-WebView suppressor for builds 19041+ < 26080
-- Add config option "SkipWebView" to control the new suppressor
-
-10.42:
-- Fix detection issue where SafeOS DU might get added for install.wim
-- Add fallback dism.exe /Apply-Image command to extract LCU msu wim files if Powershell code failed
-- Optimize "Extracting dpx.dll" code
-- Detect oscdimg.exe from work \bin directory
-- Skip integrating SSU for winre.wim if no other updates will be added
-
-10.41:
-- Fix to skip Package_for_SafeOSDU for boot.wim
-
-10.40:
-- Detect Package_for_SafeOSDU (26080+)
-- Detect and skip HotPatchUpdate for offline target (26058+)
-- Skip LCU for winre.wim (26052+)
-- Remove WinPE-Rejuv-Package from boot.wim if LCU is added (26052+)
-- Reinstall only highest LCU after NetFx3 feature (26052+)
-
-10.39:
-- Implemented basic support to Add Drivers to install.wim and boot.wim / winre.wim
-- Updated detection for SafeOS DU
-
-10.38:
-- Fixed processing SSU-*.cab from normally-named SSU msu
-- Changed 22631 iso label to 23h2_ni_release
-- Changed finish prompt to "Press 9 or q to exit"
-- Added detection for Net35 sxs folder from W10UI.cmd root, or updates repo folder
-- Added SupplementalServicing suppressor for builds 14393+ < 19041
-- Added ExtendedSecurityUpdates suppressor for builds 17763+ < 20348 (theoretical)
-- Added EdgeChromium suppressor for builds 17134+ < 20348 if SkipEdge=1
-
-10.37:
-- Fixed CIM_DataFile powershell.exe commands (used if wmic.exe is not installed)
-
-10.36:
-- Improved iso label accuracy for Enablement Package fake builds
-- Fixed accidental endless loop when AutoStart=1 and Target/Repo are not detected
-- Update boot files when W10UI.cmd is called from W10MUI.cmd
-
-10.35:
-- Fixed wimlib issue with boot.wim
-- Changed "UseWimlib" default state to OFF
-
-10.34:
-- Detect and use wimlib-imagex.exe for exporting wim files instead dism.exe
-- Added config option "UseWimlib" to control the new behavior
-
-10.33:
-- Export wim indexes one at a time if detected Dism.exe version 10.0.25115.1000 or later
-
-10.32:
-- Updated detection for Windows 11 23H2 Enablement Package
-
-10.31:
-- Fixed Windows 10 Combined LCU integration for install.wim when used via W10MUI
-
-10.30:
-- Added workaround for using target image dpx.dll to extract updates cab files for builds 22000+
-- Suppress DISM cleanup output for builds 25380+
-
-10.29:
-- ISO files bootmgr.efi/bootmgfw.efi will be always updated, regardless UpdtBootFiles option
-
-10.28:
-- Added conditional support for SV2 beta builds 22631+
-
-10.27:
-- Updated detection for separate Secure Boot updates
-
-10.26:
-- Added support for new msu wim files (LCU for builds 25336+)
-- Replaced embedded PSFExtractor.exe with Powershell code (external PSFExtractor.exe still supported)
-- Enhanced "Cleanup System Image" behavior for current online OS:  
-RunOnce_AfterRestart_DismCleanup.cmd script will be created on desktop  
-if above script is not executed, W10UI.cmd will prompt once to run or skip cleanup
-
-10.25:
-- Changed integration routine for WinPE images:  
-winre.wim will get SSU + SafeOS only  
-winre.wim will get LCU only if LCUwinre=1 (regardless of SafeOS)  
-boot.wim will not get SafeOS DU (regardless of LCU)  
-boot.wim will get Enablement KB
-
-10.24:
-- Add support for future Windows 11 22H2 Moments Enablement Packages
-
-10.23:
-- Detect and use external PSFExtractor.exe (located next to the script)
-
-10.22:
-- Fix detection for .NET 4.8.1 pack KB5011048
-- Skip Enablement Package for not applicable editions
-- Skip rebuilding sources\install.wim if wim2esd is enabled
-
-10.21:
-- Added support for Azure Stack HCI 22H2 Enablement Package
-
-10.20:
-- Restore original timestamp for Package_for_RollupFix .mum for 22621+ MSU integration
-
-10.19:
-- Added support for Windows 11 22622 Enablement Package
-- Fixed Combined UUP update naming scheme for Windows 11 22H2
-
-10.18:
-- Enhanced detection for wmic.exe
-- Changed option "SkipBootFiles" to "UpdtBootFiles" to avoid confusion
-
-10.17:
-- Added support for the new updates file name "Windows11.0-KB*"
-
-10.16:
-- Added option "SkipBootFiles" for not updating ISO boot files bootmgr/bootmgr.efi/efisys.bin
-
-10.15:
-- Added support to install Windows 11 Combined UUP .msu file directly
-
-10.14:
-- Check and exclude unsupported editions for 19041 WindowsExperienceFeaturePack
-- Fixed: ADK parameter is not enabled when using custom dism.exe
-
-10.13:
-- Added workaround for the missing wmic.exe in build 22483 (and later)
-- When running within W10MUI, W10UI will install detected updates, regardless if already installed
-
-10.12:
-- Added support for the new UUP dump file name scheme (PSF updates)
-
-10.11:
-- Added support for Windows 11 Combined UUP updates
-- Updated Windows Defender cab integration routine
-- If AutoStart option is active, the script will not clear initial screen, and will auto exit at the end
-
-10.10:
-- Added workaround for updating 1904x images on Host OS below Windows 10 1803
-
-10.9:
-- Added manual option "LCUwinre" to force updating winre.wim with Cumulative Update
-- Fixed architecture detection for already mounted WinPE images
-
-10.8:
-- Fix updated iso label for Windows 10 1909
-
-10.7:
-- Implemented DIR2ISO by AveYo as a last resort to create updated iso
-- Improved updated iso label accuracy
-
-10.6:
-- Updated PSFExtractor to remove SxSExpand dependency
-- Embedded PSFExtractor using Compressed2TXT v5.3
-- Include detected language(s) in ISO file name
-
-10.5:
-- Changed updated ISO file name scheme
-example old:
-Win10_22000.71_x64_2021-07-16.iso
-example new:
-22000.71.210709-1028.CO_RELEASE_SVC_PROD1_CLIENT_X64FRE.iso
-
-10.4:
-- Rebrand to Windows NT 10.0 Updates Installer
-- Improved PSF files processing, and updated PSFExtractor
-
-10.3:
-- Added workaround for long path issue when extracting PSF updates
-
-10.2:
-- Build 18362, added alternative workaround to suppress Supplemental Servicing or SkipEdge
-- Build 20231 and later, LCU will be re-extracted from cab file for updating install.wim
-- Build 21382 and later, added support for new LCU PSFX format (cab + psf), require external PSFExtractor/SxSExpand
-
-10.1:
-- Added detection for 19044 / v21H2 Enablement package
-- Fixed wrong ISO version detection in some scenarios
-
-10.0:
-- Added "SkipEdge=2" option to skip LCU's EdgeChromium via "Microsoft\Edge" folder
-- Build 20231 and later, LCU will be added from cab file directly for updating install.wim
-- Build 20231 and later, if ReservicingLCU is detected, .NET CU / LCU will not be re-added after enabling NetFx3 feature
-- Enhanced Flash updates detection to avoid confliction when Flash Removal update is merged with LCU
-
-9.9:
-- Extended SkipEdge option to skip EdgeChromium bunded with Cumulative Update
-
-9.8:
-- Further enhancement to prevent setup.exe conflict (if ISO files dates are newer than DU)
-
-9.7:
-- Fix setup.exe conflict for UUP created ISO
-- Fix cosmetic bug detecting EP KB5000736 as Flash
-- Show W10UI version in the menu header
-
-9.6:
-- Fix setup.exe conflict between boot.wim and DU for ISO distribution
-
-9.5:
-- Added proper detection and integration for the new combined msu/cab files
-
-9.4:
-- Fixed detection for SSU file and custom Updates location path
-
-9.3:
-- Added proper detection and integration for the new SSU file name
-- Added "theoretical " support for Windows 10 ARM64 target
-
-9.2:
-- Added detection for 19043 / v21H1 Enablement package
-- Added detection to install .NET 4.x main pack before .NET LP/Rollup
-- Skip wim2swm if install.wim size is less than 4GB
-
-9.0:
-- Improved detection for update KB number and version
-
-- Added detection support for WindowsExperienceFeaturePack updates (e.g. KB4592784)
-
-- Added wim2swm option to split install.wim into multiple install.swm files
-note: if both wim2esd/wim2swm are 1, install.esd takes precedence over split install.swm
-
-- Added internal support to work with W10MUI.cmd (multilingual distribution script)
-
-8.9:
-- Improved processing for v20H2 Enablement/EdgeChromium package
-- Added support to install v1607 updates for unsupported editions (non Enterprise LTSB)
-- Fixed detection for Adobe Flash Removal Update KB4577586
-- Defender update will not be processed for online live OS
-
-8.8:
-- Added support to integrate Microsoft Defender update (defender-dism-[x86|x64].cab)
-https://support.microsoft.com/en-us/help/4568292
-- Improved integration for v20H2 Enablement/EdgeChromium package
-
-8.7:
-- Implemented specific fixes for build 14393 (WinPE will not be updated with LCU)
-- Enhanced Setup DU updating
-
-8.6:
-- Fixed fail-safe integration using update cab file directly
-
-8.5:
-- Added SkipEdge option for EdgeChromium with Feature Update Enablement Package
-- Fixed cosmetic double image cleanup without EdgeChromium update
-
-8.4:
-- Fixed iso version for 19042 / v20H2
-
-8.3:
-- Defer adding EdgeChromium update after CU
-- Handle Safe OS (WinPE) updates separately
-- Show when setup dynamic update is added
-- Identify updates types as possible
-- winre.wim will not be updated with CU if Safe OS update is detected and added, per Microsoft recommendation
-https://docs.microsoft.com/en-us/windows/deployment/update/media-dynamic-update
-
-8.2:
-- Added differentiation for Win10 20H1 and 20H2
-
-8.1:
-- Enhanced installed updates detection on live online OS
-
-8.0:
-- Fixed offline installation for secure boot update KB4524244
-
-7.9:
-- Updated .NET CU detection for 1809 and later
-
-7.8:
-- Fixed error regarding creating Dism logs
-
-7.7:
-- x64 target on x86 host: Fix for unseen registry flush error
-
-7.6:
-- x64 target on x86 host: Fix for wrong detection
-
-7.5:
-- Code improvements and fixes
-
-- Added option wim2esd to convert install.wim to install.esd (only for distribution target)
-
-7.4:
-- Detect and skip WinPE only updates for install.wim
-
-7.3:
-- Enhanced Mount and Extraction Directory processing
-
-7.2:
-- Mount Directory will be always created as a subdirectory (even if it's already a subdirectory)
-
-7.1:
-- Do not overwrite iso\sources files with dynamic updates when non-UUP boot.wim is used and updated
-
-7.0:
-- Proper extraction of multilingual dynamic updates to only update existing language directories
-- Support for the 19H2 Enablement Package to set the proper version tag
-
-6.6:
-- ResetBase will be disabled for build 18362 and later, to avoid breaking future LCU installation
-
-6.5:
-- Enhanced processing DU
-now if you choose install.wim (or boot.wim) as target from inside \sources\ folder, DU will be processed and extracted
-
-- Enhanced UUP boot.wim index 2 updating
-if DU is detected, \sources\ folder will be updated with newer files
-
-6.4:
-Fixed .NET cumulative update reinstallation for build 18362
-
-6.3:
-- Added workaround fix for updating refreshed 18362 WinPE images
-
-- If you selected specific indexes from install.wim, you will get extra option to only keep the selected indexes when rebuilding install.wim
-you can still choose to keep them ALL
-
-- To avoid accidental closing before reading or copying cmd window output, you now need to Press 9 to exit
-or close the window with the red X button
-
-- Cosmetic change, option 3. DISM will now show "Windows 10 ADK" instead the long dism.exe path (if ADK is detected)
-
-6.2:
-- Fixed already-installed detection for 1903 Cumlative Update
-
-6.1:
-- Added manual option "isodir" to specify alternative folder path for saving iso file
-
-- Added support for configuration file W10UI.ini to set options:
-Values in W10UI.ini take precedence over the ones inside W10UI.cmd (by default both are the same)
-Do not change the structure of W10UI.ini, just set your options after the equal sign =
-To restore old behavior and change options by editing the script, simply detele W10UI.ini file
-
-6.0:
-- Code improvement and fixes, mostly to avoid issues with paths and spaces in files names
-
-5.9:
-- Added workaround to perform Cleanup System Image for current online OS after installing updates that require reboot to complete (i.e. Cumulative Update)
-how to:
-run W10UI.cmd and install updates, assuming you choose to cleanup OS image (with or without resetbase)
-restart system
-run W10UI.cmd again, it will go directly to Cleanup or Reset OS image (it doesn't install or check any updates)
-
-5.8:
-- Fixed secondary SSU integration for 14393 WinPE images
-
-5.7:
-- Normal 1809 cumulative update will be reinstalled (with .NET cumulative) after enabling .NET 3.5, to keep WU happy
-
-5.6:
-- Added support and menu option "Selected Install.wim indexes"
-to select specific index(s) to update from install.wim, instead updating them all of them always
-
-all indexes is the default setting, to change press 8 at menu
-the available indexes will be listed, enter the desired index(s) numbers to choose, separated with space
-you can revert to all indexes by entering * alone
-
-- Fixed netfx cumulative update duplication, and the accidentally iso option set to 0
-
-5.5:
-- Added support to handle the new .NET cumulative update for build 17763 and later
-
-5.4:
-- Added support for multi-versioned updates, to avoid skipping new version if old version already installed
-
-5.3:
-- Fixed Flash update integration for 17763 (non-applicable editions will be skipped)
-
-- Fixed SSU integration for 16299 and later (previously it was always re-integrated even if pesent)
-
-- Implemented Debug Mode (for advanced users)
-
-5.2:
-- Fixed: image cleanup is not executed if you only integrated Servicing Stack Update
-
-5.1:
-- Fixed ISO creation typo
-
-5.0:
-- Fixed confliction issue in detecting offline partition as target, if it had boot files
-
-- Added Mount & Extraction directories options to main menu
-
-4.8:
-- Fixed detecting and integrating build 14393 cumulative update for WinPE images
-
-4.7:
-- Added workaround to prevent breaking operation if Dism Error 1726 occur in cleanup OS image (W10 ver 1803)
-
-- Added support to use DVD drive letter as target, whether mounted ISO or inserted DVD
-
-4.6:
-- Added architecture to updated ISO file name
-
-4.5:
-- Added manual option "delete_source" to keep or delete DVD distribution folder after creating updated ISO
-
-4.3/4.4:
-- Skip .NET lang packs integration for WinPE images
-
-- Updated WinRE.wim will not be left over, if the target is direct install.wim file
-
-4.2:
-- Code improvements and fixes
-
-- Detailed documentation for options in ReadMe.txt
-
-- Added workaround for resetting 16299 WinPE images (they have the same restriction as OS image)
-
-- Added option to update or skip winre.wim (if detected within install.wim)
-
-- oscdimg.exe will be detected automatically if Windows 10 ADK is installed
-
-- ISO file name will have the cumulative update version, and today's date (e.g. Win10_16299.214_2018-02-10.iso)
-
-4.1:
-- Implemented workaround for offline ResetBase of build 16299 and later
-
-4.0:
-- Cumulative update will now be installed separately after other updates (to avoid confliction with dynamic/.NET updates)
-
-- Verbose script version
-
-- Fixed .NET 3.5 feature enabling on Server editions
-
-3.6:
-- Fixed: if net35source is set manually, the script still try to check and find another source
-
-3.5:
-- Update files cab/msu will be processed from current location directly without copying over to temp location
-
-3.4:
-- Fixed: when selected target is already mounted boot.wim index 2, detection conflict will cause the script to hang
-
-3.3:
-- Fixed accidental mount directory confliction when updating live OS
-
-3.2:
-- Splitted the ResetBase option to two, Cleanup System Image / Reset Image Base
-
-3.0/3.1:
-- Added option to skip Resetbase operation
-
-- Added option for custom path to .NET 3.5 cab source
-
-- Added visible menu options for .NET 3.5 and Resetbase
-
-- Implemented auto fix/change for registry value DisableResetbase (to allow Resetbase)
-
-- Enabling .NET 3.5 now occurs after installing updates (to allow Resetbase), and cumulative update will be reinstalled afterwards
-
-- Few improvement to handle "All applicable updates are found installed" situation
-
-- Windows 10 ADK DISM will be used if detected, even if Host OS is Windows 10
-
-2.0:
-- Updated WinRE.wim will not be left over, if the target is distribution folder
-
-1.8:
-- Added workaround for "The remote procedure call failed." error when adding cumulative update to winpe image
-
-1.2:
-- Fixed a check bug that prevent integrating 10240 cumulative into boot.wim/winre.wim
-
-- Added two manual options for advanced users, autostart / iso
-
-1.1:
-- Minor revision
-
-1.0:
-- Initial release
+https://pastebin.com/raw/iyePnwV1
