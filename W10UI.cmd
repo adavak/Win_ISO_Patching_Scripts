@@ -1652,6 +1652,59 @@ call set /a _c_+=1
 if %online% equ 0 if %ResetBase% equ 2 if %_build% geq 26052 if !_c_! lss %c_num% call :rebase
 )
 if %_build% equ 14393 if %wimfiles% equ 1 call :MeltdownSpectre
+if %ltscfix%==1 if exist "!mumtarget!\Windows\Servicing\Packages\Microsoft-Windows-EnterpriseS*Edition~31bf3856ad364e35~%sss%~~*.mum" (
+echo Adding VP9VideoExtensions...
+%_dism2%:"!_cabdir!" %dismtarget% /Add-ProvisionedAppxPackage /PackagePath:"%~dp0bin\Microsoft.VP9VideoExtensions_8wekyb3d8bbwe.%arch%.Appx" /LicensePath:"%~dp0bin\Microsoft.VP9VideoExtensions_8wekyb3d8bbwe.%arch%.xml" %_Nul2%
+)
+if %nosuggapp%==1 (
+echo Disable download Third-Party Apps...
+reg.exe load "HKLM\Usertemp" "!mumtarget!\Users\Default\NTUSER.DAT" %_Nul3%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "ContentDeliveryAllowed" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "DesktopSpotlightOemEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "FeatureManagementEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "OemPreInstalledAppsEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEverEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "RemediationRequired" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SilentInstalledAppsEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SlideshowEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SoftLandingEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SystemPaneSuggestionsEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe unload "HKLM\Usertemp" %_Nul3%
+)
+if %nosuggtip%==1 (
+echo Disable unused Suggestions and Functions...
+reg.exe load "HKLM\Usertemp" "!mumtarget!\Users\Default\NTUSER.DAT" %_Nul3%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-310093Enabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338389Enabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338393Enabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-353694Enabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-353696Enabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "RotatingLockScreenEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338387Enabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Wallpapers" /v "BackgroundType" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\DesktopSpotlight\Settings" /v "EnabledState" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\SearchSettings" /v "IsDynamicSearchBoxEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_IrisRecommendations" /t REG_DWORD /d "0" /f %_Nul1%
+copy %SysPath%\reg.exe %SysPath%\regalt.exe %_Nul1%
+regalt.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarDa" /t REG_DWORD /d "0" /f %_Nul1%
+del /q %SysPath%\regalt.exe %_Nul1%
+reg.exe unload "HKLM\Usertemp" %_Nul3%
+)
+if %norestorage%==1 (
+echo Disable Reserved Storage...
+reg.exe load "HKLM\Softtemp" "!mumtarget!\Windows\System32\Config\SOFTWARE" %_Nul3%
+reg.exe add "HKLM\Softtemp\Microsoft\Windows\CurrentVersion\ReserveManager" /v "MiscPolicyInfo" /t REG_DWORD /d "2" /f %_Nul1%
+reg.exe add "HKLM\Softtemp\Microsoft\Windows\CurrentVersion\ReserveManager" /v "PassedPolicy" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe add "HKLM\Softtemp\Microsoft\Windows\CurrentVersion\ReserveManager" /v "ShippedWithReserves" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe unload "HKLM\Softtemp" %_Nul3%
+)
+if %nogamebar%==1 (
+echo Disable Game Bar...
+reg.exe load "HKLM\Usertemp" "!mumtarget!\Users\Default\NTUSER.DAT" %_Nul3%
+reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\GameBar" /v "UseNexusForGameBarEnabled" /t REG_DWORD /d "0" /f %_Nul1%
+reg.exe unload "HKLM\Usertemp" %_Nul3%
+)
 if not exist "!mumtarget!\Windows\Servicing\Packages\Package_for_RollupFix*.mum" goto :cuwd
 if %online%==1 goto :cuwd
 if not defined lcumsu goto :cuwd
