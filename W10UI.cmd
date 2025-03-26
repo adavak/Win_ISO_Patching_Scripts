@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.50
+@set uiv=v10.51
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -2667,6 +2667,7 @@ if exist "%~1\Microsoft-Windows-SV2Moment4Enablement-Package~*.mum" set "_fixSV=
 if exist "%~1\Microsoft-Windows-23H2Enablement-Package~*.mum" set "_fixSV=22631"&set "_fixEP=22631"
 if exist "%~1\Microsoft-Windows-SV2BetaEnablement-Package~*.mum" set "_fixSV=22635"&set "_fixEP=22635"
 if exist "%~1\Microsoft-Windows-Ge-Client-Server-Beta-Version-Enablement-Package~*.mum" set "_fixSV=26120"&set "_fixEP=26120"
+if exist "%~1\Microsoft-Windows-Ge-Client-Server-26200-Version-Enablement-Package~*.mum" set "_fixSV=26200"&set "_fixEP=26200"
 goto :eof
 
 :fixLab
@@ -2743,7 +2744,7 @@ set isolab=%uuplab%
 goto :eof
 
 :doBootFiles
-set isoboot=%1
+set "isoboot=%~1"
 if %UpdtBootFiles% neq 1 goto :nonewboot
 xcopy /CIDRY "!mountdir!\Windows\Boot\DVD\EFI\en-US\efisys.bin" "!isoboot!\efi\microsoft\boot\" %_Nul3%
 xcopy /CIDRY "!mountdir!\Windows\Boot\DVD\EFI\en-US\efisys_noprompt.bin" "!isoboot!\efi\microsoft\boot\" %_Nul3%
