@@ -118,6 +118,9 @@ set norestorage="
 :: disable game bar
 set nogamebar="
 
+:: set up without internet
+set oobepypass ="
+
 :: ###################################################################
 :: # NORMALLY THERE IS NO NEED TO CHANGE ANYTHING BELOW THIS COMMENT #
 :: ###################################################################
@@ -294,6 +297,7 @@ nosuggapp
 nosuggtip
 norestorage
 nogamebar
+oobebypass
 ) do (
 call :ReadINI %%#
 )
@@ -1704,6 +1708,12 @@ echo Disable Game Bar...
 reg.exe load "HKLM\Usertemp" "!mumtarget!\Users\Default\NTUSER.DAT" %_Nul3%
 reg.exe add "HKLM\Usertemp\SOFTWARE\Microsoft\GameBar" /v "UseNexusForGameBarEnabled" /t REG_DWORD /d "0" /f %_Nul1%
 reg.exe unload "HKLM\Usertemp" %_Nul3%
+)
+if %oobebypass%==1 (
+echo Set up without internet create local account...
+reg.exe load "HKLM\Softtemp" "!mumtarget!\Windows\System32\Config\SOFTWARE" %_Nul3%
+reg.exe add "HKLM\Softtemp\Microsoft\Windows\CurrentVersion\OOBE" /v "BypassNRO" /t REG_DWORD /d "1" /f %_Nul1%
+reg.exe unload "HKLM\Softtemp" %_Nul3%
 )
 if not exist "!mumtarget!\Windows\Servicing\Packages\Package_for_RollupFix*.mum" goto :cuwd
 if %online%==1 goto :cuwd
