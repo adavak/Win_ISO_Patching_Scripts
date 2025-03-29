@@ -119,7 +119,7 @@ set norestorage="
 set nogamebar="
 
 :: set up without internet
-set oobepypass ="
+set oobebypass ="
 
 :: ###################################################################
 :: # NORMALLY THERE IS NO NEED TO CHANGE ANYTHING BELOW THIS COMMENT #
