@@ -10,17 +10,17 @@
 ##### Usage: Put the Windows image (ISO format) in the root directory of the folder. Run Start.cmd to start downloading the latest patches and start creating an ISO with the integrated patches. The download address of the patch file is from Microsoft.
 
 
-###### Supported Windows versions:
+###### Supported Windows Versions:
 
-|Name|Internal version (last updated: March 28, 2025)|
+|Name|Internal Version (Last Updated: April 9, 2025)|
 |---|---|
-|**Windows 10 Enterprise LTSB 2016, Windows Server 2016**|**Build 14393.7876**|
-|**Windows 10 Enterprise LTSC 2019, Windows Server 2019**|**Build 17763.7009**|
-|**Windows 10 22H2, Windows 10 Enterprise LTSC 2021**|**Build 1904x.5679**|
-|**Windows Server 2022**|**Build 20348.3328**|
-|**Windows 11 21H2 (Remove in June 2025)**|**Build 22000.3260 (2024-10, EOL)**|
-|**Windows 11 23H2**|**Build 22631.5126**|
-|**Windows 11 24H2, Windows 11 Enterprise LTSC 2024, Windows Server 2025**|**Build 26100.3624**|
+|**Windows 10 Enterprise LTSB 2016, Windows Server 2016**|**Build 14393.7969**|
+|**Windows 10 Enterprise LTSC 2019, Windows Server 2019**|**Build 17763.7136 (2024-6, Arm Version EOL)**|
+|**Windows 10 22H2, Windows 10 Enterprise LTSC 2021**|**Build 1904x.5737**|
+|**Windows Server 2022**|**Build 20348.3454**|
+|**Windows 11 21H2 (Remove in June 2025)**|**Build 22000.3260 (2024-10, Version EOL)**|
+|**Windows 11 23H2**|**Build 22631.5189**|
+|**Windows 11 24H2, Windows 11 Enterprise LTSC 2024, Windows Server 2025**|**Build 26100.3775**|
 
 ###### Some settings (located in the W10UI.ini file in the root directory of the folder):
 |Value (Default)|Description|

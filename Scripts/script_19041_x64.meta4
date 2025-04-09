@@ -1,19 +1,19 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5053643-x64_5218e6eb7da7bbc10645dc7c4732c64ed0fba070.msu">
-		<hash type="sha-1">5218e6eb7da7bbc10645dc7c4732c64ed0fba070</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2025/03/windows10.0-kb5053643-x64_5218e6eb7da7bbc10645dc7c4732c64ed0fba070.msu</url>
+	<file name="windows10.0-kb5055518-x64_0504a2aa182fc23d9651dd6842b7e6388a0ee07b.msu">
+		<hash type="sha-1">0504a2aa182fc23d9651dd6842b7e6388a0ee07b</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2025/04/windows10.0-kb5055518-x64_0504a2aa182fc23d9651dd6842b7e6388a0ee07b.msu</url>
 	</file>
 	<file name="windows10.0-kb5015684-x64_523c039b86ca98f2d818c4e6706e2cc94b634c4a.msu">
 		<hash type="sha-1">523c039b86ca98f2d818c4e6706e2cc94b634c4a</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/upgr/2022/07/windows10.0-kb5015684-x64_523c039b86ca98f2d818c4e6706e2cc94b634c4a.msu</url>
 	</file>
-	<file name="windows10.0-kb5046905-x64_caad951e96a4d7ef4da1a8e45055e7b96a19d1bc.cab">
-		<hash type="sha-1">caad951e96a4d7ef4da1a8e45055e7b96a19d1bc</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2024/11/windows10.0-kb5046905-x64_caad951e96a4d7ef4da1a8e45055e7b96a19d1bc.cab</url>
+	<file name="windows10.0-kb5056474-x64_1dac3ed925f237ac764585323cdc96cce52deb47.cab">
+		<hash type="sha-1">1dac3ed925f237ac764585323cdc96cce52deb47</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2025/03/windows10.0-kb5056474-x64_1dac3ed925f237ac764585323cdc96cce52deb47.cab</url>
 	</file>
-	<file name="windows10.0-kb5050199-x64_5c9d9cea71001edfbb308523a292b530d53ed415.cab">
-		<hash type="sha-1">5c9d9cea71001edfbb308523a292b530d53ed415</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2025/01/windows10.0-kb5050199-x64_5c9d9cea71001edfbb308523a292b530d53ed415.cab</url>
+	<file name="windows10.0-kb5055674-x64_e19687a5c9e9be7144d771b8eba2a2cee784b161.cab">
+		<hash type="sha-1">e19687a5c9e9be7144d771b8eba2a2cee784b161</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2025/04/windows10.0-kb5055674-x64_e19687a5c9e9be7144d771b8eba2a2cee784b161.cab</url>
 	</file>
 </metalink>
