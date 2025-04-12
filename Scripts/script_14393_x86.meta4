@@ -4,9 +4,9 @@
 		<hash type="sha-1">562b34b016ad4b1bde9cb1b54aaef977ca2f0c08</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2025/03/windows10.0-kb5055661-x86_562b34b016ad4b1bde9cb1b54aaef977ca2f0c08.msu</url>
 	</file>
-	<file name="windows10.0-kb5055521-x86_2fac5c0800b2269f75b3f48c02c282ef57492777.msu">
-		<hash type="sha-1">2fac5c0800b2269f75b3f48c02c282ef57492777</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2025/04/windows10.0-kb5055521-x86_2fac5c0800b2269f75b3f48c02c282ef57492777.msu</url>
+	<file name="windows10.0-kb5058921-x86_cf971faefe4d78436c7c94bb5708222efc5b3f24.msu">
+		<hash type="sha-1">cf971faefe4d78436c7c94bb5708222efc5b3f24</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2025/04/windows10.0-kb5058921-x86_cf971faefe4d78436c7c94bb5708222efc5b3f24.msu</url>
 	</file>
 	<file name="windows10.0-kb5045521-x86_2b6ed86e27156c584d2b767a3f34ed336d80a552.cab">
 		<hash type="sha-1">2b6ed86e27156c584d2b767a3f34ed336d80a552</hash>
