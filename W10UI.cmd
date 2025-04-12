@@ -104,22 +104,22 @@ set "ISODir="
 set Delete_Source=0
 
 :: LTSC 2021 Libs Fix
-set ltscfix="
+set "ltscfix="
 
 :: disable automatically installing suggested apps
-set nosuggapp="
+set "nosuggapp="
 
 :: disable suggested tips
-set nosuggtip="
+set "nosuggtip="
 
 :: disable reserved storage
-set norestorage="
+set "norestorage="
 
 :: disable game bar
-set nogamebar="
+set "nogamebar="
 
 :: set up without internet
-set oobebypass ="
+set "oobebypass="
 
 :: ###################################################################
 :: # NORMALLY THERE IS NO NEED TO CHANGE ANYTHING BELOW THIS COMMENT #
