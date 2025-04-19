@@ -1,8 +1,8 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5055519-x86_192235ec8b0168b7ac4c9583c3e7524100617bc1.msu">
-		<hash type="sha-1">192235ec8b0168b7ac4c9583c3e7524100617bc1</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2025/04/windows10.0-kb5055519-x86_192235ec8b0168b7ac4c9583c3e7524100617bc1.msu</url>
+	<file name="windows10.0-kb5059091-x86_f5a0cdad0e68c2db491fc08293280fe64b9c7df8.msu">
+		<hash type="sha-1">f5a0cdad0e68c2db491fc08293280fe64b9c7df8</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2025/04/windows10.0-kb5059091-x86_f5a0cdad0e68c2db491fc08293280fe64b9c7df8.msu</url>
 	</file>
 	<file name="windows10.0-kb5047135-x86_90ded162de5b495f1bf1a27b703e8d0b7bcf21f0.cab">
 		<hash type="sha-1">90ded162de5b495f1bf1a27b703e8d0b7bcf21f0</hash>
