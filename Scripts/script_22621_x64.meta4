@@ -1,12 +1,12 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows11.0-kb5058919-x64_2a7c6f541be7567bd1fa9bb7342e4b255f8ce339.msu">
-		<hash type="sha-1">2a7c6f541be7567bd1fa9bb7342e4b255f8ce339</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/6bf92864-9782-41c0-b9f1-17249bf2ccc6/public/windows11.0-kb5058919-x64_2a7c6f541be7567bd1fa9bb7342e4b255f8ce339.msu</url>
+	<file name="windows11.0-kb5055629-x64_752d08c8dc04348ac36eb1b01fd9b99afb973911.msu">
+		<hash type="sha-1">752d08c8dc04348ac36eb1b01fd9b99afb973911</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/2ff02c1e-c080-4d10-840f-7e00f6a114c1/public/windows11.0-kb5055629-x64_752d08c8dc04348ac36eb1b01fd9b99afb973911.msu</url>
 	</file>
-	<file name="windows11.0-kb5054980-x64-ndp481_5bf6cedad06c047082b132ba04aa715a5db90a77.msu">
-		<hash type="sha-1">5bf6cedad06c047082b132ba04aa715a5db90a77</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2025/03/windows11.0-kb5054980-x64-ndp481_5bf6cedad06c047082b132ba04aa715a5db90a77.msu</url>
+	<file name="windows11.0-kb5056580-x64-ndp481_3cd8a74c872577d9451524498876b87b4be09eee.msu">
+		<hash type="sha-1">3cd8a74c872577d9451524498876b87b4be09eee</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2025/03/windows11.0-kb5056580-x64-ndp481_3cd8a74c872577d9451524498876b87b4be09eee.msu</url>
 	</file>
 	<file name="windows11.0-kb5027397-x64_3a9c368e239bb928c32a790cf1663338d2cad472.msu">
 		<hash type="sha-1">3a9c368e239bb928c32a790cf1663338d2cad472</hash>
@@ -16,8 +16,8 @@
 		<hash type="sha-1">1d67436bec579a4d7392c65b39634897dc5885fa</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/9a2c6827-44aa-4d3f-8a91-dda15705af79/public/windows11.0-kb5056378-x64_1d67436bec579a4d7392c65b39634897dc5885fa.cab</url>
 	</file>
-	<file name="windows11.0-kb5056789-x64_ccdb4a5363c1e835e9b29c66f40b395a9018259d.cab">
-		<hash type="sha-1">ccdb4a5363c1e835e9b29c66f40b395a9018259d</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/8d9b1c18-30e8-4ab2-ab54-3117e79a27c0/public/windows11.0-kb5056789-x64_ccdb4a5363c1e835e9b29c66f40b395a9018259d.cab</url>
+	<file name="windows11.0-kb5059281-x64_a77b8e28ec8d57cc4bc0b7fd614da20dd1e2fc31.cab">
+		<hash type="sha-1">a77b8e28ec8d57cc4bc0b7fd614da20dd1e2fc31</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/d95ee9af-3174-4594-8c59-31233d92df22/public/windows11.0-kb5059281-x64_a77b8e28ec8d57cc4bc0b7fd614da20dd1e2fc31.cab</url>
 	</file>
 </metalink>
