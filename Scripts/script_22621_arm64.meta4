@@ -1,8 +1,8 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows11.0-kb5058405-arm64_765fa652451f340dd9f00fc55b704af6d14d05b7.msu">
-		<hash type="sha-1">765fa652451f340dd9f00fc55b704af6d14d05b7</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/00d00338-dfd9-45c2-b6e1-1f920c8e7ac0/public/windows11.0-kb5058405-arm64_765fa652451f340dd9f00fc55b704af6d14d05b7.msu</url>
+	<file name="windows11.0-kb5058502-arm64_99612471d4765f7f72cd16d4070d89cfecbdc7b9.msu">
+		<hash type="sha-1">99612471d4765f7f72cd16d4070d89cfecbdc7b9</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/9683e3b5-648e-4e7a-bc5d-734460f250a6/public/windows11.0-kb5058502-arm64_99612471d4765f7f72cd16d4070d89cfecbdc7b9.msu</url>
 	</file>
 	<file name="windows11.0-kb5056580-arm64-ndp481_1ca6894cceafb77c66c8cf6123f5575cc66d0f08.msu">
 		<hash type="sha-1">1ca6894cceafb77c66c8cf6123f5575cc66d0f08</hash>
@@ -16,8 +16,8 @@
 		<hash type="sha-1">fe958ddede020b25dc5706d7de3f50b61f3cc5d2</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/479ab5f9-c121-4919-8354-1a49336676ea/public/windows11.0-kb5056378-arm64_fe958ddede020b25dc5706d7de3f50b61f3cc5d2.cab</url>
 	</file>
-	<file name="windows11.0-kb5059281-arm64_cefcefc0c2e0ee739f5eaaf12b07d850adc00d29.cab">
-		<hash type="sha-1">cefcefc0c2e0ee739f5eaaf12b07d850adc00d29</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/e82ad98a-91c3-4ac4-94a8-26f6d8a80bff/public/windows11.0-kb5059281-arm64_cefcefc0c2e0ee739f5eaaf12b07d850adc00d29.cab</url>
+	<file name="windows11.0-kb5059774-arm64_6f4ce9952ff16557f0f025ce6acb437693208c1f.cab">
+		<hash type="sha-1">6f4ce9952ff16557f0f025ce6acb437693208c1f</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/78f069cb-b994-46da-a09f-5b35d6230edc/public/windows11.0-kb5059774-arm64_6f4ce9952ff16557f0f025ce6acb437693208c1f.cab</url>
 	</file>
 </metalink>
