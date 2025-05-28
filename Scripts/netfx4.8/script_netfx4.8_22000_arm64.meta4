@@ -1,8 +1,0 @@
-﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5044023-arm64-ndp48_641a0c8a6adff58fcd0f07bc559629866ff03365.msu">
-		<language>neutral</language>
-		<hash type="sha-1">641a0c8a6adff58fcd0f07bc559629866ff03365</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2024/09/windows10.0-kb5044023-arm64-ndp48_641a0c8a6adff58fcd0f07bc559629866ff03365.msu</url>
-	</file>
-</metalink>

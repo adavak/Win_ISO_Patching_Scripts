@@ -18,7 +18,6 @@
 |**Windows 10 Enterprise LTSC 2019, Windows Server 2019**|**Build 17763.7322 (2024-6, Arm Version EOL)**|
 |**Windows 10 22H2, Windows 10 Enterprise LTSC 2021**|**Build 1904x.5859**|
 |**Windows Server 2022**|**Build 20348.3695**|
-|**Windows 11 21H2 (Remove in June 2025)**|**Build 22000.3260 (2024-10, Version EOL)**|
 |**Windows 11 23H2**|**Build 22631.5413**|
 |**Windows 11 24H2, Windows 11 Enterprise LTSC 2024, Windows Server 2025**|**Build 26100.4066**|
 
