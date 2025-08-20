@@ -12,11 +12,11 @@
 
 ###### Supported Windows Versions:
 
-|Name|Internal Version (Last Updated: August 13, 2025)|
+|Name|Internal Version (Last Updated: August 20, 2025)|
 |---|---|
 |**Windows 10 Enterprise LTSB 2016, Windows Server 2016**|**Build 14393.8330**|
-|**Windows 10 Enterprise LTSC 2019, Windows Server 2019**|**Build 17763.7678 (2024-6, Arm Version EOL)**|
-|**Windows 10 22H2, Windows 10 Enterprise LTSC 2021**|**Build 1904x.6216**|
+|**Windows 10 Enterprise LTSC 2019, Windows Server 2019**|**Build 17763.7683 (2024-6, Arm Version EOL)**|
+|**Windows 10 22H2, Windows 10 Enterprise LTSC 2021**|**Build 1904x.6218**|
 |**Windows Server 2022**|**Build 20348.4052**|
 |**Windows 11 23H2**|**Build 22631.5768**|
 |**Windows 11 24H2, Windows 11 Enterprise LTSC 2024, Windows Server 2025**|**Build 26100.4946**|
