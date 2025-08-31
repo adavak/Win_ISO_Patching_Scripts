@@ -1,12 +1,12 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows11.0-kb5063875-arm64_35531bad391f39d566de79a994c5ace9fb5221f6.msu">
-		<hash type="sha-1">35531bad391f39d566de79a994c5ace9fb5221f6</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/c7eb1c2a-4789-4d75-a7bf-389b4b5d9bc1/public/windows11.0-kb5063875-arm64_35531bad391f39d566de79a994c5ace9fb5221f6.msu</url>
+	<file name="windows11.0-kb5064080-arm64_26fb5cf1e6871459fb2ee32146092fccba032e24.msu">
+		<hash type="sha-1">26fb5cf1e6871459fb2ee32146092fccba032e24</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/317e7c3d-d9fd-4b7b-bfe2-111bbfa00463/public/windows11.0-kb5064080-arm64_26fb5cf1e6871459fb2ee32146092fccba032e24.msu</url>
 	</file>
-	<file name="windows11.0-kb5056580-arm64-ndp481_1ca6894cceafb77c66c8cf6123f5575cc66d0f08.msu">
-		<hash type="sha-1">1ca6894cceafb77c66c8cf6123f5575cc66d0f08</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2025/03/windows11.0-kb5056580-arm64-ndp481_1ca6894cceafb77c66c8cf6123f5575cc66d0f08.msu</url>
+	<file name="windows11.0-kb5064403-arm64-ndp481_fc5ee13338a2b6204f77d55274ed2190a1a2958f.msu">
+		<hash type="sha-1">fc5ee13338a2b6204f77d55274ed2190a1a2958f</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/88b2dddf-fc21-4e09-9ead-aadb8f3bfea0/public/windows11.0-kb5064403-arm64-ndp481_fc5ee13338a2b6204f77d55274ed2190a1a2958f.msu</url>
 	</file>
 	<file name="windows11.0-kb5027397-arm64_bacb74fba9077a5b7ae2f74a3ebb0b506f9708f3.msu">
 		<hash type="sha-1">bacb74fba9077a5b7ae2f74a3ebb0b506f9708f3</hash>

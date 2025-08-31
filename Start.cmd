@@ -72,6 +72,7 @@ if %build%==19044 (set /a build=19041)
 if %build%==19045 (set /a build=19041)
 if %build%==20349 (set /a build=20348)
 if %build%==22631 (set /a build=22621)
+if %build%==26200 (set /a build=26100)
 
 if NOT EXIST %aria2% goto :NO_ARIA2_ERROR
 if NOT EXIST %a7z% goto :NO_FILE_ERROR
