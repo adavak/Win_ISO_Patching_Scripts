@@ -4,20 +4,24 @@
 		<hash type="sha-1">953449672073f8fb99badb4cc6d5d7849b9c83e8</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/d8b7f92b-bd35-4b4c-96e5-46ce984b31e0/public/windows11.0-kb5043080-x64_953449672073f8fb99badb4cc6d5d7849b9c83e8.msu</url>
 	</file>
-	<file name="windows11.0-kb5068221-x64_99f1d28d2ad67768689819e500449f633ee7d8b9.msu">
-		<hash type="sha-1">99f1d28d2ad67768689819e500449f633ee7d8b9</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/7a2f351d-69ad-4e98-a1f1-93e4a207dc14/public/windows11.0-kb5068221-x64_99f1d28d2ad67768689819e500449f633ee7d8b9.msu</url>
+	<file name="windows11.0-kb5065789-x64_e3d377d0a97a3f7efaeec8f698d3040751f7da18.msu">
+		<hash type="sha-1">e3d377d0a97a3f7efaeec8f698d3040751f7da18</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/7b6fed73-6e54-41bd-b9d1-315e9de95795/public/windows11.0-kb5065789-x64_e3d377d0a97a3f7efaeec8f698d3040751f7da18.msu</url>
 	</file>
-	<file name="windows11.0-kb5064401-x64-ndp481_03d42dc42df2db6f1812c2fa3d768780c079a843.msu">
-		<hash type="sha-1">03d42dc42df2db6f1812c2fa3d768780c079a843</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/e7d2c572-7ce6-4df1-b2c9-0b341f438299/public/windows11.0-kb5064401-x64-ndp481_03d42dc42df2db6f1812c2fa3d768780c079a843.msu</url>
+	<file name="windows11.0-kb5054156-x64_9fd13360d2c5af23ec4f591b86f1c1db37aada37.msu">
+		<hash type="sha-1">9fd13360d2c5af23ec4f591b86f1c1db37aada37</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/67731ce0-1988-426a-afa3-044a032eb6c6/public/windows11.0-kb5054156-x64_9fd13360d2c5af23ec4f591b86f1c1db37aada37.msu</url>
 	</file>
-	<file name="windows11.0-kb5066990-x64_f3735c81e09f4bb4499b08d498d6ef56788ce1e8.cab">
-		<hash type="sha-1">f3735c81e09f4bb4499b08d498d6ef56788ce1e8</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/ddfe60a8-09c8-4bfd-b4fa-2181ea0420e4/public/windows11.0-kb5066990-x64_f3735c81e09f4bb4499b08d498d6ef56788ce1e8.cab</url>
+	<file name="windows11.0-kb5066613-x64-ndp481_979eb2997f07d8fc8df1a83a7c31ff75ac42bbf9.msu">
+		<hash type="sha-1">979eb2997f07d8fc8df1a83a7c31ff75ac42bbf9</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/f804408f-3730-4105-98e5-885c6075c027/public/windows11.0-kb5066613-x64-ndp481_979eb2997f07d8fc8df1a83a7c31ff75ac42bbf9.msu</url>
 	</file>
-	<file name="windows11.0-kb5064097-x64_28d59d08562e574b336ca9523f6e2e0fc965687e.cab">
-		<hash type="sha-1">28d59d08562e574b336ca9523f6e2e0fc965687e</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/aa701f2d-af59-458a-86cb-188dd068e7ac/public/windows11.0-kb5064097-x64_28d59d08562e574b336ca9523f6e2e0fc965687e.cab</url>
+	<file name="windows11.0-kb5066683-x64_71fecafb5ffa2f4d377657e7bc68e5aea98ecfd4.cab">
+		<hash type="sha-1">71fecafb5ffa2f4d377657e7bc68e5aea98ecfd4</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/af95b651-d83e-4fa3-bbcf-3feefee4da51/public/windows11.0-kb5066683-x64_71fecafb5ffa2f4d377657e7bc68e5aea98ecfd4.cab</url>
+	</file>
+	<file name="windows11.0-kb5066687-x64_39c78366066876f2c083c7ca598f712a3cfb20c1.cab">
+		<hash type="sha-1">39c78366066876f2c083c7ca598f712a3cfb20c1</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/bccac612-e736-4925-a3e6-5f0b5741e394/public/windows11.0-kb5066687-x64_39c78366066876f2c083c7ca598f712a3cfb20c1.cab</url>
 	</file>
 </metalink>
