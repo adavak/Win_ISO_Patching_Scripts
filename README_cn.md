@@ -1,5 +1,7 @@
 ### Win_ISO_Patching_Scripts
 
+#### 在度假，更新会推迟，熟知格式的可以提交 commit，我会进行 merge。
+
 [中文说明](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README_cn.md)
 
 [English Readme](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README.md)
