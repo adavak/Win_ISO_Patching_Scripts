@@ -1,5 +1,7 @@
 ### Win_ISO_Patching_Scripts
 
+#### On vacation, updates will be delayed. Those familiar with the format can submit commits, and I will merge them.
+
 [English Readme](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README.md)
 
 [中文说明](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README_cn.md)
