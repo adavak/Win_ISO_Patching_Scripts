@@ -5,10 +5,10 @@
 		<hash type="sha-1">d38ebe43baeabaef927675c7ff2295843f19a077</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486129-x86_d38ebe43baeabaef927675c7ff2295843f19a077.msu</url>
 	</file>
-	<file name="windows10.0-kb5065749-x86-ndp48_418743c818da75c8fe0abdc46e7163ad92d2de38.msu">
+	<file name="windows10.0-kb5066136-x86-ndp48_2b268d817df51c83d3b4d95e2b0824005e9db05d.msu">
 		<language>neutral</language>
-		<hash type="sha-1">418743c818da75c8fe0abdc46e7163ad92d2de38</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2025/08/windows10.0-kb5065749-x86-ndp48_418743c818da75c8fe0abdc46e7163ad92d2de38.msu</url>
+		<hash type="sha-1">2b268d817df51c83d3b4d95e2b0824005e9db05d</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2025/09/windows10.0-kb5066136-x86-ndp48_2b268d817df51c83d3b4d95e2b0824005e9db05d.msu</url>
 	</file>
 	<file name="windows10.0-kb4486130-x86_2f13d180f47d3db30af63d48ea0d1c76becf14fc.msu">
 		<language>ar-SA</language>
