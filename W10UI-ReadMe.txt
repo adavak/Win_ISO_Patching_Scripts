@@ -7,7 +7,7 @@ Windows NT 10.0 Updates Installer
 Automated script to install or integrate updates for:
 - Windows 10
 - Windows 11
-- Windows Server 2016, 2019, 2022
+- Windows Server 2016, 2019, 2022, 2025
 
 ============================================================
 Features:
@@ -28,6 +28,8 @@ Features:
 
 # Enable .NET Framework 3.5 if available source detected, and reinstall Cumulative updates afterwards
 valid locations: mounted iso, inserted dvd/usb, sxs folder for distribution target, custom specified folder path
+
+Note: .NET 3.5 is no longer included as a feature for Windows 11 builds 27965 and later.
 
 # Detect Windows ADK (Deployment Tools) for offline integration
 https://docs.microsoft.com/windows-hardware/get-started/adk-install
