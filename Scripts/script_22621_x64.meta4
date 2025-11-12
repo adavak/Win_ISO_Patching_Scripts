@@ -1,8 +1,8 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows11.0-kb5067112-x64_9d734ea5049f5a1fd1285fb879f0336ef9479db9.msu">
-		<hash type="sha-1">9d734ea5049f5a1fd1285fb879f0336ef9479db9</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/94f20abb-741d-4767-ba81-e1ccca9c1e68/public/windows11.0-kb5067112-x64_9d734ea5049f5a1fd1285fb879f0336ef9479db9.msu</url>
+	<file name="windows11.0-kb5068865-x64_012666ac2f387635c161275a4b55aa06ad0afac2.msu">
+		<hash type="sha-1">012666ac2f387635c161275a4b55aa06ad0afac2</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/ff42c8dc-82c9-4e1d-b296-fc48d68d6160/public/windows11.0-kb5068865-x64_012666ac2f387635c161275a4b55aa06ad0afac2.msu</url>
 	</file>
 	<file name="windows11.0-kb5066133-x64-ndp481_4dd0fbfc976c5ef5b9492ab42895e8b56310f430.msu">
 		<hash type="sha-1">4dd0fbfc976c5ef5b9492ab42895e8b56310f430</hash>
@@ -16,8 +16,8 @@
 		<hash type="sha-1">a815def7d70bab36f6fba2d2e0cd9c2d0a69505a</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/3ead64f1-c73d-4973-8cb1-24f8c2a8f52e/public/windows11.0-kb5062683-x64_a815def7d70bab36f6fba2d2e0cd9c2d0a69505a.cab</url>
 	</file>
-	<file name="windows11.0-kb5067019-x64_b526fb4cd53dbbf7b30e8d2768a04c4bf10e5a23.cab">
-		<hash type="sha-1">b526fb4cd53dbbf7b30e8d2768a04c4bf10e5a23</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/faf3f8cd-ec02-4e38-a0af-351a4fddb49b/public/windows11.0-kb5067019-x64_b526fb4cd53dbbf7b30e8d2768a04c4bf10e5a23.cab</url>
+	<file name="windows11.0-kb5069341-x64_151ae2474b3dcc136a710cbd70af87b14e1f6165.cab">
+		<hash type="sha-1">151ae2474b3dcc136a710cbd70af87b14e1f6165</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/6027cd0b-d49a-41e3-9460-28db61949008/public/windows11.0-kb5069341-x64_151ae2474b3dcc136a710cbd70af87b14e1f6165.cab</url>
 	</file>
 </metalink>
