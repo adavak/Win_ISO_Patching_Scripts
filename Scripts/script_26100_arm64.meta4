@@ -4,9 +4,9 @@
 		<hash type="sha-1">df540a05f9b118e339c5520f4090bb5d450f090b</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/f263aa64-f367-42f0-9cad-328f342b93f7/public/windows11.0-kb5043080-arm64_df540a05f9b118e339c5520f4090bb5d450f090b.msu</url>
 	</file>
-	<file name="windows11.0-kb5068861-arm64_a3e19ed3cab45c960bd3f34a4d160575836a15ed.msu">
-		<hash type="sha-1">a3e19ed3cab45c960bd3f34a4d160575836a15ed</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/5e90c34d-8582-4de5-9320-bf02757d9dce/public/windows11.0-kb5068861-arm64_a3e19ed3cab45c960bd3f34a4d160575836a15ed.msu</url>
+	<file name="windows11.0-kb5070311-arm64_514253aa0863bc2148fb73bd65611e844798a04f.msu">
+		<hash type="sha-1">514253aa0863bc2148fb73bd65611e844798a04f</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/fa3b7b60-ced2-40d6-b1af-31c52f700eb5/public/windows11.0-kb5070311-arm64_514253aa0863bc2148fb73bd65611e844798a04f.msu</url>
 	</file>
 	<file name="windows11.0-kb5054156-arm64_e57cf6837a8b9877786ec3e7a366503a6072f5e5.msu">
 		<hash type="sha-1">e57cf6837a8b9877786ec3e7a366503a6072f5e5</hash>
@@ -20,8 +20,8 @@
 		<hash type="sha-1">f7fdafafcf21e0100233a3344d65f803c50c1af3</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/922118d1-438d-4d3f-8a51-4dbb96e8643b/public/windows11.0-kb5068516-arm64_f7fdafafcf21e0100233a3344d65f803c50c1af3.cab</url>
 	</file>
-	<file name="windows11.0-kb5070186-arm64_04864c55245d82fec095d6677bc26b4ed70cb1bf.cab">
-		<hash type="sha-1">04864c55245d82fec095d6677bc26b4ed70cb1bf</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/842afa37-e29b-435c-9c22-36f32e81e5c3/public/windows11.0-kb5070186-arm64_04864c55245d82fec095d6677bc26b4ed70cb1bf.cab</url>
+	<file name="windows11.0-kb5071844-arm64_89cdaf121919ee7b7a38b252ceec86ead9aa683b.cab">
+		<hash type="sha-1">89cdaf121919ee7b7a38b252ceec86ead9aa683b</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/5a4b963c-d863-46e3-b257-bd7602bd799e/public/windows11.0-kb5071844-arm64_89cdaf121919ee7b7a38b252ceec86ead9aa683b.cab</url>
 	</file>
 </metalink>
