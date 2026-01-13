@@ -1,20 +1,20 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5070247-x86_9e6c55da58dc6c4cb97ef23bac2022afdc6c1fe5.msu">
-		<hash type="sha-1">9e6c55da58dc6c4cb97ef23bac2022afdc6c1fe5</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2025/10/windows10.0-kb5070247-x86_9e6c55da58dc6c4cb97ef23bac2022afdc6c1fe5.msu</url>
+	<file name="windows10.0-kb5073447-x86_c6e7244191be1898720d739e8a713053b7adb2b8.msu">
+		<hash type="sha-1">c6e7244191be1898720d739e8a713053b7adb2b8</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2026/01/windows10.0-kb5073447-x86_c6e7244191be1898720d739e8a713053b7adb2b8.msu</url>
 	</file>
-	<file name="windows10.0-kb5074974-x86_88ea116c99ca0ed174a0ab1cd93d178b7a23a083.msu">
-		<hash type="sha-1">88ea116c99ca0ed174a0ab1cd93d178b7a23a083</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2025/12/windows10.0-kb5074974-x86_88ea116c99ca0ed174a0ab1cd93d178b7a23a083.msu</url>
+	<file name="windows10.0-kb5073722-x86_5285ba87a39d5c607333e9d0d6d5d70d931d17ba.msu">
+		<hash type="sha-1">5285ba87a39d5c607333e9d0d6d5d70d931d17ba</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2026/01/windows10.0-kb5073722-x86_5285ba87a39d5c607333e9d0d6d5d70d931d17ba.msu</url>
 	</file>
 	<file name="windows10.0-kb5068794-x86_6cf77fd5b0f590fda58604e3cd2cc7b1fa0ea1c3.cab">
 		<hash type="sha-1">6cf77fd5b0f590fda58604e3cd2cc7b1fa0ea1c3</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2025/10/windows10.0-kb5068794-x86_6cf77fd5b0f590fda58604e3cd2cc7b1fa0ea1c3.cab</url>
 	</file>
-	<file name="windows10.0-kb5072540-x86_fd861aef9b6bf71794a545cf84ae2a910b295619.cab">
-		<hash type="sha-1">fd861aef9b6bf71794a545cf84ae2a910b295619</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2025/11/windows10.0-kb5072540-x86_fd861aef9b6bf71794a545cf84ae2a910b295619.cab</url>
+	<file name="windows10.0-kb5073931-x86_2e22f2a9a1ba01078e002a8ab5de49150fe56e00.cab">
+		<hash type="sha-1">2e22f2a9a1ba01078e002a8ab5de49150fe56e00</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2026/01/windows10.0-kb5073931-x86_2e22f2a9a1ba01078e002a8ab5de49150fe56e00.cab</url>
 	</file>
 	<file name="windows10.0-kb5028913-x86_e8551f2a2fc6642ca95d92a4c945e312b03ee862.msu">
 		<hash type="sha-1">e8551f2a2fc6642ca95d92a4c945e312b03ee862</hash>
