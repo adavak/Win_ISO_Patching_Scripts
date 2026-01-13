@@ -44,6 +44,7 @@ set "patchDir=patch"
 set "ISODir=ISO"
 set "build="
 set "arch="
+set "isServer="
 
 dir /b /a:-d Win10*.iso 1>nul 2>nul && (for /f "delims=" %%# in ('dir /b /a:-d *.iso') do set "isofile=%%#")
 :: if EXIST "Win10*.iso" goto :NO_ISO_PATCHED_ERROR
@@ -59,12 +60,16 @@ del /f /q "%~dp0%ISODir%\sources\install.esd"
 
 if NOT EXIST "%~dp0%ISODir%\sources\install.wim" (goto :NOT_SUPPORT)
 
-dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 | find /i "Version : 10." 1>nul || (
-dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 | find /i "Version : 11." 1>nul || (set "MESSAGE=发现 wim 版本不是 Windows 10 或 11 / Detected wim version is not Windows 10 or 11"&goto :EOF)
+dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^
+| findstr /i /c:"Version : 10." /c:"Version : 11." >nul || (
+    set "MESSAGE=发现 wim 版本不是 Windows 10 或 11 / Detected wim version is not Windows 10 or 11"
+    goto :EOF
 )
+
 for /f "tokens=4 delims=:. " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Version :"') do set build=%%#
 for /f "tokens=2 delims=: " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Architecture"') do set arch=%%#
 for /f "tokens=1" %%i in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Default"') do set lang=%%i
+dism.exe /english /get-wiminfo /wimfile:"%ISODir%\sources\install.wim" /index:1 ^| findstr /i "Server" >nul && set isServer=1
 
 if %build%==19042 (set /a build=19041)
 if %build%==19043 (set /a build=19041)
@@ -76,11 +81,18 @@ if %build%==26200 (set /a build=26100)
 
 if NOT EXIST %aria2% goto :NO_ARIA2_ERROR
 if NOT EXIST %a7z% goto :NO_FILE_ERROR
-if NOT EXIST "Scripts\script_%build%_%arch%.meta4" goto :NOT_SUPPORT
+
+set "metaFile=Scripts\script_%build%_%arch%.meta4"
+
+if "%build%"=="26100" if defined isServer (
+    set "metaFile=Scripts\script_server_%build%_%arch%.meta4"
+)
+
+if NOT EXIST "%metaFile%" goto :NOT_SUPPORT
 
 echo 正在下载补丁…
 echo Patches Downloading...
-"%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\script_%build%_%arch%.meta4"
+"%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "%metaFile%"
 if %ERRORLEVEL% GTR 0 call :DOWNLOAD_ERROR & exit /b 1
 
 set netfx481=
@@ -171,4 +183,3 @@ choice /c 7 /n
 if errorlevel 1 (goto :eof) else (rem.)
 
 :EOF
-
