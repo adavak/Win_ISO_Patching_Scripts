@@ -60,8 +60,7 @@ del /f /q "%~dp0%ISODir%\sources\install.esd"
 
 if NOT EXIST "%~dp0%ISODir%\sources\install.wim" (goto :NOT_SUPPORT)
 
-dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^
-| findstr /i /c:"Version : 10." /c:"Version : 11." >nul || (
+dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 | findstr /i /c:"Version : 10." /c:"Version : 11." >nul || (
     set "MESSAGE=发现 wim 版本不是 Windows 10 或 11 / Detected wim version is not Windows 10 or 11"
     goto :EOF
 )
