@@ -68,7 +68,7 @@ dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /ind
 for /f "tokens=4 delims=:. " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Version :"') do set build=%%#
 for /f "tokens=2 delims=: " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Architecture"') do set arch=%%#
 for /f "tokens=1" %%i in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Default"') do set lang=%%i
-dism.exe /english /get-wiminfo /wimfile:"%ISODir%\sources\install.wim" /index:1 ^| findstr /i "Server" >nul && set isServer=1
+dism.exe /english /get-wiminfo /wimfile:"%ISODir%\sources\install.wim" /index:1 | findstr /i /c:"Server" >nul && set isServer=1
 
 if %build%==19042 (set /a build=19041)
 if %build%==19043 (set /a build=19041)
