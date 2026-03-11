@@ -1,15 +1,15 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows11.0-kb5077239-arm64_ea4dcc7b6116d111da8f32f0bb99b3c138ae98fd.msu">
-		<hash type="sha-1">ea4dcc7b6116d111da8f32f0bb99b3c138ae98fd</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/3390f8c5-6666-461a-b2b5-6e8b48921820/public/windows11.0-kb5077239-arm64_ea4dcc7b6116d111da8f32f0bb99b3c138ae98fd.msu</url>
+	<file name="windows11.0-kb5079466-arm64_ce4511a3d3417df08755d55ec6b0a19e2685424b.msu">
+		<hash type="sha-1">ce4511a3d3417df08755d55ec6b0a19e2685424b</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/6fa352c3-4622-483d-a3b9-a4f866fd4052/public/windows11.0-kb5079466-arm64_ce4511a3d3417df08755d55ec6b0a19e2685424b.msu</url>
 	</file>
 	<file name="windows11.0-kb5074837-arm64-ndp481_c760ba3c58a0fa2be4bf11d29f02c000b23c06bf.msu">
 		<hash type="sha-1">c760ba3c58a0fa2be4bf11d29f02c000b23c06bf</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/7a768533-45cd-48e5-ad90-27b08340af79/public/windows11.0-kb5074837-arm64-ndp481_c760ba3c58a0fa2be4bf11d29f02c000b23c06bf.msu</url>
 	</file>
-	<file name="windows11.0-kb5078169-arm64_ba2c716c48ddea0054707029d6c0a81e9e9d1122.cab">
-		<hash type="sha-1">ba2c716c48ddea0054707029d6c0a81e9e9d1122</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/2352b4c1-242a-4abd-82c4-efb0ed779ce6/public/windows11.0-kb5078169-arm64_ba2c716c48ddea0054707029d6c0a81e9e9d1122.cab</url>
+	<file name="windows11.0-kb5079463-arm64_89828de49381faba12f16d1e80574d587b5e56ad.cab">
+		<hash type="sha-1">89828de49381faba12f16d1e80574d587b5e56ad</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/daa679bd-c227-4e1f-97b7-1ce806296352/public/windows11.0-kb5079463-arm64_89828de49381faba12f16d1e80574d587b5e56ad.cab</url>
 	</file>
 </metalink>

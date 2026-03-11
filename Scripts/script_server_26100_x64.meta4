@@ -4,9 +4,9 @@
 		<hash type="sha-1">953449672073f8fb99badb4cc6d5d7849b9c83e8</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/d8b7f92b-bd35-4b4c-96e5-46ce984b31e0/public/windows11.0-kb5043080-x64_953449672073f8fb99badb4cc6d5d7849b9c83e8.msu</url>
 	</file>
-	<file name="windows11.0-kb5075899-x64_c5fb042f61f8734b8d48f54212b5b007906d732e.msu">
-		<hash type="sha-1">c5fb042f61f8734b8d48f54212b5b007906d732e</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/9e4420b7-aa81-43a4-a687-72fdc1d61c2f/public/windows11.0-kb5075899-x64_c5fb042f61f8734b8d48f54212b5b007906d732e.msu</url>
+	<file name="windows11.0-kb5078740-x64_f569920344bf45a6c3eb619375a8066110d51ba9.msu">
+		<hash type="sha-1">f569920344bf45a6c3eb619375a8066110d51ba9</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/40c739e2-585a-4dce-bc12-1abb5f316301/public/windows11.0-kb5078740-x64_f569920344bf45a6c3eb619375a8066110d51ba9.msu</url>
 	</file>
 	<file name="windows11.0-kb5074831-x64-ndp481_485896c1de7b932dc51a4064b39f3cfdae2b5473.msu">
 		<hash type="sha-1">485896c1de7b932dc51a4064b39f3cfdae2b5473</hash>
@@ -15,8 +15,8 @@
 		<hash type="sha-1">52337d6ab0d11b474dfafe1b14155d4a63ac2a8a</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/3911cf8c-1f40-465b-9cd8-c79d2030b8d0/public/windows11.0-kb5068516-x64_52337d6ab0d11b474dfafe1b14155d4a63ac2a8a.cab</url>
 	</file>
-	<file name="windows11.0-kb5076122-x64_da4b755c3477682de4436e1d8e93d30c31e0c2ba.cab">
-		<hash type="sha-1">da4b755c3477682de4436e1d8e93d30c31e0c2ba</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/668aa40b-bc71-419e-afde-a87fc2ec708d/public/windows11.0-kb5076122-x64_da4b755c3477682de4436e1d8e93d30c31e0c2ba.cab</url>
+	<file name="windows11.0-kb5078794-x64_26a977a9689c6a43da8891ca67ec620ed5c6e8e2.cab">
+		<hash type="sha-1">26a977a9689c6a43da8891ca67ec620ed5c6e8e2</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/ed9e6845-e314-4ff1-9a91-43f2898029e8/public/windows11.0-kb5078794-x64_26a977a9689c6a43da8891ca67ec620ed5c6e8e2.cab</url>
 	</file>
 </metalink>
