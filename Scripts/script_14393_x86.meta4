@@ -4,17 +4,17 @@
 		<hash type="sha-1">a9621f106bc56bd56cd318e04b0258ee07b18d12</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2026/02/windows10.0-kb5075902-x86_a9621f106bc56bd56cd318e04b0258ee07b18d12.msu</url>
 	</file>
-	<file name="windows10.0-kb5078938-x86_9552d29882b7f9a244574d21b3d6d88d7eb90f67.msu">
-		<hash type="sha-1">9552d29882b7f9a244574d21b3d6d88d7eb90f67</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2026/03/windows10.0-kb5078938-x86_9552d29882b7f9a244574d21b3d6d88d7eb90f67.msu</url>
+	<file name="windows10.0-kb5082198-x86_98d93f430dc6a89a6c6ab18e4212526d5497fa9e.msu">
+		<hash type="sha-1">98d93f430dc6a89a6c6ab18e4212526d5497fa9e</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2026/04/windows10.0-kb5082198-x86_98d93f430dc6a89a6c6ab18e4212526d5497fa9e.msu</url>
 	</file>
 	<file name="windows10.0-kb5068794-x86_6cf77fd5b0f590fda58604e3cd2cc7b1fa0ea1c3.cab">
 		<hash type="sha-1">6cf77fd5b0f590fda58604e3cd2cc7b1fa0ea1c3</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2025/10/windows10.0-kb5068794-x86_6cf77fd5b0f590fda58604e3cd2cc7b1fa0ea1c3.cab</url>
 	</file>
-	<file name="windows10.0-kb5078801-x86_ddbeed8a0ed8a8ee560a3a92dfd475c33afa1bf3.cab">
-		<hash type="sha-1">ddbeed8a0ed8a8ee560a3a92dfd475c33afa1bf3</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2026/02/windows10.0-kb5078801-x86_ddbeed8a0ed8a8ee560a3a92dfd475c33afa1bf3.cab</url>
+	<file name="windows10.0-kb5082239-x86_6e7283d0288f91f267a7be4aae51705587a9485a.cab">
+		<hash type="sha-1">6e7283d0288f91f267a7be4aae51705587a9485a</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2026/04/windows10.0-kb5082239-x86_6e7283d0288f91f267a7be4aae51705587a9485a.cab</url>
 	</file>
 	<file name="windows10.0-kb5028913-x86_e8551f2a2fc6642ca95d92a4c945e312b03ee862.msu">
 		<hash type="sha-1">e8551f2a2fc6642ca95d92a4c945e312b03ee862</hash>

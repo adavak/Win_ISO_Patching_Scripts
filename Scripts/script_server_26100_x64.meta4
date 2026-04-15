@@ -4,13 +4,14 @@
 		<hash type="sha-1">953449672073f8fb99badb4cc6d5d7849b9c83e8</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/d8b7f92b-bd35-4b4c-96e5-46ce984b31e0/public/windows11.0-kb5043080-x64_953449672073f8fb99badb4cc6d5d7849b9c83e8.msu</url>
 	</file>
-	<file name="windows11.0-kb5078740-x64_f569920344bf45a6c3eb619375a8066110d51ba9.msu">
-		<hash type="sha-1">f569920344bf45a6c3eb619375a8066110d51ba9</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/40c739e2-585a-4dce-bc12-1abb5f316301/public/windows11.0-kb5078740-x64_f569920344bf45a6c3eb619375a8066110d51ba9.msu</url>
+	<file name="windows11.0-kb5082063-x64_2fb0b6b3988432626f68c231d154c35362ff58ea.msu">
+		<hash type="sha-1">2fb0b6b3988432626f68c231d154c35362ff58ea</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/f8f0420a-0875-4e1e-a904-9a7acfcfbe46/public/windows11.0-kb5082063-x64_2fb0b6b3988432626f68c231d154c35362ff58ea.msu</url>
 	</file>
-	<file name="windows11.0-kb5074831-x64-ndp481_485896c1de7b932dc51a4064b39f3cfdae2b5473.msu">
-		<hash type="sha-1">485896c1de7b932dc51a4064b39f3cfdae2b5473</hash>
-		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/93ad5b40-17fe-459f-8b6d-a7e813ad9c72/public/windows11.0-kb5074831-x64-ndp481_485896c1de7b932dc51a4064b39f3cfdae2b5473.msu
+	<file name="windows11.0-kb5082417-x64-ndp481_ba911bfe7418f65a00ada14910360bc126cfc26c.msu">
+		<hash type="sha-1">ba911bfe7418f65a00ada14910360bc126cfc26c</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/7a69bf2b-e673-47ec-b107-2992ede1f251/public/windows11.0-kb5082417-x64-ndp481_ba911bfe7418f65a00ada14910360bc126cfc26c.msu</url>
+	</file>
 	<file name="windows11.0-kb5068516-x64_52337d6ab0d11b474dfafe1b14155d4a63ac2a8a.cab">
 		<hash type="sha-1">52337d6ab0d11b474dfafe1b14155d4a63ac2a8a</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/3911cf8c-1f40-465b-9cd8-c79d2030b8d0/public/windows11.0-kb5068516-x64_52337d6ab0d11b474dfafe1b14155d4a63ac2a8a.cab</url>
