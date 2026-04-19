@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.58z
+@set uiv=v10.59b
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -558,8 +558,6 @@ goto :main2board
 goto :main0board
 
 :main1board
-set _bit=%arch%
-if /i %arch%==arm64 set _bit=arm
 call :counter
 set "brep=!repo!"
 if %_sum%==0 set "repo="
@@ -917,12 +915,15 @@ if exist "wim.xml" del /f /q wim.xml
 goto :eof
 
 :extract
+set _bit=%arch%
+if /i %arch%==arm64 set _bit=arm
 if /i %arch%==x86 (set efifile=bootia32.efi&set sss=x86) else if /i %arch%==x64 (set efifile=bootx64.efi&set sss=amd64) else (set efifile=bootaa64.efi&set sss=arm64)
 if %_embd% equ 0 call :cleaner
 if not exist "!_cabdir!\" mkdir "!_cabdir!"
 if not exist "!_cabdir!\LCUmum\" mkdir "!_cabdir!\LCUmum"
 if not exist "!_cabdir!\LCUall\" mkdir "!_cabdir!\LCUall"
 if %online%==0 if %stcexp%==0 if %_build% geq 22000 if exist "%SysPath%\ucrtbase.dll" call :get_dll dpx
+if %online%==0 if %stcexp%==0 if %_build% lss 17763 if %winbuild% geq 22621 call :get_dll dpx
 if %online%==0 if %LCUmsuExpand% neq 0 if %_build% geq 22621 if %winbuild% geq 9600 (
 if exist "%SysPath%\UpdateCompression.dll" (set psfwim=1) else (if %_build% geq 26052 call :get_dll UpdateCompression)
 if %_build% lss 26052 set psfwim=1
@@ -1550,7 +1551,7 @@ set "_EwvKey=%_Wnn%\x86_%_EwvCmp%_%_Pkt%_none_585126a395a7e4cd"
 )
 for /f "tokens=4,5,6 delims=_" %%H in ('dir /b "!mumtarget!\Windows\WinSxS\Manifests\%xBT%_microsoft-windows-foundation_*.manifest"') do set "_Fnd=microsoft-w..-foundation_%_Pkt%_%%H_%%~nJ"
 if %_build% geq 14393 if %_build% lss 19041 if not exist "!mumtarget!\Windows\WinSxS\Manifests\%_SupCom%.manifest" call :Latent _Sup %_Nul3%
-if %_build% geq 19041 if %_build% lss 19046 if not exist "!mumtarget!\Windows\WinSxS\Manifests\%_EsuCom%.manifest" call :Latent _Esu %_Nul3%
+if %_build% geq 14393 if %_build% lss 19046 if not exist "!mumtarget!\Windows\WinSxS\Manifests\%_EsuCom%.manifest" call :Latent _Esu %_Nul3%
 if %_build% geq 17134 if %_build% lss 20348 if not exist "!mumtarget!\Windows\WinSxS\Manifests\%_CedCom%.manifest" if not exist "!mumtarget!\Windows\WinSxS\Manifests\%xBT%_%_CedCmp%_*.manifest" if not exist "!mumtarget!\Windows\Servicing\Packages\*WinPE-LanguagePack*.mum" if %SkipEdge% equ 1 call :Latent _Ced %_Nul3%
 if %_build% geq 19041 if %_build% lss 26080 if not exist "!mumtarget!\Windows\WinSxS\Manifests\%_EwvCom%.manifest" if not exist "!mumtarget!\Windows\WinSxS\Manifests\%xBT%_%_EwvCmp%_*.manifest" if not exist "!mumtarget!\Windows\Servicing\Packages\*WinPE-LanguagePack*.mum" if %SkipWebView% equ 1 call :Latent _Ewv %_Nul3%
 set lcuall=
@@ -2545,6 +2546,8 @@ set /a _sum=%_msu%+%_cab%
 goto :eof
 
 :counter
+set _bit=%arch%
+if /i %arch%==arm64 set _bit=arm
 set _msu=0
 set _cab=0
 set _sum=0
@@ -2809,6 +2812,7 @@ if exist "%~1\Microsoft-Windows-SV2BetaEnablement-Package~*.mum" set "_fixSV=226
 if exist "%~1\Microsoft-Windows-Ge-Client-Server-Beta-Version-Enablement-Package~*.mum" set "_fixSV=26120"&set "_fixEP=26120"
 if exist "%~1\Microsoft-Windows-Ge-Client-Server-26200-Version-Enablement-Package~*.mum" set "_fixSV=26200"&set "_fixEP=26200"
 if exist "%~1\Microsoft-Windows-Ge-Client-Server-26220-Version-Enablement-Package~*.mum" set "_fixSV=26220"&set "_fixEP=26220"
+if exist "%~1\Microsoft-Windows-Ge-Client-Server-26300-Version-Enablement-Package~*.mum" set "_fixSV=26300"&set "_fixEP=26300"
 if exist "%~1\Microsoft-Windows-Client-Br-28020-Version-Enablement-Package~*.mum" set "_fixSV=28020"&set "_fixEP=28020"
 if exist "%~1\Microsoft-Windows-Client-Br-28100-Version-Enablement-Package~*.mum" set "_fixSV=28100"&set "_fixEP=28100"
 if exist "%~1\Microsoft-Windows-Client-Br-28120-Version-Enablement-Package~*.mum" set "_fixSV=28120"&set "_fixEP=28120"
@@ -3162,7 +3166,7 @@ if exist "!_cabdir!\%_f_%" goto :get_end
 
 set msuwim=0
 set "uupmsu="
-if exist "!repo!\*Windows1*-KB*%arch%*.msu" for /f "tokens=* delims=" %%# in ('dir /b /on "!repo!\*Windows1*-KB*%arch%*.msu"') do (
+if %_build% geq 22000 if exist "!repo!\*Windows1*-KB*%arch%*.msu" for /f "tokens=* delims=" %%# in ('dir /b /on "!repo!\*Windows1*-KB*%arch%*.msu"') do (
 expand.exe -d -f:*Windows*.psf "!repo!\%%#" %_Nul2% | findstr /i %arch%\.psf %_Nul3% && (set "uupmsu=%%#"&set msuwim=2)
 if %_wlib% equ 1 !_wimlib! dir "!repo!\%%#" %_Nul2% | findstr /i %arch%\.psf %_Nul3% && (set "uupmsu=%%#"&set msuwim=1)
 if %_wlib% equ 0 dism.exe /English /List-Image /ImageFile:"!repo!\%%#" /Index:1 %_Nul2% | findstr /i %arch%\.psf %_Nul3% && (set "uupmsu=%%#"&set msuwim=1)
