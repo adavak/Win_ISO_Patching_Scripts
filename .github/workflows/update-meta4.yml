@@ -1,0 +1,66 @@
+name: Update Meta4 Files
+
+on:
+  schedule:
+    # 每天 UTC 时间 6:00 运行（北京时间 14:00）
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    # 允许手动触发
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-meta4:
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Install MSCatalogLTS module
+        shell: pwsh
+        run: |
+          Install-Module -Name MSCatalogLTS -Scope CurrentUser -Force -AllowClobber
+          Write-Host "MSCatalogLTS installed successfully" -ForegroundColor Green
+      
+      - name: Run Update-Meta4.ps1
+        shell: pwsh
+        run: |
+          .\Update-Meta4.ps1
+        working-directory: ${{ github.workspace }}
+      
+      - name: Check for changes
+        id: git-check
+        shell: pwsh
+        run: |
+          $status = git status --porcelain
+          if ($status) {
+            Write-Host "Changes detected" -ForegroundColor Green
+            Write-Host $status
+            echo "changes=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          } else {
+            Write-Host "No changes" -ForegroundColor Yellow
+            echo "changes=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          }
+      
+      - name: Create Pull Request
+        if: steps.git-check.outputs.changes == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "auto: update meta4 files ($(Get-Date -Format 'yyyy-MM-dd'))"
+          title: "Auto-update meta4 files - $(Get-Date -Format 'yyyy-MM-dd')"
+          body: |
+            ## 自动更新 Meta4 文件
+            
+            - 更新时间: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
+            - 更新内容: 从 Microsoft Update Catalog 获取最新的 Windows 更新
+            
+            此 PR 由 GitHub Actions 自动创建。
+          branch: auto-update-meta4
+          delete-branch: true
+          labels: |
+            automated
+            meta4-update
