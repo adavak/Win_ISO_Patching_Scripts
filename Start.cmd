@@ -72,12 +72,20 @@ endlocal & set "isofile=%isofile%"
 
 if exist "%~dp0%ISODir%" rmdir /s /q "%~dp0%ISODir%"
 %a7z% x "%~dp0%isofile%" -o"%~dp0%ISODir%" -r
+if %ERRORLEVEL% NEQ 0 (
+    echo =====================================================
+    echo ISO 解压失败，文件可能已损坏。
+    echo ISO extraction failed, the file may be corrupted.
+    echo =====================================================
+    pause
+    goto :EOF
+)
 
 set "IMG=%~dp0%ISODir%\sources\install.wim"
 if not exist "%IMG%" set "IMG=%~dp0%ISODir%\sources\install.esd"
 
 %a7z% l "%IMG%" | findstr /i "Windows\\winsxs\\pending.xml" >nul
-if errorlevel 0 if not errorlevel 1 (
+if not errorlevel 1 (
     echo =====================================================
     echo 警告：该 ISO 包含 pending.xml。请使用干净官方 ISO。
     echo Warning: This ISO contains pending.xml. Please use a clean official ISO.
@@ -107,15 +115,15 @@ dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /ind
 for /f "tokens=4 delims=:. " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Version :"') do set build=%%#
 for /f "tokens=2 delims=: " %%# in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Architecture"') do set arch=%%#
 for /f "tokens=1" %%i in ('dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 ^| find /i "Default"') do set lang=%%i
-dism.exe /english /get-wiminfo /wimfile:"%ISODir%\sources\install.wim" /index:1 | findstr /i /c:"ProductType : ServerNT" >nul && set isServer=1
+dism.exe /english /get-wiminfo /wimfile:"%~dp0%ISODir%\sources\install.wim" /index:1 | findstr /i /c:"ProductType : ServerNT" >nul && set isServer=1
 
-if %build%==19042 (set /a build=19041)
-if %build%==19043 (set /a build=19041)
-if %build%==19044 (set /a build=19041)
-if %build%==19045 (set /a build=19041)
-if %build%==20349 (set /a build=20348)
-if %build%==22631 (set /a build=22621)
-if %build%==26200 (set /a build=26100)
+if %build%==19042 (set "build=19041"
+) else if %build%==19043 (set "build=19041"
+) else if %build%==19044 (set "build=19041"
+) else if %build%==19045 (set "build=19041"
+) else if %build%==20349 (set "build=20348"
+) else if %build%==22631 (set "build=22621"
+) else if %build%==26200 (set "build=26100")
 
 if not exist %aria2% goto :NO_ARIA2_ERROR
 if not exist %a7z% goto :NO_FILE_ERROR
@@ -131,13 +139,17 @@ if not exist "%metaFile%" goto :NOT_SUPPORT
 echo 正在下载补丁…
 echo Patches Downloading...
 "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "%metaFile%" --log="%patchDir%\aria2.log" --log-level=notice
-if %ERRORLEVEL% GTR 0 call :DOWNLOAD_ERROR & exit /b 1
+if %ERRORLEVEL% GTR 0 (
+    call :DOWNLOAD_ERROR
+    exit /b 1
+)
 
 set netfx481=
-for /f "tokens=2 delims==" %%i in ('findstr netfx481 W10UI.ini') do (
+for /f "tokens=2 delims==" %%i in ('findstr /b "netfx481" W10UI.ini') do (
     set netfx481=%%i
 )
 
+rem === Download .NET Framework patches ===
 if "%build%" geq "19041" if "%build%" leq "22000" (
     if "%netfx481%" equ "1" (
         if exist "Scripts\netfx4.8.1\script_netfx4.8.1_%build%_%arch%.meta4" (
@@ -145,13 +157,11 @@ if "%build%" geq "19041" if "%build%" leq "22000" (
             if "%lang%" neq "en-US" (
                 "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8.1\script_netfx4.8.1_%build%_%arch%.meta4" --metalink-language="%lang%" --log="%patchDir%\aria2.log" --log-level=notice
             )
-        )
-        if not exist "Scripts\netfx4.8.1\script_netfx4.8.1_%build%_%arch%.meta4" if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
+        ) else if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
             "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" --metalink-language="neutral" --log="%patchDir%\aria2.log" --log-level=notice
         )
-        if "%netfx481%" neq "1" if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
-            "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" --metalink-language="neutral" --log="%patchDir%\aria2.log" --log-level=notice
-        )
+    ) else if "%netfx481%" neq "1" if exist "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" (
+        "%aria2%" --no-conf --check-certificate=false -x16 -s16 -j5 -c -R -d "%patchDir%" -M "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" --metalink-language="neutral" --log="%patchDir%\aria2.log" --log-level=notice
     )
 )
 
@@ -217,9 +227,8 @@ echo Version: %build%, Architecture: %arch%
 pause
 goto :EOF
 
+:EOF
 echo 输入 7 退出。
 echo Press 7 to exit.
 choice /c 7 /n
 if errorlevel 1 (goto :eof) else (rem.)
-
-:EOF
