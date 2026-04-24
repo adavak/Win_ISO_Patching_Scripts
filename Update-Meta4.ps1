@@ -231,12 +231,33 @@ function Get-UpdateFiles {
     param([object]$Update)
     if (-not $Update) { return @() }
     try {
-        # 直接调用 MSCatalogLTS 内部的 Get-UpdateLinks 获取下载链接
+        # 向 Microsoft Update Catalog 的 DownloadDialog 发送 POST 请求获取下载链接
         # 不需要实际下载任何文件
-        $links = & (Get-Command Get-UpdateLinks -Module MSCatalogLTS) -Guid $Update.Guid
-        if ($links) {
-            return $links | ForEach-Object {
-                $url = $_.URL
+        $Post = @{size = 0; UpdateID = $Update.Guid; UpdateIDInfo = $Update.Guid} | ConvertTo-Json -Compress
+        $Body = @{UpdateIDs = "[$Post]"}
+        
+        $Params = @{
+            Uri = "https://www.catalog.update.microsoft.com/DownloadDialog.aspx"
+            Body = $Body
+            ContentType = "application/x-www-form-urlencoded"
+            UseBasicParsing = $true
+        }
+        
+        $DownloadDialog = Invoke-WebRequest @Params
+        $Links = $DownloadDialog.Content -replace "www.download.windowsupdate", "download.windowsupdate"
+        
+        # 正则匹配下载链接
+        $Regex = "downloadInformation\[0\]\.files\[\d+\]\.url\s*=\s*'([^']*kb(\d+)[^']*)'"
+        $DownloadMatches = [regex]::Matches($Links, $Regex)
+        
+        if ($DownloadMatches.Count -eq 0) {
+            $RegexFallback = "downloadInformation\[0\]\.files\[0\]\.url\s*=\s*'([^']*)'"
+            $DownloadMatches = [regex]::Matches($Links, $RegexFallback)
+        }
+        
+        if ($DownloadMatches.Count -gt 0) {
+            return $DownloadMatches | ForEach-Object {
+                $url = $_.Groups[1].Value
                 $fileName = $url.Split('/')[-1]
                 # 从文件名提取 SHA1 哈希（文件名格式: kbXXXXXX-arch_HASH.ext）
                 $hash = if ($fileName -match '_([a-f0-9]{40})\.') { $matches[1] } else { "" }
