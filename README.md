@@ -1,4 +1,4 @@
-### Win_ISO_Patching_Scripts
+﻿### Win_ISO_Patching_Scripts
 
 [English Readme](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README.md)
 
@@ -11,11 +11,11 @@
 
 ###### Supported Windows Versions:
 
-|Name|Internal Version (Last Updated: April 30, 2026)|
+|Name|Internal Version (Last Updated: May 12, 2026)|
 |---|---|
 |**Windows 10 Enterprise LTSB 2016, Windows Server 2016**|**Build 14393.9062**|
 |**Windows 10 Enterprise LTSC 2019, Windows Server 2019**|**Build 17763.8647 (2024-6, Arm Version EOL)**|
-|**Windows 10 22H2, Windows 10 Enterprise LTSC 2021**|**Build 1904x.7184**|
+|**Windows 10 22H2, Windows 10 Enterprise LTSC 2021**|**Build 1904x.7291**|
 |**Windows Server 2022**|**Build 20348.5024**|
 |**Windows 11 23H2**|**Build 22631.6936**|
 |**Windows Server 2025**|**Build 26100.32698**|

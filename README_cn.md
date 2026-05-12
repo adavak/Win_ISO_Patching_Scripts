@@ -1,4 +1,4 @@
-### Win_ISO_Patching_Scripts
+﻿### Win_ISO_Patching_Scripts
 
 [中文说明](https://github.com/adavak/Win_ISO_Patching_Scripts/blob/master/README_cn.md)
 
@@ -11,11 +11,11 @@
 
 ###### 支持的 Windows 版本：
 
-|名称|内部版本（最后更新：2026年4月30日）|
+|名称|内部版本（最后更新：2026年5月12日）|
 |---|---|
 |**Windows 10 企业版 LTSB 2016、Windows Server 2016**|**Build 14393.9062**|
 |**Windows 10 企业版 LTSC 2019、Windows Server 2019**|**Build 17763.8647（2024-6，Arm 版本生命终止）**|
-|**Windows 10 22H2、Windows 10 企业版 LTSC 2021**|**Build 1904x.7184**|
+|**Windows 10 22H2、Windows 10 企业版 LTSC 2021**|**Build 1904x.7291**|
 |**Windows Server 2022**|**Build 20348.5024**|
 |**Windows 11 23H2**|**Build 22631.6936**|
 |**Windows Server 2025**|**Build 26100.32698**|
