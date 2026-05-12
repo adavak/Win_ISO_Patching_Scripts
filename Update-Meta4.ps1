@@ -659,7 +659,7 @@ foreach ($bn in $Build) {
             $sc = Get-Cabs $serverOld
             if ($sc.Count -eq 0 -and (Test-Path $old)) {
                 $sc = Get-Cabs $old
-                Write-Host "  [CAB] (借用主 meta4 的 CAB)" -ForegroundColor DarkGray
+                Write-Host "  [CAB] borrowed from main meta4" -ForegroundColor DarkGray
             }
             foreach ($oc in $sc) {
                 $oldKb = Get-KB $oc
@@ -694,13 +694,15 @@ foreach ($bn in $Build) {
 if (-not $TestMode) {
     $culture = [System.Globalization.CultureInfo]::GetCultureInfo('en-US')
     $today = $culture.DateTimeFormat.GetMonthName((Get-Date).Month) + ' ' + (Get-Date -Format 'dd, yyyy')
-    $todayCn = Get-Date -Format 'yyyy年M月d日'
+    # Update English and Chinese README dates    
+    $todayCn = "$((Get-Date).Year)$([char]0x5E74)$((Get-Date).Month)$([char]0x6708)$((Get-Date).Day)$([char]0x65E5)"
+    $oldCnDate = "2026" + [char]0x5E74 + "4" + [char]0x6708 + "30" + [char]0x65E5
     foreach ($readme in @("README.md", "README_cn.md")) {
         $path = Join-Path $ScriptRoot $readme
         if (Test-Path $path) {
             $content = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)
             $content = $content -replace 'April 30, 2026', $today
-            $content = $content -replace '2026年4月30日', $todayCn
+            $content = $content -replace $oldCnDate, $todayCn
             [System.IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::UTF8)
         }
     }
