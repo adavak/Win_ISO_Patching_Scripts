@@ -1,0 +1,93 @@
+﻿name: Update Meta4
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  generate:
+    runs-on: windows-latest
+    steps:
+      - name: Cleanup old workflow runs
+        run: |
+          gh run list --branch master --json databaseId --jq '.[].databaseId' --limit 100 | Select-Object -Skip 20 | ForEach-Object { gh run delete $_ --yes }
+        shell: powershell
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Update-Meta4.ps1
+        run: |
+          .\Update-Meta4.ps1
+        shell: powershell
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          $diff = git diff --name-only
+          $diff
+          if ($diff) {
+            echo "changed=true" >> $env:GITHUB_OUTPUT
+          } else {
+            echo "changed=false" >> $env:GITHUB_OUTPUT
+          }
+        shell: powershell
+
+      - name: Determine tag name
+        id: tag-name
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          $today = Get-Date
+          $firstDay = Get-Date "$($today.Year)-$($today.Month)-01"
+          $firstTue = $firstDay
+          while ($firstTue.DayOfWeek -ne 'Tuesday') { $firstTue = $firstTue.AddDays(1) }
+          $secondTue = $firstTue.AddDays(7)
+          $fourthTue = $secondTue.AddDays(14)
+          if ($today -ge $secondTue -and $today -lt $fourthTue) { $letter = 'b'; $base = "v$($today.Year).$($today.Month)b" }
+          elseif ($today -ge $fourthTue) { $letter = 'd'; $base = "v$($today.Year).$($today.Month)d" }
+          else {
+            # Before 2nd Tue: use previous month's d channel
+            $prev = $today.AddMonths(-1)
+            $base = "v$($prev.Year).$($prev.Month)d"
+          }
+          # Check existing tags for this period to determine suffix
+          git fetch --tags 2>$null
+          $existing = git tag -l "$base*" | Sort-Object -Descending
+          if (-not $existing -or $existing[0] -eq $base) {
+            $tag = $base
+          } else {
+            $last = $existing[0]
+            if ($last -match "${base}_(\d+)$") { $next = [int]$matches[1] + 1; $tag = "${base}_$next" }
+            else { $tag = "${base}_2" }
+          }
+          Write-Host "Release tag: $tag"
+          echo "tag=$tag" >> $env:GITHUB_OUTPUT
+        shell: powershell
+
+      - name: Commit & Push
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Scripts/
+          git commit -m "auto: update meta4 at $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
+          git push
+        shell: powershell
+
+      - name: Tag & Release
+        if: steps.git-check.outputs.changed == 'true' && steps.tag-name.outputs.tag != ''
+        run: |
+          $tag = "${{ steps.tag-name.outputs.tag }}"
+          git tag $tag
+          git push origin $tag
+          gh release create $tag --title $tag --notes "Auto-generated meta4 update ($tag)"
+        shell: powershell
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
