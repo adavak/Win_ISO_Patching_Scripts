@@ -729,8 +729,4 @@ if (-not $TestMode) {
             [System.IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::UTF8)
         }
     }
-            }
-            [System.IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::UTF8)
-        }
-    }
 }Write-Host "=== Done: $gen generated, $skip skipped ===" -ForegroundColor Cyan
