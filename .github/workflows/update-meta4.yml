@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: '0 */3 * * *'
   workflow_dispatch:
+  push:
+    paths:
+      - Scripts/
+      - Update-Meta4.ps1
 
 permissions:
   contents: write
