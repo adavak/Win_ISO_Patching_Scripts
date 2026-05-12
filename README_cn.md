@@ -17,8 +17,8 @@
 |**Windows 10 企业版 LTSC 2019、Windows Server 2019**|**Build 17763.8647（2024-6，Arm 版本生命终止）**|
 |**Windows 10 22H2、Windows 10 企业版 LTSC 2021**|**Build 1904x.7291**|
 |**Windows Server 2022**|**Build 20348.5024**|
-|**Windows 11 23H2**|**Build 22631.6936**|
-|**Windows Server 2025**|**Build 26100.32698**|
+|**Windows 11 23H2**|**Build 22631.7079**|
+|**Windows Server 2025**|**Build 26100.32860**|
 |**Windows 11 25H2、Windows 11 企业版 LTSC 2024**|**Build 26200.8328**|
 |**Windows 11 26H1**|**Build 28000.1896（x64 版本不推荐）**|
 
