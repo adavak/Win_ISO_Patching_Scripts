@@ -76,6 +76,8 @@
 # Exclude files from exporting
 #
 
-.gitattributes export-ignore
-.gitignore     export-ignore
-.gitkeep       export-ignore
+.gitattributes     export-ignore
+.gitignore         export-ignore
+.gitkeep           export-ignore
+Update-Meta4.ps1   export-ignore
+.github/           export-ignore
