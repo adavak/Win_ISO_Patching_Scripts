@@ -210,38 +210,34 @@ function Get-BuildVersion($Kb, $OsPref, $ArchPat) {
 
 # --- MS Update History page scraping ---
 # Parse MS Update History page to find the latest Patch Tuesday KB + OS Build for a given build prefix
+$historyPageCache = @{}
 function Get-HistoryBuild($TopicId, $BuildPat) {
-    $url = "https://support.microsoft.com/en-us/topic/$TopicId"
-    $r = $null
-    # Retry once on failure (rate limiting)
-    $retry = 0; while ($retry -lt 3) {
-        try { $r = Invoke-WebRequest $url -UseBasicParsing -TimeoutSec 15; break }
-        catch { $retry++; if ($retry -ge 3) { return $null }; Start-Sleep -Milliseconds 2000 }
+    $cacheKey = "histPage_$TopicId"
+    if (-not $historyPageCache.ContainsKey($cacheKey)) {
+        $url = "https://support.microsoft.com/en-us/topic/$TopicId"
+        $r = $null
+        $retry = 0; while ($retry -lt 3) {
+            try { $r = Invoke-WebRequest $url -UseBasicParsing -TimeoutSec 15; break }
+            catch { $retry++; if ($retry -ge 3) { return $null }; Start-Sleep -Milliseconds 2000 }
+        }
+        $historyPageCache[$cacheKey] = $r.Content
     }
-    $h = $r.Content
+    $h = $historyPageCache[$cacheKey]
     $re = [regex]'<a class="supLeftNavLink"[^>]*>([^<]+)</a>'
     $entries = @()
     foreach ($m in $re.Matches($h)) {
         $text = $m.Groups[1].Value -replace '&#x2014;', ''
-        # Skip previews, out-of-band, and non-update entries
         if ($text -match 'Out-of-band|Preview|program') { continue }
         $kbMatch = [regex]::Match($text, 'KB(\d+)')
-        # BuildPat can be a prefix (e.g. "14393") or a pattern (e.g. "1904[45]")
         $reBuild = [regex]"((?:$BuildPat)\.\d+)"
         $buildMatch = $reBuild.Match($text)
         if ($kbMatch.Success -and $buildMatch.Success) {
-            $entries += [PSCustomObject]@{
-                KB = [int]$kbMatch.Groups[1].Value
-                Build = $buildMatch.Groups[1].Value
-            }
+            $entries += [PSCustomObject]@{ KB=[int]$kbMatch.Groups[1].Value; Build=$buildMatch.Groups[1].Value }
         }
     }
     if ($entries.Count -eq 0) { return $null }
-    # Latest = highest revision number (non-OOB, non-Preview already filtered)
     return $entries | Sort-Object { $_.Build.Split('.')[-1] -as [int] } -Descending | Select-Object -First 1
 }
-
-# Search catalog for a specific KB and return the LCU MSU file matching arch+OS prefix
 function Get-FileForKB($Kb, $ArchPat, $OsPref) {
     $r = Search-Catalog "kb$Kb"
     # Prefer non-Dynamic CU, also filter out preview/.NET/safety updates
