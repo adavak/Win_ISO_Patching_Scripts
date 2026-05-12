@@ -1,4 +1,4 @@
-﻿name: Update Meta4
+name: Update Meta4
 
 on:
   schedule:
@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Cleanup old workflow runs
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh run list --branch master --json databaseId --jq '.[].databaseId' --limit 100 | Select-Object -Skip 20 | ForEach-Object { gh run delete $_ --yes }
         shell: powershell
