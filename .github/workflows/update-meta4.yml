@@ -18,6 +18,8 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Cleanup old workflow runs
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh run list --branch master --json databaseId --jq '.[].databaseId' --limit 100 | Select-Object -Skip 20 | ForEach-Object { gh run delete $_ --yes }
         shell: powershell
