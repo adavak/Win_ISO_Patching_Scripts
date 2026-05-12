@@ -690,19 +690,45 @@ foreach ($bn in $Build) {
         }
     }
 }
-# Update README date
+# Update README date and build versions
 if (-not $TestMode) {
     $culture = [System.Globalization.CultureInfo]::GetCultureInfo('en-US')
     $today = $culture.DateTimeFormat.GetMonthName((Get-Date).Month) + ' ' + (Get-Date -Format 'dd, yyyy')
-    # Update English and Chinese README dates    
     $todayCn = "$((Get-Date).Year)$([char]0x5E74)$((Get-Date).Month)$([char]0x6708)$((Get-Date).Day)$([char]0x65E5)"
     $oldCnDate = "2026" + [char]0x5E74 + "4" + [char]0x6708 + "30" + [char]0x65E5
+    
+    # Build version lookups for README table
+    $readmeBuilds = @(
+        @{BP = "14393";   Topic = $UPDATE_HISTORY["14393"];       Disp = "14393"}
+        @{BP = "17763";   Topic = $UPDATE_HISTORY["17763"];       Disp = "17763"}
+        @{BP = "1904[45]"; Topic = $UPDATE_HISTORY["19041"];      Disp = "1904x"}
+        @{BP = "20348";   Topic = $UPDATE_HISTORY["20348"];       Disp = "20348"}
+        @{BP = "22631";   Topic = $UPDATE_HISTORY["22621"];       Disp = "22631"}
+        @{BP = "26100";   Topic = $UPDATE_HISTORY_SERVER["26100"]; Disp = "26100"}
+        @{BP = "26200";   Topic = $UPDATE_HISTORY["26100"];       Disp = "26200"}
+        @{BP = "28000";   Topic = $UPDATE_HISTORY["28000"];       Disp = "28000"}
+    )
+    $buildReplacements = @{}
+    foreach ($rb in $readmeBuilds) {
+        $hb = Get-HistoryBuild -TopicId $rb.Topic -BuildPat $rb.BP
+        if ($hb) {
+            $rev = $hb.Build.Split('.')[-1]
+            $newBuildStr = "Build $($rb.Disp).$rev"
+            $oldBuildStr = "Build $($rb.Disp)."
+            $buildReplacements[$oldBuildStr] = $newBuildStr
+        }
+    }
+    
     foreach ($readme in @("README.md", "README_cn.md")) {
         $path = Join-Path $ScriptRoot $readme
         if (Test-Path $path) {
             $content = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)
             $content = $content -replace 'April 30, 2026', $today
             $content = $content -replace $oldCnDate, $todayCn
+            foreach ($key in $buildReplacements.Keys) {
+                $pat = [regex]::Escape($key) + '\d+'
+                $content = $content -replace $pat, $buildReplacements[$key]
+            }
             [System.IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::UTF8)
         }
     }
