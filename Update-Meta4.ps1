@@ -295,7 +295,7 @@ if ($Build.Count -eq 1 -and $Build[0] -match ',') { $Build = $Build[0] -split ',
 if ($Arch.Count -eq 1 -and $Arch[0] -match ',') { $Arch = $Arch[0] -split ',' | ForEach-Object { $_.Trim() } }
 if ($Build.Count -eq 0) { $Build = $CFG.Keys | Sort-Object }
 if ($Arch.Count -eq 0) { $Arch = @("x64", "x86", "arm64") }
-$gen = 0; $skip = 0
+$gen = 0; $skip = 0; $BUILD_VERSIONS = @{}
 
 foreach ($bn in $Build) {
     $c = $CFG[$bn]; if (-not $c) { continue }
@@ -320,6 +320,14 @@ foreach ($bn in $Build) {
                 if ($hb) {
                     $hf = Get-FileForKB -Kb $hb.KB -ArchPat $ap -OsPref $c.OP
                     if ($hf) { $f = $hf; $tag = "history (build $($hb.Build))" }
+                    # Cache build version for README update
+                    $hbk = switch -wildcard ($bn) {
+                        "14393" { "14393" } "17763" { "17763" } "19041" { "1904x" }
+                        "20348" { "20348" } "22621" { "22631" } "26100" { "26100" }
+                        "28000" { "28000" } default { $bn }
+                    }
+                    $rev = $hb.Build.Split('.')[-1]
+                    $BUILD_VERSIONS[$hbk] = "Build $hbk.$rev"
                 }
             }
             # Fallback: chain follow from old KB + bootstrap search
@@ -696,38 +704,21 @@ if (-not $TestMode) {
     $today = $culture.DateTimeFormat.GetMonthName((Get-Date).Month) + ' ' + (Get-Date -Format 'dd, yyyy')
     $todayCn = "$((Get-Date).Year)$([char]0x5E74)$((Get-Date).Month)$([char]0x6708)$((Get-Date).Day)$([char]0x65E5)"
     $oldCnDate = "2026" + [char]0x5E74 + "4" + [char]0x6708 + "30" + [char]0x65E5
-    
-    # Build version lookups for README table
-    $readmeBuilds = @(
-        @{BP = "14393";   Topic = $UPDATE_HISTORY["14393"];       Disp = "14393"}
-        @{BP = "17763";   Topic = $UPDATE_HISTORY["17763"];       Disp = "17763"}
-        @{BP = "1904[45]"; Topic = $UPDATE_HISTORY["19041"];      Disp = "1904x"}
-        @{BP = "20348";   Topic = $UPDATE_HISTORY["20348"];       Disp = "20348"}
-        @{BP = "22631";   Topic = $UPDATE_HISTORY["22621"];       Disp = "22631"}
-        @{BP = "26100";   Topic = $UPDATE_HISTORY_SERVER["26100"]; Disp = "26100"}
-        @{BP = "26200";   Topic = $UPDATE_HISTORY["26100"];       Disp = "26200"}
-        @{BP = "28000";   Topic = $UPDATE_HISTORY["28000"];       Disp = "28000"}
-    )
-    $buildReplacements = @{}
-    foreach ($rb in $readmeBuilds) {
-        $hb = Get-HistoryBuild -TopicId $rb.Topic -BuildPat $rb.BP
-        if ($hb) {
-            $rev = $hb.Build.Split('.')[-1]
-            $newBuildStr = "Build $($rb.Disp).$rev"
-            $oldBuildStr = "Build $($rb.Disp)."
-            $buildReplacements[$oldBuildStr] = $newBuildStr
-        }
-    }
-    
+
     foreach ($readme in @("README.md", "README_cn.md")) {
         $path = Join-Path $ScriptRoot $readme
         if (Test-Path $path) {
             $content = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)
             $content = $content -replace 'April 30, 2026', $today
             $content = $content -replace $oldCnDate, $todayCn
-            foreach ($key in $buildReplacements.Keys) {
-                $pat = [regex]::Escape($key) + '\d+'
-                $content = $content -replace $pat, $buildReplacements[$key]
+            # Update build versions from cached values
+            foreach ($key in $BUILD_VERSIONS.Keys) {
+                $pat = "Build $key.\d+"
+                $content = $content -replace $pat, $BUILD_VERSIONS[$key]
+            }
+            [System.IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::UTF8)
+        }
+    }
             }
             [System.IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::UTF8)
         }
