@@ -323,11 +323,18 @@ foreach ($bn in $Build) {
                     # Cache build version for README update
                     $hbk = switch -wildcard ($bn) {
                         "14393" { "14393" } "17763" { "17763" } "19041" { "1904x" }
-                        "20348" { "20348" } "22621" { "22631" } "26100" { "26100" }
+                        "20348" { "20348" } "22621" { "22631" }
                         "28000" { "28000" } default { $bn }
                     }
-                    $rev = $hb.Build.Split('.')[-1]
-                    $BUILD_VERSIONS[$hbk] = "Build $hbk.$rev"
+                    if ($hbk -ne $bn) {
+                        # Build key differs from build number (e.g. 19041->1904x)
+                        $rev = $hb.Build.Split(".")[-1]
+                        $BUILD_VERSIONS[$hbk] = "Build $hbk.$rev"
+                    }
+                    # For 26100: also extract 26200 (25H2) from the same history entry
+                    if ($bn -eq "26100" -and $hb.Build -match "26200\\.(\\d+)") {
+                        $BUILD_VERSIONS["26200"] = "Build 26200.$($matches[1])"
+                    }
                 }
             }
             # Fallback: chain follow from old KB + bootstrap search
@@ -618,6 +625,9 @@ foreach ($bn in $Build) {
                     if ($shb) {
                         $shf = Get-FileForKB -Kb $shb.KB -ArchPat $ap -OsPref $c.OP
                         if ($shf) { $sf = $shf; $stag = "history (build $($shb.Build))" }
+                        # Cache server 26100 build for README update
+                        $srvRev = $shb.Build.Split('.')[-1]
+                        $BUILD_VERSIONS["26100"] = "Build 26100.$srvRev"
                     }
                 }
                 # Fallback: chain + bootstrap
