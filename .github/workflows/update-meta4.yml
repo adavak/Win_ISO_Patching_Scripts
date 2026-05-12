@@ -17,17 +17,17 @@ jobs:
   generate:
     runs-on: windows-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Cleanup old workflow runs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh run list --branch master --json databaseId --jq '.[].databaseId' --limit 100 | Select-Object -Skip 20 | ForEach-Object { gh run delete $_ --yes }
         shell: powershell
-
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Run Update-Meta4.ps1
         run: |
