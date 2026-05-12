@@ -322,7 +322,7 @@ foreach ($bn in $Build) {
                         "20348" { "20348" } "22621" { "22631" }
                         "28000" { "28000" } default { $bn }
                     }
-                    if ($bn -ne "26100") {
+                    if ($ar -eq "x64" -and $bn -ne "26100") {
                         # Cache build version (skip 26100; reserved for server variant)
                         $rev = $hb.Build.Split(".")[-1]
                         $BUILD_VERSIONS[$hbk] = "Build $hbk.$rev"
