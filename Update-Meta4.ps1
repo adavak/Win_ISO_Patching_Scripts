@@ -1,4 +1,4 @@
-﻿# Update-Meta4.ps1
+# Update-Meta4.ps1
 # Generates .meta4 files via MS Update History pages (primary) + KB supersedence chain + version name cross-validation.
 [CmdletBinding()]
 param([string[]]$Build = @(), [string[]]$Arch = @(), [string]$OutputDir = "", [switch]$TestMode)
@@ -605,7 +605,6 @@ foreach ($bn in $Build) {
                     }
                 }                # Always preserve checkpoint CU and old LCUs (if any)
                 $serverOldMsus = Get-OldMsus $serverOld
-                if ($serverOldMsus.Count -eq 0) {
                     $mainMsus = Get-OldMsus $old
                     $checkpointCU = $mainMsus | Where-Object { $_.KB -eq 5043080 }
                     if ($checkpointCU) {
@@ -614,9 +613,10 @@ foreach ($bn in $Build) {
                         }
                         Write-Host "  [SERVER CHECKPOINT] borrowed from main" -ForegroundColor DarkGray
                     }
-                    $latestMainMsu = $mainMsus | Where-Object { $_.KB -ne 5043080 } | Sort-Object KB -Descending | Select-Object -First 1
-                    if ($latestMainMsu) { $serverOldMsus = @($latestMainMsu) }
-                }
+                    if ($serverOldMsus.Count -eq 0) {
+                        $latestMainMsu = $mainMsus | Where-Object { $_.KB -ne 5043080 } | Sort-Object KB -Descending | Select-Object -First 1
+                        if ($latestMainMsu) { $serverOldMsus = @($latestMainMsu) }
+                    }
                 if ($serverOldMsus.Count -gt 0) {
                     $sorted = $serverOldMsus | Sort-Object KB -Descending
                     $sOkb = $sorted[0].KB
