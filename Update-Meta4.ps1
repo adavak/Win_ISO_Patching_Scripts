@@ -330,16 +330,14 @@ foreach ($bn in $Build) {
         if ($bn -eq "14393") {
             Start-Sleep -Milliseconds 600
             $ssuR = Search-Catalog "Servicing Stack Update for Windows 10 Version 1607 for $ar-based Systems"
-            $ssuBest = $ssuR | Where-Object { $_.Title -match "Servicing Stack" -and $_.Title -match "for x64[^a-z]" -and $_.Title -match "Version 1607" -and $_.Title -notmatch "Preview" } | Sort-Object Title -Descending | Select-Object -First 1
+            $ssuBest = $ssuR | Where-Object { $_.Title -match "Servicing Stack" -and $_.Title -match "for $ar[^a-z]" -and $_.Title -match "Version 1607" -and $_.Title -notmatch "Preview" } | Sort-Object Title -Descending | Select-Object -First 1
             if ($ssuBest) {
                 $ssuLinks = Get-Links $ssuBest.Guid
                 $ssuNewFile = Pick-File $ssuLinks "SSU" $c.OP
             }
-            # Use old SSU URL for sorting position (only if a new SSU was found)
-            if ($ssuNewFile -and $f) {
-                $oldMsusAll = Get-OldMsus $old
-                $oldSsu = $oldMsusAll | Where-Object { $_.KB -ne $f.KB } | Select-Object -First 1
-                if ($oldSsu -and $oldSsu.Url) { $ssuFile = $oldSsu }
+            # Use old SSU URL for sorting position (only if a new SSU was found and old meta4 has it)
+            if ($ssuNewFile) {
+                $ssuFile = $ssuNewFile  # Will be used both for sorting and replacement
             }
         } else { Write-Host "  SSU: bundled" -ForegroundColor DarkGray }
 
@@ -390,8 +388,8 @@ foreach ($bn in $Build) {
 
         # Replace old SSU with new one if found (14393)
         if ($bn -eq "14393" -and $ssuNewFile -and ($ssuNewFile.Url -notin $newFiles.Url)) {
-            # Remove the old SSU (lowest KB non-LCU MSU that's not .NET) and add new one
-            $newFiles = @($newFiles | Where-Object { $_.Url -ne $ssuFile.Url })
+            # Remove old SSU (same KB) and add new one
+            $newFiles = @($newFiles | Where-Object { $_.KB -ne $ssuNewFile.KB })
             $newFiles += $ssuNewFile
             $ssuFile = $ssuNewFile  # Update sort URL
             Write-Host "  [SSU] replaced: $($ssuNewFile.FileName)" -ForegroundColor Green
