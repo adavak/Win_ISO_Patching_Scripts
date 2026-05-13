@@ -330,7 +330,7 @@ foreach ($bn in $Build) {
         if ($bn -eq "14393") {
             Start-Sleep -Milliseconds 600
             $ssuR = Search-Catalog "Servicing Stack Update for Windows 10 Version 1607 for $ar-based Systems"
-            $ssuBest = $ssuR | Where-Object { $_.Title -match "Servicing Stack" -and $_.Title -match "for $ar[^a-z]" -and $_.Title -match "Version 1607" -and $_.Title -notmatch "Preview" } | Sort-Object Title -Descending | Select-Object -First 1
+            $ssuBest = $ssuR | Where-Object { $_.Title -match "Servicing Stack" -and $_.Title -match "for $ar[^a-z]" -and $_.Title -match "Version 1607" } | Sort-Object Title -Descending | Select-Object -First 1
             if ($ssuBest) {
                 $ssuLinks = Get-Links $ssuBest.Guid
                 $ssuNewFile = Pick-File $ssuLinks "SSU" $c.OP
