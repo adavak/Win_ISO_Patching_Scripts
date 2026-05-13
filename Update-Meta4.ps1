@@ -209,7 +209,7 @@ function Get-HistoryBuild($TopicId, $BuildPat) {
     $entries = @()
     foreach ($m in $re.Matches($h)) {
         $text = $m.Groups[1].Value -replace '&#x2014;', ''
-        if ($text -match 'Out-of-band|Preview|program') { continue }
+        if ($text -match "program") { continue }
         $kbMatch = [regex]::Match($text, 'KB(\d+)')
         $reBuild = [regex]"((?:$BuildPat)\.\d+)"
         $buildMatch = $reBuild.Match($text)
@@ -223,8 +223,8 @@ function Get-HistoryBuild($TopicId, $BuildPat) {
 function Get-FileForKB($Kb, $ArchPat, $OsPref) {
     $r = Search-Catalog "kb$Kb"
     # Prefer non-Dynamic CU, also filter out preview/.NET/safety updates
-    $best = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'Cumulative Update' -and $_.Title -notmatch 'Dynamic|\.NET|Preview|Safe' } | Sort-Object Title -Descending | Select-Object -First 1
-    if (-not $best) { $best = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -notmatch 'Dynamic|\.NET|Preview|Safe' } | Sort-Object Title -Descending | Select-Object -First 1 }
+    $best = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'Cumulative Update' -and $_.Title -notmatch 'Dynamic|\.NET|Safe' } | Sort-Object Title -Descending | Select-Object -First 1
+    if (-not $best) { $best = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -notmatch 'Dynamic|\.NET|Safe' } | Sort-Object Title -Descending | Select-Object -First 1 }
     if (-not $best) { return $null }
     $links = Get-Links $best.Guid
     $m = $links | Where-Object { $_.FileName -match [regex]::Escape($OsPref) }
