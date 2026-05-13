@@ -155,7 +155,8 @@ function Get-Cabs($P) {
     if (-not (Test-Path $P)) { return @() }
     try { $x = [xml](Get-Content $P -Raw)
         return $x.metalink.file | Where-Object { $_.name -match '\.cab$' } | ForEach-Object {
-            [PSCustomObject]@{FileName = $_.name; Url = $_.url; Sha1 = $_.hash.'#text'; KB = 0} }
+            $ckb = 0; if ($_.name -match 'kb(\d+)') { $ckb = [int]$matches[1] }
+            [PSCustomObject]@{FileName = $_.name; Url = $_.url; Sha1 = $_.hash.'#text'; KB = $ckb} }
     } catch { return @() }
 }
 function Get-KB($F) { if ($F.FileName -match 'kb(\d+)') { $matches[1] } else { "" } }
@@ -268,7 +269,7 @@ function Get-ExistingFiles($Path) {
 $cabTypeCache = @{}
 function Get-CabType($File, $ArchPat) {
     $kb = $File.KB
-    if (-not $kb -or $cabTypeCache.ContainsKey($kb)) { 
+    if (-not $kb -or $cabTypeCache.ContainsKey($kb)) {
         if ($cabTypeCache.ContainsKey($kb)) { return $cabTypeCache[$kb] }
         return 3
     }
@@ -276,17 +277,18 @@ function Get-CabType($File, $ArchPat) {
         $sr = Search-Catalog "kb$kb"
         $sb = $sr | Where-Object { $_.Title -match $ArchPat } | Select-Object -First 1
         if ($sb) {
+            $title = $sb.Title
+            if ($title -match "Setup Dynamic Update") { $cabTypeCache[$kb] = 1; return 1 }
+            if ($title -match "Safe OS") { $cabTypeCache[$kb] = 2; return 2 }
             $ssv = Invoke-WebRequest "https://www.catalog.update.microsoft.com/v7/site/ScopedViewInline.aspx?updateid=$($sb.Guid)" -UseBasicParsing -TimeoutSec 10
             $ssh = $ssv.Content
-            if ($ssh -match 'SetupUpdate:') { $cabTypeCache[$kb] = 1; return 1 }
-            if ($ssh -match 'Safe OS') { $cabTypeCache[$kb] = 2; return 2 }
+            if ($ssh -match "SetupUpdate:|setup binaries") { $cabTypeCache[$kb] = 1; return 1 }
+            if ($ssh -match "Safe OS") { $cabTypeCache[$kb] = 2; return 2 }
             $cabTypeCache[$kb] = 3; return 3
         }
     } catch { }
     $cabTypeCache[$kb] = 3; return 3
 }
-
-# ---- Main ----
 Write-Host "=== Win_ISO_Patching_Scripts - meta4 Auto-Gen ===" -ForegroundColor Cyan
 if ($Build.Count -eq 1 -and $Build[0] -match ',') { $Build = $Build[0] -split ',' | ForEach-Object { $_.Trim() } }
 if ($Arch.Count -eq 1 -and $Arch[0] -match ',') { $Arch = $Arch[0] -split ',' | ForEach-Object { $_.Trim() } }
@@ -539,11 +541,11 @@ foreach ($bn in $Build) {
                 if ($cab -and $cab.FileName -ne $oc.FileName -and ($cab.Url -notin $newFiles.Url)) {
                     $newFiles += $cab; Write-Host "  [CAB] $oldKb -> $($cab.FileName)" -ForegroundColor Green
                 } elseif ($oc.Url -notin ($newFiles | ForEach-Object { $_.Url })) {
-                    $oc2 = [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=0}
+                    $oc2 = [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB}
                     $newFiles += $oc2; Write-Host "  [CAB] $oldKb (unchanged)" -ForegroundColor DarkGray
                 }
             } elseif ($oc.Url -notin ($newFiles | ForEach-Object { $_.Url })) {
-                $oc2 = [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=0}
+                $oc2 = [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB}
                 $newFiles += $oc2
             }
             Start-Sleep -Milliseconds 400
@@ -570,7 +572,7 @@ foreach ($bn in $Build) {
         # ---- Sort: SSU → checkpoint CU → LCU → old MSU(EKB/setup DU/safe OS DU) → .NET ndp/msu → CAB ----
         $sortedAll = $all | Sort-Object @{Expression={
             $n = $_.FileName
-            if ($n -match '\.cab$') { return 50 }               # CAB last
+            if ($n -match '\.cab$') { return 50000000 + (Get-CabType $_ $ap) }  # CAB last, SetupUpdate(1) -> Safe OS(2)
             if ($n -match 'ndp.*\.msu') { return 40 }           # .NET ndp
             if ($_.Url -eq $ssuUrl) { return 5 }                # SSU first
             if ($bn -eq "26100" -and $_.KB -eq 5043080) { return 10 }  # checkpoint CU
@@ -677,8 +679,8 @@ foreach ($bn in $Build) {
                     $links = Follow-Chain -OldKb $oldKb -ArchPat $ap -OsPref $c.OP
                     $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
                     if ($cab -and $cab.Url -notin $serverFiles.Url) { $serverFiles += $cab }
-                    elseif ($oc.Url -notin $serverFiles.Url) { $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=0} }
-                } elseif ($oc.Url -notin $serverFiles.Url) { $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=0} }
+                    elseif ($oc.Url -notin $serverFiles.Url) { $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB} }
+                } elseif ($oc.Url -notin $serverFiles.Url) { $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB} }
             }
             $sa = $serverFiles | Sort-Object Url -Unique
             if (-not $TestMode) {
