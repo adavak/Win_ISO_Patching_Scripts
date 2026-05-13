@@ -335,9 +335,9 @@ foreach ($bn in $Build) {
                 $ssuLinks = Get-Links $ssuBest.Guid
                 $ssuNewFile = Pick-File $ssuLinks "SSU" $c.OP
             }
-            # Use old SSU URL for sorting position (will be replaced after preservation)
-            $oldMsusAll = Get-OldMsus $old
-            if ($oldMsusAll.Count -gt 0 -and $f) {
+            # Use old SSU URL for sorting position (only if a new SSU was found)
+            if ($ssuNewFile -and $f) {
+                $oldMsusAll = Get-OldMsus $old
                 $oldSsu = $oldMsusAll | Where-Object { $_.KB -ne $f.KB } | Select-Object -First 1
                 if ($oldSsu -and $oldSsu.Url) { $ssuFile = $oldSsu }
             }
