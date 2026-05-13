@@ -190,24 +190,6 @@ function Cross-Validate($ChainFile, $BootFile, $Label) {
     return $BootFile, "bootstrapped"
 }
 
-# Get all MSU (non-ndp) entries from an existing meta4 file
-
-
-# Extract build version (e.g. 14393.9062) from the ScopedViewInline page of an LCU
-function Get-BuildVersion($Kb, $OsPref, $ArchPat) {
-    if (-not $Kb) { return "" }
-    try {
-        $r = Search-Catalog "kb$Kb"
-        $first = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'Cumulative Update' -and $_.Title -notmatch '\.NET' -and $_.Title -notmatch 'Preview|Safety|Secure Boot' } | Sort-Object Title -Descending | Select-Object -First 1
-        if (-not $first) { return "" }
-        $sv = Invoke-WebRequest ("https://www.catalog.update.microsoft.com/v7/site/ScopedViewInline.aspx?updateid=" + $first.Guid) -UseBasicParsing -TimeoutSec 15
-        $html = $sv.Content
-        $m = [regex]::Match($html, '10\.0\.(\d+)\.(\d+)')
-        if ($m.Success) { return "$($m.Groups[1].Value).$($m.Groups[2].Value)" }
-    } catch { }
-    return ""
-}
-
 # --- MS Update History page scraping ---
 # Parse MS Update History page to find the latest Patch Tuesday KB + OS Build for a given build prefix
 $historyPageCache = @{}
@@ -257,8 +239,6 @@ function Get-HistoryBuildPat($bn) {
     elseif ($bn -eq "22621") { $pat = "22631" }    # 23H2 history shows 22631.xxxx
     return $pat
 }
-
-
 
 function Get-OldMsus($Path) {
     if (-not (Test-Path $Path)) { return @() }
@@ -349,7 +329,7 @@ foreach ($bn in $Build) {
         $ssuNewFile = $null
         if ($bn -eq "14393") {
             Start-Sleep -Milliseconds 600
-            $ssuR = Search-Catalog "Servicing Stack Update for Windows 10 Version 1607 for x64-based Systems"
+            $ssuR = Search-Catalog "Servicing Stack Update for Windows 10 Version 1607 for $ar-based Systems"
             $ssuBest = $ssuR | Where-Object { $_.Title -match "Servicing Stack" -and $_.Title -match "for x64[^a-z]" -and $_.Title -match "Version 1607" -and $_.Title -notmatch "Preview" } | Sort-Object Title -Descending | Select-Object -First 1
             if ($ssuBest) {
                 $ssuLinks = Get-Links $ssuBest.Guid
@@ -731,7 +711,6 @@ if (-not $TestMode) {
             }
         }
     }
-
 
     foreach ($readme in @("README.md", "README_cn.md")) {
         $path = Join-Path $ScriptRoot $readme
