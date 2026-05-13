@@ -603,40 +603,37 @@ foreach ($bn in $Build) {
                         $srvRev = $shb.Build.Split('.')[-1]
                         $BUILD_VERSIONS["26100"] = "Build 26100.$srvRev"
                     }
+                }                # Always preserve checkpoint CU and old LCUs (if any)
+                $serverOldMsus = Get-OldMsus $serverOld
+                if ($serverOldMsus.Count -eq 0) {
+                    $mainMsus = Get-OldMsus $old
+                    $checkpointCU = $mainMsus | Where-Object { $_.KB -eq 5043080 }
+                    if ($checkpointCU) {
+                        foreach ($cp in $checkpointCU) {
+                            if ($cp.Url -notin $serverFiles.Url) { $serverFiles += $cp }
+                        }
+                        Write-Host "  [SERVER CHECKPOINT] borrowed from main" -ForegroundColor DarkGray
+                    }
+                    $latestMainMsu = $mainMsus | Where-Object { $_.KB -ne 5043080 } | Sort-Object KB -Descending | Select-Object -First 1
+                    if ($latestMainMsu) { $serverOldMsus = @($latestMainMsu) }
+                }
+                if ($serverOldMsus.Count -gt 0) {
+                    $sorted = $serverOldMsus | Sort-Object KB -Descending
+                    $sOkb = $sorted[0].KB
+                    $checkpoints = $sorted | Select-Object -Skip 1
+                    foreach ($cp in $checkpoints) {
+                        if ($cp.Url -notin $serverFiles.Url) { $serverFiles += $cp }
+                    }
                 }
                 # Fallback: chain + bootstrap
                 if (-not $sf) {
                     $sChain = $null; $sBoot = $null
-                    $serverOldMsus = Get-OldMsus $serverOld
-                    if ($serverOldMsus.Count -eq 0) {
-                        # If no old server meta4 (e.g. arm64), borrow checkpoint CU (5043080) from main meta4
-                        $mainMsus = Get-OldMsus $old
-                        $checkpointCU = $mainMsus | Where-Object { $_.KB -eq 5043080 }
-                        if ($checkpointCU) {
-                            foreach ($cp in $checkpointCU) {
-                                if ($cp.Url -notin $serverFiles.Url) { $serverFiles += $cp }
-                            }
-                            Write-Host "  [SERVER CHECKPOINT] borrowed from main" -ForegroundColor DarkGray
-                        }
-                        # Get latest non-checkpoint LCU from main meta4 as chain starting point
-                        $latestMainMsu = $mainMsus | Where-Object { $_.KB -ne 5043080 } | Sort-Object KB -Descending | Select-Object -First 1
-                        if ($latestMainMsu) { $serverOldMsus = @($latestMainMsu) }
-                    }
                     if ($serverOldMsus.Count -gt 0) {
-                        # Preserve old LCUs (checkpoint CU etc.), only replace the latest one
-                        $sorted = $serverOldMsus | Sort-Object KB -Descending
-                        $sOkb = $sorted[0].KB  # Latest KB to use for chain
-                        $checkpoints = $sorted | Select-Object -Skip 1  # Remaining are checkpoints
-                        foreach ($cp in $checkpoints) {
-                            if ($cp.Url -notin $serverFiles.Url) { $serverFiles += $cp }
-                        }
                         $sChainResult = Follow-Chain -OldKb $sOkb -ArchPat $ap -OsPref $c.OP
                         $sChain = Pick-File $sChainResult "LCU" $c.OP
                     }
-                    # Server bootstrap: search for "Cumulative Update for Microsoft server operating system version 24H2"
                     $sBootTerm = "Cumulative Update for Microsoft server operating system version 24H2"
                     $sBoot = Bootstrap-Search -Term $sBootTerm -ArchPat $ap -OsPref $c.OP -Kind "LCU"
-                    # Fall back to standard search if bootstrap fails
                     if (-not $sBoot) { $sBoot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU" }
                     $sf, $stag = Cross-Validate $sChain $sBoot "LCU_SERVER"
                 }
