@@ -265,6 +265,27 @@ function Get-ExistingFiles($Path) {
     } catch { return @() }
 }
 
+$cabTypeCache = @{}
+function Get-CabType($File, $ArchPat) {
+    $kb = $File.KB
+    if (-not $kb -or $cabTypeCache.ContainsKey($kb)) { 
+        if ($cabTypeCache.ContainsKey($kb)) { return $cabTypeCache[$kb] }
+        return 3
+    }
+    try {
+        $sr = Search-Catalog "kb$kb"
+        $sb = $sr | Where-Object { $_.Title -match $ArchPat } | Select-Object -First 1
+        if ($sb) {
+            $ssv = Invoke-WebRequest "https://www.catalog.update.microsoft.com/v7/site/ScopedViewInline.aspx?updateid=$($sb.Guid)" -UseBasicParsing -TimeoutSec 10
+            $ssh = $ssv.Content
+            if ($ssh -match 'SetupUpdate:') { $cabTypeCache[$kb] = 1; return 1 }
+            if ($ssh -match 'Safe OS') { $cabTypeCache[$kb] = 2; return 2 }
+            $cabTypeCache[$kb] = 3; return 3
+        }
+    } catch { }
+    $cabTypeCache[$kb] = 3; return 3
+}
+
 # ---- Main ----
 Write-Host "=== Win_ISO_Patching_Scripts - meta4 Auto-Gen ===" -ForegroundColor Cyan
 if ($Build.Count -eq 1 -and $Build[0] -match ',') { $Build = $Build[0] -split ',' | ForEach-Object { $_.Trim() } }
