@@ -536,7 +536,7 @@ foreach ($bn in $Build) {
         if ($cabs.Count -ge 2) {
             $nonCabs = @($all | Where-Object { $_.FileName -notmatch '\.cab$' })
             $rest = if ($cabs.Count -gt 2) { $cabs[2..($cabs.Count-1)] } else { @() }
-            $reorderedCabs = @($cabs[1], $cabs[0]) + $rest
+            $reorderedCabs = $cabs | Sort-Object KB
             $all = $nonCabs + $reorderedCabs
         }
         if ($TestMode) { Write-Host "  [TEST] $($all.Count) entries"; $gen++; continue }
