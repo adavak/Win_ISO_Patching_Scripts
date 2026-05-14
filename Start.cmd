@@ -182,7 +182,7 @@ goto :EOF
 :START_WORKWORK
 chcp %oldchcp% >nul
 call W10UI.cmd
-goto :EXIT_PROMPT
+goto :EOF
 
 :NO_ARIA2_ERROR
 echo 当前目录未找到 %aria2%。
