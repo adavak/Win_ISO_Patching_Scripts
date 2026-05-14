@@ -228,7 +228,7 @@ echo Version: %build%, Architecture: %arch%
 pause
 goto :EOF
 
-:EXIT_PROMPT
+:EOF
 echo 输入 7 退出。
 echo Press 7 to exit.
 choice /c 7 /n
