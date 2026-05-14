@@ -26,7 +26,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh run list --branch master --json databaseId --jq '.[].databaseId' --limit 500 | Select-Object -Skip 5 | ForEach-Object { gh run delete  --yes }
+          gh run list --workflow "Update Meta4" --branch master --json databaseId --jq '.[].databaseId' --limit 500 | Select-Object -Skip 5 | ForEach-Object { gh run delete $_ --yes }
         shell: powershell
 
       - name: Run Update-Meta4.ps1
