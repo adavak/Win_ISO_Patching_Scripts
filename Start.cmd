@@ -70,6 +70,7 @@ if !isoCount! GTR 1 (
 
 endlocal & set "isofile=%isofile%"
 
+dism /cleanup-wim >nul 2>&1
 if exist "%~dp0%ISODir%" rmdir /s /q "%~dp0%ISODir%"
 %a7z% x "%~dp0%isofile%" -o"%~dp0%ISODir%" -r
 if %ERRORLEVEL% NEQ 0 (
@@ -181,7 +182,7 @@ goto :EOF
 :START_WORKWORK
 chcp %oldchcp% >nul
 call W10UI.cmd
-goto :EOF
+goto :EXIT_PROMPT
 
 :NO_ARIA2_ERROR
 echo 当前目录未找到 %aria2%。
@@ -227,7 +228,7 @@ echo Version: %build%, Architecture: %arch%
 pause
 goto :EOF
 
-:EOF
+:EXIT_PROMPT
 echo 输入 7 退出。
 echo Press 7 to exit.
 choice /c 7 /n
