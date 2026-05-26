@@ -19,8 +19,8 @@
 |**Windows Server 2022**|**Build 20348.5139**|
 |**Windows 11 23H2**|**Build 22631.7079**|
 |**Windows Server 2025**|**Build 26100.32860**|
-|**Windows 11 25H2, Windows 11 Enterprise LTSC 2024**|**Build 26200.8457**|
-|**Windows 11 26H1**|**Build 28000.2113 (x64 Version is not recommended)**|
+|**Windows 11 25H2, Windows 11 Enterprise LTSC 2024**|**Build 26200.8524**|
+|**Windows 11 26H1**|**Build 28000.2179 (x64 Version is not recommended)**|
 
 ###### Some settings (located in the W10UI.ini file in the root directory of the folder):
 |Value (Default)|Description|
