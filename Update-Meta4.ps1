@@ -1,4 +1,4 @@
-# Update-Meta4.ps1
+﻿# Update-Meta4.ps1
 # Generates .meta4 files via MS Update History pages (primary) + KB supersedence chain + version name cross-validation.
 [CmdletBinding()]
 param([string[]]$Build = @(), [string[]]$Arch = @(), [string]$OutputDir = "", [switch]$TestMode)
