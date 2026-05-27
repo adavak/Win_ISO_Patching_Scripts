@@ -19,7 +19,7 @@ $CFG = @{
 }
 $ARCH_LABEL = @{x64="for x64-based Systems"; x86="for x86-based Systems"; arm64="for Arm64-based Systems"}
 
-# MS Update History pages — canonical source for latest LCU KB + OS Build number
+# MS Update History pages — source for OS Build version numbers (README update)
 $UPDATE_HISTORY = @{
     "14393" = "windows-10-and-windows-server-2016-update-history-4acfbc84-a290-1b54-536a-1c0430e9f3fd"
     "17763" = "windows-10-and-windows-server-2019-update-history-725fc2e1-4443-6831-a5ca-51ff5cbcb059"
@@ -182,9 +182,7 @@ function Cross-Validate($ChainFile, $BootFile, $Label) {
     if (-not $ChainFile -and -not $BootFile) { return $null, "SKIP" }
     if ($ChainFile -and $BootFile) {
         if ($ChainFile.KB -eq $BootFile.KB) { return $ChainFile, "verified" }
-        # When mismatch: if chain result exists and boot exists, compare KB age
-        # Use the HIGHER KB number (newer), but only if the title looks right
-        # For 20348 (Server 2022), chain can give wrong result — prefer bootstrap
+        # When mismatch: prefer bootstrap (chain may follow wrong track for some builds)
         return $BootFile, "bootstrapped (chain mismatch)"
     }
     if ($ChainFile) { return $ChainFile, "chain" }
@@ -223,7 +221,7 @@ function Get-HistoryBuild($TopicId, $BuildPat) {
 }
 function Get-FileForKB($Kb, $ArchPat, $OsPref) {
     $r = Search-Catalog "kb$Kb"
-    # Prefer non-Dynamic CU, also filter out preview/.NET/safety updates
+    # Prefer non-Dynamic CU, filter out .NET/safety updates
     $best = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'Cumulative Update' -and $_.Title -notmatch 'Dynamic|\.NET|Safe' } | Sort-Object Title -Descending | Select-Object -First 1
     if (-not $best) { $best = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -notmatch 'Dynamic|\.NET|Safe' } | Sort-Object Title -Descending | Select-Object -First 1 }
     if (-not $best) { return $null }
@@ -269,10 +267,8 @@ function Get-ExistingFiles($Path) {
 $cabTypeCache = @{}
 function Get-CabType($File, $ArchPat) {
     $kb = $File.KB
-    if (-not $kb -or $cabTypeCache.ContainsKey($kb)) {
-        if ($cabTypeCache.ContainsKey($kb)) { return $cabTypeCache[$kb] }
-        return 3
-    }
+    if (-not $kb) { return 3 }
+    if ($cabTypeCache.ContainsKey($kb)) { return $cabTypeCache[$kb] }
     try {
         $sr = Search-Catalog "kb$kb"
         $sb = $sr | Where-Object { $_.Title -match $ArchPat } | Select-Object -First 1
@@ -341,7 +337,6 @@ foreach ($bn in $Build) {
         } catch { Write-Host " ERROR: $_"; $skip++; continue }
 
         # SSU (14393 only) - Find newest SSU, replace old one after MSU preservation
-        $ssuNewFile = $null
         if ($bn -eq "14393") {
             Start-Sleep -Milliseconds 600
             $ssuOldKb = $null; $ssuNewFile = $null
@@ -349,13 +344,13 @@ foreach ($bn in $Build) {
             if (Test-Path $old) {
                 $ssuR = Search-Catalog "Servicing Stack Update for Windows 10 Version 1607 for $ar-based Systems"
                 $ssuFiltered = $ssuR | Where-Object { $_.Title -match "Servicing Stack" -and $_.Title -match "for $ar[^a-z]" -and $_.Title -match "Version 1607" }
-                $ssoMsus = Get-OldMsus $old
-                $ssoLcuKb = Get-OldKB $old "LCU"
-                foreach ($ssoR in $ssuFiltered) {
-                    if ($ssoR.Title -match 'KB(\d+)') {
-                        $ssoKb = [int]$matches[1]
-                        if ($ssoKb -ne $ssoLcuKb -and ($ssoMsus.KB -contains $ssoKb)) {
-                            $ssuOldKb = $ssoKb; break
+                $ssuOldMsus = Get-OldMsus $old
+                $ssuOldLcuKb = Get-OldKB $old "LCU"
+                foreach ($ssuOldResult in $ssuFiltered) {
+                    if ($ssuOldResult.Title -match 'KB(\d+)') {
+                        $ssuOldKbCandidate = [int]$matches[1]
+                        if ($ssuOldKbCandidate -ne $ssuOldLcuKb -and ($ssuOldMsus.KB -contains $ssuOldKbCandidate)) {
+                            $ssuOldKb = $ssuOldKbCandidate; break
                         }
                     }
                 }
@@ -564,7 +559,6 @@ foreach ($bn in $Build) {
         $cabs = @($all | Where-Object { $_.FileName -match '\.cab$' })
         if ($cabs.Count -ge 2) {
             $nonCabs = @($all | Where-Object { $_.FileName -notmatch '\.cab$' })
-            $rest = if ($cabs.Count -gt 2) { $cabs[2..($cabs.Count-1)] } else { @() }
             $reorderedCabs = $cabs | Sort-Object KB
             $all = $nonCabs + $reorderedCabs
         }
@@ -597,7 +591,7 @@ foreach ($bn in $Build) {
             # Server has its own LCU (e.g. 5091157), not inherited from client
             $serverOld = Join-Path $OutputDir "script_server_${bn}_${ar}.meta4"
             $serverFiles = @()
-            # Server independent .NET search (currently shares KB5082417 with client, may diverge)
+            # Server independent .NET search
             Write-Host "  [SERVER .NET]..." -NoNewline
             try {
                 $sNetBoot = Bootstrap-Search -Term ".NET Framework 3.5 and 4.8.1 Microsoft server operating system version 24H2" -ArchPat $ap -OsPref $c.OP -Kind "NET"
@@ -632,10 +626,11 @@ foreach ($bn in $Build) {
                         $srvRev = $shb.Build.Split('.')[-1]
                         $BUILD_VERSIONS["26100"] = "Build 26100.$srvRev"
                     }
-                }                # Always preserve checkpoint CU and old LCUs (if any)
-                $serverOldMsus = Get-OldMsus $serverOld
-                    $mainMsus = Get-OldMsus $old
-                    $checkpointCU = $mainMsus | Where-Object { $_.KB -eq 5043080 }
+                }
+            # Always preserve checkpoint CU and old LCUs (if any)
+            $serverOldMsus = Get-OldMsus $serverOld
+            $mainMsus = Get-OldMsus $old
+            $checkpointCU = $mainMsus | Where-Object { $_.KB -eq 5043080 }
                     if ($checkpointCU) {
                         foreach ($cp in $checkpointCU) {
                             if ($cp.Url -notin $serverFiles.Url) { $serverFiles += $cp }
