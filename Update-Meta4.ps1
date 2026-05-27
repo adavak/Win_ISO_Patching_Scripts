@@ -310,40 +310,32 @@ foreach ($bn in $Build) {
         # 1. LCU
         Write-Host "  LCU..." -NoNewline
         try {
-            # Primary source: MS Update History page (most reliable)
-            $f = $null; $tag = ""
+                        # History page: only for build version (README use), not for file
             $histTopic = $UPDATE_HISTORY[$bn]
             if ($histTopic) {
                 $bp = Get-HistoryBuildPat $bn
                 $hb = Get-HistoryBuild -TopicId $histTopic -BuildPat $bp
                 if ($hb) {
-                    $hf = Get-FileForKB -Kb $hb.KB -ArchPat $ap -OsPref $c.OP
-                    if ($hf) { $f = $hf; $tag = "history (build $($hb.Build))" }
-                    # Cache build version for README update
                     $hbk = switch -wildcard ($bn) {
                         "14393" { "14393" } "17763" { "17763" } "19041" { "1904x" }
                         "20348" { "20348" } "22621" { "22631" }
                         "28000" { "28000" } default { $bn }
                     }
                     if ($ar -eq "x64" -and $bn -ne "26100") {
-                        # Cache build version (skip 26100; reserved for server variant)
                         $rev = $hb.Build.Split(".")[-1]
                         $BUILD_VERSIONS[$hbk] = "Build $hbk.$rev"
                     }
-                    # For 26100: also extract 26200 (25H2) from the same history entry
-                    if ($bn -eq "26100" -and $hb.Build -match "26200\\.(\\d+)") {
+                    if ($bn -eq "26100" -and $hb.Build -match "26200\.(\d+)") {
                         $BUILD_VERSIONS["26200"] = "Build 26200.$($matches[1])"
                     }
                 }
             }
-            # Fallback: chain follow from old KB + bootstrap search
-            if (-not $f) {
-                $chain = $null; $boot = $null
-                $okb = Get-OldKB $old "LCU"
-                if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "LCU" $c.OP }
-                $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
-                $f, $tag = Cross-Validate $chain $boot "LCU"
-            }
+            # Always run chain + bootstrap from Catalog (history may be stale)
+            $chain = $null; $boot = $null
+            $okb = Get-OldKB $old "LCU"
+            if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "LCU" $c.OP }
+            $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
+            $f, $tag = Cross-Validate $chain $boot "LCU"
             if ($f) { $newFiles += $f; Write-Host " $($f.FileName) ($tag)" -ForegroundColor $(if($tag-match"^history"){"Green"}elseif($tag-eq"verified"){"Green"}elseif($tag-eq"chain"){"Cyan"}else{"Yellow"}) }
             else { Write-Host " SKIP"; $skip++; continue }
         } catch { Write-Host " ERROR: $_"; $skip++; continue }
