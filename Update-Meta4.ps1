@@ -366,10 +366,10 @@ foreach ($bn in $Build) {
             if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "NET" $c.OP }
             $boot = Bootstrap-Search -Term $c.S3 -ArchPat $ap -OsPref $c.OP -Kind "NET"
             $f, $tag = Cross-Validate $chain $boot "NET"
-            # Verify OS prefix (windows10.0 rejects windows11.0)
-            if ($f -and $f.FileName -notmatch "^$($c.OP)") { $f = $null; $tag = "SKIP (OS mismatch)" }
             # For builds with netfx subdirs (14393/17763/19041/20348), .NET goes to subdir, not main meta4
             if ($f -and $bn -in @("14393","17763","19041","20348")) { $f = $null; $tag = "in netfx subdir" }
+            # Verify OS prefix (windows10.0 rejects windows11.0) — only for non-subdir builds
+            if ($f -and $f.FileName -notmatch "^$($c.OP)") { $f = $null; $tag = "SKIP (OS mismatch)" }
             if ($f) { $newFiles += $f; Write-Host " $($f.FileName) ($tag)" -ForegroundColor $(if($tag-eq"verified"){"Green"}elseif($tag-eq"chain"){"Cyan"}else{"Yellow"}) }
             else { Write-Host " $tag" -ForegroundColor DarkGray }
         } catch { Write-Host " ERROR: $_" -ForegroundColor Red }
@@ -403,11 +403,17 @@ foreach ($bn in $Build) {
 
         # Replace old SSU with new one if found (14393)
         if ($bn -eq "14393" -and $ssuNewFile -and ($ssuNewFile.Url -notin $newFiles.Url)) {
-            # Remove old SSU (same KB) and add new one
-            $newFiles = @($newFiles | Where-Object { $_.KB -ne $ssuNewFile.KB })
+            $oldSsuKb = $null
+            if (Test-Path $old) {
+                $oldSsuMsus = Get-OldMsus $old
+                $oldSsu = $oldSsuMsus | Where-Object { $_.KB -gt 0 } | Sort-Object KB | Select-Object -First 1
+                if ($oldSsu) { $oldSsuKb = $oldSsu.KB }
+            }
+            # Remove old SSU, add new one
+            $newFiles = @($newFiles | Where-Object { $null -eq $oldSsuKb -or $_.KB -ne $oldSsuKb })
             $newFiles += $ssuNewFile
             $ssuFile = $ssuNewFile  # Update sort URL
-            Write-Host "  [SSU] replaced: $($ssuNewFile.FileName)" -ForegroundColor Green
+            Write-Host "  [SSU] $oldSsuKb -> $($ssuNewFile.KB) ($($ssuNewFile.FileName))" -ForegroundColor Green
         }
 
         # 4. Netfx subdir meta4 files
@@ -531,10 +537,12 @@ foreach ($bn in $Build) {
                 $links = Follow-Chain -OldKb $oldKb -ArchPat $ap -OsPref $c.OP
                 $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
                 if ($cab -and $cab.FileName -ne $oc.FileName -and ($cab.Url -notin $newFiles.Url)) {
-                    $newFiles += $cab; Write-Host "  [CAB] $oldKb -> $($cab.FileName)" -ForegroundColor Green
+                    $cabType = switch (Get-CabType $cab $ap) { 1 { "CAB_SETUP" } 2 { "CAB_SAFEOS" } default { "CAB" } }
+                    $newFiles += $cab; Write-Host "  [$cabType] $oldKb -> $($cab.FileName)" -ForegroundColor Green
                 } elseif ($oc.Url -notin ($newFiles | ForEach-Object { $_.Url })) {
+                    $cabType = switch (Get-CabType $oc $ap) { 1 { "CAB_SETUP" } 2 { "CAB_SAFEOS" } default { "CAB" } }
                     $oc2 = [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB}
-                    $newFiles += $oc2; Write-Host "  [CAB] $oldKb (unchanged)" -ForegroundColor DarkGray
+                    $newFiles += $oc2; Write-Host "  [$cabType] $oldKb (unchanged)" -ForegroundColor DarkGray
                 }
             } elseif ($oc.Url -notin ($newFiles | ForEach-Object { $_.Url })) {
                 $oc2 = [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB}
