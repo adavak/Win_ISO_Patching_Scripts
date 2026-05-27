@@ -160,18 +160,32 @@ function Get-Cabs($P) {
     } catch { return @() }
 }
 function Get-KB($F) { if ($F.FileName -match 'kb(\d+)') { $matches[1] } else { "" } }
-function Get-OldKB($Path, $Kind) {
+function Get-OldKB($Path, $Kind, $ArchPat = "") {
     if (-not (Test-Path $Path)) { return $null }
     try { $x = [xml](Get-Content $Path -Raw)
         $all = $x.metalink.file
         if ($Kind -eq "LCU") {
-            $matches = $all | Where-Object { $_.name -match '\.msu$' -and $_.name -notmatch 'ndp' } | Sort-Object { if ($_.name -match 'kb(\d+)') { [int]$matches[1] } else { 0 } } -Descending
-            $first = $matches | Select-Object -First 1
-            if ($first -and $first.name -match 'kb(\d+)') { return $matches[1] }
+            # Search catalog to find the actual LCU (not SSU/Dynamic/Safe OS/Setup)
+            $cands = $all | Where-Object { $_.name -match '\.msu$' -and $_.name -notmatch 'ndp' } | Sort-Object { if ($_.name -match 'kb(\d+)') { [int]$matches[1] } else { 0 } } -Descending
+            foreach ($c in $cands) {
+                if ($c.name -match 'kb(\d+)') {
+                    $ckb = [int]$matches[1]
+                    try {
+                        $r = Search-Catalog "kb$ckb"
+                        $t = ($r | Where-Object { $_.Title -match $ArchPat } | Select-Object -First 1).Title
+                        if ($t -match 'Cumulative Update' -and $t -notmatch 'Servicing Stack|Dynamic|Safe OS|Setup') {
+                            return $ckb
+                        }
+                    } catch { continue }
+                }
+            }
+            # Fallback: highest KB
+            $first = $cands | Select-Object -First 1
+            if ($first -and $first.name -match 'kb(\d+)') { return [int]$matches[1] }
         }
         if ($Kind -eq "NET") {
             $first = $all | Where-Object { $_.name -match 'ndp.*\.msu$' } | Select-Object -First 1
-            if ($first -and $first.name -match 'kb(\d+)') { return $matches[1] }
+            if ($first -and $first.name -match 'kb(\d+)') { return [int]$matches[1] }
         }
     } catch { }
     return $null
@@ -328,7 +342,7 @@ foreach ($bn in $Build) {
             }
             # Always run chain + bootstrap from Catalog (history may be stale)
             $chain = $null; $boot = $null
-            $okb = Get-OldKB $old "LCU"
+            $okb = Get-OldKB $old "LCU" $ap
             if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "LCU" $c.OP }
             $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
             $f, $tag = Cross-Validate $chain $boot "LCU"
@@ -345,7 +359,7 @@ foreach ($bn in $Build) {
                 $ssuR = Search-Catalog "Servicing Stack Update for Windows 10 Version 1607 for $ar-based Systems"
                 $ssuFiltered = $ssuR | Where-Object { $_.Title -match "Servicing Stack" -and $_.Title -match "for $ar[^a-z]" -and $_.Title -match "Version 1607" }
                 $ssuOldMsus = Get-OldMsus $old
-                $ssuOldLcuKb = Get-OldKB $old "LCU"
+                $ssuOldLcuKb = Get-OldKB $old "LCU" $ap
                 foreach ($ssuOldResult in $ssuFiltered) {
                     if ($ssuOldResult.Title -match 'KB(\d+)') {
                         $ssuOldKbCandidate = [int]$matches[1]
@@ -390,7 +404,7 @@ foreach ($bn in $Build) {
             $oldMsus = Get-OldMsus $old
             $newKbs = @($newFiles | Where-Object { $_.KB -gt 0 } | ForEach-Object { $_.KB })
             # Also exclude the old LCU that was replaced by the new one
-            $oldLcuKb = Get-OldKB $old "LCU"
+            $oldLcuKb = Get-OldKB $old "LCU" $ap
             if ($oldLcuKb -and $oldLcuKb -notin $newKbs) { $newKbs += $oldLcuKb }
             # Exclude old .NET if .NET is in main meta4 (no netfx subdir)
             if ($bn -notin @("14393","17763","19041","20348")) {
