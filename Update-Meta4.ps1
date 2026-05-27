@@ -165,7 +165,8 @@ function Get-OldKB($Path, $Kind, $ArchPat = "") {
     try { $x = [xml](Get-Content $Path -Raw)
         $all = $x.metalink.file
         if ($Kind -eq "LCU") {
-            # Search catalog to find the actual LCU (not SSU/Dynamic/Safe OS/Setup)
+            # Search catalog to find the actual LCU (title contains "Cumulative Update")
+            # SSU/Safe OS/Setup DU titles don't contain "Cumulative Update", so they're auto-excluded
             $cands = $all | Where-Object { $_.name -match '\.msu$' -and $_.name -notmatch 'ndp' } | Sort-Object { if ($_.name -match 'kb(\d+)') { [int]$matches[1] } else { 0 } } -Descending
             foreach ($c in $cands) {
                 if ($c.name -match 'kb(\d+)') {
@@ -173,7 +174,7 @@ function Get-OldKB($Path, $Kind, $ArchPat = "") {
                     try {
                         $r = Search-Catalog "kb$ckb"
                         $t = ($r | Where-Object { $_.Title -match $ArchPat } | Select-Object -First 1).Title
-                        if ($t -match 'Cumulative Update' -and $t -notmatch 'Servicing Stack|Dynamic|Safe OS|Setup') {
+                        if ($t -match 'Cumulative Update') {
                             return $ckb
                         }
                     } catch { continue }
