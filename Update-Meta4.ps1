@@ -14,7 +14,7 @@ $CFG = @{
     "19041" = @{OP="windows10.0";L="22H2 / LTSC 2021"; S1="Cumulative Update for Windows 10 Version 22H2";         S3=".NET Framework 4.8.1 Windows 10 22H2";S4=".NET Framework 4.8 Windows 10 22H2"}
     "20348" = @{OP="windows10.0";L="Server 2022";      S1="Cumulative Update for Microsoft server operating system version 21H2";S3="Cumulative Update for .NET Framework 3.5 and 4.8.1 Microsoft server operating system version 21H2";S4=".NET Framework 4.8 Microsoft server operating system version 21H2"}
     "22621" = @{OP="windows11.0";L="Win 11 23H2";      S1="Cumulative Update for Windows 11 Version 23H2";         S3=".NET Framework 4.8.1 Windows 11 23H2"}
-    "26100" = @{OP="windows11.0";L="24H2 / Server 2025";S1="Cumulative Update for Windows 11 Version 24H2";        S3=".NET Framework 3.5 and 4.8.1 Microsoft server operating system version 24H2"}
+    "26100" = @{OP="windows11.0";L="25H2 / Server 2025";S1="Cumulative Update for Windows 11 Version 25H2";        S3=".NET Framework 3.5 and 4.8.1 for Windows 11, version 25H2"}
     "28000" = @{OP="windows11.0";L="26H1";             S1="Cumulative Update for Windows 11 Version 26H1";        S3=".NET Framework 4.8.1 Windows 11 26H1"}
 }
 $ARCH_LABEL = @{x64="for x64-based Systems"; x86="for x86-based Systems"; arm64="for Arm64-based Systems"}
@@ -26,7 +26,7 @@ $UPDATE_HISTORY = @{
     "19041" = "windows-10-update-history-8127c2c6-6edf-4fdf-8b9f-0f7be1ef3562"
     "20348" = "windows-server-2022-update-history-e1caa597-00c5-4ab9-9f3e-8212fe80b2ee"
     "22621" = "windows-11-version-23h2-update-history-59875222-b990-4bd9-932f-91a5954de434"
-    "26100" = "windows-11-version-24h2-update-history-0929c747-1815-4543-8461-0160d16f15e5"
+    "26100" = "windows-11-version-25h2-update-history-99c7f493-df2a-4832-bd2d-6706baa0dec0"
     "28000" = "windows-11-version-26h1-update-history-253c73cd-cab1-4bfd-94dc-76c452273fc9"
 }
 $UPDATE_HISTORY_SERVER = @{
@@ -707,8 +707,6 @@ if (-not $TestMode) {
     $culture = [System.Globalization.CultureInfo]::GetCultureInfo('en-US')
     $today = $culture.DateTimeFormat.GetMonthName((Get-Date).Month) + ' ' + (Get-Date -Format 'dd, yyyy')
     $todayCn = "$((Get-Date).Year)$([char]0x5E74)$((Get-Date).Month)$([char]0x6708)$((Get-Date).Day)$([char]0x65E5)"
-    $oldCnDate = "2026" + [char]0x5E74 + "4" + [char]0x6708 + "30" + [char]0x65E5
-
     # Fallback: fetch build versions not cached during generation (rate limited)
     $readmeFallback = @(
         @{BP = "14393"; Topic = $UPDATE_HISTORY["14393"]; Disp = "14393"}
@@ -734,8 +732,9 @@ if (-not $TestMode) {
         $path = Join-Path $ScriptRoot $readme
         if (Test-Path $path) {
             $content = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)
-            $content = $content -replace 'April 30, 2026', $today
-            $content = $content -replace $oldCnDate, $todayCn
+            # Update date with regex (don't hardcode old date)
+            $content = $content -replace '(?<=Last Updated: )\w+ \d+, \d{4}', $today
+            $content = $content -replace '(?<=最后更新：)\d+年\d+月\d+日', $todayCn
             # Update build versions from cached values
             foreach ($key in $BUILD_VERSIONS.Keys) {
                 $pat = "Build $key.\d+"
