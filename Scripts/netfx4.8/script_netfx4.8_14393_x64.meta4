@@ -1,14 +1,14 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5087065-x64-ndp48_631ce425f7c69cbd26a9345ad20b2deab4c5b049.msu">
-		<language>neutral</language>
-		<hash type="sha-1">631ce425f7c69cbd26a9345ad20b2deab4c5b049</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2026/05/windows10.0-kb5087065-x64-ndp48_631ce425f7c69cbd26a9345ad20b2deab4c5b049.msu</url>
-	</file>
 	<file name="windows10.0-kb4486129-x64_0b61d9a03db731562e0a0b49383342a4d8cbe36a.msu">
 		<language>neutral</language>
 		<hash type="sha-1">0b61d9a03db731562e0a0b49383342a4d8cbe36a</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/ftpk/2020/01/windows10.0-kb4486129-x64_0b61d9a03db731562e0a0b49383342a4d8cbe36a.msu</url>
+	</file>
+	<file name="windows10.0-kb5082411-x64-ndp48_21d9288b9b7c21c1557609b58e6926bcb3ca05b2.msu">
+		<language>neutral</language>
+		<hash type="sha-1">21d9288b9b7c21c1557609b58e6926bcb3ca05b2</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2026/03/windows10.0-kb5082411-x64-ndp48_21d9288b9b7c21c1557609b58e6926bcb3ca05b2.msu</url>
 	</file>
 	<file name="windows10.0-kb4486130-x64_d6142b5af88538a6cfa6330f50d69e38c52b13d7.msu">
 		<language>ar-SA</language>

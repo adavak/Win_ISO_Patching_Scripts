@@ -344,15 +344,28 @@ foreach ($bn in $Build) {
         $ssuNewFile = $null
         if ($bn -eq "14393") {
             Start-Sleep -Milliseconds 600
-            $ssuR = Search-Catalog "Servicing Stack Update for Windows 10 Version 1607 for $ar-based Systems"
-            $ssuBest = $ssuR | Where-Object { $_.Title -match "Servicing Stack" -and $_.Title -match "for $ar[^a-z]" -and $_.Title -match "Version 1607" } | Sort-Object Title -Descending | Select-Object -First 1
-            if ($ssuBest) {
-                $ssuLinks = Get-Links $ssuBest.Guid
-                $ssuNewFile = Pick-File $ssuLinks "SSU" $c.OP
+            $ssuOldKb = $null; $ssuNewFile = $null
+            # Find old SSU KB from old meta4 (exclude LCU, match via catalog search)
+            if (Test-Path $old) {
+                $ssuR = Search-Catalog "Servicing Stack Update for Windows 10 Version 1607 for $ar-based Systems"
+                $ssuFiltered = $ssuR | Where-Object { $_.Title -match "Servicing Stack" -and $_.Title -match "for $ar[^a-z]" -and $_.Title -match "Version 1607" }
+                $ssoMsus = Get-OldMsus $old
+                $ssoLcuKb = Get-OldKB $old "LCU"
+                foreach ($ssoR in $ssuFiltered) {
+                    if ($ssoR.Title -match 'KB(\d+)') {
+                        $ssoKb = [int]$matches[1]
+                        if ($ssoKb -ne $ssoLcuKb -and ($ssoMsus.KB -contains $ssoKb)) {
+                            $ssuOldKb = $ssoKb; break
+                        }
+                    }
+                }
             }
-            # Use old SSU URL for sorting position (only if a new SSU was found and old meta4 has it)
+            if ($ssuOldKb) {
+                $ssuChain = Follow-Chain -OldKb $ssuOldKb -ArchPat $ap -OsPref $c.OP
+                $ssuNewFile = Pick-File $ssuChain "SSU" $c.OP
+            }
             if ($ssuNewFile) {
-                $ssuFile = $ssuNewFile  # Will be used both for sorting and replacement
+                $ssuFile = $ssuNewFile
             }
         } else { Write-Host "  SSU: bundled" -ForegroundColor DarkGray }
 
@@ -403,17 +416,10 @@ foreach ($bn in $Build) {
 
         # Replace old SSU with new one if found (14393)
         if ($bn -eq "14393" -and $ssuNewFile -and ($ssuNewFile.Url -notin $newFiles.Url)) {
-            $oldSsuKb = $null
-            if (Test-Path $old) {
-                $oldSsuMsus = Get-OldMsus $old
-                $oldSsu = $oldSsuMsus | Where-Object { $_.KB -gt 0 } | Sort-Object KB | Select-Object -First 1
-                if ($oldSsu) { $oldSsuKb = $oldSsu.KB }
-            }
-            # Remove old SSU, add new one
-            $newFiles = @($newFiles | Where-Object { $null -eq $oldSsuKb -or $_.KB -ne $oldSsuKb })
+            $newFiles = @($newFiles | Where-Object { $null -eq $ssuOldKb -or $_.KB -ne $ssuOldKb })
             $newFiles += $ssuNewFile
-            $ssuFile = $ssuNewFile  # Update sort URL
-            Write-Host "  [SSU] $oldSsuKb -> $($ssuNewFile.KB) ($($ssuNewFile.FileName))" -ForegroundColor Green
+            $ssuFile = $ssuNewFile
+            Write-Host "  [SSU] $ssuOldKb -> $($ssuNewFile.KB) ($($ssuNewFile.FileName))" -ForegroundColor Green
         }
 
         # 4. Netfx subdir meta4 files
