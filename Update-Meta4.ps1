@@ -174,7 +174,7 @@ function Get-OldKB($Path, $Kind, $ArchPat = "") {
                     try {
                         $r = Search-Catalog "kb$ckb"
                         $t = ($r | Where-Object { $_.Title -match $ArchPat } | Select-Object -First 1).Title
-                        if ($t -match 'Cumulative Update') {
+                        if ($t -match 'Cumulative Update' -and $t -notmatch '\.NET') {
                             return $ckb
                         }
                     } catch { continue }
