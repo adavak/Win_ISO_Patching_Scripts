@@ -719,44 +719,59 @@ foreach ($bn in $Build) {
     }
 }
 # Update README date and build versions
+# Only update if meta4 content actually changed (avoids false date bumps when no new patches)
 if (-not $TestMode) {
-    $culture = [System.Globalization.CultureInfo]::GetCultureInfo('en-US')
-    $today = $culture.DateTimeFormat.GetMonthName((Get-Date).Month) + ' ' + (Get-Date -Format 'dd, yyyy')
-    $todayCn = "$((Get-Date).Year)$([char]0x5E74)$((Get-Date).Month)$([char]0x6708)$((Get-Date).Day)$([char]0x65E5)"
-    # Fallback: fetch build versions not cached during generation (rate limited)
-    $readmeFallback = @(
-        @{BP = "14393"; Topic = $UPDATE_HISTORY["14393"]; Disp = "14393"}
-        @{BP = "17763"; Topic = $UPDATE_HISTORY["17763"]; Disp = "17763"}
-        @{BP = "1904[45]"; Topic = $UPDATE_HISTORY["19041"]; Disp = "1904x"}
-        @{BP = "20348"; Topic = $UPDATE_HISTORY["20348"]; Disp = "20348"}
-        @{BP = "22631"; Topic = $UPDATE_HISTORY["22621"]; Disp = "22631"}
-        @{BP = "26100"; Topic = $UPDATE_HISTORY_SERVER["26100"]; Disp = "26100"}
-        @{BP = "26200"; Topic = $UPDATE_HISTORY["26100"]; Disp = "26200"}
-        @{BP = "28000"; Topic = $UPDATE_HISTORY["28000"]; Disp = "28000"}
-    )
-    foreach ($rb in $readmeFallback) {
-        if (-not $BUILD_VERSIONS.ContainsKey($rb.Disp)) {
-            $fh = Get-HistoryBuild -TopicId $rb.Topic -BuildPat $rb.BP
-            if ($fh) {
-                $rev = $fh.Build.Split(".")[-1]
-                $BUILD_VERSIONS[$rb.Disp] = "Build $($rb.Disp).$rev"
-            }
-        }
+    # Check whether any Scripts/ meta4 file differs from committed state
+    $metaChanged = $false
+    try {
+        $gitDiff = git diff --name-only -- Scripts/
+        if ($LASTEXITCODE -eq 0 -and $gitDiff) { $metaChanged = $true }
+    } catch {
+        # If git fails (e.g. not a repo, running outside CI), default to updating
+        $metaChanged = $true
     }
-
-    foreach ($readme in @("README.md", "README_cn.md")) {
-        $path = Join-Path $ScriptRoot $readme
-        if (Test-Path $path) {
-            $content = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)
-            # Update date with regex (don't hardcode old date)
-            $content = $content -replace '(?<=Last Updated: )\w+ \d+, \d{4}', $today
-            $content = $content -replace '(?<=最后更新：)\d+年\d+月\d+日', $todayCn
-            # Update build versions from cached values
-            foreach ($key in $BUILD_VERSIONS.Keys) {
-                $pat = "Build $key.\d+"
-                $content = $content -replace $pat, $BUILD_VERSIONS[$key]
+    if (-not $metaChanged) {
+        Write-Host "  [README] no meta4 changes detected, skipping date update" -ForegroundColor DarkGray
+    } else {
+        $culture = [System.Globalization.CultureInfo]::GetCultureInfo('en-US')
+        $today = $culture.DateTimeFormat.GetMonthName((Get-Date).Month) + ' ' + (Get-Date -Format 'dd, yyyy')
+        $todayCn = "$((Get-Date).Year)$([char]0x5E74)$((Get-Date).Month)$([char]0x6708)$((Get-Date).Day)$([char]0x65E5)"
+        # Fallback: fetch build versions not cached during generation (rate limited)
+        $readmeFallback = @(
+            @{BP = "14393"; Topic = $UPDATE_HISTORY["14393"]; Disp = "14393"}
+            @{BP = "17763"; Topic = $UPDATE_HISTORY["17763"]; Disp = "17763"}
+            @{BP = "1904[45]"; Topic = $UPDATE_HISTORY["19041"]; Disp = "1904x"}
+            @{BP = "20348"; Topic = $UPDATE_HISTORY["20348"]; Disp = "20348"}
+            @{BP = "22631"; Topic = $UPDATE_HISTORY["22621"]; Disp = "22631"}
+            @{BP = "26100"; Topic = $UPDATE_HISTORY_SERVER["26100"]; Disp = "26100"}
+            @{BP = "26200"; Topic = $UPDATE_HISTORY["26100"]; Disp = "26200"}
+            @{BP = "28000"; Topic = $UPDATE_HISTORY["28000"]; Disp = "28000"}
+        )
+        foreach ($rb in $readmeFallback) {
+            if (-not $BUILD_VERSIONS.ContainsKey($rb.Disp)) {
+                $fh = Get-HistoryBuild -TopicId $rb.Topic -BuildPat $rb.BP
+                if ($fh) {
+                    $rev = $fh.Build.Split(".")[-1]
+                    $BUILD_VERSIONS[$rb.Disp] = "Build $($rb.Disp).$rev"
+                }
             }
-            [System.IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::UTF8)
         }
+
+        foreach ($readme in @("README.md", "README_cn.md")) {
+            $path = Join-Path $ScriptRoot $readme
+            if (Test-Path $path) {
+                $content = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)
+                # Update date with regex (don't hardcode old date)
+                $content = $content -replace '(?<=Last Updated: )\w+ \d+, \d{4}', $today
+                $content = $content -replace '(?<=最后更新：)\d+年\d+月\d+日', $todayCn
+                # Update build versions from cached values
+                foreach ($key in $BUILD_VERSIONS.Keys) {
+                    $pat = "Build $key.\d+"
+                    $content = $content -replace $pat, $BUILD_VERSIONS[$key]
+                }
+                [System.IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::UTF8)
+            }
+        }
+        Write-Host "  [README] date updated to $today" -ForegroundColor Green
     }
 }Write-Host "=== Done: $gen generated, $skip skipped ===" -ForegroundColor Cyan
