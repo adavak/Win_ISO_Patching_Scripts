@@ -619,8 +619,6 @@ foreach ($bn in $Build) {
                     Write-Host " SKIP (no server LCU found)" -ForegroundColor DarkGray
                 }
 
-                $serverFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $serverFiles -BuildNum $bn
-                if ($serverFiles -isnot [array]) { $serverFiles = @($serverFiles) }
                 if ($serverOldMsus.Count -eq 0) {
                     $latestMainMsu = $mainMsus | Where-Object { $_.KB -ne 5043080 } | Sort-Object KB -Descending | Select-Object -First 1
                     if ($latestMainMsu) { $serverOldMsus = @($latestMainMsu) }
@@ -683,6 +681,8 @@ foreach ($bn in $Build) {
                     }
                 } elseif ($oc.Url -notin $serverFiles.Url) { $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB} }
             }
+            $serverFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $serverFiles -BuildNum $bn
+            if ($serverFiles -isnot [array]) { $serverFiles = @($serverFiles) }
             $sa = $serverFiles | Sort-Object Url -Unique
             if (-not $TestMode) {
                 # Find server latest LCU URL for sorting
