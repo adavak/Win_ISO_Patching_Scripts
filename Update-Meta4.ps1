@@ -14,7 +14,7 @@ $CFG = @{
     "19041" = @{OP="windows10.0";L="22H2 / LTSC 2021"; S1="Cumulative Update for Windows 10 Version 22H2";         S3=".NET Framework 4.8.1 Windows 10 22H2";S4=".NET Framework 4.8 Windows 10 22H2"}
     "20348" = @{OP="windows10.0";L="Server 2022";      S1="Cumulative Update for Microsoft server operating system version 21H2";S3="Cumulative Update for .NET Framework 3.5 and 4.8.1 Microsoft server operating system version 21H2";S4=".NET Framework 4.8 Microsoft server operating system version 21H2"}
     "22621" = @{OP="windows11.0";L="Win 11 23H2";      S1="Cumulative Update for Windows 11 Version 23H2";         S3=".NET Framework 4.8.1 Windows 11 23H2"}
-    "26100" = @{OP="windows11.0";L="25H2 / Server 2025";S1="Cumulative Update for Windows 11 Version 25H2";        S3=".NET Framework 3.5 and 4.8.1 for Windows 11, version 25H2"}
+    "26100" = @{OP="windows11.0";L="25H2";LS="Server 2025";S1="Cumulative Update for Windows 11 Version 25H2";        S3=".NET Framework 3.5 and 4.8.1 for Windows 11, version 25H2"}
     "28000" = @{OP="windows11.0";L="26H1";             S1="Cumulative Update for Windows 11 Version 26H1";        S3=".NET Framework 4.8.1 Windows 11 26H1"}
 }
 $ARCH_LABEL = @{x64="for x64-based Systems"; x86="for x86-based Systems"; arm64="for Arm64-based Systems"}
@@ -727,7 +727,7 @@ foreach ($bn in $Build) {
                 $sx = New-Meta4 $sortedSa
                 $sx | Out-File $serverOld -Encoding utf8 -NoNewline
             }
-            Write-Host "  [OK] server variant ($($sa.Count) files)" -ForegroundColor Green
+            Write-Host "  [OK] $($c.LS) ($($sa.Count) files)" -ForegroundColor Green
         }
     }
 }
