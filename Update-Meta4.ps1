@@ -656,7 +656,14 @@ foreach ($bn in $Build) {
                     }
                 }
                 if (-not $sf) { $sf = $cvResult; $stag = $cvTag }
-                # Preserve checkpoint CU and old LCUs
+                # Print LCU result first (clean line before checkpoint/CU messages)
+                if ($sf) {
+                    $serverFiles += $sf
+                    Write-Host " $($sf.FileName) ($stag)" -ForegroundColor $(if($stag-match"^history"){"Green"}elseif($stag-eq"verified"){"Green"}elseif($stag-eq"chain"){"Cyan"}else{"Yellow"})
+                } else {
+                    Write-Host " SKIP (no server LCU found)" -ForegroundColor DarkGray
+                }
+                # Then preserve checkpoint CU and old LCUs
                 $serverFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $serverFiles -BuildNum $bn
                 if ($serverFiles -isnot [array]) { $serverFiles = @($serverFiles) }
                 if ($serverOldMsus.Count -eq 0) {
@@ -670,12 +677,6 @@ foreach ($bn in $Build) {
                     foreach ($cp in $checkpoints) {
                         if ($cp.Url -notin $serverFiles.Url) { $serverFiles += $cp }
                     }
-                }
-                if ($sf) {
-                    $serverFiles += $sf
-                    Write-Host " $($sf.FileName) ($stag)" -ForegroundColor $(if($stag-match"^history"){"Green"}elseif($stag-eq"verified"){"Green"}elseif($stag-eq"chain"){"Cyan"}else{"Yellow"})
-                } else {
-                    Write-Host " SKIP (no server LCU found)" -ForegroundColor DarkGray
                 }
             } catch { Write-Host " ERROR: $_" -ForegroundColor DarkGray }
             # Server independent .NET search
