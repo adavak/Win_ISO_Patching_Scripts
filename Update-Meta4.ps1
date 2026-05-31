@@ -154,9 +154,9 @@ function New-Meta4($F) {
 function Get-Cabs($P) {
     if (-not (Test-Path $P)) { return @() }
     try { $x = [xml](Get-Content $P -Raw)
-        return $x.metalink.file | Where-Object { $_.name -match '\.cab$' } | ForEach-Object {
+        return ,($x.metalink.file | Where-Object { $_.name -match '\.cab$' } | ForEach-Object {
             $ckb = 0; if ($_.name -match 'kb(\d+)') { $ckb = [int]$matches[1] }
-            [PSCustomObject]@{FileName = $_.name; Url = $_.url; Sha1 = $_.hash.'#text'; KB = $ckb} }
+            [PSCustomObject]@{FileName = $_.name; Url = $_.url; Sha1 = $_.hash.'#text'; KB = $ckb} })
     } catch { return @() }
 }
 function Get-KB($F) { if ($F.FileName -match 'kb(\d+)') { $matches[1] } else { "" } }
@@ -327,12 +327,12 @@ function Get-ExistingFiles($Path) {
     if (-not (Test-Path $Path)) { return @() }
     try {
         $x = [xml](Get-Content $Path -Raw)
-        return $x.metalink.file | ForEach-Object {
+        return ,($x.metalink.file | ForEach-Object {
             $kb = 0; if ($_.name -match 'kb(\d+)') { $kb = [int]$matches[1] }
             $sha = if ($_.hash) { $_.hash.'#text' } else { "" }
             $lang = if ($_.language) { $_.language } else { "" }
             [PSCustomObject]@{FileName = $_.name; Url = $_.url; Sha1 = $sha; KB = $kb; Language = $lang}
-        }
+        })
     } catch { return @() }
 }
 
