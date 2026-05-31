@@ -476,6 +476,7 @@ foreach ($bn in $Build) {
         } catch { Write-Host " ERROR: $_" -ForegroundColor Red }
 
         $fnet = $f  # Save .NET result for sorting
+        if ($newFiles -isnot [array]) { $newFiles = @($newFiles) }
 
         # 3. Preserve old MSUs (keep previous LCU/component MSUs)
         # Upstream keeps multiple MSUs across releases (old LCU + new LCU + extras)
