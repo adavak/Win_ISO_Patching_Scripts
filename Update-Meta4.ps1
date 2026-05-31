@@ -289,8 +289,8 @@ function Add-CheckpointCU($OldMeta4, $CurrentFiles, $BuildNum) {
         if ($cp.Url -notin $CurrentFiles.Url) {
             $cpObj = [PSCustomObject]@{FileName=$cp.FileName; Url=$cp.Url; Sha1=$cp.Sha1; KB=$cp.KB}
             $CurrentFiles += $cpObj
-            Write-Host "  [CHECKPOINT] preserved KB$($cp.KB) from old meta4" -ForegroundColor DarkGray
         }
+        Write-Host "  [CHECKPOINT] KB$($cp.KB)" -ForegroundColor DarkGray
     }
     return @($CurrentFiles | Sort-Object Url -Unique)
 }
@@ -618,15 +618,12 @@ foreach ($bn in $Build) {
         $xml | Out-File (Join-Path $OutputDir "script_${bn}_${ar}.meta4") -Encoding utf8 -NoNewline
         Write-Host "  [OK] $($all.Count) files" -ForegroundColor Green; $gen++
 
-        # Server 2025 is x64 only, no arm64 version
         if ($bn -eq "26100" -and $ar -eq "x64") {
             Write-Host "--- [$bn/$ar] $($c.LS) ---" -ForegroundColor Yellow
-            # Server variant: separate from main — only its OWN LCU + .NET + its OWN CABs
-            # 26100 checkpoint CU (e.g. 5043080) is shared; preserved from old server meta4
-            # Server has its own LCU (e.g. 5091157), not inherited from client
+
             $serverOld = Join-Path $OutputDir "script_server_${bn}_${ar}.meta4"
             $serverFiles = @()
-            # Server independent LCU search
+
             Write-Host "  LCU..." -NoNewline
             try {
                 # Always run chain + bootstrap first (like other builds)
@@ -656,14 +653,14 @@ foreach ($bn in $Build) {
                     }
                 }
                 if (-not $sf) { $sf = $cvResult; $stag = $cvTag }
-                # Print LCU result first (clean line before checkpoint/CU messages)
+
                 if ($sf) {
                     $serverFiles += $sf
                     Write-Host " $($sf.FileName) ($stag)" -ForegroundColor $(if($stag-match"^history"){"Green"}elseif($stag-eq"verified"){"Green"}elseif($stag-eq"chain"){"Cyan"}else{"Yellow"})
                 } else {
                     Write-Host " SKIP (no server LCU found)" -ForegroundColor DarkGray
                 }
-                # Then preserve checkpoint CU and old LCUs
+
                 $serverFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $serverFiles -BuildNum $bn
                 if ($serverFiles -isnot [array]) { $serverFiles = @($serverFiles) }
                 if ($serverOldMsus.Count -eq 0) {
@@ -679,7 +676,7 @@ foreach ($bn in $Build) {
                     }
                 }
             } catch { Write-Host " ERROR: $_" -ForegroundColor DarkGray }
-            # Server independent .NET search
+
             Write-Host "  .NET..." -NoNewline
             try {
                 $sNetChain = $null; $sNetBoot = $null
@@ -708,7 +705,7 @@ foreach ($bn in $Build) {
                 }
                 Write-Host " from main (fallback)" -ForegroundColor DarkGray
             }
-            # Server CABs (chain-updated); borrow from main meta4 if no old server meta4 exists
+            # Server CABs
             $sc = Get-Cabs $serverOld
             if ($sc.Count -eq 0 -and (Test-Path $old)) {
                 $sc = Get-Cabs $old
