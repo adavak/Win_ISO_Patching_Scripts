@@ -38,8 +38,13 @@ SETLOCAL DISABLEDELAYEDEXPANSION
 goto :EOF
 
 :START_PROCESS
-set "aria2=bin\aria2c.exe"
-set "a7z=bin\7z.exe"
+if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" if exist "bin\bin64\7z.exe" if exist "bin\bin64\aria2c.exe" (
+    set "aria2=bin\bin64\aria2c.exe"
+    set "a7z=bin\bin64\7z.exe"
+) else (
+    set "aria2=bin\aria2c.exe"
+    set "a7z=bin\7z.exe"
+)
 set "patchDir=patch"
 set "ISODir=ISO"
 set "build="
