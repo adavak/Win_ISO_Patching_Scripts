@@ -204,6 +204,67 @@ function Cross-Validate($ChainFile, $BootFile, $Label) {
     return $BootFile, "bootstrapped"
 }
 
+function Get-StatusColor($Tag) {
+    if ($Tag -match "^history|verified") { return "Green" }
+    if ($Tag -eq "chain") { return "Cyan" }
+    return "Yellow"
+}
+
+function Update-NetfxSubdir($Label, $Subdir, $S4Term) {
+    $nDir = Join-Path $OutputDir $Subdir
+    if (-not (Test-Path $nDir)) { New-Item $nDir -ItemType Directory -Force | Out-Null }
+    $nPath = Join-Path $nDir "script_${Subdir}_${bn}_${ar}.meta4"
+    $nFiles = Get-ExistingFiles $nPath
+    $nNdp = $nFiles | Where-Object { $_.FileName -match 'ndp.*\.msu$' } | Sort-Object KB -Descending | Select-Object -First 1
+    if ($nNdp -and $nNdp.KB -gt 0) {
+        $cl = Follow-Chain -OldKb $nNdp.KB -ArchPat $ap -OsPref $c.OP
+        $newNdp = Pick-File $cl "NET" $c.OP
+        if ($newNdp -and $newNdp.KB -eq $nNdp.KB) { $newNdp = $null }
+        if (-not $newNdp) {
+            $boot = Bootstrap-Search -Term $c.S3 -ArchPat $ap -OsPref $c.OP -Kind "NET"
+            if ($S4Term) { $s3N = if($boot -and $boot.FileName -match 'ndp(\d+)'){$matches[1]}; $oN = if($nNdp.FileName -match 'ndp(\d+)'){$matches[1]}; if (-not $boot -or ($s3N -and $oN -and $s3N -ne $oN)) { $boot = Bootstrap-Search -Term $S4Term -ArchPat $ap -OsPref $c.OP -Kind "NET" } }
+            elseif (-not $boot -and $nNdp.KB -gt 0) { $boot = Bootstrap-Search -Term "kb$($nNdp.KB)" -ArchPat $ap -OsPref $c.OP -Kind "NET" }
+            $bootBoot = Bootstrap-Search -Term ".NET Framework 4.8 $($c.L)" -ArchPat $ap -OsPref $c.OP -Kind "NET"
+            if ($boot -and $boot.KB -eq $nNdp.KB) { $newNdp = $boot; $tag = "verified" }
+            elseif ($boot) { $newNdp = $boot; $tag = "bootstrapped" }
+        }
+        if ($newNdp -and $newNdp.FileName -notmatch "^$($c.OP)") { $newNdp = $null }
+        if ($newNdp) { $oN = if($nNdp.FileName -match 'ndp(\d+)'){$matches[1]}; $nN = if($newNdp.FileName -match 'ndp(\d+)'){$matches[1]}; if($oN -and $nN -and $oN -ne $nN){$newNdp=$null} }
+        if ($newNdp -and $newNdp.KB -ne $nNdp.KB) {
+            $baselines = $nFiles | Where-Object { $_.FileName -notmatch 'ndp.*\.msu$' }
+            $newNdp = $newNdp | Select-Object *, @{N='Language';E={'neutral'}} -ExcludeProperty Language
+            $nAll = @($newNdp) + $baselines
+            if (-not $TestMode) { (New-Meta4 $nAll) | Out-File $nPath -Encoding utf8 -NoNewline }
+            Write-Host "  [$Label] $($nNdp.KB) -> $($newNdp.FileName)" -ForegroundColor Green
+        } else {
+            Write-Host "  [$Label] KB$($nNdp.KB) (unchanged)" -ForegroundColor DarkGray
+        }
+    } else {
+        $boot = Bootstrap-Search -Term $c.S3 -ArchPat $ap -OsPref $c.OP -Kind "NET"
+        if (-not $boot -and $S4Term) { $boot = Bootstrap-Search -Term $S4Term -ArchPat $ap -OsPref $c.OP -Kind "NET" }
+        if ($boot) {
+            $bootArchOk = $false
+            if ($boot.FileName -match 'arm64' -and $ar -match 'arm64') { $bootArchOk = $true }
+            elseif ($boot.FileName -notmatch 'arm64|x64|x86') { $bootArchOk = $true }
+            elseif ($boot.FileName -match 'x64' -and $ar -eq 'x64') { $bootArchOk = $true }
+            elseif ($boot.FileName -match 'x86' -and $ar -eq 'x86') { $bootArchOk = $true }
+            elseif ($boot.FileName -match $ar) { $bootArchOk = $true }
+        }
+        if ($boot -and $boot.FileName -match "^$($c.OP)" -and $bootArchOk) {
+            $boot = $boot | Select-Object *, @{N='Language';E={'neutral'}} -ExcludeProperty Language
+            $nAll = @($boot) + ($nFiles | Where-Object { $_.FileName -notmatch 'ndp.*\.msu$' })
+            if (-not $TestMode) { (New-Meta4 $nAll) | Out-File $nPath -Encoding utf8 -NoNewline }
+            Write-Host "  [$Label] (new) $($boot.FileName)" -ForegroundColor Yellow
+        } else {
+            Write-Host "  [$Label] (not found)" -ForegroundColor DarkGray
+        }
+    }
+}
+    if ($Tag -match "^history|verified") { return "Green" }
+    if ($Tag -eq "chain") { return "Cyan" }
+    return "Yellow"
+}
+
 # --- MS Update History page scraping ---
 # Parse MS Update History page to find the latest Patch Tuesday KB + OS Build for a given build prefix
 $historyPageCache = @{}
@@ -295,6 +356,10 @@ function Add-CheckpointCU($OldMeta4, $CurrentFiles, $BuildNum) {
     return @($CurrentFiles | Sort-Object Url -Unique)
 }
 
+function Get-CabLabel($File, $ArchPat) {
+    switch (Get-CabType $File $ArchPat) { 1 { "CAB_SETUP" } 2 { "CAB_SAFEOS" } default { "CAB" } }
+}
+
 $cabTypeCache = @{}
 function Get-CabType($File, $ArchPat) {
     $kb = $File.KB
@@ -363,7 +428,7 @@ foreach ($bn in $Build) {
             if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "LCU" $c.OP }
             $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
             $f, $tag = Cross-Validate $chain $boot "LCU"
-            if ($f) { $newFiles += $f; Write-Host " $($f.FileName) ($tag)" -ForegroundColor $(if($tag-match"^history"){"Green"}elseif($tag-eq"verified"){"Green"}elseif($tag-eq"chain"){"Cyan"}else{"Yellow"}) }
+            if ($f) { $newFiles += $f; Write-Host " $($f.FileName) ($tag)" -ForegroundColor $(Get-StatusColor $tag) }
             else { Write-Host " SKIP"; $skip++; continue }
         } catch { Write-Host " ERROR: $_"; $skip++; continue }
 
@@ -409,7 +474,7 @@ foreach ($bn in $Build) {
             if ($f -and $bn -in @("14393","17763","19041","20348")) { $f = $null; $tag = "in netfx subdir" }
             # Verify OS prefix (windows10.0 rejects windows11.0) — only for non-subdir builds
             if ($f -and $f.FileName -notmatch "^$($c.OP)") { $f = $null; $tag = "SKIP (OS mismatch)" }
-            if ($f) { $newFiles += $f; Write-Host " $($f.FileName) ($tag)" -ForegroundColor $(if($tag-eq"verified"){"Green"}elseif($tag-eq"chain"){"Cyan"}else{"Yellow"}) }
+            if ($f) { $newFiles += $f; Write-Host " $($f.FileName) ($tag)" -ForegroundColor $(Get-StatusColor $tag) }
             else { Write-Host " $tag" -ForegroundColor DarkGray }
         } catch { Write-Host " ERROR: $_" -ForegroundColor Red }
 
@@ -449,116 +514,13 @@ foreach ($bn in $Build) {
         }
 
         # 4. Netfx subdir meta4 files
-        # NB: These contain static baseline language MSUs + one .NET ndp MSU
-        # Preserve existing baseline MSUs; chain-update the ndp entry
         if ($bn -in @("14393","17763","19041","20348")) {
-            $nf48Dir = Join-Path $OutputDir "netfx4.8"
-            if (-not (Test-Path $nf48Dir)) { New-Item $nf48Dir -ItemType Directory -Force | Out-Null }
-            $nf48Path = Join-Path $nf48Dir "script_netfx4.8_${bn}_${ar}.meta4"
-            $nf48Files = Get-ExistingFiles $nf48Path
-            $nf48Ndp = $nf48Files | Where-Object { $_.FileName -match 'ndp.*\.msu$' } | Sort-Object KB -Descending | Select-Object -First 1
-            if ($nf48Ndp -and $nf48Ndp.KB -gt 0) {
-                $cl = Follow-Chain -OldKb $nf48Ndp.KB -ArchPat $ap -OsPref $c.OP
-                $newNdp = Pick-File $cl "NET" $c.OP
-                # If chain returned the same KB (no supersedence), force bootstrap
-                if ($newNdp -and $newNdp.KB -eq $nf48Ndp.KB) { $newNdp = $null }
-                if (-not $newNdp) {
-                    # Bootstrap fallback using S3 term, with S4 for pure 4.8
-                    $boot = Bootstrap-Search -Term $c.S3 -ArchPat $ap -OsPref $c.OP -Kind "NET"
-                    if ($c.S4) { $s3Ndp = if($boot -and $boot.FileName -match 'ndp(\d+)'){$matches[1]}; $oldNdp = if($nf48Ndp.FileName -match 'ndp(\d+)'){$matches[1]}; if (-not $boot -or ($s3Ndp -and $oldNdp -and $s3Ndp -ne $oldNdp)) { $boot = Bootstrap-Search -Term $c.S4 -ArchPat $ap -OsPref $c.OP -Kind "NET" } }
-
-                    $bootBoot = Bootstrap-Search -Term ".NET Framework 4.8 $($c.L)" -ArchPat $ap -OsPref $c.OP -Kind "NET"
-                    if ($boot -and $boot.KB -eq $nf48Ndp.KB) { $newNdp = $boot; $tag = "verified" }
-                    elseif ($boot) { $newNdp = $boot; $tag = "bootstrapped" }
-                }
-                # Verify OS prefix matches + ndp version is consistent (ndp48 != ndp481)
-                if ($newNdp -and $newNdp.FileName -notmatch "^$($c.OP)") { $newNdp = $null }
-                if ($newNdp) { $oldN = if($nf48Ndp.FileName -match 'ndp(\d+)'){$matches[1]}; $newN = if($newNdp.FileName -match 'ndp(\d+)'){$matches[1]}; if($oldN -and $newN -and $oldN -ne $newN){$newNdp=$null} }
-                #
-                if ($newNdp -and $newNdp.KB -ne $nf48Ndp.KB) {
-                    # Keep all baselines, replace the ndp entry
-                    $baselines = $nf48Files | Where-Object { $_.FileName -notmatch 'ndp.*\.msu$' }
-                    $newNdp = $newNdp | Select-Object *, @{N='Language';E={'neutral'}} -ExcludeProperty Language
-                    $nf48All = @($newNdp) + $baselines
-                    if (-not $TestMode) { (New-Meta4 $nf48All) | Out-File $nf48Path -Encoding utf8 -NoNewline }
-                    Write-Host "  [netfx4.8] $($nf48Ndp.KB) -> $($newNdp.FileName)" -ForegroundColor Green
-                } else {
-                    Write-Host "  [netfx4.8] KB$($nf48Ndp.KB) (unchanged)" -ForegroundColor DarkGray
-                }
-            } else {
-                # No existing ndp entry — try fresh bootstrap
-                $boot = Bootstrap-Search -Term $c.S3 -ArchPat $ap -OsPref $c.OP -Kind "NET"
-                if (-not $boot -and $c.S4) { $boot = Bootstrap-Search -Term $c.S4 -ArchPat $ap -OsPref $c.OP -Kind "NET" }
-                if ($boot) {
-                    # For netfx4.8 new entries, re-check: old OS prefix filter may have already handled this
-                    # but also verify arch matches (don't put x86 .NET in arm64 file)
-                    $bootArchOk = $false
-                    if ($boot.FileName -match 'arm64' -and $ar -match 'arm64') { $bootArchOk = $true }
-                    elseif ($boot.FileName -notmatch 'arm64|x64|x86') { $bootArchOk = $true }
-                    elseif ($boot.FileName -match 'x64' -and $ar -eq 'x64') { $bootArchOk = $true }
-                    elseif ($boot.FileName -match 'x86' -and $ar -eq 'x86') { $bootArchOk = $true }
-                    elseif ($boot.FileName -match $ar) { $bootArchOk = $true }
-                }
-                if ($boot -and $boot.FileName -match "^$($c.OP)" -and $bootArchOk) {
-                    $boot = $boot | Select-Object *, @{N='Language';E={'neutral'}} -ExcludeProperty Language
-                    $nf48All = @($boot) + ($nf48Files | Where-Object { $_.FileName -notmatch 'ndp.*\.msu$' })
-                    if (-not $TestMode) { (New-Meta4 $nf48All) | Out-File $nf48Path -Encoding utf8 -NoNewline }
-                    Write-Host "  [netfx4.8] (new) $($boot.FileName)" -ForegroundColor Yellow
-                } else {
-                    Write-Host "  [netfx4.8] (not found)" -ForegroundColor DarkGray
-                }
-            }
+            Update-NetfxSubdir -Label "netfx4.8" -Subdir "netfx4.8" -S4Term $c.S4
         }
 
         # netfx4.8.1 subdir: only 19041/20348 x64/x86 (arm64 has 4.8 only, no 4.8.1)
         if ($bn -in @("19041","20348") -and $ar -ne "arm64") {
-            $nf481Dir = Join-Path $OutputDir "netfx4.8.1"
-            if (-not (Test-Path $nf481Dir)) { New-Item $nf481Dir -ItemType Directory -Force | Out-Null }
-            $nf481Path = Join-Path $nf481Dir "script_netfx4.8.1_${bn}_${ar}.meta4"
-            $nf481Files = Get-ExistingFiles $nf481Path
-            $nf481Ndp = $nf481Files | Where-Object { $_.FileName -match 'ndp.*\.msu$' } | Sort-Object KB -Descending | Select-Object -First 1
-            if ($nf481Ndp -and $nf481Ndp.KB -gt 0) {
-                $cl = Follow-Chain -OldKb $nf481Ndp.KB -ArchPat $ap -OsPref $c.OP
-                $newNdp = Pick-File $cl "NET" $c.OP
-                if ($newNdp -and $newNdp.KB -eq $nf481Ndp.KB) { $newNdp = $null }
-                if (-not $newNdp) {
-                    $boot = Bootstrap-Search -Term $c.S3 -ArchPat $ap -OsPref $c.OP -Kind "NET"
-                    if (-not $boot) {
-                        $boot = Bootstrap-Search -Term "kb$($nf481Ndp.KB)" -ArchPat $ap -OsPref $c.OP -Kind "NET"
-                    }
-                    if ($boot -and $boot.KB -eq $nf481Ndp.KB) { $newNdp = $boot; $tag = "verified" }
-                    elseif ($boot) { $newNdp = $boot; $tag = "bootstrapped" }
-                }
-                if ($newNdp -and $newNdp.FileName -notmatch "^$($c.OP)") { $newNdp = $null }
-                if ($newNdp) { $oldN = if($nf481Ndp.FileName -match 'ndp(\d+)'){$matches[1]}; $newN = if($newNdp.FileName -match 'ndp(\d+)'){$matches[1]}; if($oldN -and $newN -and $oldN -ne $newN){$newNdp=$null} }
-                if ($newNdp -and $newNdp.KB -ne $nf481Ndp.KB) {
-                    $baselines = $nf481Files | Where-Object { $_.FileName -notmatch 'ndp.*\.msu$' }
-                    $newNdp = $newNdp | Select-Object *, @{N='Language';E={'neutral'}} -ExcludeProperty Language
-                    $nf481All = @($newNdp) + $baselines
-                    if (-not $TestMode) { (New-Meta4 $nf481All) | Out-File $nf481Path -Encoding utf8 -NoNewline }
-                    Write-Host "  [netfx4.8.1] $($nf481Ndp.KB) -> $($newNdp.FileName)" -ForegroundColor Green
-                } else {
-                    Write-Host "  [netfx4.8.1] KB$($nf481Ndp.KB) (unchanged)" -ForegroundColor DarkGray
-                }
-            } else {
-                $boot = Bootstrap-Search -Term $c.S3 -ArchPat $ap -OsPref $c.OP -Kind "NET"
-                if ($boot) {
-                    $bootArchOk = $false
-                    if ($boot.FileName -match 'arm64' -and $ar -match 'arm64') { $bootArchOk = $true }
-                    elseif ($boot.FileName -notmatch 'arm64|x64|x86') { $bootArchOk = $true }
-                    elseif ($boot.FileName -match 'x64' -and $ar -eq 'x64') { $bootArchOk = $true }
-                    elseif ($boot.FileName -match 'x86' -and $ar -eq 'x86') { $bootArchOk = $true }
-                    elseif ($boot.FileName -match $ar) { $bootArchOk = $true }
-                }
-                if ($boot -and $boot.FileName -match "^$($c.OP)" -and $bootArchOk) {
-                    $boot = $boot | Select-Object *, @{N='Language';E={'neutral'}} -ExcludeProperty Language
-                    $nf481All = @($boot) + ($nf481Files | Where-Object { $_.FileName -notmatch 'ndp.*\.msu$' })
-                    if (-not $TestMode) { (New-Meta4 $nf481All) | Out-File $nf481Path -Encoding utf8 -NoNewline }
-                    Write-Host "  [netfx4.8.1] (new) $($boot.FileName)" -ForegroundColor Yellow
-                } else {
-                    Write-Host "  [netfx4.8.1] (not found)" -ForegroundColor DarkGray
-                }
-            }
+            Update-NetfxSubdir -Label "netfx4.8.1" -Subdir "netfx4.8.1" -S4Term $null
         }
 
         # 5. CABs via chain
@@ -569,10 +531,10 @@ foreach ($bn in $Build) {
                 $links = Follow-Chain -OldKb $oldKb -ArchPat $ap -OsPref $c.OP
                 $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
                 if ($cab -and $cab.FileName -ne $oc.FileName -and ($cab.Url -notin $newFiles.Url)) {
-                    $cabType = switch (Get-CabType $cab $ap) { 1 { "CAB_SETUP" } 2 { "CAB_SAFEOS" } default { "CAB" } }
+                    $cabType = Get-CabLabel $cab $ap
                     $newFiles += $cab; Write-Host "  [$cabType] $oldKb -> $($cab.FileName)" -ForegroundColor Green
                 } elseif ($oc.Url -notin ($newFiles | ForEach-Object { $_.Url })) {
-                    $cabType = switch (Get-CabType $oc $ap) { 1 { "CAB_SETUP" } 2 { "CAB_SAFEOS" } default { "CAB" } }
+                    $cabType = Get-CabLabel $oc $ap
                     $oc2 = [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB}
                     $newFiles += $oc2; Write-Host "  [$cabType] $oldKb (unchanged)" -ForegroundColor DarkGray
                 }
@@ -656,7 +618,7 @@ foreach ($bn in $Build) {
 
                 if ($sf) {
                     $serverFiles += $sf
-                    Write-Host " $($sf.FileName) ($stag)" -ForegroundColor $(if($stag-match"^history"){"Green"}elseif($stag-eq"verified"){"Green"}elseif($stag-eq"chain"){"Cyan"}else{"Yellow"})
+                    Write-Host " $($sf.FileName) ($stag)" -ForegroundColor $(Get-StatusColor $stag)
                 } else {
                     Write-Host " SKIP (no server LCU found)" -ForegroundColor DarkGray
                 }
@@ -691,7 +653,7 @@ foreach ($bn in $Build) {
                 if ($sNetF -and $sNetF.FileName -notmatch "^$($c.OP)") { $sNetF = $null; $sNetTag = "SKIP (OS mismatch)" }
                 if ($sNetF) {
                     $serverFiles += $sNetF
-                    Write-Host " $($sNetF.FileName) ($sNetTag)" -ForegroundColor $(if($sNetTag-eq"verified"){"Green"}elseif($sNetTag-eq"chain"){"Cyan"}else{"Yellow"})
+                    Write-Host " $($sNetF.FileName) ($sNetTag)" -ForegroundColor $(Get-StatusColor $sNetTag)
                 } else {
                     # Fall back to main meta4 .NET if no server-specific .NET found
                     foreach ($nf in $newFiles) {
@@ -717,10 +679,10 @@ foreach ($bn in $Build) {
                     $links = Follow-Chain -OldKb $oldKb -ArchPat $ap -OsPref $c.OP
                     $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
                     if ($cab -and $cab.FileName -ne $oc.FileName -and $cab.Url -notin $serverFiles.Url) {
-                        $cabType = switch (Get-CabType $cab $ap) { 1 { "CAB_SETUP" } 2 { "CAB_SAFEOS" } default { "CAB" } }
+                        $cabType = Get-CabLabel $cab $ap
                         $serverFiles += $cab; Write-Host "  [$cabType] $oldKb -> $($cab.FileName)" -ForegroundColor Green
                     } elseif ($oc.Url -notin $serverFiles.Url) {
-                        $cabType = switch (Get-CabType $oc $ap) { 1 { "CAB_SETUP" } 2 { "CAB_SAFEOS" } default { "CAB" } }
+                        $cabType = Get-CabLabel $oc $ap
                         $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB}; Write-Host "  [$cabType] $oldKb (unchanged)" -ForegroundColor DarkGray
                     }
                 } elseif ($oc.Url -notin $serverFiles.Url) { $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB} }
