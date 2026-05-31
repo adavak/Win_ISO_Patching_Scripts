@@ -315,7 +315,7 @@ function Get-OldMsus($Path) {
     if (-not (Test-Path $Path)) { return @() }
     try {
         $x = [xml](Get-Content $Path -Raw)
-        return @($x.metalink.file | Where-Object { $_.name -match '\.msu$' -and $_.name -notmatch 'ndp' } | ForEach-Object {
+        return ,($x.metalink.file | Where-Object { $_.name -match '\.msu$' -and $_.name -notmatch 'ndp' } | ForEach-Object {
             $kb = 0; if ($_.name -match 'kb(\d+)') { $kb = [int]$matches[1] }
             [PSCustomObject]@{FileName = $_.name; Url = $_.url; Sha1 = $_.hash.'#text'; KB = $kb}
         })
@@ -349,7 +349,7 @@ function Add-CheckpointCU($OldMeta4, $CurrentFiles, $BuildNum) {
         }
         Write-Host "  [CHECKPOINT] KB$($cp.KB)" -ForegroundColor DarkGray
     }
-    return @($CurrentFiles | Sort-Object Url -Unique)
+    return ,($CurrentFiles | Sort-Object Url -Unique)
 }
 
 function Get-CabLabel($File, $ArchPat) {
@@ -395,7 +395,6 @@ foreach ($bn in $Build) {
         $newFiles = @()
         Write-Host "--- [$bn/$ar] $($c.L) ---" -ForegroundColor Yellow
         $newFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $newFiles -BuildNum $bn
-        if ($newFiles -isnot [array]) { $newFiles = @($newFiles) }
 
         # 1. LCU
         Write-Host "  LCU..." -NoNewline
@@ -460,7 +459,6 @@ foreach ($bn in $Build) {
 
         Start-Sleep -Milliseconds 600
 
-        if ($newFiles -isnot [array]) { $newFiles = @($newFiles) }
         # 2. .NET
         Write-Host "  .NET..." -NoNewline
         try {
@@ -478,7 +476,6 @@ foreach ($bn in $Build) {
         } catch { Write-Host " ERROR: $_" -ForegroundColor Red }
 
         $fnet = $f  # Save .NET result for sorting
-        if ($newFiles -isnot [array]) { $newFiles = @($newFiles) }
 
         # 3. Preserve old MSUs (keep previous LCU/component MSUs)
         # Upstream keeps multiple MSUs across releases (old LCU + new LCU + extras)
