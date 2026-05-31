@@ -626,28 +626,8 @@ foreach ($bn in $Build) {
             # Server has its own LCU (e.g. 5091157), not inherited from client
             $serverOld = Join-Path $OutputDir "script_server_${bn}_${ar}.meta4"
             $serverFiles = @()
-            # Server independent .NET search
-            Write-Host "  [SERVER .NET]..." -NoNewline
-            try {
-                $sNetBoot = Bootstrap-Search -Term ".NET Framework 3.5 and 4.8.1 Microsoft server operating system version 24H2" -ArchPat $ap -OsPref $c.OP -Kind "NET"
-                if (-not $sNetBoot) {
-                    # Fall back to main meta4 .NET if no server-specific .NET found
-                    foreach ($nf in $newFiles) {
-                        if ($nf.FileName -match 'ndp.*\.msu$') { $serverFiles += $nf }
-                    }
-                    Write-Host " from main" -ForegroundColor DarkGray
-                } else {
-                    $serverFiles += $sNetBoot
-                    Write-Host " $($sNetBoot.FileName)" -ForegroundColor Yellow
-                }
-            } catch {
-                foreach ($nf in $newFiles) {
-                    if ($nf.FileName -match 'ndp.*\.msu$') { $serverFiles += $nf }
-                }
-                Write-Host " from main (fallback)" -ForegroundColor DarkGray
-            }
             # Server independent LCU search
-            Write-Host "  [SERVER LCU]..." -NoNewline
+            Write-Host "  LCU..." -NoNewline
             try {
                 # Primary: MS Update History page for Server 2025
                 $sf = $null; $stag = ""
@@ -697,6 +677,26 @@ foreach ($bn in $Build) {
                     Write-Host " SKIP (no server LCU found)" -ForegroundColor DarkGray
                 }
             } catch { Write-Host " ERROR: $_" -ForegroundColor DarkGray }
+            # Server independent .NET search
+            Write-Host "  .NET..." -NoNewline
+            try {
+                $sNetBoot = Bootstrap-Search -Term ".NET Framework 3.5 and 4.8.1 Microsoft server operating system version 24H2" -ArchPat $ap -OsPref $c.OP -Kind "NET"
+                if (-not $sNetBoot) {
+                    # Fall back to main meta4 .NET if no server-specific .NET found
+                    foreach ($nf in $newFiles) {
+                        if ($nf.FileName -match 'ndp.*\.msu$') { $serverFiles += $nf }
+                    }
+                    Write-Host " from main" -ForegroundColor DarkGray
+                } else {
+                    $serverFiles += $sNetBoot
+                    Write-Host " $($sNetBoot.FileName)" -ForegroundColor Yellow
+                }
+            } catch {
+                foreach ($nf in $newFiles) {
+                    if ($nf.FileName -match 'ndp.*\.msu$') { $serverFiles += $nf }
+                }
+                Write-Host " from main (fallback)" -ForegroundColor DarkGray
+            }
             # Server CABs (chain-updated); borrow from main meta4 if no old server meta4 exists
             $sc = Get-Cabs $serverOld
             if ($sc.Count -eq 0 -and (Test-Path $old)) {
@@ -708,8 +708,13 @@ foreach ($bn in $Build) {
                 if ($oldKb) {
                     $links = Follow-Chain -OldKb $oldKb -ArchPat $ap -OsPref $c.OP
                     $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
-                    if ($cab -and $cab.Url -notin $serverFiles.Url) { $serverFiles += $cab }
-                    elseif ($oc.Url -notin $serverFiles.Url) { $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB} }
+                    if ($cab -and $cab.Url -notin $serverFiles.Url) {
+                        $cabType = switch (Get-CabType $cab $ap) { 1 { "CAB_SETUP" } 2 { "CAB_SAFEOS" } default { "CAB" } }
+                        $serverFiles += $cab; Write-Host "  [$cabType] $oldKb -> $($cab.FileName)" -ForegroundColor Green
+                    } elseif ($oc.Url -notin $serverFiles.Url) {
+                        $cabType = switch (Get-CabType $oc $ap) { 1 { "CAB_SETUP" } 2 { "CAB_SAFEOS" } default { "CAB" } }
+                        $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB}; Write-Host "  [$cabType] $oldKb (unchanged)" -ForegroundColor DarkGray
+                    }
                 } elseif ($oc.Url -notin $serverFiles.Url) { $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB} }
             }
             $sa = $serverFiles | Sort-Object Url -Unique
