@@ -4,6 +4,10 @@
 		<hash type="sha-1">08acde9e8efac81ef9e6b82f47d1fc4984bb1722</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/109da3b9-39c0-463e-9bd1-9b8f6e871377/public/windows11.0-kb5089570-x64_08acde9e8efac81ef9e6b82f47d1fc4984bb1722.msu</url>
 	</file>
+	<file name="windows11.0-kb5092431-x64-ndp481_cbe5c8a8529f52b781b8305acf91492ff953eda0.msu">
+		<hash type="sha-1">cbe5c8a8529f52b781b8305acf91492ff953eda0</hash>
+		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/6c8e182d-f5a8-4067-a6e5-2429eeaa5e6d/public/windows11.0-kb5092431-x64-ndp481_cbe5c8a8529f52b781b8305acf91492ff953eda0.msu</url>
+	</file>
 	<file name="windows11.0-kb5096160-x64_e3fc4179512981f47f5c21a846931b04cd55442b.cab">
 		<hash type="sha-1">e3fc4179512981f47f5c21a846931b04cd55442b</hash>
 		<url>https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/595843df-ce11-4a5f-920b-6c260c61e84f/public/windows11.0-kb5096160-x64_e3fc4179512981f47f5c21a846931b04cd55442b.cab</url>
