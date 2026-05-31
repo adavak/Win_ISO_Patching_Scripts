@@ -260,10 +260,6 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term) {
         }
     }
 }
-    if ($Tag -match "^history|verified") { return "Green" }
-    if ($Tag -eq "chain") { return "Cyan" }
-    return "Yellow"
-}
 
 # --- MS Update History page scraping ---
 # Parse MS Update History page to find the latest Patch Tuesday KB + OS Build for a given build prefix
