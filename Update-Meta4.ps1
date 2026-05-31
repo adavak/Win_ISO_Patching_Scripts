@@ -394,6 +394,7 @@ foreach ($bn in $Build) {
         $old = Join-Path $OutputDir "script_${bn}_${ar}.meta4"
         $newFiles = @()
         Write-Host "--- [$bn/$ar] $($c.L) ---" -ForegroundColor Yellow
+        $newFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $newFiles -BuildNum $bn
 
         # 1. LCU
         Write-Host "  LCU..." -NoNewline
@@ -551,9 +552,6 @@ foreach ($bn in $Build) {
             $reorderedCabs = $cabs | Sort-Object KB
             $all = $nonCabs + $reorderedCabs
         }
-        # Preserve 26100 checkpoint CU (shared between client and server)
-        $all = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $all -BuildNum $bn
-
         if ($TestMode) { Write-Host "  [TEST] $($all.Count) entries"; $gen++; continue }
 
         # Get key URL markers for sorting
@@ -581,6 +579,9 @@ foreach ($bn in $Build) {
 
             $serverOld = Join-Path $OutputDir "script_server_${bn}_${ar}.meta4"
             $serverFiles = @()
+
+            $serverFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $serverFiles -BuildNum $bn
+            if ($serverFiles -isnot [array]) { $serverFiles = @($serverFiles) }
 
             Write-Host "  LCU..." -NoNewline
             try {
@@ -681,8 +682,6 @@ foreach ($bn in $Build) {
                     }
                 } elseif ($oc.Url -notin $serverFiles.Url) { $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB} }
             }
-            $serverFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $serverFiles -BuildNum $bn
-            if ($serverFiles -isnot [array]) { $serverFiles = @($serverFiles) }
             $sa = $serverFiles | Sort-Object Url -Unique
             if (-not $TestMode) {
                 # Find server latest LCU URL for sorting
