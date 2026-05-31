@@ -292,7 +292,7 @@ function Add-CheckpointCU($OldMeta4, $CurrentFiles, $BuildNum) {
             Write-Host "  [CHECKPOINT] preserved KB$($cp.KB) from old meta4" -ForegroundColor DarkGray
         }
     }
-    return $CurrentFiles | Sort-Object Url -Unique
+    return @($CurrentFiles | Sort-Object Url -Unique)
 }
 
 $cabTypeCache = @{}
