@@ -629,28 +629,40 @@ foreach ($bn in $Build) {
             # Server independent LCU search
             Write-Host "  LCU..." -NoNewline
             try {
-                # Primary: MS Update History page for Server 2025
+                # Always run chain + bootstrap first (like other builds)
+                $sChain = $null; $sBoot = $null
+                if ($serverOldMsus.Count -gt 0) {
+                    $sChainResult = Follow-Chain -OldKb $sOkb -ArchPat $ap -OsPref $c.OP
+                    $sChain = Pick-File $sChainResult "LCU" $c.OP
+                }
+                $sBootTerm = "Cumulative Update for Microsoft server operating system version 24H2"
+                $sBoot = Bootstrap-Search -Term $sBootTerm -ArchPat $ap -OsPref $c.OP -Kind "LCU"
+                if (-not $sBoot) { $sBoot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU" }
+                $cvResult, $cvTag = Cross-Validate $sChain $sBoot "LCU_SERVER"
+                # Also try MS Update History page (authoritative for server)
                 $sf = $null; $stag = ""
                 $sHistTopic = $UPDATE_HISTORY_SERVER[$bn]
                 if ($sHistTopic) {
                     $shb = Get-HistoryBuild -TopicId $sHistTopic -BuildPat $bn
                     if ($shb) {
                         $shf = Get-FileForKB -Kb $shb.KB -ArchPat $ap -OsPref $c.OP
-                        if ($shf) { $sf = $shf; $stag = "history (build $($shb.Build))" }
-                        # Cache server 26100 build for README update
+                        if ($shf) {
+                            $sf = $shf
+                            if ($cvResult -and $cvResult.KB -eq $shf.KB) { $stag = "verified" }
+                            else { $stag = "history (build $($shb.Build))" }
+                        }
                         $srvRev = $shb.Build.Split('.')[-1]
                         $BUILD_VERSIONS["26100"] = "Build 26100.$srvRev"
                     }
                 }
-            # Always preserve checkpoint CU and old LCUs (if any)
-            $serverOldMsus = Get-OldMsus $serverOld
-            $serverFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $serverFiles -BuildNum $bn
-            if ($serverFiles -isnot [array]) { $serverFiles = @($serverFiles) }
-            $mainMsus = Get-OldMsus $old
-                    if ($serverOldMsus.Count -eq 0) {
-                        $latestMainMsu = $mainMsus | Where-Object { $_.KB -ne 5043080 } | Sort-Object KB -Descending | Select-Object -First 1
-                        if ($latestMainMsu) { $serverOldMsus = @($latestMainMsu) }
-                    }
+                if (-not $sf) { $sf = $cvResult; $stag = $cvTag }
+                # Preserve checkpoint CU and old LCUs
+                $serverFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $serverFiles -BuildNum $bn
+                if ($serverFiles -isnot [array]) { $serverFiles = @($serverFiles) }
+                if ($serverOldMsus.Count -eq 0) {
+                    $latestMainMsu = $mainMsus | Where-Object { $_.KB -ne 5043080 } | Sort-Object KB -Descending | Select-Object -First 1
+                    if ($latestMainMsu) { $serverOldMsus = @($latestMainMsu) }
+                }
                 if ($serverOldMsus.Count -gt 0) {
                     $sorted = $serverOldMsus | Sort-Object KB -Descending
                     $sOkb = $sorted[0].KB
@@ -658,18 +670,6 @@ foreach ($bn in $Build) {
                     foreach ($cp in $checkpoints) {
                         if ($cp.Url -notin $serverFiles.Url) { $serverFiles += $cp }
                     }
-                }
-                # Fallback: chain + bootstrap
-                if (-not $sf) {
-                    $sChain = $null; $sBoot = $null
-                    if ($serverOldMsus.Count -gt 0) {
-                        $sChainResult = Follow-Chain -OldKb $sOkb -ArchPat $ap -OsPref $c.OP
-                        $sChain = Pick-File $sChainResult "LCU" $c.OP
-                    }
-                    $sBootTerm = "Cumulative Update for Microsoft server operating system version 24H2"
-                    $sBoot = Bootstrap-Search -Term $sBootTerm -ArchPat $ap -OsPref $c.OP -Kind "LCU"
-                    if (-not $sBoot) { $sBoot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU" }
-                    $sf, $stag = Cross-Validate $sChain $sBoot "LCU_SERVER"
                 }
                 if ($sf) {
                     $serverFiles += $sf
@@ -681,16 +681,25 @@ foreach ($bn in $Build) {
             # Server independent .NET search
             Write-Host "  .NET..." -NoNewline
             try {
+                $sNetChain = $null; $sNetBoot = $null
+                $sNetOkb = Get-OldKB $serverOld "NET"
+                if ($sNetOkb) {
+                    $sNetCl = Follow-Chain -OldKb $sNetOkb -ArchPat $ap -OsPref $c.OP
+                    $sNetChain = Pick-File $sNetCl "NET" $c.OP
+                }
                 $sNetBoot = Bootstrap-Search -Term ".NET Framework 3.5 and 4.8.1 Microsoft server operating system version 24H2" -ArchPat $ap -OsPref $c.OP -Kind "NET"
-                if (-not $sNetBoot) {
+                if (-not $sNetBoot) { $sNetBoot = Bootstrap-Search -Term $c.S3 -ArchPat $ap -OsPref $c.OP -Kind "NET" }
+                $sNetF, $sNetTag = Cross-Validate $sNetChain $sNetBoot "NET"
+                if ($sNetF -and $sNetF.FileName -notmatch "^$($c.OP)") { $sNetF = $null; $sNetTag = "SKIP (OS mismatch)" }
+                if ($sNetF) {
+                    $serverFiles += $sNetF
+                    Write-Host " $($sNetF.FileName) ($sNetTag)" -ForegroundColor $(if($sNetTag-eq"verified"){"Green"}elseif($sNetTag-eq"chain"){"Cyan"}else{"Yellow"})
+                } else {
                     # Fall back to main meta4 .NET if no server-specific .NET found
                     foreach ($nf in $newFiles) {
                         if ($nf.FileName -match 'ndp.*\.msu$') { $serverFiles += $nf }
                     }
                     Write-Host " from main" -ForegroundColor DarkGray
-                } else {
-                    $serverFiles += $sNetBoot
-                    Write-Host " $($sNetBoot.FileName)" -ForegroundColor Yellow
                 }
             } catch {
                 foreach ($nf in $newFiles) {
