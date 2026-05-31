@@ -719,7 +719,7 @@ foreach ($bn in $Build) {
                 if ($oldKb) {
                     $links = Follow-Chain -OldKb $oldKb -ArchPat $ap -OsPref $c.OP
                     $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
-                    if ($cab -and $cab.Url -notin $serverFiles.Url) {
+                    if ($cab -and $cab.FileName -ne $oc.FileName -and $cab.Url -notin $serverFiles.Url) {
                         $cabType = switch (Get-CabType $cab $ap) { 1 { "CAB_SETUP" } 2 { "CAB_SAFEOS" } default { "CAB" } }
                         $serverFiles += $cab; Write-Host "  [$cabType] $oldKb -> $($cab.FileName)" -ForegroundColor Green
                     } elseif ($oc.Url -notin $serverFiles.Url) {
