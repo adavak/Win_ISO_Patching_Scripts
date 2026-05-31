@@ -572,7 +572,7 @@ foreach ($bn in $Build) {
         }}
         $xml = New-Meta4 $sortedAll
         $xml | Out-File (Join-Path $OutputDir "script_${bn}_${ar}.meta4") -Encoding utf8 -NoNewline
-        Write-Host "  [OK] $($all.Count) files" -ForegroundColor Green; $gen++
+        Write-Host "  [OK] $($c.L) ($($all.Count) files)" -ForegroundColor Green; $gen++
 
         if ($bn -eq "26100" -and $ar -eq "x64") {
             Write-Host "--- [$bn/$ar] $($c.LS) ---" -ForegroundColor Yellow
