@@ -258,10 +258,10 @@ function Get-OldMsus($Path) {
     if (-not (Test-Path $Path)) { return @() }
     try {
         $x = [xml](Get-Content $Path -Raw)
-        return $x.metalink.file | Where-Object { $_.name -match '\.msu$' -and $_.name -notmatch 'ndp' } | ForEach-Object {
+        return @($x.metalink.file | Where-Object { $_.name -match '\.msu$' -and $_.name -notmatch 'ndp' } | ForEach-Object {
             $kb = 0; if ($_.name -match 'kb(\d+)') { $kb = [int]$matches[1] }
             [PSCustomObject]@{FileName = $_.name; Url = $_.url; Sha1 = $_.hash.'#text'; KB = $kb}
-        }
+        })
     } catch { return @() }
 }
 
