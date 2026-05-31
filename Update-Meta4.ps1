@@ -395,6 +395,7 @@ foreach ($bn in $Build) {
         $newFiles = @()
         Write-Host "--- [$bn/$ar] $($c.L) ---" -ForegroundColor Yellow
         $newFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $newFiles -BuildNum $bn
+        if ($newFiles -isnot [array]) { $newFiles = @($newFiles) }
 
         # 1. LCU
         Write-Host "  LCU..." -NoNewline
@@ -459,6 +460,7 @@ foreach ($bn in $Build) {
 
         Start-Sleep -Milliseconds 600
 
+        if ($newFiles -isnot [array]) { $newFiles = @($newFiles) }
         # 2. .NET
         Write-Host "  .NET..." -NoNewline
         try {
@@ -476,6 +478,7 @@ foreach ($bn in $Build) {
         } catch { Write-Host " ERROR: $_" -ForegroundColor Red }
 
         $fnet = $f  # Save .NET result for sorting
+        if ($newFiles -isnot [array]) { $newFiles = @($newFiles) }
 
         # 3. Preserve old MSUs (keep previous LCU/component MSUs)
         # Upstream keeps multiple MSUs across releases (old LCU + new LCU + extras)
