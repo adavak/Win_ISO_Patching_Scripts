@@ -645,6 +645,7 @@ foreach ($bn in $Build) {
             # Always preserve checkpoint CU and old LCUs (if any)
             $serverOldMsus = Get-OldMsus $serverOld
             $serverFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $serverFiles -BuildNum $bn
+            if ($serverFiles -isnot [array]) { $serverFiles = @($serverFiles) }
             $mainMsus = Get-OldMsus $old
                     if ($serverOldMsus.Count -eq 0) {
                         $latestMainMsu = $mainMsus | Where-Object { $_.KB -ne 5043080 } | Sort-Object KB -Descending | Select-Object -First 1
