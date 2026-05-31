@@ -279,6 +279,22 @@ function Get-ExistingFiles($Path) {
     } catch { return @() }
 }
 
+# 26100 checkpoint CU (e.g. KB5043080): preserve from old meta4 if catalog no longer returns it
+# Shared across all variants (client x64/arm64, server x64); avoids code duplication
+function Add-CheckpointCU($OldMeta4, $CurrentFiles, $BuildNum) {
+    if ($BuildNum -ne "26100") { return $CurrentFiles }
+    $oldMsus = Get-OldMsus $OldMeta4
+    $checkpointCUs = $oldMsus | Where-Object { $_.KB -eq 5043080 }
+    foreach ($cp in $checkpointCUs) {
+        if ($cp.Url -notin $CurrentFiles.Url) {
+            $cpObj = [PSCustomObject]@{FileName=$cp.FileName; Url=$cp.Url; Sha1=$cp.Sha1; KB=$cp.KB}
+            $CurrentFiles += $cpObj
+            Write-Host "  [CHECKPOINT] preserved KB$($cp.KB) from old meta4" -ForegroundColor DarkGray
+        }
+    }
+    return $CurrentFiles | Sort-Object Url -Unique
+}
+
 $cabTypeCache = @{}
 function Get-CabType($File, $ArchPat) {
     $kb = $File.KB
@@ -577,6 +593,9 @@ foreach ($bn in $Build) {
             $reorderedCabs = $cabs | Sort-Object KB
             $all = $nonCabs + $reorderedCabs
         }
+        # Preserve 26100 checkpoint CU (shared between client and server)
+        $all = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $all -BuildNum $bn
+
         if ($TestMode) { Write-Host "  [TEST] $($all.Count) entries"; $gen++; continue }
 
         # Get key URL markers for sorting
@@ -644,14 +663,8 @@ foreach ($bn in $Build) {
                 }
             # Always preserve checkpoint CU and old LCUs (if any)
             $serverOldMsus = Get-OldMsus $serverOld
+            $serverFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $serverFiles -BuildNum $bn
             $mainMsus = Get-OldMsus $old
-            $checkpointCU = $mainMsus | Where-Object { $_.KB -eq 5043080 }
-                    if ($checkpointCU) {
-                        foreach ($cp in $checkpointCU) {
-                            if ($cp.Url -notin $serverFiles.Url) { $serverFiles += $cp }
-                        }
-                        Write-Host "  [SERVER CHECKPOINT] borrowed from main" -ForegroundColor DarkGray
-                    }
                     if ($serverOldMsus.Count -eq 0) {
                         $latestMainMsu = $mainMsus | Where-Object { $_.KB -ne 5043080 } | Sort-Object KB -Descending | Select-Object -First 1
                         if ($latestMainMsu) { $serverOldMsus = @($latestMainMsu) }
