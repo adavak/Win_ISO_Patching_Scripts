@@ -586,7 +586,7 @@ foreach ($bn in $Build) {
             $serverFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $serverFiles -BuildNum $bn
             if ($serverFiles -isnot [array]) { $serverFiles = @($serverFiles) }
 
-            Write-Host "  SSU: bundled" -ForegroundColor DarkGray
+
             Write-Host "  LCU..." -NoNewline
             try {
                 # Always run chain + bootstrap first (like other builds)
@@ -638,6 +638,7 @@ foreach ($bn in $Build) {
                 }
             } catch { Write-Host " ERROR: $_" -ForegroundColor DarkGray }
 
+            Write-Host "  SSU: bundled" -ForegroundColor DarkGray
             Write-Host "  .NET..." -NoNewline
             try {
                 $sNetChain = $null; $sNetBoot = $null
