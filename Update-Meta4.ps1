@@ -620,6 +620,7 @@ foreach ($bn in $Build) {
 
         # Server 2025 is x64 only, no arm64 version
         if ($bn -eq "26100" -and $ar -eq "x64") {
+            Write-Host "--- [$bn/$ar] $($c.LS) ---" -ForegroundColor Yellow
             # Server variant: separate from main — only its OWN LCU + .NET + its OWN CABs
             # 26100 checkpoint CU (e.g. 5043080) is shared; preserved from old server meta4
             # Server has its own LCU (e.g. 5091157), not inherited from client
