@@ -18,14 +18,14 @@ if not "%cd%"=="%cd: =%" (
 if "[%1]" == "[49127c4b-02dc-482e-ac4f-ec4d659b7547]" goto :START_PROCESS
 REG QUERY HKU\S-1-5-19\Environment >NUL 2>&1 && goto :START_PROCESS
 
-set command="""%~f0""" 49127c4b-02dc-482e-ac4f-ec4d659b7547
-SETLOCAL ENABLEDELAYEDEXPANSION
+set "command="""%~f0""" 49127c4b-02dc-482e-ac4f-ec4d659b7547"
+setlocal EnableDelayedExpansion
 set "command=!command:'=''!"
 
 powershell -NoProfile Start-Process -FilePath '%COMSPEC%' ^
 -ArgumentList '/c """!command!"""' -Verb RunAs 2>NUL
 
-IF %ERRORLEVEL% GTR 0 (
+if %ERRORLEVEL% GTR 0 (
     echo =====================================================
     echo 此脚本需要使用管理员权限执行。
     echo This script needs to be executed as an administrator.
@@ -33,12 +33,18 @@ IF %ERRORLEVEL% GTR 0 (
     echo.
     pause
 )
-
-SETLOCAL DISABLEDELAYEDEXPANSION
+endlocal
 goto :EOF
 
 :START_PROCESS
-if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" if exist "bin\bin64\7z.exe" if exist "bin\bin64\aria2c.exe" (
+rem --- detect host architecture (works across WOW64) ---
+set "xOS=amd64"
+if /i "%PROCESSOR_ARCHITECTURE%"=="arm64" set "xOS=arm64"
+if /i "%PROCESSOR_ARCHITECTURE%"=="x86" if "%PROCESSOR_ARCHITEW6432%"=="" set "xOS=x86"
+if /i "%PROCESSOR_ARCHITEW6432%"=="amd64" set "xOS=amd64"
+if /i "%PROCESSOR_ARCHITEW6432%"=="arm64" set "xOS=arm64"
+
+if /i "%xOS%"=="amd64" if exist "bin\bin64\7z.exe" if exist "bin\bin64\aria2c.exe" (
     set "aria2=bin\bin64\aria2c.exe"
     set "a7z=bin\bin64\7z.exe"
 ) else (
@@ -131,8 +137,8 @@ if %build%==19042 (set "build=19041"
 ) else if %build%==22631 (set "build=22621"
 ) else if %build%==26200 (set "build=26100")
 
-if not exist %aria2% goto :NO_ARIA2_ERROR
-if not exist %a7z% goto :NO_FILE_ERROR
+if not exist "%aria2%" goto :NO_ARIA2_ERROR
+if not exist "%a7z%" goto :NO_FILE_ERROR
 
 set "metaFile=Scripts\script_%build%_%arch%.meta4"
 
