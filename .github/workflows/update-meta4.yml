@@ -97,3 +97,12 @@ jobs:
         shell: powershell
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Trigger win_iso_build
+        if: steps.git-check.outputs.changed == 'true' && steps.tag-name.outputs.tag != ''
+        env:
+          GH_TOKEN: ${{ secrets.BUILD_TRIGGER_PAT }}
+        run: |
+          gh workflow run auto_patch.yml -R adavak/win_iso_build --ref main
+          echo "Dispatched win_iso_build for ${{ steps.tag-name.outputs.tag }}"
+        shell: pwsh
