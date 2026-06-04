@@ -33,9 +33,24 @@ $UPDATE_HISTORY_SERVER = @{
     "26100" = "windows-server-2025-update-history-10f58da7-e57b-4a9d-9c16-9f1dcd72d7d7"
 }
 
+function Retry-WebRequest {
+    param($Url, [hashtable]$Body, $ContentType, [int]$TimeoutSec = 30)
+    $delays = @(0, 30, 120, 300)  # initial → 30s → 2min → 5min
+    $retry = 0
+    while ($retry -le $delays.Count) {
+        if ($delays[$retry] -gt 0) { Start-Sleep -Seconds $delays[$retry] }
+        try {
+            $params = @{ UseBasicParsing = $true; TimeoutSec = $TimeoutSec }
+            if ($Body) { $params['Method'] = 'Post'; $params['Body'] = $Body; $params['ContentType'] = $ContentType }
+            return Invoke-WebRequest $Url @params
+        } catch {
+            $retry++
+            if ($retry -ge $delays.Count) { throw }
+        }
+    }
+}
 function Search-Catalog { param($Q)
-    try { $r = Invoke-WebRequest ("https://www.catalog.update.microsoft.com/v7/site/Search.aspx?q=" + [uri]::EscapeDataString($Q)) -UseBasicParsing -TimeoutSec 30
-    } catch { return @() }
+    $r = Retry-WebRequest -Url ("https://www.catalog.update.microsoft.com/v7/site/Search.aspx?q=" + [uri]::EscapeDataString($Q))
     $h = $r.Content; $ret = @(); $re = [regex]"id='([a-f0-9\-]{36})_link'"
     foreach ($m in $re.Matches($h)) {
         $g = $m.Groups[1].Value; $e = $h.IndexOf("</a>", $m.Index + $m.Length)
@@ -48,8 +63,7 @@ function Search-Catalog { param($Q)
     return $ret
 }
 function Get-Links { param($Guid)
-    try { $r = Invoke-WebRequest "https://www.catalog.update.microsoft.com/DownloadDialog.aspx" -Method Post -Body @{UpdateIDs = "[{size:0,UpdateID:'$Guid',UpdateIDInfo:'$Guid'}]"} -ContentType "application/x-www-form-urlencoded" -UseBasicParsing -TimeoutSec 30
-    } catch { return @() }
+    $r = Retry-WebRequest -Url "https://www.catalog.update.microsoft.com/DownloadDialog.aspx" -Body @{UpdateIDs = "[{size:0,UpdateID:'$Guid',UpdateIDInfo:'$Guid'}]"} -ContentType "application/x-www-form-urlencoded"
     $c = $r.Content -replace "www.download.windowsupdate", "download.windowsupdate"
     $out = @(); $re = [regex]"downloadInformation\[\d+\]\.files\[\d+\]\.url\s*=\s*'([^']*)'"
     foreach ($m in $re.Matches($c)) {
@@ -67,7 +81,7 @@ function Follow-Chain { param($OldKb, $ArchPat, $OsPref)
     $r = Search-Catalog "$OldKb"
     $first = $r | Where-Object { $_.Title -match $ArchPat } | Select-Object -First 1
     if (-not $first) { $chainCache[$key] = $null; return $null }
-    try { $sv = Invoke-WebRequest ("https://www.catalog.update.microsoft.com/v7/site/ScopedViewInline.aspx?updateid=" + $first.Guid) -UseBasicParsing -TimeoutSec 15
+    try { $sv = Retry-WebRequest -Url ("https://www.catalog.update.microsoft.com/v7/site/ScopedViewInline.aspx?updateid=" + $first.Guid)
     } catch { $chainCache[$key] = $null; return $null }
     $html = $sv.Content
     $match = [regex]::Match($html, '(?s)<div id="supersededbyInfo">(.*?)<span')
@@ -180,9 +194,8 @@ function Get-OldKB($Path, $Kind, $ArchPat = "") {
                     } catch { continue }
                 }
             }
-            # Fallback: highest KB
-            $first = $cands | Select-Object -First 1
-            if ($first -and $first.name -match 'kb(\d+)') { return [int]$matches[1] }
+            # Fallback: all catalog requests failed — abort
+            throw "Catalog unreachable: all Get-OldKB LCU queries failed for $Path"
         }
         if ($Kind -eq "NET") {
             $first = $all | Where-Object { $_.name -match 'ndp.*\.msu$' } | Select-Object -First 1
@@ -368,7 +381,7 @@ function Get-CabType($File, $ArchPat) {
             $title = $sb.Title
             if ($title -match "Setup Dynamic Update") { $cabTypeCache[$kb] = 1; return 1 }
             if ($title -match "Safe OS") { $cabTypeCache[$kb] = 2; return 2 }
-            $ssv = Invoke-WebRequest "https://www.catalog.update.microsoft.com/v7/site/ScopedViewInline.aspx?updateid=$($sb.Guid)" -UseBasicParsing -TimeoutSec 10
+            $ssv = Retry-WebRequest -Url "https://www.catalog.update.microsoft.com/v7/site/ScopedViewInline.aspx?updateid=$($sb.Guid)"
             $ssh = $ssv.Content
             if ($ssh -match "SetupUpdate:|setup binaries") { $cabTypeCache[$kb] = 1; return 1 }
             if ($ssh -match "Safe OS") { $cabTypeCache[$kb] = 2; return 2 }
@@ -378,6 +391,13 @@ function Get-CabType($File, $ArchPat) {
     $cabTypeCache[$kb] = 3; return 3
 }
 Write-Host "=== Win_ISO_Patching_Scripts - meta4 Auto-Gen ===" -ForegroundColor Cyan
+
+trap {
+    Write-Host "  === Catalog request failed after retries, discarding run ===" -ForegroundColor Yellow
+    git -C $ScriptRoot checkout -- Scripts/ 2>$null
+    exit 0
+}
+
 if ($Build.Count -eq 1 -and $Build[0] -match ',') { $Build = $Build[0] -split ',' | ForEach-Object { $_.Trim() } }
 if ($Arch.Count -eq 1 -and $Arch[0] -match ',') { $Arch = $Arch[0] -split ',' | ForEach-Object { $_.Trim() } }
 if ($Build.Count -eq 0) { $Build = $CFG.Keys | Sort-Object }
