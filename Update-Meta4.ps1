@@ -77,6 +77,9 @@ function Get-Links { param($Guid)
 
 $chainCache = @{}
 function Follow-Chain { param($OldKb, $ArchPat, $OsPref)
+    # NOTE: for builds where client and server share the same build number (26100),
+    # this function does NOT filter by client/server, so it may return the first x64 match.
+    # Use Follow-ServerChain for server-specific lookups.
     $key = "$OldKb|$ArchPat"; if ($chainCache.ContainsKey($key)) { return $chainCache[$key] }
     $r = Search-Catalog "$OldKb"
     $first = $r | Where-Object { $_.Title -match $ArchPat } | Select-Object -First 1
@@ -92,6 +95,29 @@ function Follow-Chain { param($OldKb, $ArchPat, $OsPref)
     $guid = if ($sorted[0].Groups[1].Value -match 'updateid=([a-f0-9\-]{36})') { $matches[1] }
     if (-not $guid) { $chainCache[$key] = $null; return $null }
     $result = Get-Links $guid
+    $chainCache[$key] = $result; return $result
+}
+
+function Follow-ServerChain { param($OldKb, $ArchPat)
+    # Like Follow-Chain but filters for "server operating system" entries only.
+    # Uses a separate cache key to avoid collisions with client chain.
+    $key = "$OldKb|$ArchPat|server"; if ($chainCache.ContainsKey($key)) { return $chainCache[$key] }
+    $r = Search-Catalog "$OldKb"
+    $first = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'server operating system' } | Select-Object -First 1
+    if (-not $first) { $chainCache[$key] = $null; return $null }
+    try { $sv = Retry-WebRequest -Url ("https://www.catalog.update.microsoft.com/v7/site/ScopedViewInline.aspx?updateid=" + $first.Guid)
+    } catch { $chainCache[$key] = $null; return $null }
+    $html = $sv.Content
+    $match = [regex]::Match($html, '(?s)<div id="supersededbyInfo">(.*?)<span')
+    if (-not $match.Success) { $ll = Get-Links $first.Guid; $chainCache[$key] = $ll; return $ll }
+    $links = [regex]::Matches($match.Groups[1].Value, "<a[^>]*href='([^']*)'[^>]*>([^<]+)</a>")
+    if ($links.Count -eq 0) { $ll = Get-Links $first.Guid; $chainCache[$key] = $ll; return $ll }
+    $sorted = $links | Sort-Object { $_.Groups[2].Value } -Descending
+    $guid = if ($sorted[0].Groups[1].Value -match 'updateid=([a-f0-9\-]{36})') { $matches[1] }
+    if (-not $guid) { $chainCache[$key] = $null; return $null }
+    $result = Get-Links $guid
+    # Verify the result still matches server filter (chain might jump to client)
+    $result = $result | Where-Object { $_.FileName -match '^windows11\.0-' }
     $chainCache[$key] = $result; return $result
 }
 
@@ -686,25 +712,44 @@ foreach ($bn in $Build) {
                 }
                 Write-Host " from main (fallback)" -ForegroundColor DarkGray
             }
-            # Server CABs
+            # Server CABs — always search from server-specific catalog entries, never borrow from client
             $sc = Get-Cabs $serverOld
-            if ($sc.Count -eq 0 -and (Test-Path $old)) {
-                $sc = Get-Cabs $old
-                Write-Host "  [CAB] borrowed from main meta4" -ForegroundColor DarkGray
-            }
-            foreach ($oc in $sc) {
-                $oldKb = Get-KB $oc
-                if ($oldKb) {
-                    $links = Follow-Chain -OldKb $oldKb -ArchPat $ap -OsPref $c.OP
-                    $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
-                    if ($cab -and $cab.FileName -ne $oc.FileName -and $cab.Url -notin $serverFiles.Url) {
-                        $cabType = Get-CabLabel $cab $ap
-                        $serverFiles += $cab; Write-Host "  [$cabType] $oldKb -> $($cab.FileName)" -ForegroundColor Green
-                    } elseif ($oc.Url -notin $serverFiles.Url) {
-                        $cabType = Get-CabLabel $oc $ap
-                        $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB}; Write-Host "  [$cabType] $oldKb (unchanged)" -ForegroundColor DarkGray
-                    }
-                } elseif ($oc.Url -notin $serverFiles.Url) { $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB} }
+            if ($sc.Count -eq 0) {
+                # Bootstrap server CABs from catalog (no old meta4 to chain from)
+                foreach ($cabTerm in @("Setup Dynamic Update for Microsoft server operating system version 24H2", "Safe OS Dynamic Update for Microsoft server operating system version 24H2")) {
+                    Write-Host "  $cabTerm..." -NoNewline
+                    try {
+                        $sr = Search-Catalog $cabTerm
+                        $best = $sr | Where-Object { $_.Title -match $ap -and $_.Title -match 'server operating system' } | Sort-Object Title -Descending | Select-Object -First 1
+                        if ($best) {
+                            $links = Get-Links $best.Guid
+                            $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
+                            if ($cab) {
+                                $cabType = Get-CabLabel $cab $ap
+                                $serverFiles += $cab
+                                Write-Host " $($cab.FileName) [$cabType]" -ForegroundColor Green
+                            } else { Write-Host " SKIP (no cab link)" -ForegroundColor DarkGray }
+                        } else { Write-Host " SKIP (not found)" -ForegroundColor DarkGray }
+                    } catch { Write-Host " ERROR: $_" -ForegroundColor DarkGray }
+                    Start-Sleep -Milliseconds 400
+                }
+            } else {
+                # Chain-follow from old server CABs using server-specific Follow-ServerChain
+                foreach ($oc in $sc) {
+                    $oldKb = Get-KB $oc
+                    if ($oldKb) {
+                        $links = Follow-ServerChain -OldKb $oldKb -ArchPat $ap
+                        $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
+                        if ($cab -and $cab.FileName -ne $oc.FileName -and $cab.Url -notin $serverFiles.Url) {
+                            $cabType = Get-CabLabel $cab $ap
+                            $serverFiles += $cab; Write-Host "  [$cabType] $oldKb -> $($cab.FileName)" -ForegroundColor Green
+                        } elseif ($oc.Url -notin $serverFiles.Url) {
+                            $cabType = Get-CabLabel $oc $ap
+                            $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB}; Write-Host "  [$cabType] $oldKb (unchanged)" -ForegroundColor DarkGray
+                        }
+                    } elseif ($oc.Url -notin $serverFiles.Url) { $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB} }
+                    Start-Sleep -Milliseconds 400
+                }
             }
             $sa = $serverFiles | Sort-Object Url -Unique
             if (-not $TestMode) {
