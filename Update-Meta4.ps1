@@ -792,7 +792,7 @@ if (-not $TestMode) {
         Write-Host "  [README] no meta4 changes detected, skipping date update" -ForegroundColor DarkGray
     } else {
         $culture = [System.Globalization.CultureInfo]::GetCultureInfo('en-US')
-        $today = $culture.DateTimeFormat.GetMonthName((Get-Date).Month) + ' ' + (Get-Date -Format 'dd, yyyy')
+        $today = $culture.DateTimeFormat.GetMonthName((Get-Date).Month) + ' ' + (Get-Date -Format 'd, yyyy')
         $todayCn = "$((Get-Date).Year)$([char]0x5E74)$((Get-Date).Month)$([char]0x6708)$((Get-Date).Day)$([char]0x65E5)"
         # Fallback: fetch build versions not cached during generation (rate limited)
         $readmeFallback = @(
