@@ -444,7 +444,6 @@ foreach ($bn in $Build) {
         if ($newFiles -isnot [array]) { $newFiles = @($newFiles) }
 
         # 1. LCU
-        Write-Host "  LCU..." -NoNewline
         try {
                         # History page: only for build version (README use), not for file
             $histTopic = $UPDATE_HISTORY[$bn]
@@ -474,12 +473,12 @@ foreach ($bn in $Build) {
             $f, $tag = Cross-Validate $chain $boot "LCU"
             if ($f) { 
                 $newFiles += $f
-                if ($okb -and $okb -ne $f.KB) { Write-Host " [LCU] $okb -> $($f.KB) ($($f.FileName))" -ForegroundColor Green }
-                elseif ($okb) { Write-Host " [LCU] $okb (unchanged)" -ForegroundColor DarkGray }
-                else { Write-Host " $($f.FileName) ($tag)" -ForegroundColor $(Get-StatusColor $tag) }
+                if ($okb -and $okb -ne $f.KB) { Write-Host "  [LCU] $okb -> $($f.KB) ($($f.FileName))" -ForegroundColor Green }
+                elseif ($okb) { Write-Host "  [LCU] $okb (unchanged)" -ForegroundColor DarkGray }
+                else { Write-Host "  $($f.FileName) ($tag)" -ForegroundColor $(Get-StatusColor $tag) }
             }
-            else { Write-Host " SKIP"; $skip++; continue }
-        } catch { Write-Host " ERROR: $_"; $skip++; continue }
+            else { Write-Host "  [LCU] SKIP"; $skip++; continue }
+        } catch { Write-Host "  [LCU] ERROR: $_"; $skip++; continue }
 
         # SSU (14393 only) - Find newest SSU, replace old one after MSU preservation
         if ($bn -eq "14393") {
