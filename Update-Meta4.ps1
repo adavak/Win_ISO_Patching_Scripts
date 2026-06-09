@@ -472,7 +472,12 @@ foreach ($bn in $Build) {
             if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "LCU" $c.OP }
             $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
             $f, $tag = Cross-Validate $chain $boot "LCU"
-            if ($f) { $newFiles += $f; Write-Host " $($f.FileName) ($tag)" -ForegroundColor $(Get-StatusColor $tag) }
+            if ($f) { 
+                $newFiles += $f
+                if ($okb -and $okb -ne $f.KB) { Write-Host " [LCU] $okb -> $($f.KB) ($($f.FileName))" -ForegroundColor Green }
+                elseif ($okb) { Write-Host " [LCU] $okb (unchanged)" -ForegroundColor DarkGray }
+                else { Write-Host " $($f.FileName) ($tag)" -ForegroundColor $(Get-StatusColor $tag) }
+            }
             else { Write-Host " SKIP"; $skip++; continue }
         } catch { Write-Host " ERROR: $_"; $skip++; continue }
 
@@ -604,9 +609,9 @@ foreach ($bn in $Build) {
         if ($TestMode) { Write-Host "  [TEST] $($all.Count) entries"; $gen++; continue }
 
         # Get key URL markers for sorting
-        $latestLCU = $newFiles | Where-Object { $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' -and $_.Url -notin @() } | Sort-Object KB -Descending | Select-Object -First 1
-        $latestLCUUrl = if ($latestLCU) { $latestLCU.Url } else { "" }
         $ssuUrl = if ($ssuFile) { $ssuFile.Url } else { "" }
+        $latestLCU = $newFiles | Where-Object { $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' -and $_.Url -notin @() -and $_.Url -ne $ssuUrl } | Sort-Object KB -Descending | Select-Object -First 1
+        $latestLCUUrl = if ($latestLCU) { $latestLCU.Url } else { "" }
         $netMsuUrl = if ($fnet) { $fnet.Url } else { "" }
         # ---- Sort: SSU → checkpoint CU → LCU → old MSU(EKB/setup DU/safe OS DU) → .NET ndp/msu → CAB ----
         $sortedAll = $all | Sort-Object @{Expression={
@@ -754,7 +759,8 @@ foreach ($bn in $Build) {
             $sa = $serverFiles | Sort-Object Url -Unique
             if (-not $TestMode) {
                 # Find server latest LCU URL for sorting
-                $sLatestLCU = $serverFiles | Where-Object { $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' -and $_.Url -notin @() } | Sort-Object KB -Descending | Select-Object -First 1
+                $ssuUrl = if ($ssuFile) { $ssuFile.Url } else { "" }
+                $sLatestLCU = $serverFiles | Where-Object { $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' -and $_.Url -notin @() -and $_.Url -ne $ssuUrl } | Sort-Object KB -Descending | Select-Object -First 1
                 $sLatestLCUUrl = if ($sLatestLCU) { $sLatestLCU.Url } else { '' }
                 $sortedSa = $sa | Sort-Object @{Expression={
                     $n = $_.FileName
