@@ -444,6 +444,7 @@ foreach ($bn in $Build) {
         if ($newFiles -isnot [array]) { $newFiles = @($newFiles) }
 
         # 1. LCU
+        Write-Host "  LCU..."
         try {
                         # History page: only for build version (README use), not for file
             $histTopic = $UPDATE_HISTORY[$bn]
@@ -636,7 +637,7 @@ foreach ($bn in $Build) {
             $serverFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $serverFiles -BuildNum $bn
             if ($serverFiles -isnot [array]) { $serverFiles = @($serverFiles) }
 
-            Write-Host "  LCU..." -NoNewline
+            Write-Host "  LCU..."
             try {
                 # Always run chain + bootstrap first (like other builds)
                 $sChain = $null; $sBoot = $null
