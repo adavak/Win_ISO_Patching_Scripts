@@ -4,13 +4,13 @@
 		<hash type="sha-1">84b6922c6e96f26ad91859d072aeeb6df8e5ab99</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2026/06/windows10.0-kb5094141-x64_84b6922c6e96f26ad91859d072aeeb6df8e5ab99.msu</url>
 	</file>
-	<file name="windows10.0-kb5094122-x64_36bdd4a783ede6f6174b8fbe1046e8e3a613ad44.msu">
-		<hash type="sha-1">36bdd4a783ede6f6174b8fbe1046e8e3a613ad44</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2026/06/windows10.0-kb5094122-x64_36bdd4a783ede6f6174b8fbe1046e8e3a613ad44.msu</url>
-	</file>
 	<file name="windows10.0-kb5028913-x64_f6cadb881817331ddd2577db1faca2382e4e9b30.msu">
 		<hash type="sha-1">f6cadb881817331ddd2577db1faca2382e4e9b30</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/06/windows10.0-kb5028913-x64_f6cadb881817331ddd2577db1faca2382e4e9b30.msu</url>
+	</file>
+	<file name="windows10.0-kb5094122-x64_36bdd4a783ede6f6174b8fbe1046e8e3a613ad44.msu">
+		<hash type="sha-1">36bdd4a783ede6f6174b8fbe1046e8e3a613ad44</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2026/06/windows10.0-kb5094122-x64_36bdd4a783ede6f6174b8fbe1046e8e3a613ad44.msu</url>
 	</file>
 	<file name="windows10.0-kb5068794-x64_8f6bdae0c8c562ed040cf4c9493006c65b93f5a7.cab">
 		<hash type="sha-1">8f6bdae0c8c562ed040cf4c9493006c65b93f5a7</hash>
