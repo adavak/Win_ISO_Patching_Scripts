@@ -471,6 +471,7 @@ foreach ($bn in $Build) {
             if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "LCU" $c.OP }
             $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
             $f, $tag = Cross-Validate $chain $boot "LCU"
+            $lcuFile = $f
             if ($f) { 
                 $newFiles += $f
                 if ($okb -and $okb -ne $f.KB) { Write-Host "  [LCU] $okb -> $($f.KB) ($($f.FileName))" -ForegroundColor Green }
@@ -609,8 +610,7 @@ foreach ($bn in $Build) {
 
         # Get key URL markers for sorting
         $ssuUrl = if ($ssuFile) { $ssuFile.Url } else { "" }
-        $latestLCU = $newFiles | Where-Object { $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' -and $_.Url -notin @() -and $_.Url -ne $ssuUrl } | Sort-Object KB -Descending | Select-Object -First 1
-        $latestLCUUrl = if ($latestLCU) { $latestLCU.Url } else { "" }
+        $latestLCUUrl = if ($lcuFile) { $lcuFile.Url } else { "" }
         $netMsuUrl = if ($fnet) { $fnet.Url } else { "" }
         # ---- Sort: SSU → checkpoint CU → LCU → old MSU(EKB/setup DU/safe OS DU) → .NET ndp/msu → CAB ----
         $sortedAll = $all | Sort-Object @{Expression={
@@ -759,8 +759,7 @@ foreach ($bn in $Build) {
             if (-not $TestMode) {
                 # Find server latest LCU URL for sorting
                 $ssuUrl = if ($ssuFile) { $ssuFile.Url } else { "" }
-                $sLatestLCU = $serverFiles | Where-Object { $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' -and $_.Url -notin @() -and $_.Url -ne $ssuUrl } | Sort-Object KB -Descending | Select-Object -First 1
-                $sLatestLCUUrl = if ($sLatestLCU) { $sLatestLCU.Url } else { '' }
+                $sLatestLCUUrl = if ($sf) { $sf.Url } else { '' }
                 $sortedSa = $sa | Sort-Object @{Expression={
                     $n = $_.FileName
                     if ($n -match '\.cab$') { return 50 }
