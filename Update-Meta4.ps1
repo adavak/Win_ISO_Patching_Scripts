@@ -500,6 +500,17 @@ foreach ($bn in $Build) {
                         }
                     }
                 }
+                # Fallback: search each old MSU individually to find SSU
+                if (-not $ssuOldKb) {
+                    foreach ($om in $ssuOldMsus | Sort-Object KB -Descending) {
+                        if ($om.KB -eq $ssuOldLcuKb -or $om.KB -eq 0) { continue }
+                        try {
+                            $ssuR = Search-Catalog "kb$($om.KB)"
+                            $title = ($ssuR | Where-Object { $_.Title -match "Servicing Stack" -and $_.Title -match "for $ar[^a-z]" -and $_.Title -match "Version 1607" } | Select-Object -First 1).Title
+                            if ($title) { $ssuOldKb = $om.KB; break }
+                        } catch { continue }
+                    }
+                }
             }
             if ($ssuOldKb) {
                 $ssuChain = Follow-Chain -OldKb $ssuOldKb -ArchPat $ap -OsPref $c.OP
@@ -563,6 +574,11 @@ foreach ($bn in $Build) {
             $newFiles += $ssuNewFile
             $ssuFile = $ssuNewFile
             Write-Host "  [SSU] $ssuOldKb -> $($ssuNewFile.KB) ($($ssuNewFile.FileName))" -ForegroundColor Green
+        }
+
+        # Fallback: if chain didn't find new SSU, identify old SSU from preserved MSUs
+        if (-not $ssuFile -and $ssuOldKb) {
+            $ssuFile = $newFiles | Where-Object { $_.KB -eq $ssuOldKb } | Select-Object -First 1
         }
 
         # 4. Netfx subdir meta4 files
