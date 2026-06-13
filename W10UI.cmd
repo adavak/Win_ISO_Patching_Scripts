@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.59b
+@set uiv=v10.59s
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -254,9 +254,9 @@ title Installer for Windows NT 10.0 Updates
 set "_dLog=%SystemRoot%\Logs\DISM"
 cd /d "!_work!"
 set psfcpp=0
-if /i %xOS%==amd64 if exist "bin\bin64\PSFExtractor.exe" set psfcpp=1&set _exe="!_work!\bin\bin64\PSFExtractor.exe"
 if exist "PSFExtractor.exe" set psfcpp=1&set _exe="!_work!\PSFExtractor.exe"
 if exist "bin\PSFExtractor.exe" set psfcpp=1&set _exe="!_work!\bin\PSFExtractor.exe"
+if /i %xOS%==amd64 if exist "bin\bin64\PSFExtractor.exe" set psfcpp=1&set _exe="!_work!\bin\bin64\PSFExtractor.exe"
 if not defined _sdr set psfcpp=0
 set _reMSU=0
 set psfwim=0
@@ -2899,14 +2899,16 @@ set "isoboot=%~1"
 if %UpdtBootFiles% neq 1 goto :nonewboot
 xcopy /CIDRY "!mountdir!\Windows\Boot\DVD\EFI\en-US\efisys.bin" "!isoboot!\efi\microsoft\boot\" %_Nul3%
 xcopy /CIDRY "!mountdir!\Windows\Boot\DVD\EFI\en-US\efisys_noprompt.bin" "!isoboot!\efi\microsoft\boot\" %_Nul3%
+xcopy /CIDRY "!mountdir!\Windows\Boot\EFI\boot.stl" "!isoboot!\efi\microsoft\boot\" %_Nul3%
 if /i not %arch%==arm64 (
 xcopy /CIDRY "!mountdir!\Windows\Boot\PCAT\bootmgr" "!isoboot!\" %_Nul3%
 xcopy /CIDRY "!mountdir!\Windows\Boot\PCAT\memtest.exe" "!isoboot!\boot\" %_Nul3%
 xcopy /CIDRY "!mountdir!\Windows\Boot\EFI\memtest.efi" "!isoboot!\efi\microsoft\boot\" %_Nul3%
 )
 if not exist "!mountdir!\Windows\Boot\EFI_EX\*_EX.efi" goto :nonewboot
+if exist "!isoboot!\efi\boot\bootmgfw.efi" xcopy /CIDRY "!mountdir!\Windows\Boot\EFI_EX\bootmgfw_EX.efi" "!isoboot!\efi\boot\bootmgfw.efi" %_Nul3%
 xcopy /CIDRY "!mountdir!\Windows\Boot\EFI_EX\bootmgfw_EX.efi" "!isoboot!\efi\boot\!efifile!" %_Nul3%
-xcopy /CIDRY "!mountdir!\Windows\Boot\EFI_EX\bootmgr_EX.efi" "!isoboot!\bootmgr.efi" %_Nul3%
+if exist "!mountdir!\Windows\Boot\EFI_EX\bootmgr_EX.efi" (xcopy /CIDRY "!mountdir!\Windows\Boot\EFI_EX\bootmgr_EX.efi" "!isoboot!\bootmgr.efi" %_Nul3%) else (xcopy /CIDRY "!mountdir!\Windows\Boot\EFI\bootmgr.efi" "!isoboot!\" %_Nul3%)
 xcopy /CIDRY "!mountdir!\Windows\Boot\DVD_EX\EFI\en-US\efisys_EX.bin" "!isoboot!\efi\microsoft\boot\efisys.bin" %_Nul3%
 xcopy /CIDRY "!mountdir!\Windows\Boot\DVD_EX\EFI\en-US\efisys_noprompt_EX.bin" "!isoboot!\efi\microsoft\boot\efisys_noprompt.bin" %_Nul3%
 xcopy /CIDRY "!mountdir!\Windows\Boot\FONTS_EX\*" "!isoboot!\efi\microsoft\boot\fonts\" %_Nul3%
@@ -2916,6 +2918,7 @@ goto :eof
 if exist "!isoboot!\efi\boot\bootmgfw.efi" xcopy /CIDRY "!mountdir!\Windows\Boot\EFI\bootmgfw.efi" "!isoboot!\efi\boot\bootmgfw.efi" %_Nul3%
 xcopy /CIDRY "!mountdir!\Windows\Boot\EFI\bootmgfw.efi" "!isoboot!\efi\boot\!efifile!" %_Nul3%
 xcopy /CIDRY "!mountdir!\Windows\Boot\EFI\bootmgr.efi" "!isoboot!\" %_Nul3%
+xcopy /CIDRY "!mountdir!\Windows\Boot\EFI\boot.stl" "!isoboot!\efi\microsoft\boot\" %_Nul3%
 goto :eof
 
 :winre
