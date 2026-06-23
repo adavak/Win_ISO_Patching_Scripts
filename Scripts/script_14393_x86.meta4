@@ -1,9 +1,5 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5094141-x86_31e807eb48c96906c8bacf496b6909bdece7b5e4.msu">
-		<hash type="sha-1">31e807eb48c96906c8bacf496b6909bdece7b5e4</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2026/06/windows10.0-kb5094141-x86_31e807eb48c96906c8bacf496b6909bdece7b5e4.msu</url>
-	</file>
 	<file name="windows10.0-kb5094122-x86_830d1cde0916af0debeb208598622dd67a005186.msu">
 		<hash type="sha-1">830d1cde0916af0debeb208598622dd67a005186</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2026/06/windows10.0-kb5094122-x86_830d1cde0916af0debeb208598622dd67a005186.msu</url>
@@ -11,6 +7,10 @@
 	<file name="windows10.0-kb5028913-x86_e8551f2a2fc6642ca95d92a4c945e312b03ee862.msu">
 		<hash type="sha-1">e8551f2a2fc6642ca95d92a4c945e312b03ee862</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2023/06/windows10.0-kb5028913-x86_e8551f2a2fc6642ca95d92a4c945e312b03ee862.msu</url>
+	</file>
+	<file name="windows10.0-kb5094141-x86_31e807eb48c96906c8bacf496b6909bdece7b5e4.msu">
+		<hash type="sha-1">31e807eb48c96906c8bacf496b6909bdece7b5e4</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2026/06/windows10.0-kb5094141-x86_31e807eb48c96906c8bacf496b6909bdece7b5e4.msu</url>
 	</file>
 	<file name="windows10.0-kb5068794-x86_6cf77fd5b0f590fda58604e3cd2cc7b1fa0ea1c3.cab">
 		<hash type="sha-1">6cf77fd5b0f590fda58604e3cd2cc7b1fa0ea1c3</hash>
