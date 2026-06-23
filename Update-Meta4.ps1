@@ -571,7 +571,6 @@ foreach ($bn in $Build) {
         # NOTE: $ssuFile MUST be set even when $ssuNewFile already exists in $newFiles,
         # otherwise sorting cannot place SSU at position 1 (ssuUrl will be empty).
         if ($bn -eq "14393" -and $ssuNewFile) {
-            Write-Host "  [SSU] oldKb=$ssuOldKb newKb=$($ssuNewFile.KB) inNewFiles=$($ssuNewFile.Url -in $newFiles.Url)" -ForegroundColor DarkGray
             if ($ssuNewFile.Url -notin $newFiles.Url) {
                 $newFiles = @($newFiles | Where-Object { $null -eq $ssuOldKb -or $_.KB -ne $ssuOldKb })
                 $newFiles += $ssuNewFile
@@ -585,7 +584,6 @@ foreach ($bn in $Build) {
         # Fallback: if chain didn't find new SSU, identify old SSU from preserved MSUs
         if (-not $ssuFile -and $ssuOldKb) {
             $ssuFile = $newFiles | Where-Object { $_.KB -eq $ssuOldKb } | Select-Object -First 1
-            Write-Host "  [SSU] $($ssuFile.KB) (fallback)" -ForegroundColor DarkGray
         }
 
         # Last resort: catalog unreachable, infer SSU from old meta4 (first MSU is always SSU)
@@ -593,7 +591,6 @@ foreach ($bn in $Build) {
             $oldMeta4Ssus = Get-OldMsus $old
             if ($oldMeta4Ssus.Count -gt 0) {
                 $ssuFile = $newFiles | Where-Object { $_.Url -eq $oldMeta4Ssus[0].Url } | Select-Object -First 1
-                Write-Host "  [SSU] $($ssuFile.KB) (last resort)" -ForegroundColor DarkGray
             }
         }
 
@@ -656,6 +653,14 @@ foreach ($bn in $Build) {
             if ($_.Url -eq $netMsuUrl) { return 35 }            # .NET MSU (non-ndp filename)
             return 20                                           # other old MSU (EKB/setup DU/safe OS DU)
         }}
+        # Safety: ensure SSU is at position 1 even if catalog URL mismatch confused the sort
+        if ($ssuUrl -and $sortedAll.Count -gt 0 -and $sortedAll[0].Url -ne $ssuUrl) {
+            $ssuEntry = $sortedAll | Where-Object { $_.Url -eq $ssuUrl } | Select-Object -First 1
+            if ($ssuEntry) {
+                $sortedAll = @($ssuEntry) + @($sortedAll | Where-Object { $_.Url -ne $ssuUrl })
+                Write-Host "  [SSU] forced to position 1" -ForegroundColor DarkGray
+            }
+        }
         $xml = New-Meta4 $sortedAll
         $xml | Out-File (Join-Path $OutputDir "script_${bn}_${ar}.meta4") -Encoding utf8 -NoNewline
         Write-Host "  [OK] $($c.L) $ar ($($all.Count) files)" -ForegroundColor Green; $gen++
