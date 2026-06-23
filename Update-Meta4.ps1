@@ -572,9 +572,16 @@ foreach ($bn in $Build) {
         # otherwise sorting cannot place SSU at position 1 (ssuUrl will be empty).
         if ($bn -eq "14393" -and $ssuNewFile) {
             if ($ssuNewFile.Url -notin $newFiles.Url) {
-                $newFiles = @($newFiles | Where-Object { $null -eq $ssuOldKb -or $_.KB -ne $ssuOldKb })
-                $newFiles += $ssuNewFile
-                Write-Host "  [SSU] $ssuOldKb -> $($ssuNewFile.KB) ($($ssuNewFile.FileName))" -ForegroundColor Green
+                # If hash matches old SSU, keep old URL (avoids CDN switch causing churn)
+                $oldSsu = $newFiles | Where-Object { $null -eq $ssuOldKb -or $_.KB -eq $ssuOldKb } | Select-Object -First 1
+                if ($oldSsu -and $oldSsu.Sha1 -eq $ssuNewFile.Sha1) {
+                    $ssuNewFile.Url = $oldSsu.Url
+                    Write-Host "  [SSU] $($ssuNewFile.KB) (hash match, kept old URL)" -ForegroundColor DarkGray
+                } else {
+                    $newFiles = @($newFiles | Where-Object { $null -eq $ssuOldKb -or $_.KB -ne $ssuOldKb })
+                    $newFiles += $ssuNewFile
+                    Write-Host "  [SSU] $ssuOldKb -> $($ssuNewFile.KB) ($($ssuNewFile.FileName))" -ForegroundColor Green
+                }
             } else {
                 Write-Host "  [SSU] $($ssuNewFile.KB) (unchanged)" -ForegroundColor DarkGray
             }
