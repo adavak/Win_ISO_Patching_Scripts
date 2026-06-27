@@ -263,7 +263,11 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term, $PrimaryTerm=$null) {
             $baselines = $nFiles | Where-Object { $_.FileName -notmatch 'ndp.*\.msu$' }
             $newNdp = $newNdp | Select-Object *, @{N='Language';E={'neutral'}} -ExcludeProperty Language
             $nAll = @($newNdp) + $baselines
-            if (-not $TestMode) { (New-Meta4 $nAll) | Out-File $nPath -Encoding utf8 -NoNewline }
+            if (-not $TestMode) {
+                $newContent = (New-Meta4 $nAll).ToString()
+                $oldContent = if (Test-Path $nPath) { Get-Content $nPath -Raw } else { $null }
+                if ($newContent -ne $oldContent) { [System.IO.File]::WriteAllText($nPath, $newContent, [System.Text.Encoding]::UTF8) }
+            }
             Write-Host "  [$Label] $($nNdp.KB) -> $($newNdp.FileName)" -ForegroundColor Green
         } else {
             Write-Host "  [$Label] $($nNdp.KB) (unchanged)" -ForegroundColor DarkGray
@@ -282,7 +286,11 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term, $PrimaryTerm=$null) {
         if ($boot -and $boot.FileName -match "^$($c.OP)" -and $bootArchOk) {
             $boot = $boot | Select-Object *, @{N='Language';E={'neutral'}} -ExcludeProperty Language
             $nAll = @($boot) + ($nFiles | Where-Object { $_.FileName -notmatch 'ndp.*\.msu$' })
-            if (-not $TestMode) { (New-Meta4 $nAll) | Out-File $nPath -Encoding utf8 -NoNewline }
+            if (-not $TestMode) {
+                $newContent = (New-Meta4 $nAll).ToString()
+                $oldContent = if (Test-Path $nPath) { Get-Content $nPath -Raw } else { $null }
+                if ($newContent -ne $oldContent) { [System.IO.File]::WriteAllText($nPath, $newContent, [System.Text.Encoding]::UTF8) }
+            }
             Write-Host "  [$Label] (new) $($boot.FileName)" -ForegroundColor Yellow
         } else {
             Write-Host "  [$Label] (not found)" -ForegroundColor DarkGray
