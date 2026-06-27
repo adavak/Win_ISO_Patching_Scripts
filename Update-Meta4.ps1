@@ -264,9 +264,11 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term, $PrimaryTerm=$null) {
             $newNdp = $newNdp | Select-Object *, @{N='Language';E={'neutral'}} -ExcludeProperty Language
             $nAll = @($newNdp) + $baselines
             if (-not $TestMode) {
-                $newContent = (New-Meta4 $nAll).ToString()
-                $oldContent = if (Test-Path $nPath) { Get-Content $nPath -Raw } else { $null }
-                if ($newContent -ne $oldContent) { [System.IO.File]::WriteAllText($nPath, $newContent, [System.Text.Encoding]::UTF8) }
+                $oldSig = if (Test-Path $nPath) {
+                    [xml]$x = Get-Content $nPath -Raw; $x.metalink.file | Sort-Object { if ($_.name -match "kb(\d+)") { [int]$matches[1] } else { 0 } } | ForEach-Object { $_.name } | Out-String
+                }
+                $newSig = $nAll | Sort-Object { if ($_.FileName -match "kb(\d+)") { [int]$matches[1] } else { 0 } } | ForEach-Object { $_.FileName } | Out-String
+                if ($oldSig -ne $newSig) { (New-Meta4 $nAll) | Out-File $nPath -Encoding utf8 -NoNewline }
             }
             Write-Host "  [$Label] $($nNdp.KB) -> $($newNdp.FileName)" -ForegroundColor Green
         } else {
@@ -287,9 +289,11 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term, $PrimaryTerm=$null) {
             $boot = $boot | Select-Object *, @{N='Language';E={'neutral'}} -ExcludeProperty Language
             $nAll = @($boot) + ($nFiles | Where-Object { $_.FileName -notmatch 'ndp.*\.msu$' })
             if (-not $TestMode) {
-                $newContent = (New-Meta4 $nAll).ToString()
-                $oldContent = if (Test-Path $nPath) { Get-Content $nPath -Raw } else { $null }
-                if ($newContent -ne $oldContent) { [System.IO.File]::WriteAllText($nPath, $newContent, [System.Text.Encoding]::UTF8) }
+                $oldSig = if (Test-Path $nPath) {
+                    [xml]$x = Get-Content $nPath -Raw; $x.metalink.file | Sort-Object { if ($_.name -match "kb(\d+)") { [int]$matches[1] } else { 0 } } | ForEach-Object { $_.name } | Out-String
+                }
+                $newSig = $nAll | Sort-Object { if ($_.FileName -match "kb(\d+)") { [int]$matches[1] } else { 0 } } | ForEach-Object { $_.FileName } | Out-String
+                if ($oldSig -ne $newSig) { (New-Meta4 $nAll) | Out-File $nPath -Encoding utf8 -NoNewline }
             }
             Write-Host "  [$Label] (new) $($boot.FileName)" -ForegroundColor Yellow
         } else {
