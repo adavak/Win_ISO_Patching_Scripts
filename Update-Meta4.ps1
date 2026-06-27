@@ -266,7 +266,7 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term, $PrimaryTerm=$null) {
             if (-not $TestMode) { (New-Meta4 $nAll) | Out-File $nPath -Encoding utf8 -NoNewline }
             Write-Host "  [$Label] $($nNdp.KB) -> $($newNdp.FileName)" -ForegroundColor Green
         } else {
-            Write-Host "  [$Label] KB$($nNdp.KB) (unchanged)" -ForegroundColor DarkGray
+            Write-Host "  [$Label] $($nNdp.KB) (unchanged)" -ForegroundColor DarkGray
         }
     } else {
                     $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }; $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
@@ -365,18 +365,16 @@ function Get-ExistingFiles($Path) {
     } catch { return @() }
 }
 
-# 26100 checkpoint CU (e.g. KB5043080): preserve from old meta4 if catalog no longer returns it
-# Shared across all variants (client x64/arm64, server x64); avoids code duplication
-function Add-CheckpointCU($OldMeta4, $CurrentFiles, $BuildNum) {
-    if ($BuildNum -ne "26100") { return $CurrentFiles }
+# Preserve non-.NET MSUs from old meta4 (e.g. checkpoint CUs) that catalog may no longer return
+function Add-CheckpointCU($OldMeta4, $CurrentFiles) {
     $oldMsus = Get-OldMsus $OldMeta4
-    $checkpointCUs = $oldMsus | Where-Object { $_.KB -eq 5043080 }
-    foreach ($cp in $checkpointCUs) {
+    $extras = $oldMsus | Where-Object { $_.FileName -notmatch "ndp" -and $_.KB -gt 0 }
+    foreach ($cp in $extras) {
         if ($cp.Url -notin $CurrentFiles.Url) {
             $cpObj = [PSCustomObject]@{FileName=$cp.FileName; Url=$cp.Url; Sha1=$cp.Sha1; KB=$cp.KB}
             $CurrentFiles += $cpObj
+            Write-Host "  [CHECKPOINT] $($cp.KB)" -ForegroundColor DarkGray
         }
-        Write-Host "  [CHECKPOINT] KB$($cp.KB)" -ForegroundColor DarkGray
     }
     return ,($CurrentFiles | Sort-Object Url -Unique)
 }
@@ -432,7 +430,7 @@ foreach ($bn in $Build) {
         $old = Join-Path $OutputDir "script_$(if ($isServer) {'server_'})$baseBn`_$ar.meta4"
         $newFiles = @()
         Write-Host "--- [$bn/$ar] $($c.L) ---" -ForegroundColor Yellow
-        $newFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $newFiles -BuildNum $bn
+        $newFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $newFiles
         if ($newFiles -isnot [array]) { $newFiles = @($newFiles) }
 
         # 1. LCU
@@ -647,7 +645,7 @@ foreach ($bn in $Build) {
             if ($n -match '\.cab$') { return 50000000 + (Get-CabType $_ $ap) }  # CAB last, SetupUpdate(1) -> Safe OS(2)
             if ($n -match 'ndp.*\.msu') { return 40 }           # .NET ndp
             if ($_.Url -eq $ssuUrl) { return 5 }                # SSU first
-            if ($bn -eq "26100" -and $_.KB -eq 5043080) { return 10 }  # checkpoint CU
+            if ($n -match '\.msu$' -and $n -notmatch 'ndp' -and $_.Url -ne $ssuUrl -and $_.Url -ne $latestLCUUrl) { return 10 }  # checkpoint CU
             if ($_.Url -eq $latestLCUUrl) { return 15 }         # latest LCU
             if ($_.Url -eq $netMsuUrl) { return 35 }            # .NET MSU (non-ndp filename)
             return 20                                           # other old MSU (EKB/setup DU/safe OS DU)
