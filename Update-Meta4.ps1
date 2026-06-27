@@ -8,15 +8,26 @@ $ScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not $OutputDir) { $OutputDir = Join-Path $ScriptRoot "Scripts" }
 if (-not (Test-Path $OutputDir)) { New-Item $OutputDir -ItemType Directory -Force | Out-Null }
 
-$CFG = @{
-    "14393" = @{OP="windows10.0";L="LTSB 2016";        S1="Cumulative Update for Windows 10 Version 1607";          S3=".NET Framework 4.8 Windows 10 1607"}
-    "17763" = @{OP="windows10.0";L="LTSC 2019";        S1="Cumulative Update for Windows 10 Version 1809";          S3=".NET Framework 4.8 Windows 10 1809"}
-    "19041" = @{OP="windows10.0";L="22H2 / LTSC 2021"; S1="Cumulative Update for Windows 10 Version 22H2";         S3=".NET Framework 4.8.1 Windows 10 22H2";S4=".NET Framework 4.8 Windows 10 22H2"}
-    "20348" = @{OP="windows10.0";L="Server 2022";      S1="Cumulative Update for Microsoft server operating system version 21H2";S3="Cumulative Update for .NET Framework 3.5 and 4.8.1 Microsoft server operating system version 21H2";S4=".NET Framework 4.8 Microsoft server operating system version 21H2"}
-    "22621" = @{OP="windows11.0";L="Win 11 23H2";      S1="Cumulative Update for Windows 11 Version 23H2";         S3=".NET Framework 4.8.1 Windows 11 23H2"}
-    "26100" = @{OP="windows11.0";L="25H2";LS="Server 2025";S1="Cumulative Update for Windows 11 Version 25H2";        S3=".NET Framework 3.5 and 4.8.1 for Windows 11, version 25H2"}
-    "28000" = @{OP="windows11.0";L="26H1";             S1="Cumulative Update for Windows 11 Version 26H1";        S3=".NET Framework 4.8.1 Windows 11 26H1"}
+$CFG = @{}
+$w10 = "windows10.0"; $w11 = "windows11.0"
+
+function BuildCfg($op, $lb, $ver=$null, $s3, $s1=$null, $s4=$null, $srvVer=$null) {
+    $os = if ($op -eq $w11) { "Windows 11" } else { "Windows 10" }
+    $pfx = if ($ver) { "$os Version $ver" } elseif ($srvVer) { "Microsoft server operating system version $srvVer" } else { "Microsoft server operating system version 21H2" }
+    $h = @{OP=$op; L=$lb; S1="Cumulative Update for $pfx"; S3=$s3; S5="Setup Dynamic Update for $pfx"; S6="Safe OS Dynamic Update for $pfx"}
+    if ($s4)  { $h.S4 = $s4 }
+    if ($srvVer) { $h.SRV = $true }
+    return $h
 }
+
+$CFG["14393"] = BuildCfg $w10 "LTSB 2016"        "1607" ".NET Framework 4.8 Windows 10 1607"               -s1 $true
+$CFG["17763"] = BuildCfg $w10 "LTSC 2019"        "1809" ".NET Framework 4.8 Windows 10 1809"
+$CFG["19041"] = BuildCfg $w10 "22H2 / LTSC 2021" "22H2" ".NET Framework 4.8 Windows 10 22H2"            -s4 ".NET Framework 4.8.1 Windows 10 22H2"
+$CFG["20348"] = BuildCfg $w10 "Server 2022"      $null  ".NET Framework 4.8 Microsoft server operating system version 21H2" -s4 "Cumulative Update for .NET Framework 3.5 and 4.8.1 Microsoft server operating system version 21H2"
+$CFG["22621"] = BuildCfg $w11 "Win 11 23H2"      "23H2" $null            -s4 ".NET Framework 4.8.1 Windows 11 23H2"
+$CFG["26100"] = BuildCfg $w11 "25H2"             "25H2" $null            -s4 ".NET Framework 3.5 and 4.8.1 for Windows 11, version 25H2"
+$CFG["26100-server"] = BuildCfg $w11 "Server 2025" -s3 $null -s4 ".NET Framework 3.5 and 4.8.1 Microsoft server operating system version 24H2" -srvVer "24H2"
+$CFG["28000"] = BuildCfg $w11 "26H1"             "26H1" $null            -s4 ".NET Framework 4.8.1 Windows 11 26H1"
 $ARCH_LABEL = @{x64="for x64-based Systems"; x86="for x86-based Systems"; arm64="for Arm64-based Systems"}
 
 # MS Update History pages — source for OS Build version numbers (README update)
@@ -76,13 +87,15 @@ function Get-Links { param($Guid)
 }
 
 $chainCache = @{}
-function Follow-Chain { param($OldKb, $ArchPat, $OsPref)
-    # NOTE: for builds where client and server share the same build number (26100),
-    # this function does NOT filter by client/server, so it may return the first x64 match.
-    # Use Follow-ServerChain for server-specific lookups.
+function Follow-Chain { param($OldKb, $ArchPat, $OsPref, [switch]$Server)
+    # Filters by server operating system when -Server is set.
     $key = "$OldKb|$ArchPat"; if ($chainCache.ContainsKey($key)) { return $chainCache[$key] }
     $r = Search-Catalog "$OldKb"
-    $first = $r | Where-Object { $_.Title -match $ArchPat } | Select-Object -First 1
+    if ($Server) {
+        $first = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'server operating system' } | Select-Object -First 1
+    } else {
+        $first = $r | Where-Object { $_.Title -match $ArchPat } | Select-Object -First 1
+    }
     if (-not $first) { $chainCache[$key] = $null; return $null }
     try { $sv = Retry-WebRequest -Url ("https://www.catalog.update.microsoft.com/v7/site/ScopedViewInline.aspx?updateid=" + $first.Guid)
     } catch { $chainCache[$key] = $null; return $null }
@@ -98,30 +111,7 @@ function Follow-Chain { param($OldKb, $ArchPat, $OsPref)
     $chainCache[$key] = $result; return $result
 }
 
-function Follow-ServerChain { param($OldKb, $ArchPat)
-    # Like Follow-Chain but filters for "server operating system" entries only.
-    # Uses a separate cache key to avoid collisions with client chain.
-    $key = "$OldKb|$ArchPat|server"; if ($chainCache.ContainsKey($key)) { return $chainCache[$key] }
-    $r = Search-Catalog "$OldKb"
-    $first = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'server operating system' } | Select-Object -First 1
-    if (-not $first) { $chainCache[$key] = $null; return $null }
-    try { $sv = Retry-WebRequest -Url ("https://www.catalog.update.microsoft.com/v7/site/ScopedViewInline.aspx?updateid=" + $first.Guid)
-    } catch { $chainCache[$key] = $null; return $null }
-    $html = $sv.Content
-    $match = [regex]::Match($html, '(?s)<div id="supersededbyInfo">(.*?)<span')
-    if (-not $match.Success) { $ll = Get-Links $first.Guid; $chainCache[$key] = $ll; return $ll }
-    $links = [regex]::Matches($match.Groups[1].Value, "<a[^>]*href='([^']*)'[^>]*>([^<]+)</a>")
-    if ($links.Count -eq 0) { $ll = Get-Links $first.Guid; $chainCache[$key] = $ll; return $ll }
-    $sorted = $links | Sort-Object { $_.Groups[2].Value } -Descending
-    $guid = if ($sorted[0].Groups[1].Value -match 'updateid=([a-f0-9\-]{36})') { $matches[1] }
-    if (-not $guid) { $chainCache[$key] = $null; return $null }
-    $result = Get-Links $guid
-    # Verify the result still matches server filter (chain might jump to client)
-    $result = $result | Where-Object { $_.FileName -match '^windows11\.0-' }
-    $chainCache[$key] = $result; return $result
-}
-
-function Bootstrap-Search { param($Term, $ArchPat, $OsPref, $Kind)
+function Bootstrap-Search { param($Term, $ArchPat, $OsPref, $Kind, [switch]$Server)
     $r = Search-Catalog $Term
     if ($Kind -eq "LCU") {
         $best = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'Cumulative Update' -and $_.Title -notmatch '\.NET' } | Sort-Object Title -Descending | Select-Object -First 1
@@ -249,7 +239,7 @@ function Get-StatusColor($Tag) {
     return "Yellow"
 }
 
-function Update-NetfxSubdir($Label, $Subdir, $S4Term) {
+function Update-NetfxSubdir($Label, $Subdir, $S4Term, $PrimaryTerm=$null) {
     $nDir = Join-Path $OutputDir $Subdir
     if (-not (Test-Path $nDir)) { New-Item $nDir -ItemType Directory -Force | Out-Null }
     $nPath = Join-Path $nDir "script_${Subdir}_${bn}_${ar}.meta4"
@@ -260,7 +250,7 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term) {
         $newNdp = Pick-File $cl "NET" $c.OP
         if ($newNdp -and $newNdp.KB -eq $nNdp.KB) { $newNdp = $null }
         if (-not $newNdp) {
-            $boot = Bootstrap-Search -Term $c.S3 -ArchPat $ap -OsPref $c.OP -Kind "NET"
+                        $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }; $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
             if ($S4Term) { $s3N = if($boot -and $boot.FileName -match 'ndp(\d+)'){$matches[1]}; $oN = if($nNdp.FileName -match 'ndp(\d+)'){$matches[1]}; if (-not $boot -or ($s3N -and $oN -and $s3N -ne $oN)) { $boot = Bootstrap-Search -Term $S4Term -ArchPat $ap -OsPref $c.OP -Kind "NET" } }
             elseif (-not $boot -and $nNdp.KB -gt 0) { $boot = Bootstrap-Search -Term "kb$($nNdp.KB)" -ArchPat $ap -OsPref $c.OP -Kind "NET" }
             $bootBoot = Bootstrap-Search -Term ".NET Framework 4.8 $($c.L)" -ArchPat $ap -OsPref $c.OP -Kind "NET"
@@ -279,7 +269,7 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term) {
             Write-Host "  [$Label] KB$($nNdp.KB) (unchanged)" -ForegroundColor DarkGray
         }
     } else {
-        $boot = Bootstrap-Search -Term $c.S3 -ArchPat $ap -OsPref $c.OP -Kind "NET"
+                    $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }; $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
         if (-not $boot -and $S4Term) { $boot = Bootstrap-Search -Term $S4Term -ArchPat $ap -OsPref $c.OP -Kind "NET" }
         if ($boot) {
             $bootArchOk = $false
@@ -432,12 +422,14 @@ $gen = 0; $skip = 0; $BUILD_VERSIONS = @{}
 
 foreach ($bn in $Build) {
     $c = $CFG[$bn]; if (-not $c) { continue }
+    $isServer = [bool]$c.SRV
+    $baseBn = $bn -replace '-server$'
     foreach ($ar in $Arch) {
         $al = $ARCH_LABEL[$ar]
         $ap = "for $ar" + $(if ($ar -eq "arm64") { "" } else { "[^a-z]" })
         if (-not $al) { continue }
         if ($bn -eq "28000" -and $ar -eq "x86") { continue }
-        $old = Join-Path $OutputDir "script_${bn}_${ar}.meta4"
+        $old = Join-Path $OutputDir "script_$(if ($isServer) {'server_'})$baseBn`_$ar.meta4"
         $newFiles = @()
         Write-Host "--- [$bn/$ar] $($c.L) ---" -ForegroundColor Yellow
         $newFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $newFiles -BuildNum $bn
@@ -446,12 +438,12 @@ foreach ($bn in $Build) {
         # 1. LCU
         try {
                         # History page: only for build version (README use), not for file
-            $histTopic = $UPDATE_HISTORY[$bn]
+            $histTopic = if ($isServer) { $UPDATE_HISTORY_SERVER[$baseBn] } else { $UPDATE_HISTORY[$bn] }
             if ($histTopic) {
                 $bp = Get-HistoryBuildPat $bn
                 $hb = Get-HistoryBuild -TopicId $histTopic -BuildPat $bp
                 if ($hb) {
-                    $hbk = switch -wildcard ($bn) {
+                    $hbk = switch -wildcard ($baseBn) {
                         "14393" { "14393" } "17763" { "17763" } "19041" { "1904x" }
                         "20348" { "20348" } "22621" { "22631" }
                         "28000" { "28000" } default { $bn }
@@ -529,7 +521,7 @@ foreach ($bn in $Build) {
             $chain = $null; $boot = $null
             $okb = Get-OldKB $old "NET"
             if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "NET" $c.OP }
-            $boot = Bootstrap-Search -Term $c.S3 -ArchPat $ap -OsPref $c.OP -Kind "NET"
+                        $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }; $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
             $f, $tag = Cross-Validate $chain $boot "NET"
             # For builds with netfx subdirs (14393/17763/19041/20348), .NET goes to subdir, not main meta4
             if ($f -and $bn -in @("14393","17763","19041","20348")) { $f = $null; $tag = "in netfx subdir" }
@@ -608,7 +600,7 @@ foreach ($bn in $Build) {
 
         # netfx4.8.1 subdir: only 19041/20348 x64/x86 (arm64 has 4.8 only, no 4.8.1)
         if ($bn -in @("19041","20348") -and $ar -ne "arm64") {
-            Update-NetfxSubdir -Label "netfx4.8.1" -Subdir "netfx4.8.1" -S4Term $null
+            Update-NetfxSubdir -Label "netfx4.8.1" -Subdir "netfx4.8.1" -S4Term $null -PrimaryTerm $c.S4
         }
 
         # 5. CABs via chain
@@ -616,7 +608,7 @@ foreach ($bn in $Build) {
         foreach ($oc in $oldCabs) {
             $oldKb = Get-KB $oc
             if ($oldKb) {
-                $links = Follow-Chain -OldKb $oldKb -ArchPat $ap -OsPref $c.OP
+                $links = Follow-Chain -OldKb $oldKb -ArchPat $ap -OsPref $c.OP -Server:$isServer
                 $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
                 if ($cab -and $cab.FileName -ne $oc.FileName -and ($cab.Url -notin $newFiles.Url)) {
                     $cabType = Get-CabLabel $cab $ap
@@ -672,152 +664,6 @@ foreach ($bn in $Build) {
         $xml | Out-File (Join-Path $OutputDir "script_${bn}_${ar}.meta4") -Encoding utf8 -NoNewline
         Write-Host "  [OK] $($c.L) $ar ($($all.Count) files)" -ForegroundColor Green; $gen++
 
-        if ($bn -eq "26100" -and $ar -eq "x64") {
-            Write-Host "--- [$bn/$ar] $($c.LS) ---" -ForegroundColor Yellow
-
-            $serverOld = Join-Path $OutputDir "script_server_${bn}_${ar}.meta4"
-            $serverFiles = @()
-
-            $serverFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $serverFiles -BuildNum $bn
-            if ($serverFiles -isnot [array]) { $serverFiles = @($serverFiles) }
-
-            Write-Host "  LCU..." -NoNewline
-            try {
-                # Always run chain + bootstrap first (like other builds)
-                $sChain = $null; $sBoot = $null
-                if ($serverOldMsus.Count -gt 0) {
-                    $sChainResult = Follow-Chain -OldKb $sOkb -ArchPat $ap -OsPref $c.OP
-                    $sChain = Pick-File $sChainResult "LCU" $c.OP
-                }
-                $sBootTerm = "Cumulative Update for Microsoft server operating system version 24H2"
-                $sBoot = Bootstrap-Search -Term $sBootTerm -ArchPat $ap -OsPref $c.OP -Kind "LCU"
-                if (-not $sBoot) { $sBoot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU" }
-                $cvResult, $cvTag = Cross-Validate $sChain $sBoot "LCU_SERVER"
-                # Also try MS Update History page (authoritative for server)
-                $sf = $null; $stag = ""
-                $sHistTopic = $UPDATE_HISTORY_SERVER[$bn]
-                if ($sHistTopic) {
-                    $shb = Get-HistoryBuild -TopicId $sHistTopic -BuildPat $bn
-                    if ($shb) {
-                        $shf = Get-FileForKB -Kb $shb.KB -ArchPat $ap -OsPref $c.OP
-                        if ($shf) {
-                            $sf = $shf
-                            if ($cvResult -and $cvResult.KB -eq $shf.KB) { $stag = "verified" }
-                            else { $stag = "history (build $($shb.Build))" }
-                        }
-                        $srvRev = $shb.Build.Split('.')[-1]
-                        $BUILD_VERSIONS["26100"] = "Build 26100.$srvRev"
-                    }
-                }
-                if (-not $sf) { $sf = $cvResult; $stag = $cvTag }
-
-                if ($sf) {
-                    $serverFiles += $sf
-                    Write-Host " $($sf.FileName) ($stag)" -ForegroundColor $(Get-StatusColor $stag)
-                } else {
-                    Write-Host " SKIP (no server LCU found)" -ForegroundColor DarkGray
-                }
-
-                if ($serverOldMsus.Count -eq 0) {
-                    $latestMainMsu = $mainMsus | Where-Object { $_.KB -ne 5043080 } | Sort-Object KB -Descending | Select-Object -First 1
-                    if ($latestMainMsu) { $serverOldMsus = @($latestMainMsu) }
-                }
-                if ($serverOldMsus.Count -gt 0) {
-                    $sorted = $serverOldMsus | Sort-Object KB -Descending
-                    $sOkb = $sorted[0].KB
-                    $checkpoints = $sorted | Select-Object -Skip 1
-                    foreach ($cp in $checkpoints) {
-                        if ($cp.Url -notin $serverFiles.Url) { $serverFiles += $cp }
-                    }
-                }
-            } catch { Write-Host " ERROR: $_" -ForegroundColor DarkGray }
-
-            Write-Host "  SSU: bundled" -ForegroundColor DarkGray
-            Write-Host "  .NET..." -NoNewline
-            try {
-                $sNetChain = $null; $sNetBoot = $null
-                $sNetOkb = Get-OldKB $serverOld "NET"
-                if ($sNetOkb) {
-                    $sNetCl = Follow-Chain -OldKb $sNetOkb -ArchPat $ap -OsPref $c.OP
-                    $sNetChain = Pick-File $sNetCl "NET" $c.OP
-                }
-                $sNetBoot = Bootstrap-Search -Term ".NET Framework 3.5 and 4.8.1 Microsoft server operating system version 24H2" -ArchPat $ap -OsPref $c.OP -Kind "NET"
-                if (-not $sNetBoot) { $sNetBoot = Bootstrap-Search -Term $c.S3 -ArchPat $ap -OsPref $c.OP -Kind "NET" }
-                $sNetF, $sNetTag = Cross-Validate $sNetChain $sNetBoot "NET"
-                if ($sNetF -and $sNetF.FileName -notmatch "^$($c.OP)") { $sNetF = $null; $sNetTag = "SKIP (OS mismatch)" }
-                if ($sNetF) {
-                    $serverFiles += $sNetF
-                    Write-Host " $($sNetF.FileName) ($sNetTag)" -ForegroundColor $(Get-StatusColor $sNetTag)
-                } else {
-                    # Fall back to main meta4 .NET if no server-specific .NET found
-                    foreach ($nf in $newFiles) {
-                        if ($nf.FileName -match 'ndp.*\.msu$') { $serverFiles += $nf }
-                    }
-                    Write-Host " from main" -ForegroundColor DarkGray
-                }
-            } catch {
-                foreach ($nf in $newFiles) {
-                    if ($nf.FileName -match 'ndp.*\.msu$') { $serverFiles += $nf }
-                }
-                Write-Host " from main (fallback)" -ForegroundColor DarkGray
-            }
-            # Server CABs — always search from server-specific catalog entries, never borrow from client
-            $sc = Get-Cabs $serverOld
-            if ($sc.Count -eq 0) {
-                # Bootstrap server CABs from catalog (no old meta4 to chain from)
-                foreach ($cabTerm in @("Setup Dynamic Update for Microsoft server operating system version 24H2", "Safe OS Dynamic Update for Microsoft server operating system version 24H2")) {
-                    Write-Host "  $cabTerm..." -NoNewline
-                    try {
-                        $sr = Search-Catalog $cabTerm
-                        $best = $sr | Where-Object { $_.Title -match $ap -and $_.Title -match 'server operating system' } | Sort-Object Title -Descending | Select-Object -First 1
-                        if ($best) {
-                            $links = Get-Links $best.Guid
-                            $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
-                            if ($cab) {
-                                $cabType = Get-CabLabel $cab $ap
-                                $serverFiles += $cab
-                                Write-Host " $($cab.FileName) [$cabType]" -ForegroundColor Green
-                            } else { Write-Host " SKIP (no cab link)" -ForegroundColor DarkGray }
-                        } else { Write-Host " SKIP (not found)" -ForegroundColor DarkGray }
-                    } catch { Write-Host " ERROR: $_" -ForegroundColor DarkGray }
-                    Start-Sleep -Milliseconds 400
-                }
-            } else {
-                # Chain-follow from old server CABs using server-specific Follow-ServerChain
-                foreach ($oc in $sc) {
-                    $oldKb = Get-KB $oc
-                    if ($oldKb) {
-                        $links = Follow-ServerChain -OldKb $oldKb -ArchPat $ap
-                        $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
-                        if ($cab -and $cab.FileName -ne $oc.FileName -and $cab.Url -notin $serverFiles.Url) {
-                            $cabType = Get-CabLabel $cab $ap
-                            $serverFiles += $cab; Write-Host "  [$cabType] $oldKb -> $($cab.FileName)" -ForegroundColor Green
-                        } elseif ($oc.Url -notin $serverFiles.Url) {
-                            $cabType = Get-CabLabel $oc $ap
-                            $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB}; Write-Host "  [$cabType] $oldKb (unchanged)" -ForegroundColor DarkGray
-                        }
-                    } elseif ($oc.Url -notin $serverFiles.Url) { $serverFiles += [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB} }
-                    Start-Sleep -Milliseconds 400
-                }
-            }
-            $sa = $serverFiles | Sort-Object Url -Unique
-            if (-not $TestMode) {
-                # Find server latest LCU URL for sorting
-                $ssuUrl = if ($ssuFile) { $ssuFile.Url } else { "" }
-                $sLatestLCUUrl = if ($sf) { $sf.Url } else { '' }
-                $sortedSa = $sa | Sort-Object @{Expression={
-                    $n = $_.FileName
-                    if ($n -match '\.cab$') { return 50 }
-                    if ($n -match 'ndp.*\.msu') { return 40 }
-                    if ($_.KB -eq 5043080) { return 10 }
-                    if ($_.Url -eq $sLatestLCUUrl) { return 15 }
-                    return 20
-                }}
-                $sx = New-Meta4 $sortedSa
-                $sx | Out-File $serverOld -Encoding utf8 -NoNewline
-            }
-            Write-Host "  [OK] $($c.LS) $ar ($($sa.Count) files)" -ForegroundColor Green
-        }
     }
 }
 # Update README date and build versions
@@ -876,4 +722,5 @@ if (-not $TestMode) {
         }
         Write-Host "  [README] date updated to $today" -ForegroundColor Green
     }
-}Write-Host "=== Done: $gen generated, $skip skipped ===" -ForegroundColor Cyan
+}
+Write-Host "=== Done: $gen generated, $skip skipped ===" -ForegroundColor Cyan
