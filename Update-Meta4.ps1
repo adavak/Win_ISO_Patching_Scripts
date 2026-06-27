@@ -365,20 +365,6 @@ function Get-ExistingFiles($Path) {
     } catch { return @() }
 }
 
-# Preserve non-.NET MSUs from old meta4 (e.g. checkpoint CUs) that catalog may no longer return
-function Add-CheckpointCU($OldMeta4, $CurrentFiles) {
-    $oldMsus = Get-OldMsus $OldMeta4
-    $extras = $oldMsus | Where-Object { $_.FileName -notmatch "ndp" -and $_.KB -gt 0 }
-    foreach ($cp in $extras) {
-        if ($cp.Url -notin $CurrentFiles.Url) {
-            $cpObj = [PSCustomObject]@{FileName=$cp.FileName; Url=$cp.Url; Sha1=$cp.Sha1; KB=$cp.KB}
-            $CurrentFiles += $cpObj
-            Write-Host "  [CHECKPOINT] $($cp.KB)" -ForegroundColor DarkGray
-        }
-    }
-    return ,($CurrentFiles | Sort-Object Url -Unique)
-}
-
 function Get-CabLabel($File, $ArchPat) {
     switch (Get-CabType $File $ArchPat) { 1 { "CAB_SETUP" } 2 { "CAB_SAFEOS" } default { "CAB" } }
 }
@@ -430,7 +416,7 @@ foreach ($bn in $Build) {
         $old = Join-Path $OutputDir "script_$(if ($isServer) {'server_'})$baseBn`_$ar.meta4"
         $newFiles = @()
         Write-Host "--- [$bn/$ar] $($c.L) ---" -ForegroundColor Yellow
-        $newFiles = Add-CheckpointCU -OldMeta4 $old -CurrentFiles $newFiles
+        # old MSUs preserved by MSU retention below
         if ($newFiles -isnot [array]) { $newFiles = @($newFiles) }
 
         # 1. LCU
