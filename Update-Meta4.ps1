@@ -624,45 +624,26 @@ foreach ($bn in $Build) {
         }
 
         $all = @($newFiles) | Sort-Object Url -Unique
-        # Reorder CABs: setup DU → safe OS DU → other CABs
-        # Old meta4 has safe OS before setup DU (reversed); swap by position
-        # CAB ordering: setup DU before safe OS DU
-        $cabs = @($all | Where-Object { $_.FileName -match '\.cab$' })
-        if ($cabs.Count -ge 2) {
-            $nonCabs = @($all | Where-Object { $_.FileName -notmatch '\.cab$' })
-            $reorderedCabs = $cabs | Sort-Object KB
-            $all = $nonCabs + $reorderedCabs
-        }
-        if ($TestMode) { Write-Host "  [TEST] $($all.Count) entries"; $gen++; continue }
+                if ($TestMode) { Write-Host "  [TEST] $($all.Count) entries"; $gen++; continue }
 
-        # Get key URL markers for sorting
-        $ssuUrl = if ($ssuFile) { $ssuFile.Url } else { "" }
-        $latestLCUUrl = if ($lcuFile) { $lcuFile.Url } else { "" }
-        $netMsuUrl = if ($fnet) { $fnet.Url } else { "" }
-        # ---- Sort: SSU → checkpoint CU → LCU → old MSU(EKB/setup DU/safe OS DU) → .NET ndp/msu → CAB ----
-        $sortedAll = $all | Sort-Object @{Expression={
-            $n = $_.FileName
-            if ($n -match '\.cab$') { return 50000000 + (Get-CabType $_ $ap) }  # CAB last, SetupUpdate(1) -> Safe OS(2)
-            if ($n -match 'ndp.*\.msu') { return 40 }           # .NET ndp
-            if ($_.Url -eq $ssuUrl) { return 5 }                # SSU first
-            if ($n -match '\.msu$' -and $n -notmatch 'ndp' -and $_.Url -ne $ssuUrl -and $_.Url -ne $latestLCUUrl) { return 10 }  # checkpoint CU
-            if ($_.Url -eq $latestLCUUrl) { return 15 }         # latest LCU
-            if ($_.Url -eq $netMsuUrl) { return 35 }            # .NET MSU (non-ndp filename)
-            return 20                                           # other old MSU (EKB/setup DU/safe OS DU)
-        }}
-        # Safety: ensure SSU is at position 1 even if catalog URL mismatch confused the sort
-        if ($ssuUrl -and $sortedAll.Count -gt 0 -and $sortedAll[0].Url -ne $ssuUrl) {
-            $ssuEntry = $sortedAll | Where-Object { $_.Url -eq $ssuUrl } | Select-Object -First 1
-            if ($ssuEntry) {
-                $sortedAll = @($ssuEntry) + @($sortedAll | Where-Object { $_.Url -ne $ssuUrl })
-                Write-Host "  [SSU] forced to position 1" -ForegroundColor DarkGray
-            }
-        }
-        $xml = New-Meta4 $sortedAll
-        $xml | Out-File (Join-Path $OutputDir "script_${bn}_${ar}.meta4") -Encoding utf8 -NoNewline
-        Write-Host "  [OK] $($c.L) $ar ($($all.Count) files)" -ForegroundColor Green; $gen++
+                # Sort: all files by KB ascending
+        $sortedAll = $all | Sort-Object @{Expression={if ($_.KB -gt 0) { [int]$_.KB } else { 0 }}}
 
-    }
+        # Only write if file name list changed (avoids false date bumps)
+        $oldSig = if (Test-Path $old) {
+            $x = [xml](Get-Content $old -Raw)
+            $x.metalink.file | Sort-Object { if ($_.name -match 'kb(\d+)') { [int]$matches[1] } else { 0 } } | ForEach-Object { $_.name } | Out-String
+        }
+        $newSig = $sortedAll | Sort-Object { if ($_.FileName -match 'kb(\d+)') { [int]$matches[1] } else { 0 } } | ForEach-Object { $_.FileName } | Out-String
+        if ($oldSig -and $oldSig -eq $newSig) {
+            Write-Host "  [OK] $($c.L) $ar (unchanged)" -ForegroundColor DarkGray; $gen++
+            continue
+        }
+
+        $newMeta = New-Meta4 $sortedAll
+        $newMetaStr = $newMeta.ToString()
+        [System.IO.File]::WriteAllText($old, $newMetaStr, [System.Text.Encoding]::UTF8)
+        Write-Host "  [OK] $($c.L) $ar ($($all.Count) files)" -ForegroundColor Green; $gen++    }
 }
 # Update README date and build versions
 # Only update if meta4 content actually changed (avoids false date bumps when no new patches)
