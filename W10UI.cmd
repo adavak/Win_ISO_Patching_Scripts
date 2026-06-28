@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.60
+@set uiv=v10.61
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -2825,9 +2825,11 @@ if exist "%~1\Microsoft-Windows-Ge-Client-Server-Beta-Version-Enablement-Package
 if exist "%~1\Microsoft-Windows-Ge-Client-Server-26200-Version-Enablement-Package~*.mum" set "_fixSV=26200"&set "_fixEP=26200"
 if exist "%~1\Microsoft-Windows-Ge-Client-Server-26220-Version-Enablement-Package~*.mum" set "_fixSV=26220"&set "_fixEP=26220"
 if exist "%~1\Microsoft-Windows-Ge-Client-Server-26300-Version-Enablement-Package~*.mum" set "_fixSV=26300"&set "_fixEP=26300"
+if exist "%~1\Microsoft-Windows-Ge-Client-Server-26320-Version-Enablement-Package~*.mum" set "_fixSV=26320"&set "_fixEP=26320"
 if exist "%~1\Microsoft-Windows-Client-Br-28020-Version-Enablement-Package~*.mum" set "_fixSV=28020"&set "_fixEP=28020"
 if exist "%~1\Microsoft-Windows-Client-Br-28100-Version-Enablement-Package~*.mum" set "_fixSV=28100"&set "_fixEP=28100"
 if exist "%~1\Microsoft-Windows-Client-Br-28120-Version-Enablement-Package~*.mum" set "_fixSV=28120"&set "_fixEP=28120"
+if exist "%~1\Microsoft-Windows-Client-Br-28220-Version-Enablement-Package~*.mum" set "_fixSV=28220"&set "_fixEP=28220"
 goto :eof
 
 :fixLab
@@ -2840,6 +2842,7 @@ if %1==19045 if /i "%_tl:~0,2%"=="vb" set _tl=22h2%_tl:~2%
 if %1==20349 if /i "%_tl:~0,2%"=="fe" set _tl=22h2%_tl:~2%
 if %1==22631 if /i "%_tl:~0,2%"=="ni" (echo %_tl% | find /i "beta" %_Nul1% || set _tl=23h2_ni%_tl:~2%)
 if %1==26200 if /i "%_tl:~0,2%"=="ge" (echo %_tl% | findstr /i /r "beta prerelease" %_Nul1% || set _tl=25h2_ge%_tl:~2%)
+if %1==26300 if /i "%_tl:~0,2%"=="ge" (echo %_tl% | findstr /i /r "beta prerelease" %_Nul1% || set _tl=26h2_ge%_tl:~2%)
 set "%3=%_tl%"
 goto :eof
 
@@ -3850,9 +3853,9 @@ if %_pwsh% equ 0 goto :eof
 copy /y "!target!\sources\setuphost.exe" %SystemRoot%\temp\ %_Nul3%
 copy /y "!target!\sources\setupprep.exe" %SystemRoot%\temp\ %_Nul3%
 set _svr1=0&set _svr2=0&set _svr3=0&set _svr4=0
-set "_fvr1=%SystemRoot%\temp\UpdateAgent.dll"
-set "_fvr2=%SystemRoot%\temp\setuphost.exe"
-set "_fvr3=%SystemRoot%\temp\setupprep.exe"
+set "_fvr1=%SystemRoot%\temp\setuphost.exe"
+set "_fvr2=%SystemRoot%\temp\setupprep.exe"
+set "_fvr3=%SystemRoot%\temp\UpdateAgent.dll"
 set "_fvr4=%SystemRoot%\temp\Facilitator.dll"
 set "cfvr1=!_fvr1:\=\\!"
 set "cfvr2=!_fvr2:\=\\!"
@@ -3870,14 +3873,16 @@ if exist "!_fvr2!" for /f "tokens=4 delims=." %%a in ('%_psc% "([WMI]'CIM_DataFi
 if exist "!_fvr3!" for /f "tokens=4 delims=." %%a in ('%_psc% "([WMI]'CIM_DataFile.Name=''!cfvr3!''').Version"') do set /a "_svr3=%%a"
 if exist "!_fvr4!" for /f "tokens=4 delims=." %%a in ('%_psc% "([WMI]'CIM_DataFile.Name=''!cfvr4!''').Version"') do set /a "_svr4=%%a"
 )
-if %isomin% neq %_svr1% if %isomin% neq %_svr2% if %isomin% neq %_svr3% if %isomin% neq %_svr4% goto :eof
-if %isomin% equ %_svr1% set "_chk=!_fvr1!"
-if %isomin% equ %_svr2% set "_chk=!_fvr2!"
-if %isomin% equ %_svr3% set "_chk=!_fvr3!"
-if %isomin% equ %_svr4% set "_chk=!_fvr4!"
+:: if %isomin% neq %_svr1% if %isomin% neq %_svr2% if %isomin% neq %_svr3% if %isomin% neq %_svr4% goto :eof
+if %isomin% equ %_svr1% set "_chk=!_fvr1!"&goto :prephostsetup
+if %isomin% equ %_svr2% set "_chk=!_fvr2!"&goto :prephostsetup
+if %isomin% equ %_svr3% set "_chk=!_fvr3!"&goto :prephostsetup
+if %isomin% equ %_svr4% set "_chk=!_fvr4!"&goto :prephostsetup
+goto :eof
+:prephostsetup
 for /f "tokens=6 delims=.) " %%# in ('%_psc% "(gi '!_chk!').VersionInfo.FileVersion" %_Nul6%') do set "_ddd=%%#"
 if defined _ddd (
-if /i not "%_ddd%"=="winpbld" set "isodate=%_ddd%"
+if /i not "%_ddd%"=="winpbld" if /i not "%_ddd%"=="160101" set "isodate=%_ddd%"
 )
 del /f /q "!_fvr1!" "!_fvr2!" "!_fvr3!" "!_fvr4!" %_Nul3%
 goto :eof
