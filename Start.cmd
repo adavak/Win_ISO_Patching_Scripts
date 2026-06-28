@@ -37,10 +37,30 @@ endlocal
 goto :EOF
 
 :START_PROCESS
-if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" if exist "bin\bin64\7z.exe" if exist "bin\bin64\aria2c.exe" (
+rem --- detect host architecture (works across WOW64) ---
+set "xOS=amd64"
+if /i "%PROCESSOR_ARCHITECTURE%"=="arm64" set "xOS=arm64"
+if /i "%PROCESSOR_ARCHITECTURE%"=="x86" if "%PROCESSOR_ARCHITEW6432%"=="" set "xOS=x86"
+if /i "%PROCESSOR_ARCHITEW6432%"=="amd64" set "xOS=amd64"
+if /i "%PROCESSOR_ARCHITEW6432%"=="arm64" set "xOS=arm64"
+
+for /f "tokens=3,* delims= " %%i in ('REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v "CurrentBuildNumber"') do (
+set OSBuildNumber=%%i
+)
+
+if /i "%xOS%"=="amd64" if exist "bin\bin64\7z.exe" if exist "bin\bin64\aria2c.exe" (
     set "aria2=bin\bin64\aria2c.exe"
     set "a7z=bin\bin64\7z.exe"
-) else (
+)
+if /i "%xOS%"=="arm64" if %OSBuildNumber% GEQ 22000 if exist "bin\bin64\7z.exe" if exist "bin\bin64\aria2c.exe" (
+    set "aria2=bin\bin64\aria2c.exe"
+    set "a7z=bin\bin64\7z.exe"
+)
+if /i "%xOS%"=="x86" if exist "bin\7z.exe" if exist "bin\aria2c.exe" (
+    set "aria2=bin\aria2c.exe"
+    set "a7z=bin\7z.exe"
+)
+if /i "%xOS%"=="arm64" if %OSBuildNumber% LSS 22000 if exist "bin\7z.exe" if exist "bin\aria2c.exe" (
     set "aria2=bin\aria2c.exe"
     set "a7z=bin\7z.exe"
 )
