@@ -37,14 +37,7 @@ endlocal
 goto :EOF
 
 :START_PROCESS
-rem --- detect host architecture (works across WOW64) ---
-set "xOS=amd64"
-if /i "%PROCESSOR_ARCHITECTURE%"=="arm64" set "xOS=arm64"
-if /i "%PROCESSOR_ARCHITECTURE%"=="x86" if "%PROCESSOR_ARCHITEW6432%"=="" set "xOS=x86"
-if /i "%PROCESSOR_ARCHITEW6432%"=="amd64" set "xOS=amd64"
-if /i "%PROCESSOR_ARCHITEW6432%"=="arm64" set "xOS=arm64"
-
-if /i "%xOS%"=="amd64" if exist "bin\bin64\7z.exe" if exist "bin\bin64\aria2c.exe" (
+if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" if exist "bin\bin64\7z.exe" if exist "bin\bin64\aria2c.exe" (
     set "aria2=bin\bin64\aria2c.exe"
     set "a7z=bin\bin64\7z.exe"
 ) else (
