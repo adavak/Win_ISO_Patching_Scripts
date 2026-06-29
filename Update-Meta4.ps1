@@ -456,7 +456,7 @@ foreach ($bn in $Build) {
             # Always run chain + bootstrap from Catalog (history may be stale)
             $chain = $null; $boot = $null
             $okb = Get-OldKB $old "LCU" $ap
-            if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "LCU" $c.OP; $newFiles += $cl | Where-Object { $_.FileName -match '\.msu$' } }
+            if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP -Server:$isServer; $chain = Pick-File $cl "LCU" $c.OP; $newFiles += $cl | Where-Object { $_.FileName -match '\.msu$' -and $_.KB -eq $chain.KB } }
             $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
             $f, $tag = Cross-Validate $chain $boot "LCU"
             $lcuFile = $f
@@ -517,13 +517,18 @@ foreach ($bn in $Build) {
             $chain = $null; $boot = $null
             $okb = Get-OldKB $old "NET"
             if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "NET" $c.OP }
-                        $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }; $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
+                        $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }; if (-not $s3term -and $c.S4) { $s3term = $c.S4 }; $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
             $f, $tag = Cross-Validate $chain $boot "NET"
             # For builds with netfx subdirs (14393/17763/19041/20348), .NET goes to subdir, not main meta4
             if ($f -and $bn -in @("14393","17763","19041","20348")) { $f = $null; $tag = "in netfx subdir" }
             # Verify OS prefix (windows10.0 rejects windows11.0) — only for non-subdir builds
             if ($f -and $f.FileName -notmatch "^$($c.OP)") { $f = $null; $tag = "SKIP (OS mismatch)" }
             if ($f) { $newFiles += $f; Write-Host " $($f.FileName) ($tag)" -ForegroundColor $(Get-StatusColor $tag) }
+            elseif ($okb) {
+                $oldNetMsu = Get-ExistingFiles $old | Where-Object { $_.FileName -match 'ndp.*\.msu$' } | Select-Object -First 1
+                if ($oldNetMsu) { $newFiles += $oldNetMsu; Write-Host " $($oldNetMsu.FileName) (kept)" -ForegroundColor Yellow }
+                else { Write-Host " not found" -ForegroundColor DarkGray }
+            }
             else { Write-Host " $tag" -ForegroundColor DarkGray }
         } catch { Write-Host " ERROR: $_" -ForegroundColor Red }
 
