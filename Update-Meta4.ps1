@@ -540,9 +540,9 @@ foreach ($bn in $Build) {
         if (Test-Path $old) {
             $oldMsus = Get-OldMsus $old
             $newKbs = @($newFiles | Where-Object { $_.KB -gt 0 } | ForEach-Object { $_.KB })
-            # Also exclude the old LCU that was replaced by the new one
-            $oldLcuKb = Get-OldKB $old "LCU" $ap
-            if ($oldLcuKb -and $oldLcuKb -notin $newKbs) { $newKbs += $oldLcuKb }
+            # Note: old LCU is NOT explicitly excluded — the URL comparison below handles
+            # dedup when the chain returns the same KB. For 26100 the catalog always returns
+            # two LCUs (KB5043080 + latest); both should be preserved.
             # Exclude old .NET if .NET is in main meta4 (no netfx subdir)
             if ($bn -notin @("14393","17763","19041","20348")) {
                 $oldNetKb = Get-OldKB $old "NET"
