@@ -94,7 +94,7 @@ function Follow-Chain { param($OldKb, $ArchPat, $OsPref, [switch]$Server)
     if ($Server) {
         $first = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'server operating system' } | Select-Object -First 1
     } else {
-        $first = $r | Where-Object { $_.Title -match $ArchPat } | Select-Object -First 1
+        $first = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -notmatch 'server operating system' } | Select-Object -First 1
     }
     if (-not $first) { $chainCache[$key] = $null; return $null }
     try { $sv = Retry-WebRequest -Url ("https://www.catalog.update.microsoft.com/v7/site/ScopedViewInline.aspx?updateid=" + $first.Guid)
