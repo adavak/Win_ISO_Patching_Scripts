@@ -1,9 +1,9 @@
 ﻿<metalink xmlns="urn:ietf:params:xml:ns:metalink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="metalink4.xsd">
-	<file name="windows10.0-kb5087065-x86-ndp48_2dd76120b8a3927fbfaecefbaade05d68d2ee7a2.msu">
+	<file name="windows10.0-kb5101007-x86-ndp48_6e484d440d8d4840b2ad86c36265b71f31c40751.msu">
 		<language>neutral</language>
-		<hash type="sha-1">2dd76120b8a3927fbfaecefbaade05d68d2ee7a2</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2026/05/windows10.0-kb5087065-x86-ndp48_2dd76120b8a3927fbfaecefbaade05d68d2ee7a2.msu</url>
+		<hash type="sha-1">6e484d440d8d4840b2ad86c36265b71f31c40751</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2026/06/windows10.0-kb5101007-x86-ndp48_6e484d440d8d4840b2ad86c36265b71f31c40751.msu</url>
 	</file>
 	<file name="windows10.0-kb4486129-x86_d38ebe43baeabaef927675c7ff2295843f19a077.msu">
 		<language>neutral</language>
