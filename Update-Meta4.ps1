@@ -547,16 +547,12 @@ foreach ($bn in $Build) {
             $oldLcuKb = Get-OldKB $old "LCU" $ap
             if ($oldLcuKb -and $lcuFile -and $oldLcuKb -ne $lcuFile.KB) {
                 $isBaseline = $false
-                # Check if oldLcuKb is the baseline (lowest MSU in chain output or old meta4)
+                # Baseline detection: if the new LCU's catalog entry still bundles the old LCU
+                # as a downloadable file (e.g. checkpoint CU KB5043080 for 26100).
                 if ($cl) {
-                    $chainMsuKbs = @($cl | Where-Object { $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' } | ForEach-Object { $_.KB })
-                    if ($chainMsuKbs.Count -gt 0 -and $oldLcuKb -eq ($chainMsuKbs | Sort-Object)[0]) {
-                        $isBaseline = $true
-                    }
-                }
-                if (-not $isBaseline) {
-                    $oldMsuKbs = @($oldMsus | Where-Object { $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' -and $_.KB -gt 0 } | ForEach-Object { $_.KB })
-                    if ($oldMsuKbs.Count -gt 0 -and $oldLcuKb -eq ($oldMsuKbs | Sort-Object)[0]) {
+                    $chainMsuNames = @($cl | Where-Object { $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' } | ForEach-Object { $_.FileName })
+                    $oldLcuName = ($oldMsus | Where-Object { $_.KB -eq $oldLcuKb } | Select-Object -First 1).FileName
+                    if ($chainMsuNames.Count -gt 1 -and $oldLcuName -and ($oldLcuName -in $chainMsuNames)) {
                         $isBaseline = $true
                     }
                 }
