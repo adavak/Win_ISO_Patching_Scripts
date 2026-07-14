@@ -545,7 +545,7 @@ foreach ($bn in $Build) {
             # Exclude the old LCU when superseded, but preserve the baseline LCU
             # (e.g. KB5043080 for 26100, which the catalog bundles with the latest)
             $oldLcuKb = Get-OldKB $old "LCU" $ap
-            if ($oldLcuKb -and $chain -and $oldLcuKb -ne $chain.KB) {
+            if ($oldLcuKb -and $lcuFile -and $oldLcuKb -ne $lcuFile.KB) {
                 $isBaseline = $false
                 # Check if oldLcuKb is the baseline (lowest MSU in chain output or old meta4)
                 if ($cl) {
