@@ -317,7 +317,7 @@ function Get-HistoryBuild($TopicId, $BuildPat) {
         $historyPageCache[$cacheKey] = $r.Content
     }
     $h = $historyPageCache[$cacheKey]
-    $re = [regex]'<a class="supLeftNavLink"[^>]*>([^<]+)</a>'
+    $re = [regex]'<a[^>]*class="learnRenderLeftNavLink"[^>]*>([^<]+)</a>'
     $entries = @()
     foreach ($m in $re.Matches($h)) {
         $text = $m.Groups[1].Value -replace '&#x2014;', ''
@@ -349,6 +349,8 @@ function Get-HistoryBuildPat($bn) {
     $pat = $bn
     if    ($bn -eq "19041") { $pat = "1904\d" }   # 1904x builds share the same LCU
     elseif ($bn -eq "22621") { $pat = "22631" }    # 23H2 history shows 22631.xxxx
+    elseif ($bn -eq "26100") { $pat = "26200" }    # 25H2 history shows 26200.xxxx
+    elseif ($bn -eq "26100-server") { $pat = "26100" }  # Server2025 history shows 26100.xxxx
     return $pat
 }
 
@@ -540,9 +542,28 @@ foreach ($bn in $Build) {
         if (Test-Path $old) {
             $oldMsus = Get-OldMsus $old
             $newKbs = @($newFiles | Where-Object { $_.KB -gt 0 } | ForEach-Object { $_.KB })
-            # Note: old LCU is NOT explicitly excluded — the URL comparison below handles
-            # dedup when the chain returns the same KB. For 26100 the catalog always returns
-            # two LCUs (KB5043080 + latest); both should be preserved.
+            # Exclude the old LCU when superseded, but preserve the baseline LCU
+            # (e.g. KB5043080 for 26100, which the catalog bundles with the latest)
+            $oldLcuKb = Get-OldKB $old "LCU" $ap
+            if ($oldLcuKb -and $chain -and $oldLcuKb -ne $chain.KB) {
+                $isBaseline = $false
+                # Check if oldLcuKb is the baseline (lowest MSU in chain output or old meta4)
+                if ($cl) {
+                    $chainMsuKbs = @($cl | Where-Object { $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' } | ForEach-Object { $_.KB })
+                    if ($chainMsuKbs.Count -gt 0 -and $oldLcuKb -eq ($chainMsuKbs | Sort-Object)[0]) {
+                        $isBaseline = $true
+                    }
+                }
+                if (-not $isBaseline) {
+                    $oldMsuKbs = @($oldMsus | Where-Object { $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' -and $_.KB -gt 0 } | ForEach-Object { $_.KB })
+                    if ($oldMsuKbs.Count -gt 0 -and $oldLcuKb -eq ($oldMsuKbs | Sort-Object)[0]) {
+                        $isBaseline = $true
+                    }
+                }
+                if (-not $isBaseline -and $oldLcuKb -notin $newKbs) {
+                    $newKbs += $oldLcuKb
+                }
+            }
             # Exclude old .NET if .NET is in main meta4 (no netfx subdir)
             if ($bn -notin @("14393","17763","19041","20348")) {
                 $oldNetKb = Get-OldKB $old "NET"
