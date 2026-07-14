@@ -458,7 +458,7 @@ foreach ($bn in $Build) {
             # Always run chain + bootstrap from Catalog (history may be stale)
             $chain = $null; $boot = $null
             $okb = Get-OldKB $old "LCU" $ap
-            if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP -Server:$isServer; $chain = Pick-File $cl "LCU" $c.OP; $newFiles += $cl | Where-Object { $_.FileName -match '\.msu$' -and $_.KB -eq $chain.KB } }
+            if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP -Server:$isServer; $chain = Pick-File $cl "LCU" $c.OP; $newFiles += $cl | Where-Object { $_.FileName -match '\.msu$' } }
             $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
             $f, $tag = Cross-Validate $chain $boot "LCU"
             $lcuFile = $f
