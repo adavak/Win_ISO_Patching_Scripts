@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.61
+@set uiv=v10.62
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -218,6 +218,10 @@ set "_EdgIdn=Microsoft-Windows-EdgeChromium-FirstTimeInstaller"
 set "_CedIdn=Microsoft-Windows-EdgeChromium"
 set "_EwvIdn=Microsoft-Edge-WebView"
 set "_EsuIdn=Microsoft-Windows-Security-SPP-Component-ExtendedSecurityUpdatesAI"
+set "du_sys=ServicingCommon.dll"
+set "du_rec=wlanapi.dll, mobilenetworking.dll"
+set "du_mig=unbcl.dll"
+set "du_tmp=UpdateAgent.dll, Facilitator.dll, %du_sys%, %du_rec%"
 setlocal EnableDelayedExpansion
 
 if %_Debug% equ 0 (
@@ -794,10 +798,9 @@ goto :fin
 
 :igdvd
 if %dvd%==0 goto :fin
-if exist "%SystemRoot%\temp\UpdateAgent.dll" del /f /q "%SystemRoot%\temp\UpdateAgent.dll" %_Nul3%
-if exist "%SystemRoot%\temp\Facilitator.dll" del /f /q "%SystemRoot%\temp\Facilitator.dll" %_Nul3%
-if exist "%SystemRoot%\temp\ServicingCommon.dll" del /f /q "%SystemRoot%\temp\ServicingCommon.dll" %_Nul3%
-if exist "%SystemRoot%\temp\unbcl.dll" del /f /q "%SystemRoot%\temp\unbcl.dll" %_Nul3%
+for %%# in (%du_tmp%, %du_mig%) do (
+if exist "%SystemRoot%\temp\%%#" del /f /q "%SystemRoot%\temp\%%#" %_Nul3%
+)
 if "%indices%"=="*" set "indices="&for /L %%# in (1,1,!imgcount!) do set "indices=!indices! %%#"
 call :mount sources\install.wim
 if exist "!_work!\winre.wim" del /f /q "!_work!\winre.wim" %_Nul1%
@@ -2696,10 +2699,15 @@ if %_build% geq 15063 (call :detectRev)
 )
 if %_actEP% equ 0 if exist "!mountdir!\Windows\Servicing\Packages\microsoft-windows-*enablement-package~*.mum" if not exist "!mountdir!\Windows\Servicing\Packages\*WinPE-LanguagePack*.mum" call :detectEP
 if exist "!mountdir!\Windows\Servicing\Packages\Microsoft-Windows-Server*Edition~*.mum" set _SrvEdt=1
-if exist "!mountdir!\Windows\system32\UpdateAgent.dll" if not exist "%SystemRoot%\temp\UpdateAgent.dll" copy /y "!mountdir!\Windows\system32\UpdateAgent.dll" %SystemRoot%\temp\ %_Nul3%
-if exist "!mountdir!\Windows\system32\Facilitator.dll" if not exist "%SystemRoot%\temp\Facilitator.dll" copy /y "!mountdir!\Windows\system32\Facilitator.dll" %SystemRoot%\temp\ %_Nul3%
-if exist "!mountdir!\Windows\system32\ServicingCommon.dll" if not exist "%SystemRoot%\temp\ServicingCommon.dll" copy /y "!mountdir!\Windows\system32\ServicingCommon.dll" %SystemRoot%\temp\ %_Nul3%
-if exist "!mountdir!\Windows\system32\migwiz\unbcl.dll" if not exist "%SystemRoot%\temp\unbcl.dll" copy /y "!mountdir!\Windows\system32\migwiz\unbcl.dll" %SystemRoot%\temp\ %_Nul3%
+for %%# in (%du_tmp%) do (
+  if exist "!mountdir!\Windows\system32\%%#" if not exist "%SystemRoot%\temp\%%#" copy /y "!mountdir!\Windows\system32\%%#" %SystemRoot%\temp\ %_Nul1%
+  )
+for %%# in (%du_mig%) do (
+  if exist "!mountdir!\Windows\system32\migwiz\%%#" if not exist "%SystemRoot%\temp\%%#" copy /y "!mountdir!\Windows\system32\migwiz\%%#" %SystemRoot%\temp\ %_Nul1%
+  )
+if %_build% geq 26100 if exist "!mountdir!\sources\recovery\RecEnv.exe" for %%# in (%du_rec%) do (
+  if exist "%SystemRoot%\temp\%%#" if not exist "!mountdir!\Windows\system32\%%#" copy /y "%SystemRoot%\temp\%%#" "!mountdir!\Windows\system32\" %_Nul3%
+  )
 if exist "!mountdir!\sources\setup.exe" call :boots
 )
 if %wim%==1 if exist "!_wimpath!\setup.exe" (
@@ -3881,10 +3889,12 @@ if %isomin% equ %_svr4% set "_chk=!_fvr4!"&goto :prephostsetup
 goto :eof
 :prephostsetup
 for /f "tokens=6 delims=.) " %%# in ('%_psc% "(gi '!_chk!').VersionInfo.FileVersion" %_Nul6%') do set "_ddd=%%#"
-if defined _ddd (
-if /i not "%_ddd%"=="winpbld" if /i not "%_ddd%"=="160101" set "isodate=%_ddd%"
-)
 del /f /q "!_fvr1!" "!_fvr2!" "!_fvr3!" "!_fvr4!" %_Nul3%
+if not defined _ddd goto :eof
+if /i "%_ddd%"=="winpbld" goto :eof
+if /i "%_ddd%"=="160101" goto :eof
+echo %_ddd% | findstr /i "BldB" %_Nul1% && goto :eof
+set "isodate=%_ddd%"
 goto :eof
 
 :fin
