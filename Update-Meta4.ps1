@@ -280,15 +280,26 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term, $PrimaryTerm=$null) {
         $newNdp = Pick-File $cl "NET" $c.OP
         if ($newNdp -and $newNdp.KB -eq $nNdp.KB) { $newNdp = $null }
         if (-not $newNdp) {
-                        $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }; $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
-            if ($S4Term) { $s3N = if($boot -and $boot.FileName -match 'ndp(\d+)'){$matches[1]}; $oN = if($nNdp.FileName -match 'ndp(\d+)'){$matches[1]}; if (-not $boot -or ($s3N -and $oN -and $s3N -ne $oN)) { $boot = Bootstrap-Search -Term $S4Term -ArchPat $ap -OsPref $c.OP -Kind "NET" } }
+            $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }
+            $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
+            if ($S4Term) {
+                $s3N = if ($boot -and $boot.FileName -match 'ndp(\d+)') { $matches[1] }
+                $oN = if ($nNdp.FileName -match 'ndp(\d+)') { $matches[1] }
+                if (-not $boot -or ($s3N -and $oN -and $s3N -ne $oN)) {
+                    $boot = Bootstrap-Search -Term $S4Term -ArchPat $ap -OsPref $c.OP -Kind "NET"
+                }
+            }
             elseif (-not $boot -and $nNdp.KB -gt 0) { $boot = Bootstrap-Search -Term "kb$($nNdp.KB)" -ArchPat $ap -OsPref $c.OP -Kind "NET" }
             $bootBoot = Bootstrap-Search -Term ".NET Framework 4.8 $($c.L)" -ArchPat $ap -OsPref $c.OP -Kind "NET"
             if ($boot -and $boot.KB -eq $nNdp.KB) { $newNdp = $boot; $tag = "verified" }
             elseif ($boot) { $newNdp = $boot; $tag = "bootstrapped" }
         }
         if ($newNdp -and $newNdp.FileName -notmatch "^$($c.OP)") { $newNdp = $null }
-        if ($newNdp) { $oN = if($nNdp.FileName -match 'ndp(\d+)'){$matches[1]}; $nN = if($newNdp.FileName -match 'ndp(\d+)'){$matches[1]}; if($oN -and $nN -and $oN -ne $nN){$newNdp=$null} }
+        if ($newNdp) {
+            $oN = if ($nNdp.FileName -match 'ndp(\d+)') { $matches[1] }
+            $nN = if ($newNdp.FileName -match 'ndp(\d+)') { $matches[1] }
+            if ($oN -and $nN -and $oN -ne $nN) { $newNdp = $null }
+        }
         if ($newNdp -and $newNdp.KB -ne $nNdp.KB) {
             $baselines = $nFiles | Where-Object { $_.FileName -notmatch 'ndp.*\.msu$' }
             $newNdp = $newNdp | Select-Object *, @{N='Language';E={'neutral'}} -ExcludeProperty Language
@@ -305,7 +316,8 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term, $PrimaryTerm=$null) {
             Write-Host "  [$Label] $($nNdp.KB) (unchanged)" -ForegroundColor DarkGray
         }
     } else {
-                    $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }; $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
+        $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }
+        $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
         if (-not $boot -and $S4Term) { $boot = Bootstrap-Search -Term $S4Term -ArchPat $ap -OsPref $c.OP -Kind "NET" }
         if ($boot) {
             $bootArchOk = $false
@@ -453,7 +465,7 @@ foreach ($bn in $Build) {
 
         # 1. LCU
         try {
-                        # History page: only for build version (README use), not for file
+            # History page: only for build version (README use), not for file
             $histTopic = if ($isServer) { $UPDATE_HISTORY_SERVER[$baseBn] } else { $UPDATE_HISTORY[$bn] }
             if ($histTopic) {
                 $bp = Get-HistoryBuildPat $bn
@@ -476,7 +488,11 @@ foreach ($bn in $Build) {
             # Always run chain + bootstrap from Catalog (history may be stale)
             $chain = $null; $boot = $null
             $okb = Get-OldKB $old "LCU" $ap
-            if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP -Server:$isServer; $chain = Pick-File $cl "LCU" $c.OP; $newFiles += $cl | Where-Object { $_.FileName -match '\.msu$' } }
+            if ($okb) {
+                $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP -Server:$isServer
+                $chain = Pick-File $cl "LCU" $c.OP
+                $newFiles += $cl | Where-Object { $_.FileName -match '\.msu$' }
+            }
             $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
             $f, $tag = Cross-Validate $chain $boot
             $lcuFile = $f
@@ -537,7 +553,9 @@ foreach ($bn in $Build) {
             $chain = $null; $boot = $null
             $okb = Get-OldKB $old "NET"
             if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "NET" $c.OP }
-                        $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }; if (-not $s3term -and $c.S4) { $s3term = $c.S4 }; $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
+            $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }
+            if (-not $s3term -and $c.S4) { $s3term = $c.S4 }
+            $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
             $f, $tag = Cross-Validate $chain $boot
             # For builds with netfx subdirs (14393/17763/19041/20348), .NET goes to subdir, not main meta4
             if ($f -and $bn -in @("14393","17763","19041","20348")) { $f = $null; $tag = "in netfx subdir" }
@@ -662,9 +680,9 @@ foreach ($bn in $Build) {
         }
 
         $all = @($newFiles) | Sort-Object Url -Unique
-                if ($TestMode) { Write-Host "  [TEST] $($all.Count) entries"; $gen++; continue }
+        if ($TestMode) { Write-Host "  [TEST] $($all.Count) entries"; $gen++; continue }
 
-                # Sort: all files by KB ascending
+        # Sort: all files by KB ascending
         $sortedAll = $all | Sort-Object @{Expression={if ($_.KB -gt 0) { [int]$_.KB } else { 0 }}}
 
         # Only write if file name list changed (avoids false date bumps)
@@ -681,7 +699,8 @@ foreach ($bn in $Build) {
         $newMeta = New-Meta4 $sortedAll
         $newMetaStr = $newMeta.ToString()
         [System.IO.File]::WriteAllText($old, $newMetaStr, [System.Text.Encoding]::UTF8)
-        Write-Host "  [OK] $($c.L) $ar ($($all.Count) files)" -ForegroundColor Green; $gen++    }
+        Write-Host "  [OK] $($c.L) $ar ($($all.Count) files)" -ForegroundColor Green; $gen++
+    }
 }
 # Update README date and build versions
 # Only update if meta4 content actually changed (avoids false date bumps when no new patches)
