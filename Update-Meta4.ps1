@@ -4,9 +4,32 @@
 param([string[]]$Build = @(), [string[]]$Arch = @(), [string]$OutputDir = "", [switch]$TestMode)
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-$ScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$ScriptRoot = $PSScriptRoot
 if (-not $OutputDir) { $OutputDir = Join-Path $ScriptRoot "Scripts" }
 if (-not (Test-Path $OutputDir)) { New-Item $OutputDir -ItemType Directory -Force | Out-Null }
+
+function Ensure-Array($Items) { if ($null -eq $Items -or $Items -isnot [array]) { return @($Items) } return $Items }
+
+function Write-Meta4IfChanged($Path, $Entries, $TestMode) {
+    $sortedForSig = $Entries | Sort-Object @{Expression = { if ($_.KB -gt 0) { [int]$_.KB } else { 0 } }}
+    $newSig = $sortedForSig | Sort-Object { if ($_.FileName -match 'kb(\d+)') { [int]$matches[1] } else { 0 } } | ForEach-Object { $_.FileName } | Out-String
+    if (Test-Path $Path) {
+        try {
+            $x = [xml](Get-Content $Path -Raw)
+            $oldSig = $x.metalink.file | Sort-Object { if ($_.name -match 'kb(\d+)') { [int]$matches[1] } else { 0 } } | ForEach-Object { $_.name } | Out-String
+            if ($oldSig -eq $newSig) { return $false }
+        } catch { }
+    }
+    if (-not $TestMode) { (New-Meta4 $Entries) | Out-File $Path -Encoding utf8 -NoNewline }
+    return $true
+}
+
+$reCatId = [regex]"id='([a-f0-9\-]{36})_link'"
+$reDlUrl = [regex]"downloadInformation\[\d+\]\.files\[\d+\]\.url\s*=\s*'([^']*)'"
+$reScopedKb = [regex]'(?s)<div id="supersededbyInfo">(.*?)<span'
+$reScopedLink = [regex]"<a[^>]*href='([^']*)'[^>]*>([^<]+)</a>"
+$reScopedGuid = [regex]'updateid=([a-f0-9\-]{36})'
+$reHistoryLink = [regex]'<a[^>]*class="learnRenderLeftNavLink"[^>]*>([^<]+)</a>'
 
 $CFG = @{}
 $w10 = "windows10.0"; $w11 = "windows11.0"
@@ -46,9 +69,9 @@ $UPDATE_HISTORY_SERVER = @{
 
 function Retry-WebRequest {
     param($Url, [hashtable]$Body, $ContentType, [int]$TimeoutSec = 30)
-    $delays = @(0, 30, 120, 300)  # initial → 30s → 2min → 5min
+    $delays = @(0, 30, 120, 300)  # 4 total attempts
     $retry = 0
-    while ($retry -le $delays.Count) {
+    while ($retry -lt $delays.Count) {
         if ($delays[$retry] -gt 0) { Start-Sleep -Seconds $delays[$retry] }
         try {
             $params = @{ UseBasicParsing = $true; TimeoutSec = $TimeoutSec }
@@ -60,10 +83,12 @@ function Retry-WebRequest {
         }
     }
 }
+$searchCache = @{}
 function Search-Catalog { param($Q)
+    if ($searchCache.ContainsKey($Q)) { return $searchCache[$Q] }
     $r = Retry-WebRequest -Url ("https://www.catalog.update.microsoft.com/v7/site/Search.aspx?q=" + [uri]::EscapeDataString($Q))
-    $h = $r.Content; $ret = @(); $re = [regex]"id='([a-f0-9\-]{36})_link'"
-    foreach ($m in $re.Matches($h)) {
+    $h = $r.Content; $ret = @()
+    foreach ($m in $reCatId.Matches($h)) {
         $g = $m.Groups[1].Value; $e = $h.IndexOf("</a>", $m.Index + $m.Length)
         if ($e -le 0) { continue }
         $r2 = $h.Substring($m.Index + $m.Length, $e - $m.Index - $m.Length)
@@ -71,25 +96,30 @@ function Search-Catalog { param($Q)
         $t = ($r2 -replace '<[^>]+>', '').Trim()
         if ($t) { $ret += [PSCustomObject]@{Guid = $g; Title = $t} }
     }
+    $searchCache[$Q] = $ret
     return $ret
 }
+$linksCache = @{}
 function Get-Links { param($Guid)
+    if ($linksCache.ContainsKey($Guid)) { return $linksCache[$Guid] }
     $r = Retry-WebRequest -Url "https://www.catalog.update.microsoft.com/DownloadDialog.aspx" -Body @{UpdateIDs = "[{size:0,UpdateID:'$Guid',UpdateIDInfo:'$Guid'}]"} -ContentType "application/x-www-form-urlencoded"
     $c = $r.Content -replace "www.download.windowsupdate", "download.windowsupdate"
-    $out = @(); $re = [regex]"downloadInformation\[\d+\]\.files\[\d+\]\.url\s*=\s*'([^']*)'"
-    foreach ($m in $re.Matches($c)) {
+    $out = @()
+    foreach ($m in $reDlUrl.Matches($c)) {
         $url = $m.Groups[1].Value; $fn = $url.Split('/')[-1]
         $sha1 = ""; if ($fn -match '_([a-f0-9]{40})\.(msu|cab)$') { $sha1 = $matches[1] }
         $kb = 0; if ($url -match 'kb(\d+)') { $kb = [int]$matches[1] }
         $out += [PSCustomObject]@{FileName = $fn; Url = $url; Sha1 = $sha1; KB = $kb}
     }
-    return ($out | Sort-Object Url -Unique)
+    $result = @($out | Sort-Object Url -Unique)
+    $linksCache[$Guid] = $result
+    return $result
 }
 
 $chainCache = @{}
 function Follow-Chain { param($OldKb, $ArchPat, $OsPref, [switch]$Server)
     # Filters by server operating system when -Server is set.
-    $key = "$OldKb|$ArchPat"; if ($chainCache.ContainsKey($key)) { return $chainCache[$key] }
+    $key = "$OldKb|$ArchPat|$Server"; if ($chainCache.ContainsKey($key)) { return $chainCache[$key] }
     $r = Search-Catalog "$OldKb"
     if ($Server) {
         $first = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'server operating system' } | Select-Object -First 1
@@ -100,18 +130,18 @@ function Follow-Chain { param($OldKb, $ArchPat, $OsPref, [switch]$Server)
     try { $sv = Retry-WebRequest -Url ("https://www.catalog.update.microsoft.com/v7/site/ScopedViewInline.aspx?updateid=" + $first.Guid)
     } catch { $chainCache[$key] = $null; return $null }
     $html = $sv.Content
-    $match = [regex]::Match($html, '(?s)<div id="supersededbyInfo">(.*?)<span')
+    $match = $reScopedKb.Match($html)
     if (-not $match.Success) { $ll = Get-Links $first.Guid; $chainCache[$key] = $ll; return $ll }
-    $links = [regex]::Matches($match.Groups[1].Value, "<a[^>]*href='([^']*)'[^>]*>([^<]+)</a>")
+    $links = $reScopedLink.Matches($match.Groups[1].Value)
     if ($links.Count -eq 0) { $ll = Get-Links $first.Guid; $chainCache[$key] = $ll; return $ll }
     $sorted = $links | Sort-Object { $_.Groups[2].Value } -Descending
-    $guid = if ($sorted[0].Groups[1].Value -match 'updateid=([a-f0-9\-]{36})') { $matches[1] }
+    $guid = if ($sorted[0].Groups[1].Value -match $reScopedGuid) { $matches[1] }
     if (-not $guid) { $chainCache[$key] = $null; return $null }
     $result = Get-Links $guid
     $chainCache[$key] = $result; return $result
 }
 
-function Bootstrap-Search { param($Term, $ArchPat, $OsPref, $Kind, [switch]$Server)
+function Bootstrap-Search { param($Term, $ArchPat, $OsPref, $Kind)
     $r = Search-Catalog $Term
     if ($Kind -eq "LCU") {
         $best = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'Cumulative Update' -and $_.Title -notmatch '\.NET' } | Sort-Object Title -Descending | Select-Object -First 1
@@ -222,7 +252,7 @@ function Get-OldKB($Path, $Kind, $ArchPat = "") {
 }
 
 # --- Cross-validate: chain vs bootstrap ---
-function Cross-Validate($ChainFile, $BootFile, $Label) {
+function Cross-Validate($ChainFile, $BootFile) {
     if (-not $ChainFile -and -not $BootFile) { return $null, "SKIP" }
     if ($ChainFile -and $BootFile) {
         if ($ChainFile.KB -eq $BootFile.KB) { return $ChainFile, "verified" }
@@ -317,9 +347,8 @@ function Get-HistoryBuild($TopicId, $BuildPat) {
         $historyPageCache[$cacheKey] = $r.Content
     }
     $h = $historyPageCache[$cacheKey]
-    $re = [regex]'<a[^>]*class="learnRenderLeftNavLink"[^>]*>([^<]+)</a>'
     $entries = @()
-    foreach ($m in $re.Matches($h)) {
+    foreach ($m in $reHistoryLink.Matches($h)) {
         $text = $m.Groups[1].Value -replace '&#x2014;', ''
         if ($text -match "program") { continue }
         $kbMatch = [regex]::Match($text, 'KB(\d+)')
@@ -332,26 +361,15 @@ function Get-HistoryBuild($TopicId, $BuildPat) {
     if ($entries.Count -eq 0) { return $null }
     return $entries | Sort-Object { $_.Build.Split('.')[-1] -as [int] } -Descending | Select-Object -First 1
 }
-function Get-FileForKB($Kb, $ArchPat, $OsPref) {
-    $r = Search-Catalog "kb$Kb"
-    # Prefer non-Dynamic CU, filter out .NET/safety updates
-    $best = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'Cumulative Update' -and $_.Title -notmatch 'Dynamic|\.NET|Safe' } | Sort-Object Title -Descending | Select-Object -First 1
-    if (-not $best) { $best = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -notmatch 'Dynamic|\.NET|Safe' } | Sort-Object Title -Descending | Select-Object -First 1 }
-    if (-not $best) { return $null }
-    $links = Get-Links $best.Guid
-    $m = $links | Where-Object { $_.FileName -match [regex]::Escape($OsPref) }
-    if (-not $m) { $m = $links }
-    return ($m | Where-Object { $_.FileName -match '\.msu$' -and $_ -notmatch 'ndp' } | Sort-Object KB -Descending | Select-Object -First 1)
-}
-
 # Choose build prefix to match on history page (some builds use different revision numbers)
 function Get-HistoryBuildPat($bn) {
-    $pat = $bn
-    if    ($bn -eq "19041") { $pat = "1904\d" }   # 1904x builds share the same LCU
-    elseif ($bn -eq "22621") { $pat = "22631" }    # 23H2 history shows 22631.xxxx
-    elseif ($bn -eq "26100") { $pat = "26200" }    # 25H2 history shows 26200.xxxx
-    elseif ($bn -eq "26100-server") { $pat = "26100" }  # Server2025 history shows 26100.xxxx
-    return $pat
+    switch ($bn) {
+        "19041"         { return "1904\d" }
+        "22621"         { return "22631" }
+        "26100"         { return "26200" }
+        "26100-server"  { return "26100" }
+        default         { return $bn }
+    }
 }
 
 function Get-OldMsus($Path) {
@@ -407,9 +425,9 @@ function Get-CabType($File, $ArchPat) {
 Write-Host "=== Win_ISO_Patching_Scripts - meta4 Auto-Gen ===" -ForegroundColor Cyan
 
 trap {
-    Write-Host "  === Catalog request failed after retries, discarding run ===" -ForegroundColor Yellow
-    git -C $ScriptRoot checkout -- Scripts/ 2>$null
-    exit 0
+    Write-Host "  === Catalog request failed after retries; run incomplete ===" -ForegroundColor Yellow
+    Write-Host "  Restore previous meta4 files with: git -C `"$ScriptRoot`" checkout -- Scripts/" -ForegroundColor Yellow
+    exit 127
 }
 
 if ($Build.Count -eq 1 -and $Build[0] -match ',') { $Build = $Build[0] -split ',' | ForEach-Object { $_.Trim() } }
@@ -460,7 +478,7 @@ foreach ($bn in $Build) {
             $okb = Get-OldKB $old "LCU" $ap
             if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP -Server:$isServer; $chain = Pick-File $cl "LCU" $c.OP; $newFiles += $cl | Where-Object { $_.FileName -match '\.msu$' } }
             $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
-            $f, $tag = Cross-Validate $chain $boot "LCU"
+            $f, $tag = Cross-Validate $chain $boot
             $lcuFile = $f
             if ($f) { 
                 $newFiles += $f
@@ -520,7 +538,7 @@ foreach ($bn in $Build) {
             $okb = Get-OldKB $old "NET"
             if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "NET" $c.OP }
                         $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }; if (-not $s3term -and $c.S4) { $s3term = $c.S4 }; $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
-            $f, $tag = Cross-Validate $chain $boot "NET"
+            $f, $tag = Cross-Validate $chain $boot
             # For builds with netfx subdirs (14393/17763/19041/20348), .NET goes to subdir, not main meta4
             if ($f -and $bn -in @("14393","17763","19041","20348")) { $f = $null; $tag = "in netfx subdir" }
             # Verify OS prefix (windows10.0 rejects windows11.0) — only for non-subdir builds
@@ -681,8 +699,9 @@ if (-not $TestMode) {
         Write-Host "  [README] no meta4 changes detected, skipping date update" -ForegroundColor DarkGray
     } else {
         $culture = [System.Globalization.CultureInfo]::GetCultureInfo('en-US')
-        $today = $culture.DateTimeFormat.GetMonthName((Get-Date).Month) + ' ' + (Get-Date -Format 'd, yyyy')
-        $todayCn = "$((Get-Date).Year)$([char]0x5E74)$((Get-Date).Month)$([char]0x6708)$((Get-Date).Day)$([char]0x65E5)"
+        $d = Get-Date
+        $today = $culture.DateTimeFormat.GetMonthName($d.Month) + ' ' + $d.ToString('d, yyyy')
+        $todayCn = "$($d.Year)$([char]0x5E74)$($d.Month)$([char]0x6708)$($d.Day)$([char]0x65E5)"
         # Fallback: fetch build versions not cached during generation (rate limited)
         $readmeFallback = @(
             @{BP = "14393"; Topic = $UPDATE_HISTORY["14393"]; Disp = "14393"}
