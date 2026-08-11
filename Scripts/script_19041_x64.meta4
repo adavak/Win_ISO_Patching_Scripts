@@ -8,12 +8,12 @@
 		<hash type="sha-1">4e08468033c309bb68c708a8157c7a29d3822fb5</hash>
 		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2026/01/windows10.0-kb5074207-x64_4e08468033c309bb68c708a8157c7a29d3822fb5.cab</url>
 	</file>
-	<file name="windows10.0-kb5099539-x64_f0016a625ac328256041255cd23a42367ca59e33.msu">
-		<hash type="sha-1">f0016a625ac328256041255cd23a42367ca59e33</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2026/07/windows10.0-kb5099539-x64_f0016a625ac328256041255cd23a42367ca59e33.msu</url>
+	<file name="windows10.0-kb5120248-x64_dc94be02c20ea6f2bcf1ab112e132d58bf53ab1e.cab">
+		<hash type="sha-1">dc94be02c20ea6f2bcf1ab112e132d58bf53ab1e</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2026/08/windows10.0-kb5120248-x64_dc94be02c20ea6f2bcf1ab112e132d58bf53ab1e.cab</url>
 	</file>
-	<file name="windows10.0-kb5099550-x64_1aba9488595b1559bd225a9c8a43460e20ab94ee.cab">
-		<hash type="sha-1">1aba9488595b1559bd225a9c8a43460e20ab94ee</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2026/07/windows10.0-kb5099550-x64_1aba9488595b1559bd225a9c8a43460e20ab94ee.cab</url>
+	<file name="windows10.0-kb5120249-x64_60fb191db791c5c8bbd533eeb0224481ea01a01a.msu">
+		<hash type="sha-1">60fb191db791c5c8bbd533eeb0224481ea01a01a</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2026/08/windows10.0-kb5120249-x64_60fb191db791c5c8bbd533eeb0224481ea01a01a.msu</url>
 	</file>
 </metalink>
