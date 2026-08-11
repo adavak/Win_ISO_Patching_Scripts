@@ -1,4 +1,4 @@
-﻿# Update-Meta4.ps1
+# Update-Meta4.ps1
 # Generates .meta4 files via MS Update History pages (primary) + KB supersedence chain + version name cross-validation.
 [CmdletBinding()]
 param([string[]]$Build = @(), [string[]]$Arch = @(), [string]$OutputDir = "", [switch]$TestMode)
@@ -150,6 +150,7 @@ function Bootstrap-Search { param($Term, $ArchPat, $OsPref, $Kind)
         $candidates = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match '\.NET' }
         $best = $candidates | Where-Object { $_.Title -notmatch '4\.7\.2' }
         if ($Term -notmatch '4\.8\.1') { $best = $best | Where-Object { $_.Title -notmatch '4\.8\.1' } }
+        if ($Term -match '4\.8\.1') { $best = $best | Where-Object { $_.Title -notmatch '4\.8\s+and\s+4\.8\.1' } }
         $best = $best | Sort-Object Title -Descending | Select-Object -First 1
         if (-not $best) { $best = $candidates | Sort-Object Title -Descending | Select-Object -First 1 }
     }
@@ -159,6 +160,7 @@ function Bootstrap-Search { param($Term, $ArchPat, $OsPref, $Kind)
         $candidates = $r | Where-Object { $_.Title -match '\.NET' -and $_.Title -notmatch 'for (x64|arm64)' }
         $best = $candidates | Where-Object { $_.Title -notmatch '4\.7\.2' }
         if ($Term -notmatch '4\.8\.1') { $best = $best | Where-Object { $_.Title -notmatch '4\.8\.1' } }
+        if ($Term -match '4\.8\.1') { $best = $best | Where-Object { $_.Title -notmatch '4\.8\s+and\s+4\.8\.1' } }
         $best = $best | Sort-Object Title -Descending | Select-Object -First 1
         if (-not $best) { $best = $candidates | Sort-Object Title -Descending | Select-Object -First 1 }
     }
@@ -311,7 +313,7 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term, $PrimaryTerm=$null) {
                 $newSig = $nAll | Sort-Object { if ($_.FileName -match "kb(\d+)") { [int]$matches[1] } else { 0 } } | ForEach-Object { $_.FileName } | Out-String
                 if ($oldSig -ne $newSig) { (New-Meta4 $nAll) | Out-File $nPath -Encoding utf8 -NoNewline }
             }
-            Write-Host "  [$Label] $($nNdp.KB) -> $($newNdp.FileName)" -ForegroundColor Green
+            Write-Host "  [$Label] $($nNdp.KB) -> $($newNdp.KB) ($($newNdp.FileName))" -ForegroundColor Green
         } else {
             Write-Host "  [$Label] $($nNdp.KB) (unchanged)" -ForegroundColor DarkGray
         }
@@ -578,28 +580,74 @@ foreach ($bn in $Build) {
         if (Test-Path $old) {
             $oldMsus = Get-OldMsus $old
             $newKbs = @($newFiles | Where-Object { $_.KB -gt 0 } | ForEach-Object { $_.KB })
-            # Exclude the old LCU when superseded, but preserve the baseline LCU
-            # (e.g. KB5043080 for 26100, which the catalog bundles with the latest)
+            # Collect MSU names from the new LCU's chain for baseline detection
+            $chainMsuNames = if ($cl) {
+                @($cl | Where-Object { $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' } | ForEach-Object { $_.FileName })
+            } else { @() }
+
+            # Exclude old LCUs when superseded, but preserve baseline/checkpoint CUs
+            # (e.g. KB5043080 for 26100, which the catalog bundles with the latest).
+            # Also sweep for stale LCUs left behind by previous transient failures —
+            # Get-OldKB only returns the highest-KB match, so a lower-KB LCU that
+            # was missed once becomes invisible and gets preserved as a regular MSU.
             $oldLcuKb = Get-OldKB $old "LCU" $ap
+            $lcuKbsToExclude = @()
             if ($oldLcuKb -and $lcuFile -and $oldLcuKb -ne $lcuFile.KB) {
                 $isBaseline = $false
-                # Baseline detection: if the new LCU's catalog entry still bundles the old LCU
-                # as a downloadable file (e.g. checkpoint CU KB5043080 for 26100).
-                if ($cl) {
-                    $chainMsuNames = @($cl | Where-Object { $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' } | ForEach-Object { $_.FileName })
+                if ($cl -and $chainMsuNames.Count -gt 1) {
                     $oldLcuName = ($oldMsus | Where-Object { $_.KB -eq $oldLcuKb } | Select-Object -First 1).FileName
-                    if ($chainMsuNames.Count -gt 1 -and $oldLcuName -and ($oldLcuName -in $chainMsuNames)) {
-                        $isBaseline = $true
-                    }
+                    if ($oldLcuName -and ($oldLcuName -in $chainMsuNames)) { $isBaseline = $true }
                 }
-                if (-not $isBaseline -and $oldLcuKb -notin $newKbs) {
-                    $newKbs += $oldLcuKb
+                if (-not $isBaseline) { $lcuKbsToExclude += $oldLcuKb }
+            }
+            # Sweep: classify old MSUs by catalog title and exclude any superseded by a
+            # newer update of the same type already in $newFiles. Covers LCU, Safe OS DU,
+            # Setup DU, and .NET. Enablement KBs (no catalog results) are preserved.
+            # Also catches stale entries left behind by previous transient failures —
+            # Get-OldKB only returns the highest-KB per kind, so lower-KB duplicates
+            # become invisible and would otherwise be preserved as regular MSUs.
+            if ($lcuFile) {
+                # Classify new MSUs by type for replacement comparison (cached per KB)
+                $newMsuTypes = @{}
+                foreach ($nf in $newFiles | Where-Object { $_.FileName -match '\.msu$' -and $_.KB -gt 0 }) {
+                    if ($newMsuTypes.ContainsKey($nf.KB)) { continue }
+                    try {
+                        $r = Search-Catalog "kb$($nf.KB)"
+                        $t = ($r | Where-Object { $_.Title -match $ap } | Select-Object -First 1).Title
+                        if (-not $t) { continue }
+                        $ntype = if ($t -match 'Cumulative Update' -and $t -notmatch '\.NET') { 'LCU' }
+                                 elseif ($t -match 'Safe OS') { 'SafeOS' }
+                                 elseif ($t -match 'Setup Dynamic Update') { 'SetupDU' }
+                                 elseif ($t -match '\.NET Framework') { 'NET' }
+                                 else { 'Other' }
+                        if ($ntype -ne 'Other') { $newMsuTypes[$nf.KB] = $ntype }
+                    } catch { }
+                }
+                # Scan remaining old MSUs against new-type map
+                foreach ($om in $oldMsus) {
+                    $ckb = $om.KB
+                    if ($ckb -le 0 -or $ckb -in $newKbs -or $ckb -eq $lcuFile.KB -or $ckb -in $lcuKbsToExclude) { continue }
+                    try {
+                        $r = Search-Catalog "kb$ckb"
+                        $t = ($r | Where-Object { $_.Title -match $ap } | Select-Object -First 1).Title
+                        if (-not $t) { continue }  # expired KB — preserve
+                        $otype = if ($t -match 'Cumulative Update' -and $t -notmatch '\.NET') { 'LCU' }
+                                 elseif ($t -match 'Safe OS') { 'SafeOS' }
+                                 elseif ($t -match 'Setup Dynamic Update') { 'SetupDU' }
+                                 elseif ($t -match '\.NET') { 'NET' }
+                                 else { 'Other' }
+                        if ($otype -eq 'Other') { continue }
+                        # Check if a new MSU of the same type exists with a different KB
+                        $hasReplacement = ($newMsuTypes.GetEnumerator() | Where-Object { $_.Value -eq $otype -and $_.Key -ne $ckb }).Count -gt 0
+                        if ($hasReplacement) {
+                            $isBaseline = ($chainMsuNames.Count -gt 1 -and ($om.FileName -in $chainMsuNames))
+                            if (-not $isBaseline) { $lcuKbsToExclude += $ckb }
+                        }
+                    } catch { }
                 }
             }
-            # Exclude old .NET if .NET is in main meta4 (no netfx subdir)
-            if ($bn -notin @("14393","17763","19041","20348")) {
-                $oldNetKb = Get-OldKB $old "NET"
-                if ($oldNetKb -and $oldNetKb -notin $newKbs) { $newKbs += $oldNetKb }
+            foreach ($exKb in $lcuKbsToExclude) {
+                if ($exKb -notin $newKbs) { $newKbs += $exKb }
             }
             $preserved = @()
             foreach ($om in $oldMsus) {
@@ -666,7 +714,7 @@ foreach ($bn in $Build) {
                 $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
                 if ($cab -and $cab.FileName -ne $oc.FileName -and ($cab.Url -notin $newFiles.Url)) {
                     $cabType = Get-CabLabel $cab $ap
-                    $newFiles += $cab; Write-Host "  [$cabType] $oldKb -> $($cab.FileName)" -ForegroundColor Green
+                    $newFiles += $cab; Write-Host "  [$cabType] $oldKb -> $($cab.KB) ($($cab.FileName))" -ForegroundColor Green
                 } elseif ($oc.Url -notin ($newFiles | ForEach-Object { $_.Url })) {
                     $cabType = Get-CabLabel $oc $ap
                     $oc2 = [PSCustomObject]@{FileName=$oc.FileName; Url=$oc.url; Sha1=$oc.Sha1; KB=$oc.KB}
@@ -747,8 +795,10 @@ if (-not $TestMode) {
             if (Test-Path $path) {
                 $content = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)
                 # Update date with regex (don't hardcode old date)
-                $content = $content -replace '(?<=Last Updated: )\w+ \d+, \d{4}', $today
-                $content = $content -replace '(?<=最后更新：)\d+年\d+月\d+日', $todayCn
+                $content = $content -replace 'Last Updated: \w+ \d+, \d{4}', "Last Updated: $today"
+                $cnLabel = "$([char]0x6700)$([char]0x540E)$([char]0x66F4)$([char]0x65B0)$([char]0xFF1A)"
+                $cnY = [char]0x5E74; $cnM = [char]0x6708; $cnD = [char]0x65E5
+                $content = $content -replace "$cnLabel\d+$cnY\d+$cnM\d+$cnD", "$cnLabel$todayCn"
                 # Update build versions from cached values
                 foreach ($key in $BUILD_VERSIONS.Keys) {
                     $pat = "Build $key.\d+"
