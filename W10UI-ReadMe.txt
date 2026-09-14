@@ -32,7 +32,7 @@ valid locations: mounted iso, inserted dvd/usb, sxs folder for distribution targ
 Note: .NET 3.5 is no longer included as a feature for Windows 11 builds 27965 and later.
 
 # Detect Windows ADK (Deployment Tools) for offline integration
-https://docs.microsoft.com/windows-hardware/get-started/adk-install
+https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install
 
 # Perform pending cleanup operation for online OS after restarting:
 you must run W10UI.cmd at least once after restart to perform Cleanup or Reset OS image, before installing any new updates
@@ -156,7 +156,11 @@ ignored and auto disabled for builds 26052 and later
 # LCUmsuExpand
 expand Cumulative Update and install from loose files via update.mum, instead adding msu files directly
 applicable only for builds 22621 and later
-auto enabled for builds 26052 and later, change to 2 to disable
+for builds 26052 and later:
+ auto enabled
+ change to 2 to disable and add LCUs msu one by one
+ change to 3 to disable and add highest LCU msu only
+ auto set to 3 for insider builds with baseline KB5122055
 
 # UpdtBootFiles
 update ISO boot files bootmgr/memtest/efisys.bin from Cumulative Update
@@ -169,6 +173,10 @@ note: the two default files bootmgr.efi/bootmgfw.efi will be updated if this opt
 
 # SkipWebView
 do not install Edge WebView with Cumulative Update  
+
+# LtscAddEP
+install applicable Enablement Package for LTSC editions (EnterpriseS variants, or Server)
+applicable only for builds 26100 and later
 
 # wim2esd
 convert install.wim to install.esd, if the target is a distribution
