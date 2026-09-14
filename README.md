@@ -11,17 +11,17 @@
 
 ###### Supported Windows Versions:
 
-|Name|Internal Version (Last Updated: September 9, 2026)|
+|Name|Internal Version (Last Updated: September 14, 2026)|
 |---|---|
-|**Windows 10 Enterprise LTSB 2016, Windows Server 2016**|**Build 14393.9512**|
-|**Windows 10 Enterprise LTSC 2019, Windows Server 2019**|**Build 17763.9245 (2024-6, Arm Version EOL)**|
-|**Windows 10 22H2, Windows 10 Enterprise LTSC 2021**|**Build 1904x.7725**|
-|**Windows Server 2022**|**Build 20348.5622**|
-|**Windows 11 23H2**|**Build 22631.7517**|
-|**Windows Server 2025**|**Build 26100.33438**|
-|**Windows 11 25H2, Windows 11 Enterprise LTSC 2024**|**Build 26200.9445**|
+|**Windows 10 Enterprise LTSB 2016, Windows Server 2016**|**Build 14393.9514**|
+|**Windows 10 Enterprise LTSC 2019, Windows Server 2019**|**Build 17763.9247 (2024-6, Arm Version EOL)**|
+|**Windows 10 22H2, Windows 10 Enterprise LTSC 2021**|**Build 1904x.7727**|
+|**Windows Server 2022**|**Build 20348.5631**|
+|**Windows 11 23H2**|**Build 22631.7584**|
+|**Windows Server 2025**|**Build 26100.33451**|
+|**Windows 11 25H2, Windows 11 Enterprise LTSC 2024**|**Build 26200.9457**|
 |**Windows 11 26H2**|**Build 26300.9278 (disabled by default, enable with apply26h2=1 in W10UI.ini)**|
-|**Windows 11 26H1**|**Build 28000.2954 (x64 Version is not recommended)**|
+|**Windows 11 26H1**|**Build 28000.2956 (x64 Version is not recommended)**|
 
 ###### Some settings (located in the W10UI.ini file in the root directory of the folder):
 |Value (Default)|Description|
