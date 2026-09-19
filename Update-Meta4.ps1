@@ -484,6 +484,9 @@ foreach ($bn in $Build) {
                     }
                     if ($bn -eq "26100" -and $hb.Build -match "26200\.(\d+)") {
                         $BUILD_VERSIONS["26200"] = "Build 26200.$($matches[1])"
+                        # 26H2 is an enablement package on the 26200 servicing branch,
+                        # so its revision always tracks 26200 (no separate history page).
+                        $BUILD_VERSIONS["26300"] = "Build 26300.$($matches[1])"
                     }
                 }
             }
@@ -778,6 +781,8 @@ if (-not $TestMode) {
             @{BP = "22631"; Topic = $UPDATE_HISTORY["22621"]; Disp = "22631"}
             @{BP = "26100"; Topic = $UPDATE_HISTORY_SERVER["26100"]; Disp = "26100"}
             @{BP = "26200"; Topic = $UPDATE_HISTORY["26100"]; Disp = "26200"}
+            # 26H2 has no history page of its own — reuse the 26200 revision
+            @{BP = "26200"; Topic = $UPDATE_HISTORY["26100"]; Disp = "26300"}
             @{BP = "28000"; Topic = $UPDATE_HISTORY["28000"]; Disp = "28000"}
         )
         foreach ($rb in $readmeFallback) {
