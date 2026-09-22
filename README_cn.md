@@ -11,7 +11,7 @@
 
 ###### 支持的 Windows 版本：
 
-|名称|内部版本（最后更新：2026年9月14日）|
+|名称|内部版本（最后更新：2026年9月22日）|
 |---|---|
 |**Windows 10 企业版 LTSB 2016、Windows Server 2016**|**Build 14393.9514**|
 |**Windows 10 企业版 LTSC 2019、Windows Server 2019**|**Build 17763.9247（2024-6，Arm 版本生命终止）**|
@@ -19,8 +19,8 @@
 |**Windows Server 2022**|**Build 20348.5631**|
 |**Windows 11 23H2**|**Build 22631.7584**|
 |**Windows Server 2025**|**Build 26100.33451**|
-|**Windows 11 25H2、Windows 11 企业版 LTSC 2024**|**Build 26200.9457**|
-|**Windows 11 26H2**|**Build 26300.9457（默认不集成，W10UI.ini 中 apply26h2=1 开启）**|
+|**Windows 11 25H2、Windows 11 企业版 LTSC 2024**|**Build 26200.9550**|
+|**Windows 11 26H2**|**Build 26300.9550（默认不集成，W10UI.ini 中 apply26h2=1 开启）**|
 |**Windows 11 26H1**|**Build 28000.2956（x64 版本不推荐）**|
 
 ###### 一些设置（位于文件夹根目录 W10UI.ini）：
