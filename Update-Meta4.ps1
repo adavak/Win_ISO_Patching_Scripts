@@ -1,5 +1,6 @@
 # Update-Meta4.ps1
-# Generates .meta4 files via MS Update History pages (primary) + KB supersedence chain + version name cross-validation.
+# Generates .meta4 files via the Update Catalog supersedence chain + version name cross-validation.
+# README build versions come from the Catalog title, then the KB article on support.microsoft.com, then the LCU itself.
 [CmdletBinding()]
 param([string[]]$Build = @(), [string[]]$Arch = @(), [string]$OutputDir = "", [switch]$TestMode)
 
@@ -8,28 +9,15 @@ $ScriptRoot = $PSScriptRoot
 if (-not $OutputDir) { $OutputDir = Join-Path $ScriptRoot "Scripts" }
 if (-not (Test-Path $OutputDir)) { New-Item $OutputDir -ItemType Directory -Force | Out-Null }
 
-function Ensure-Array($Items) { if ($null -eq $Items -or $Items -isnot [array]) { return @($Items) } return $Items }
-
-function Write-Meta4IfChanged($Path, $Entries, $TestMode) {
-    $sortedForSig = $Entries | Sort-Object @{Expression = { if ($_.KB -gt 0) { [int]$_.KB } else { 0 } }}
-    $newSig = $sortedForSig | Sort-Object { if ($_.FileName -match 'kb(\d+)') { [int]$matches[1] } else { 0 } } | ForEach-Object { $_.FileName } | Out-String
-    if (Test-Path $Path) {
-        try {
-            $x = [xml](Get-Content $Path -Raw)
-            $oldSig = $x.metalink.file | Sort-Object { if ($_.name -match 'kb(\d+)') { [int]$matches[1] } else { 0 } } | ForEach-Object { $_.name } | Out-String
-            if ($oldSig -eq $newSig) { return $false }
-        } catch { }
-    }
-    if (-not $TestMode) { (New-Meta4 $Entries) | Out-File $Path -Encoding utf8 -NoNewline }
-    return $true
-}
-
 $reCatId = [regex]"id='([a-f0-9\-]{36})_link'"
 $reDlUrl = [regex]"downloadInformation\[\d+\]\.files\[\d+\]\.url\s*=\s*'([^']*)'"
 $reScopedKb = [regex]'(?s)<div id="supersededbyInfo">(.*?)<span'
 $reScopedLink = [regex]"<a[^>]*href='([^']*)'[^>]*>([^<]+)</a>"
 $reScopedGuid = [regex]'updateid=([a-f0-9\-]{36})'
-$reHistoryLink = [regex]'<a[^>]*class="learnRenderLeftNavLink"[^>]*>([^<]+)</a>'
+
+$reBuildSuffix = [regex]'\((\d{4,6})\.(\d+)\)'
+$reOsBuild = [regex]'\(OS Builds? ([\d.]+(?:\s+and\s+[\d.]+)*)\)'
+$reAssemblyId = [regex]'<assemblyIdentity\b[^>]*>'
 
 $CFG = @{}
 $w10 = "windows10.0"; $w11 = "windows11.0"
@@ -52,20 +40,6 @@ $CFG["26100"] = BuildCfg $w11 "25H2"             "25H2" $null            -s4 ".N
 $CFG["26100-server"] = BuildCfg $w11 "Server 2025" -s3 $null -s4 ".NET Framework 3.5 and 4.8.1 Microsoft server operating system version 24H2" -srvVer "24H2"
 $CFG["28000"] = BuildCfg $w11 "26H1"             "26H1" $null            -s4 ".NET Framework 4.8.1 Windows 11 26H1"
 $ARCH_LABEL = @{x64="for x64-based Systems"; x86="for x86-based Systems"; arm64="for Arm64-based Systems"}
-
-# MS Update History pages — source for OS Build version numbers (README update)
-$UPDATE_HISTORY = @{
-    "14393" = "windows-10-and-windows-server-2016-update-history-4acfbc84-a290-1b54-536a-1c0430e9f3fd"
-    "17763" = "windows-10-and-windows-server-2019-update-history-725fc2e1-4443-6831-a5ca-51ff5cbcb059"
-    "19041" = "windows-10-update-history-8127c2c6-6edf-4fdf-8b9f-0f7be1ef3562"
-    "20348" = "windows-server-2022-update-history-e1caa597-00c5-4ab9-9f3e-8212fe80b2ee"
-    "22621" = "windows-11-version-23h2-update-history-59875222-b990-4bd9-932f-91a5954de434"
-    "26100" = "windows-11-version-25h2-update-history-99c7f493-df2a-4832-bd2d-6706baa0dec0"
-    "28000" = "windows-11-version-26h1-update-history-253c73cd-cab1-4bfd-94dc-76c452273fc9"
-}
-$UPDATE_HISTORY_SERVER = @{
-    "26100" = "windows-server-2025-update-history-10f58da7-e57b-4a9d-9c16-9f1dcd72d7d7"
-}
 
 function Retry-WebRequest {
     param($Url, [hashtable]$Body, $ContentType, [int]$TimeoutSec = 30)
@@ -117,6 +91,7 @@ function Get-Links { param($Guid)
 }
 
 $chainCache = @{}
+$chainDegraded = $true    # cleared by Follow-Chain only when it resolves a real supersedence chain
 function Follow-Chain { param($OldKb, $ArchPat, $OsPref, [switch]$Server)
     # Filters by server operating system when -Server is set.
     $key = "$OldKb|$ArchPat|$Server"; if ($chainCache.ContainsKey($key)) { return $chainCache[$key] }
@@ -131,13 +106,22 @@ function Follow-Chain { param($OldKb, $ArchPat, $OsPref, [switch]$Server)
     } catch { $chainCache[$key] = $null; return $null }
     $html = $sv.Content
     $match = $reScopedKb.Match($html)
-    if (-not $match.Success) { $ll = Get-Links $first.Guid; $chainCache[$key] = $ll; return $ll }
+    if (-not $match.Success) {
+        Write-Host "  [chain] KB$OldKb supersedence page unusable, using its own file list" -ForegroundColor Yellow
+        $script:chainDegraded = $true
+        $ll = Get-Links $first.Guid; $chainCache[$key] = $ll; return $ll
+    }
     $links = $reScopedLink.Matches($match.Groups[1].Value)
-    if ($links.Count -eq 0) { $ll = Get-Links $first.Guid; $chainCache[$key] = $ll; return $ll }
+    if ($links.Count -eq 0) {
+        Write-Host "  [chain] KB$OldKb has no supersedence links, using its own file list" -ForegroundColor Yellow
+        $script:chainDegraded = $true
+        $ll = Get-Links $first.Guid; $chainCache[$key] = $ll; return $ll
+    }
     $sorted = $links | Sort-Object { $_.Groups[2].Value } -Descending
     $guid = if ($sorted[0].Groups[1].Value -match $reScopedGuid) { $matches[1] }
     if (-not $guid) { $chainCache[$key] = $null; return $null }
     $result = Get-Links $guid
+    $script:chainDegraded = $false
     $chainCache[$key] = $result; return $result
 }
 
@@ -154,7 +138,7 @@ function Bootstrap-Search { param($Term, $ArchPat, $OsPref, $Kind)
         $best = $best | Sort-Object Title -Descending | Select-Object -First 1
         if (-not $best) { $best = $candidates | Sort-Object Title -Descending | Select-Object -First 1 }
     }
-    # If arch-specific search fails (some x86 .NET updates lack "for x86" in title), 
+    # If arch-specific search fails (some x86 .NET updates lack "for x86" in title),
     # try finding an entry without any architecture tag
     if (-not $best -and $Kind -ne "LCU") {
         $candidates = $r | Where-Object { $_.Title -match '\.NET' -and $_.Title -notmatch 'for (x64|arm64)' }
@@ -266,7 +250,7 @@ function Cross-Validate($ChainFile, $BootFile) {
 }
 
 function Get-StatusColor($Tag) {
-    if ($Tag -match "^history|verified") { return "Green" }
+    if ($Tag -match "verified") { return "Green" }
     if ($Tag -eq "chain") { return "Cyan" }
     return "Yellow"
 }
@@ -346,43 +330,167 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term, $PrimaryTerm=$null) {
     }
 }
 
-# --- MS Update History page scraping ---
-# Parse MS Update History page to find the latest Patch Tuesday KB + OS Build for a given build prefix
-$historyPageCache = @{}
-function Get-HistoryBuild($TopicId, $BuildPat) {
-    $cacheKey = "histPage_$TopicId"
-    if (-not $historyPageCache.ContainsKey($cacheKey)) {
-        $url = "https://support.microsoft.com/en-us/topic/$TopicId"
-        $r = $null
-        $retry = 0; while ($retry -lt 3) {
-            try { $r = Invoke-WebRequest $url -UseBasicParsing -TimeoutSec 15; break }
-            catch { $retry++; if ($retry -ge 3) { return $null }; Start-Sleep -Milliseconds 2000 }
-        }
-        $historyPageCache[$cacheKey] = $r.Content
-    }
-    $h = $historyPageCache[$cacheKey]
-    $entries = @()
-    foreach ($m in $reHistoryLink.Matches($h)) {
-        $text = $m.Groups[1].Value -replace '&#x2014;', ''
-        if ($text -match "program") { continue }
-        $kbMatch = [regex]::Match($text, 'KB(\d+)')
-        $reBuild = [regex]"((?:$BuildPat)\.\d+)"
-        $buildMatch = $reBuild.Match($text)
-        if ($kbMatch.Success -and $buildMatch.Success) {
-            $entries += [PSCustomObject]@{ KB=[int]$kbMatch.Groups[1].Value; Build=$buildMatch.Groups[1].Value }
-        }
-    }
-    if ($entries.Count -eq 0) { return $null }
-    return $entries | Sort-Object { $_.Build.Split('.')[-1] -as [int] } -Descending | Select-Object -First 1
+# Re-add entries the old meta4 had but the rebuilt list lost, for runs where the chain lookup
+# degraded and a baseline checkpoint could have been mistaken for a superseded LCU. The next
+# healthy run re-evaluates them and drops them again.
+function Add-UnverifiedEntries($All, $OldPath) {
+    if (-not (Test-Path $OldPath)) { return $All }
+    $haveNames = @($All | ForEach-Object { $_.FileName })
+    $haveUrls = @($All | ForEach-Object { $_.Url })
+    # Assign first: Get-ExistingFiles returns ,(...) and feeding that straight into a pipeline hands
+    # the whole array to Where-Object as one item, which turns $_.FileName into an array and breaks
+    # the comparison below (the same trap applies to any ,(...) helper used as a pipeline source).
+    $oldEntries = Get-ExistingFiles $OldPath
+    $unverified = @($oldEntries | Where-Object { $_.FileName -notin $haveNames -and $_.Url -notin $haveUrls })
+    if ($unverified.Count -eq 0) { return $All }
+    Write-Host "  [MSUs] chain degraded: kept $($unverified.Count) entry(ies) that could not be re-verified" -ForegroundColor Yellow
+    return ,(@($All) + $unverified)
 }
-# Choose build prefix to match on history page (some builds use different revision numbers)
-function Get-HistoryBuildPat($bn) {
-    switch ($bn) {
-        "19041"         { return "1904\d" }
-        "22621"         { return "22631" }
-        "26100"         { return "26200" }
-        "26100-server"  { return "26100" }
-        default         { return $bn }
+
+# --- README build version (three-tier lookup) ---
+# Tier 1: Update Catalog titles carry "(<base>.<rev>)" for the branches MS labels that way
+# Tier 2: support.microsoft.com KB article title, looked up by the KB number we just resolved
+# Tier 3: read Package_for_RollupFix version straight out of the LCU msu (slow: full download)
+$BUILD_DISP = @{
+    "14393"        = @{ Disp = "14393"; Pat = "14393" }
+    "17763"        = @{ Disp = "17763"; Pat = "17763" }
+    "19041"        = @{ Disp = "1904x"; Pat = "1904\d" }
+    "20348"        = @{ Disp = "20348"; Pat = "20348" }
+    "22621"        = @{ Disp = "22631"; Pat = "22631" }
+    "26100"        = @{ Disp = "26200"; Pat = "26200" }
+    "26100-server" = @{ Disp = "26100"; Pat = "26100" }
+    "28000"        = @{ Disp = "28000"; Pat = "28000" }
+}
+$lcuAttempted = @{}      # KB -> the LCU probe already ran (a failed download must not run twice)
+# 7-Zip handles every cab compression MS uses; expand.exe is the fallback
+$sevenZip = @("$env:ProgramFiles\7-Zip\7z.exe", "${env:ProgramFiles(x86)}\7-Zip\7z.exe") |
+    Where-Object { Test-Path $_ } | Select-Object -First 1
+
+function Fetch-Html($Url, $Tries = 3) {
+    $i = 0
+    while ($i -lt $Tries) {
+        try { return (Invoke-WebRequest $Url -UseBasicParsing -TimeoutSec 20).Content }
+        catch { $i++; if ($i -lt $Tries) { Start-Sleep -Milliseconds 1500 } }
+    }
+    return $null
+}
+
+function Add-BuildEntries($Map, $Pairs, $Src) {
+    foreach ($p in $Pairs) {
+        if (-not $Map.ContainsKey($p.Base)) {
+            $Map[$p.Base] = [PSCustomObject]@{ Base = $p.Base; Rev = $p.Rev; Src = $Src }
+        }
+    }
+}
+
+function Get-MapBuild($Map, $Pat) {
+    $re = [regex]("^(" + $Pat + ")$")
+    foreach ($k in $Map.Keys) { if ($re.IsMatch($k)) { return $Map[$k] } }
+    return $null
+}
+
+function Add-CatalogBuilds($Map, $Kb) {
+    try {
+        foreach ($h in (Search-Catalog "kb$Kb")) {
+            if ($h.Title -notmatch 'Cumulative Update' -or $h.Title -match '\.NET') { continue }
+            $pairs = @()
+            foreach ($m in $reBuildSuffix.Matches($h.Title)) {
+                $pairs += [PSCustomObject]@{ Base = $m.Groups[1].Value; Rev = $m.Groups[2].Value }
+            }
+            Add-BuildEntries $Map $pairs "catalog"
+        }
+    } catch { }
+}
+
+function Add-SupportBuilds($Map, $Kb) {
+    $html = Fetch-Html "https://support.microsoft.com/en-us/help/$Kb"
+    if (-not $html) { Write-Host "  [BUILD] KB$Kb : support page unreachable" -ForegroundColor DarkGray; return }
+    $t = [regex]::Match($html, '<title>(.*?)</title>', 'Singleline').Groups[1].Value
+    $pairs = @()
+    foreach ($m in $reOsBuild.Matches($t)) {
+        foreach ($b in ($m.Groups[1].Value -split '\s+and\s+')) {
+            $v = $b.Trim().Split('.')
+            if ($v.Count -eq 2) { $pairs += [PSCustomObject]@{ Base = $v[0]; Rev = $v[1] } }
+        }
+    }
+    if ($pairs.Count -eq 0) { Write-Host "  [BUILD] KB$Kb : support page has no OS Build yet" -ForegroundColor DarkGray }
+    Add-BuildEntries $Map $pairs "support"
+}
+
+function Expand-Pack($File, $Dir, [string]$Filter = "") {
+    if (-not (Test-Path $Dir)) { New-Item $Dir -ItemType Directory -Force | Out-Null }
+    if ($sevenZip) {
+        if ($Filter) { & $sevenZip e -y "-o$Dir" $File $Filter -r | Out-Null }   # flat, wanted files only
+        else { & $sevenZip x -y "-o$Dir" $File | Out-Null }                      # full tree, keeps the inner cab
+    } elseif ($Filter) { & "$env:SystemRoot\System32\expand.exe" "-F:$Filter" $File $Dir | Out-Null }
+    else { & "$env:SystemRoot\System32\expand.exe" -F:* $File $Dir | Out-Null }
+}
+
+function Add-LcuBuild($Map, $Kb, $Url) {
+    if ($lcuAttempted.ContainsKey($Kb)) { return }
+    $lcuAttempted[$Kb] = 1
+    if (-not $Url) { return }
+    $sz = ""
+    try {
+        $h = Invoke-WebRequest $Url -Method Head -UseBasicParsing -TimeoutSec 30
+        $sz = " ($([math]::Round([double]$h.Headers['Content-Length'] / 1MB)) MB)"
+    } catch { }
+    Write-Host "  [BUILD] KB$Kb : no build in catalog/support, reading it out of the LCU msu$sz" -ForegroundColor Yellow
+    $root = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { $env:TEMP }
+    $tmp = Join-Path $root "lcu_build_$Kb"
+    try {
+        if (Test-Path $tmp) { Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue }
+        New-Item $tmp -ItemType Directory -Force | Out-Null
+        $msu = Join-Path $tmp "lcu.msu"
+        Invoke-WebRequest $Url -OutFile $msu -UseBasicParsing -TimeoutSec 3600
+        Expand-Pack $msu (Join-Path $tmp "msu")
+        Remove-Item $msu -Force -ErrorAction SilentlyContinue
+        $msuDir = Join-Path $tmp "msu"
+        $cab = Get-ChildItem $msuDir -Filter *.cab -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+        if (-not $cab) { Write-Host "  [BUILD] KB$Kb : no cab inside the msu" -ForegroundColor Yellow; return }
+        $out = Join-Path $tmp "mum"
+        Expand-Pack $cab.FullName $out "*.mum"
+        $pairs = @()
+        foreach ($mum in (Get-ChildItem $out -Filter *.mum -Recurse -ErrorAction SilentlyContinue)) {
+            $txt = Get-Content $mum.FullName -Raw -ErrorAction SilentlyContinue
+            if (-not $txt) { continue }
+            foreach ($m in $reAssemblyId.Matches($txt)) {
+                if ($m.Value -match 'Package_for_RollupFix' -and $m.Value -match 'version="(\d+)\.(\d+)') {
+                    $pairs += [PSCustomObject]@{ Base = $matches[1]; Rev = $matches[2] }
+                }
+            }
+        }
+        if ($pairs.Count -eq 0) { Write-Host "  [BUILD] KB$Kb : no Package_for_RollupFix version in the msu" -ForegroundColor Yellow; return }
+        Add-BuildEntries $Map $pairs "lcu"
+        Write-Host "  [BUILD] KB$Kb : LCU says $($pairs[0].Base).$($pairs[0].Rev)" -ForegroundColor Green
+    } catch {
+        Write-Host "  [BUILD] KB$Kb : LCU probe failed: $_" -ForegroundColor Yellow
+    } finally {
+        Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}
+
+function Resolve-BuildVersions($Bn, $Kb, $MsuUrl) {
+    $d = $BUILD_DISP[$Bn]
+    if (-not $d -or $BUILD_VERSIONS.ContainsKey($d.Disp)) { return }   # first arch wins, the value is arch independent
+    $map = @{}
+    Add-CatalogBuilds $map $Kb
+    $hit = Get-MapBuild $map $d.Pat
+    if (-not $hit) { Add-SupportBuilds $map $Kb; $hit = Get-MapBuild $map $d.Pat }
+    if (-not $hit) { Add-LcuBuild $map $Kb $MsuUrl; $hit = Get-MapBuild $map $d.Pat }
+    if (-not $hit) {
+        Write-Host "  [BUILD] $Bn : build version unresolved (catalog + support + LCU all missed)" -ForegroundColor Red
+        return
+    }
+    $BUILD_VERSIONS[$d.Disp] = "Build $($d.Disp).$($hit.Rev)"
+    Write-Host "  [BUILD] $Bn -> Build $($d.Disp).$($hit.Rev) [$($hit.Src)]" -ForegroundColor Green
+    # 26H2 is an enablement package on the 25H2 servicing branch: the same LCU lists it explicitly,
+    # otherwise its revision tracks 26200 (no separate history page).
+    if ($Bn -eq "26100") {
+        $r26 = Get-MapBuild $map "26300"
+        $rev = if ($r26) { $r26.Rev } else { $hit.Rev }
+        $BUILD_VERSIONS["26300"] = "Build 26300.$rev"
+        Write-Host "  [BUILD] 26300 -> Build 26300.$rev [$(if ($r26) { $r26.Src } else { 'tracks 26200' })]" -ForegroundColor Green
     }
 }
 
@@ -463,35 +571,14 @@ foreach ($bn in $Build) {
         $newFiles = @()
         Write-Host "--- [$bn/$ar] $($c.L) ---" -ForegroundColor Yellow
         # old MSUs preserved by MSU retention below
-        if ($newFiles -isnot [array]) { $newFiles = @($newFiles) }
 
         # 1. LCU
         try {
-            # History page: only for build version (README use), not for file
-            $histTopic = if ($isServer) { $UPDATE_HISTORY_SERVER[$baseBn] } else { $UPDATE_HISTORY[$bn] }
-            if ($histTopic) {
-                $bp = Get-HistoryBuildPat $bn
-                $hb = Get-HistoryBuild -TopicId $histTopic -BuildPat $bp
-                if ($hb) {
-                    $hbk = switch -wildcard ($baseBn) {
-                        "14393" { "14393" } "17763" { "17763" } "19041" { "1904x" }
-                        "20348" { "20348" } "22621" { "22631" }
-                        "28000" { "28000" } default { $bn }
-                    }
-                    if ($ar -eq "x64" -and $bn -ne "26100") {
-                        $rev = $hb.Build.Split(".")[-1]
-                        $BUILD_VERSIONS[$hbk] = "Build $hbk.$rev"
-                    }
-                    if ($bn -eq "26100" -and $hb.Build -match "26200\.(\d+)") {
-                        $BUILD_VERSIONS["26200"] = "Build 26200.$($matches[1])"
-                        # 26H2 is an enablement package on the 26200 servicing branch,
-                        # so its revision always tracks 26200 (no separate history page).
-                        $BUILD_VERSIONS["26300"] = "Build 26300.$($matches[1])"
-                    }
-                }
-            }
             # Always run chain + bootstrap from Catalog (history may be stale)
             $chain = $null; $boot = $null
+            # Assume the chain is unusable until Follow-Chain resolves one: a missing or failed
+            # lookup leaves the sweep without the baseline info it needs.
+            $chainDegraded = $true
             $okb = Get-OldKB $old "LCU" $ap
             if ($okb) {
                 $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP -Server:$isServer
@@ -501,14 +588,18 @@ foreach ($bn in $Build) {
             $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
             $f, $tag = Cross-Validate $chain $boot
             $lcuFile = $f
-            if ($f) { 
+            if ($f) {
                 $newFiles += $f
                 if ($okb -and $okb -ne $f.KB) { Write-Host "  [LCU] $okb -> $($f.KB) ($($f.FileName))" -ForegroundColor Green }
                 elseif ($okb) { Write-Host "  [LCU] $okb (unchanged)" -ForegroundColor DarkGray }
                 else { Write-Host "  $($f.FileName) ($tag)" -ForegroundColor $(Get-StatusColor $tag) }
             }
             else { Write-Host "  [LCU] SKIP"; $skip++; continue }
+
+            # README build version - resolved from the LCU we just picked
+            Resolve-BuildVersions $bn $f.KB $f.Url
         } catch { Write-Host "  [LCU] ERROR: $_"; $skip++; continue }
+        $lcuChainDegraded = $chainDegraded
 
         # SSU (14393 only) - Find newest SSU, replace old one after MSU preservation
         if ($bn -eq "14393") {
@@ -558,7 +649,7 @@ foreach ($bn in $Build) {
             $chain = $null; $boot = $null
             $okb = Get-OldKB $old "NET"
             if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "NET" $c.OP }
-            $s3term = if ($PrimaryTerm) { $PrimaryTerm } else { $c.S3 }
+            $s3term = $c.S3
             if (-not $s3term -and $c.S4) { $s3term = $c.S4 }
             $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
             $f, $tag = Cross-Validate $chain $boot
@@ -568,7 +659,10 @@ foreach ($bn in $Build) {
             if ($f -and $f.FileName -notmatch "^$($c.OP)") { $f = $null; $tag = "SKIP (OS mismatch)" }
             if ($f) { $newFiles += $f; Write-Host " $($f.FileName) ($tag)" -ForegroundColor $(Get-StatusColor $tag) }
             elseif ($okb) {
-                $oldNetMsu = Get-ExistingFiles $old | Where-Object { $_.FileName -match 'ndp.*\.msu$' } | Select-Object -First 1
+                # Assign first: Get-ExistingFiles returns ,(...) and a pipeline would hand the whole
+                # array to Where-Object as one item, so the filter below would never isolate a file.
+                $oldMetaEntries = Get-ExistingFiles $old
+                $oldNetMsu = $oldMetaEntries | Where-Object { $_.FileName -match 'ndp.*\.msu$' } | Select-Object -First 1
                 if ($oldNetMsu) { $newFiles += $oldNetMsu; Write-Host " $($oldNetMsu.FileName) (kept)" -ForegroundColor Yellow }
                 else { Write-Host " not found" -ForegroundColor DarkGray }
             }
@@ -731,6 +825,10 @@ foreach ($bn in $Build) {
         }
 
         $all = @($newFiles) | Sort-Object Url -Unique
+
+        # A degraded chain (Follow-Chain fell back to the update's own file list) cannot tell a
+        # baseline checkpoint from a superseded LCU, so the sweep may have dropped one.
+        if ($lcuChainDegraded) { $all = Add-UnverifiedEntries $all $old }
         if ($TestMode) { Write-Host "  [TEST] $($all.Count) entries"; $gen++; continue }
 
         # Sort: all files by KB ascending
@@ -754,65 +852,43 @@ foreach ($bn in $Build) {
     }
 }
 # Update README date and build versions
-# Only update if meta4 content actually changed (avoids false date bumps when no new patches)
-if (-not $TestMode) {
-    # Check whether any Scripts/ meta4 file differs from committed state
-    $metaChanged = $false
-    try {
-        $gitDiff = git diff --name-only -- Scripts/
-        if ($LASTEXITCODE -eq 0 -and $gitDiff) { $metaChanged = $true }
-    } catch {
-        # If git fails (e.g. not a repo, running outside CI), default to updating
-        $metaChanged = $true
-    }
-    if (-not $metaChanged) {
-        Write-Host "  [README] no meta4 changes detected, skipping date update" -ForegroundColor DarkGray
-    } else {
-        $culture = [System.Globalization.CultureInfo]::GetCultureInfo('en-US')
-        $d = Get-Date
-        $today = $culture.DateTimeFormat.GetMonthName($d.Month) + ' ' + $d.ToString('d, yyyy')
-        $todayCn = "$($d.Year)$([char]0x5E74)$($d.Month)$([char]0x6708)$($d.Day)$([char]0x65E5)"
-        # Fallback: fetch build versions not cached during generation (rate limited)
-        $readmeFallback = @(
-            @{BP = "14393"; Topic = $UPDATE_HISTORY["14393"]; Disp = "14393"}
-            @{BP = "17763"; Topic = $UPDATE_HISTORY["17763"]; Disp = "17763"}
-            @{BP = "1904[45]"; Topic = $UPDATE_HISTORY["19041"]; Disp = "1904x"}
-            @{BP = "20348"; Topic = $UPDATE_HISTORY["20348"]; Disp = "20348"}
-            @{BP = "22631"; Topic = $UPDATE_HISTORY["22621"]; Disp = "22631"}
-            @{BP = "26100"; Topic = $UPDATE_HISTORY_SERVER["26100"]; Disp = "26100"}
-            @{BP = "26200"; Topic = $UPDATE_HISTORY["26100"]; Disp = "26200"}
-            # 26H2 has no history page of its own — reuse the 26200 revision
-            @{BP = "26200"; Topic = $UPDATE_HISTORY["26100"]; Disp = "26300"}
-            @{BP = "28000"; Topic = $UPDATE_HISTORY["28000"]; Disp = "28000"}
-        )
-        foreach ($rb in $readmeFallback) {
-            if (-not $BUILD_VERSIONS.ContainsKey($rb.Disp)) {
-                $fh = Get-HistoryBuild -TopicId $rb.Topic -BuildPat $rb.BP
-                if ($fh) {
-                    $rev = $fh.Build.Split(".")[-1]
-                    $BUILD_VERSIONS[$rb.Disp] = "Build $($rb.Disp).$rev"
-                }
-            }
-        }
-
-        foreach ($readme in @("README.md", "README_cn.md")) {
-            $path = Join-Path $ScriptRoot $readme
-            if (Test-Path $path) {
-                $content = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)
-                # Update date with regex (don't hardcode old date)
-                $content = $content -replace 'Last Updated: \w+ \d+, \d{4}', "Last Updated: $today"
-                $cnLabel = "$([char]0x6700)$([char]0x540E)$([char]0x66F4)$([char]0x65B0)$([char]0xFF1A)"
-                $cnY = [char]0x5E74; $cnM = [char]0x6708; $cnD = [char]0x65E5
-                $content = $content -replace "$cnLabel\d+$cnY\d+$cnM\d+$cnD", "$cnLabel$todayCn"
-                # Update build versions from cached values
-                foreach ($key in $BUILD_VERSIONS.Keys) {
-                    $pat = "Build $key.\d+"
-                    $content = $content -replace $pat, $BUILD_VERSIONS[$key]
-                }
-                [System.IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::UTF8)
-            }
-        }
-        Write-Host "  [README] date updated to $today" -ForegroundColor Green
-    }
+# Build numbers are re-checked on every run (a release-day run can miss them when MS lags), so a
+# value missed once is repaired on the next run. The date only moves when the README content changes.
+# Check whether any Scripts/ meta4 file differs from committed state
+$metaChanged = $false
+try {
+    $gitDiff = git diff --name-only -- Scripts/
+    if ($LASTEXITCODE -eq 0 -and $gitDiff) { $metaChanged = $true }
+} catch {
+    # If git fails (e.g. not a repo, running outside CI), default to updating
+    $metaChanged = $true
 }
+$culture = [System.Globalization.CultureInfo]::GetCultureInfo('en-US')
+$d = Get-Date
+$today = $culture.DateTimeFormat.GetMonthName($d.Month) + ' ' + $d.ToString('d, yyyy')
+$todayCn = "$($d.Year)$([char]0x5E74)$($d.Month)$([char]0x6708)$($d.Day)$([char]0x65E5)"
+$cnLabel = "$([char]0x6700)$([char]0x540E)$([char]0x66F4)$([char]0x65B0)$([char]0xFF1A)"
+$cnY = [char]0x5E74; $cnM = [char]0x6708; $cnD = [char]0x65E5
+$buildsStale = $false
+foreach ($readme in @("README.md", "README_cn.md")) {
+    $path = Join-Path $ScriptRoot $readme
+    if (-not (Test-Path $path)) { continue }
+    $content = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)
+    $orig = $content
+    # Update build versions from the resolved values
+    foreach ($key in $BUILD_VERSIONS.Keys) {
+        $content = $content -replace "Build $key.\d+", $BUILD_VERSIONS[$key]
+    }
+    if ($content -ne $orig) { $buildsStale = $true }
+    # Update date with regex (don't hardcode old date)
+    $content = $content -replace 'Last Updated: \w+ \d+, \d{4}', "Last Updated: $today"
+    $content = $content -replace "$cnLabel\d+$cnY\d+$cnM\d+$cnD", "$cnLabel$todayCn"
+    if ($content -eq $orig) { continue }
+    if (-not $TestMode) { [System.IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::UTF8) }
+    Write-Host "  [README] $(if ($TestMode) { 'would update' } else { 'updated' }): $readme" -ForegroundColor Green
+}
+if ($buildsStale) { Write-Host "  [README] build versions refreshed from a stale value" -ForegroundColor Yellow }
+elseif ($metaChanged) { Write-Host "  [README] date updated to $today" -ForegroundColor Green }
+else { Write-Host "  [README] no meta4 changes, build versions already current" -ForegroundColor DarkGray }
+
 Write-Host "=== Done: $gen generated, $skip skipped ===" -ForegroundColor Cyan

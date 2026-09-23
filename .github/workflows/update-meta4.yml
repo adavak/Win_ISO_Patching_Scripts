@@ -47,6 +47,13 @@ jobs:
           } else {
             echo "changed=false" >> $env:GITHUB_OUTPUT
           }
+          # A README-only change repairs a build version a release-day run missed.
+          # It is still committed, but it must not cut a tag or trigger an ISO build.
+          if (git diff --name-only -- Scripts/) {
+            echo "scripts=true" >> $env:GITHUB_OUTPUT
+          } else {
+            echo "scripts=false" >> $env:GITHUB_OUTPUT
+          }
         shell: powershell
 
       - name: Determine tag name
@@ -91,7 +98,7 @@ jobs:
         shell: powershell
 
       - name: Tag & Release
-        if: steps.git-check.outputs.changed == 'true' && steps.tag-name.outputs.tag != ''
+        if: steps.git-check.outputs.scripts == 'true' && steps.tag-name.outputs.tag != ''
         run: |
           $tag = "${{ steps.tag-name.outputs.tag }}"
           git tag $tag
@@ -102,7 +109,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Trigger win_iso_build
-        if: steps.git-check.outputs.changed == 'true' && steps.tag-name.outputs.tag != ''
+        if: steps.git-check.outputs.scripts == 'true' && steps.tag-name.outputs.tag != ''
         env:
           GH_TOKEN: ${{ secrets.BUILD_TRIGGER_PAT }}
         run: |
