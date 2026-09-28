@@ -232,18 +232,6 @@ if "%build%"=="26100" if defined isServer (
     set "metaFile=Scripts\script_server_%build%_%arch%.meta4"
 )
 
-set "apply26h2="
-for /f "tokens=2 delims==" %%i in ('findstr /b "apply26h2" W10UI.ini') do set "apply26h2=%%i"
-if "%build%"=="26100" if not defined isServer (
-    if "%apply26h2%"=="1" (
-        if exist "%patchDir%\*kb5054156*" del /f /q "%patchDir%\*kb5054156*"
-    ) else (
-        echo.
-%zh%        echo 26H2 补丁默认未启用，按 25H2 处理（W10UI.ini 中 apply26h2=1 可开启 26H2 补丁）。
-%en%        echo 26H2 patches are disabled by default, patching as 25H2 only. Set apply26h2=1 in W10UI.ini to enable.
-    )
-)
-
 if not exist "%metaFile%" goto :NOT_SUPPORT
 
 echo.
@@ -284,8 +272,6 @@ if "%build%" geq "14393" if "%build%" leq "17763" (
         if "%lang%" neq "en-US" call :ARIA2_DL_RETRY "Scripts\netfx4.8\script_netfx4.8_%build%_%arch%.meta4" "%lang%"
     )
 )
-
-if not "%apply26h2%"=="1" if exist "%patchDir%\*kb5121794*" del /f /q "%patchDir%\*kb5121794*"
 
 echo.
 %zh%echo 补丁下载完成

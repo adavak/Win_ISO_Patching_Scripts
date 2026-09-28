@@ -880,6 +880,7 @@ foreach ($readme in @("README.md", "README_cn.md")) {
         $content = $content -replace "Build $key.\d+", $BUILD_VERSIONS[$key]
     }
     if ($content -ne $orig) { $buildsStale = $true }
+    if ($content -eq $orig -and -not $metaChanged) { continue }
     # Update date with regex (don't hardcode old date)
     $content = $content -replace 'Last Updated: \w+ \d+, \d{4}', "Last Updated: $today"
     $content = $content -replace "$cnLabel\d+$cnY\d+$cnM\d+$cnD", "$cnLabel$todayCn"
