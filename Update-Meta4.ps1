@@ -36,7 +36,7 @@ $CFG["17763"] = BuildCfg $w10 "LTSC 2019"        "1809" ".NET Framework 4.8 Wind
 $CFG["19041"] = BuildCfg $w10 "22H2 / LTSC 2021" "22H2" ".NET Framework 4.8 Windows 10 22H2"            -s4 ".NET Framework 4.8.1 Windows 10 22H2"
 $CFG["20348"] = BuildCfg $w10 "Server 2022"      $null  ".NET Framework 4.8 Microsoft server operating system version 21H2" -s4 "Cumulative Update for .NET Framework 3.5 and 4.8.1 Microsoft server operating system version 21H2"
 $CFG["22621"] = BuildCfg $w11 "Win 11 23H2"      "23H2" $null            -s4 ".NET Framework 4.8.1 Windows 11 23H2"
-$CFG["26100"] = BuildCfg $w11 "25H2"             "25H2" $null            -s4 ".NET Framework 3.5 and 4.8.1 for Windows 11, version 25H2"
+$CFG["26100"] = BuildCfg $w11 "26H2"             "26H2" $null            -s4 ".NET Framework 3.5 and 4.8.1 for Windows 11, version 26H2"
 $CFG["26100-server"] = BuildCfg $w11 "Server 2025" -s3 $null -s4 ".NET Framework 3.5 and 4.8.1 Microsoft server operating system version 24H2" -srvVer "24H2"
 $CFG["28000"] = BuildCfg $w11 "26H1"             "26H1" $null            -s4 ".NET Framework 4.8.1 Windows 11 26H1"
 $ARCH_LABEL = @{x64="for x64-based Systems"; x86="for x86-based Systems"; arm64="for Arm64-based Systems"}
@@ -357,7 +357,7 @@ $BUILD_DISP = @{
     "19041"        = @{ Disp = "1904x"; Pat = "1904\d" }
     "20348"        = @{ Disp = "20348"; Pat = "20348" }
     "22621"        = @{ Disp = "22631"; Pat = "22631" }
-    "26100"        = @{ Disp = "26200"; Pat = "26200" }
+    "26100"        = @{ Disp = "26300"; Pat = "26300" }
     "26100-server" = @{ Disp = "26100"; Pat = "26100" }
     "28000"        = @{ Disp = "28000"; Pat = "28000" }
 }
@@ -484,14 +484,6 @@ function Resolve-BuildVersions($Bn, $Kb, $MsuUrl) {
     }
     $BUILD_VERSIONS[$d.Disp] = "Build $($d.Disp).$($hit.Rev)"
     Write-Host "  [BUILD] $Bn -> Build $($d.Disp).$($hit.Rev) [$($hit.Src)]" -ForegroundColor Green
-    # 26H2 is an enablement package on the 25H2 servicing branch: the same LCU lists it explicitly,
-    # otherwise its revision tracks 26200 (no separate history page).
-    if ($Bn -eq "26100") {
-        $r26 = Get-MapBuild $map "26300"
-        $rev = if ($r26) { $r26.Rev } else { $hit.Rev }
-        $BUILD_VERSIONS["26300"] = "Build 26300.$rev"
-        Write-Host "  [BUILD] 26300 -> Build 26300.$rev [$(if ($r26) { $r26.Src } else { 'tracks 26200' })]" -ForegroundColor Green
-    }
 }
 
 function Get-OldMsus($Path) {
