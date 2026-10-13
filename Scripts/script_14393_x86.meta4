@@ -8,16 +8,16 @@
 		<hash type="sha-1">6cf77fd5b0f590fda58604e3cd2cc7b1fa0ea1c3</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/crup/2025/10/windows10.0-kb5068794-x86_6cf77fd5b0f590fda58604e3cd2cc7b1fa0ea1c3.cab</url>
 	</file>
-	<file name="windows10.0-kb5122874-x86_f94b9493306e3f66f9d4337bd49c616b63d92df2.msu">
-		<hash type="sha-1">f94b9493306e3f66f9d4337bd49c616b63d92df2</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2026/09/windows10.0-kb5122874-x86_f94b9493306e3f66f9d4337bd49c616b63d92df2.msu</url>
+	<file name="windows10.0-kb5126649-x86_302bb77524a8c22e1a04cb2d20e5036609962e9b.msu">
+		<hash type="sha-1">302bb77524a8c22e1a04cb2d20e5036609962e9b</hash>
+		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2026/10/windows10.0-kb5126649-x86_302bb77524a8c22e1a04cb2d20e5036609962e9b.msu</url>
 	</file>
-	<file name="windows10.0-kb5122885-x86_8ea36ac8bd95443b4d780bd5bc62dd8bd977be6e.cab">
-		<hash type="sha-1">8ea36ac8bd95443b4d780bd5bc62dd8bd977be6e</hash>
-		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2026/09/windows10.0-kb5122885-x86_8ea36ac8bd95443b4d780bd5bc62dd8bd977be6e.cab</url>
+	<file name="windows10.0-kb5126662-x86_0bed541d4be226c6a41f2284ec13467e4738cd79.cab">
+		<hash type="sha-1">0bed541d4be226c6a41f2284ec13467e4738cd79</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2026/10/windows10.0-kb5126662-x86_0bed541d4be226c6a41f2284ec13467e4738cd79.cab</url>
 	</file>
-	<file name="windows10.0-kb5129239-x86_cea60905af09326bae9a0566473b6887fb6ddad5.msu">
-		<hash type="sha-1">cea60905af09326bae9a0566473b6887fb6ddad5</hash>
-		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2026/09/windows10.0-kb5129239-x86_cea60905af09326bae9a0566473b6887fb6ddad5.msu</url>
+	<file name="windows10.0-kb5126868-x86_3da06c9e31144128bcf9f549c32a52a90d889640.msu">
+		<hash type="sha-1">3da06c9e31144128bcf9f549c32a52a90d889640</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2026/10/windows10.0-kb5126868-x86_3da06c9e31144128bcf9f549c32a52a90d889640.msu</url>
 	</file>
 </metalink>
