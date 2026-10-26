@@ -20,4 +20,8 @@
 		<hash type="sha-1">e93c6b857e895024aeee1e023db638f8c7619096</hash>
 		<url>https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2026/09/windows10.0-kb5129237-x64_e93c6b857e895024aeee1e023db638f8c7619096.msu</url>
 	</file>
+	<file name="windows10.0-kb5134140-x64_eaa8859f91f07f255a2283b36781995b54f5c86b.msu">
+		<hash type="sha-1">eaa8859f91f07f255a2283b36781995b54f5c86b</hash>
+		<url>https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2026/10/windows10.0-kb5134140-x64_eaa8859f91f07f255a2283b36781995b54f5c86b.msu</url>
+	</file>
 </metalink>
