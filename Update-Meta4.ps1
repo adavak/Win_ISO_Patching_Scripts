@@ -351,36 +351,60 @@ function Add-UnverifiedEntries($All, $OldPath) {
 # catalog no longer lists them, so nothing else would notice. A meta4 entry whose file is gone
 # makes aria2 fail and Start.cmd abort the build, so those URLs are probed before writing. Only a
 # definite 404/410 drops an entry: timeouts and other errors stay "unknown" and keep it.
+# PowerShell 5.1 refuses the Range header through -Headers ("must be modified using the
+# appropriate property"), so the one-byte GET goes through HttpWebRequest.AddRange. GetResponse
+# returns on the headers and the body is never read, so a server that ignores Range cannot pull
+# the whole file.
+function Get-RangeStatus($Url) {
+    try {
+        $req = [System.Net.HttpWebRequest]::Create($Url)
+        $req.Method = 'GET'
+        $req.AddRange(0, 0)
+        $req.Timeout = 20000
+        $req.ReadWriteTimeout = 20000
+        $req.UserAgent = 'Mozilla/5.0'
+        $resp = $req.GetResponse()
+        $code = [int]$resp.StatusCode
+        $resp.Close()
+        return $code
+    } catch [System.Net.WebException] {
+        if ($_.Exception.Response) { return [int]$_.Exception.Response.StatusCode }
+        return $null
+    } catch { return $null }
+}
+
 $urlLiveCache = @{}
 function Test-UrlLive($Url) {
     if (-not $Url) { return $null }
     if ($urlLiveCache.ContainsKey($Url)) { return $urlLiveCache[$Url] }
+    $name = ($Url -split '/')[-1]
     $result = $null
+    $detail = ""
+    # HEAD is cheap. 404/410 is final, but a 2xx is not: some CDN edges answer HEAD for a file
+    # whose GET is already gone, so "live" is only declared after a one-byte range GET.
     try {
         $r = Invoke-WebRequest $Url -Method Head -UseBasicParsing -TimeoutSec 25
-        if ([int]$r.StatusCode -ge 200 -and [int]$r.StatusCode -lt 300) { $result = $true }
+        $code = [int]$r.StatusCode
+        $detail = "HEAD $code"
+        if ($code -eq 404 -or $code -eq 410) { $result = $false }
     } catch {
         $resp = $_.Exception.Response
         if ($resp -and $resp.StatusCode) {
             $code = [int]$resp.StatusCode
+            $detail = "HEAD $code"
             if ($code -eq 404 -or $code -eq 410) { $result = $false }
-        }
+        } else { $detail = "HEAD error" }
     }
     if ($null -eq $result) {
-        # Some endpoints reject HEAD; a one-byte range GET tells live and gone apart.
-        try {
-            $r = Invoke-WebRequest $Url -UseBasicParsing -TimeoutSec 25 -Headers @{ Range = 'bytes=0-0' }
-            $code = [int]$r.StatusCode
+        $code = Get-RangeStatus $Url
+        if ($null -ne $code) {
+            $detail += ", GET $code"
             if ($code -eq 200 -or $code -eq 206) { $result = $true }
             elseif ($code -eq 404 -or $code -eq 410) { $result = $false }
-        } catch {
-            $resp = $_.Exception.Response
-            if ($resp -and $resp.StatusCode) {
-                $code = [int]$resp.StatusCode
-                if ($code -eq 404 -or $code -eq 410) { $result = $false }
-            }
-        }
+        } else { $detail += ", GET error" }
     }
+    $verdict = if ($result -eq $true) { "live" } elseif ($result -eq $false) { "gone" } else { "unknown (kept)" }
+    Write-Host "  [URL] $name : $detail -> $verdict" -ForegroundColor DarkGray
     $urlLiveCache[$Url] = $result
     return $result
 }
@@ -410,6 +434,7 @@ if (Test-Path $buildCachePath) {
     } catch { Write-Host "  [CACHE] unreadable, starting empty" -ForegroundColor DarkGray }
 }
 $script:buildCacheDirty = $false
+$script:cacheSeen = @{}  # KBs looked up this run; a full run prunes the cache down to these
 $lcuAttempted = @{}      # KB -> the LCU probe already ran (a failed download must not run twice)
 # 7-Zip handles every cab compression MS uses; expand.exe is the fallback
 $sevenZip = @("$env:ProgramFiles\7-Zip\7z.exe", "${env:ProgramFiles(x86)}\7-Zip\7z.exe") |
@@ -522,6 +547,7 @@ function Add-LcuBuild($Map, $Kb, $Url) {
 function Resolve-BuildVersions($Bn, $Ar, $Kb, $MsuUrl) {
     $d = $BUILD_DISP[$Bn]
     if (-not $d) { return }
+    $script:cacheSeen["$Kb"] = $true
     $hit = $null
     if ($BUILD_CACHE.ContainsKey("$Kb")) {
         $v = "$($BUILD_CACHE["$Kb"])".Split('.')
@@ -615,6 +641,7 @@ trap {
 
 if ($Build.Count -eq 1 -and $Build[0] -match ',') { $Build = $Build[0] -split ',' | ForEach-Object { $_.Trim() } }
 if ($Arch.Count -eq 1 -and $Arch[0] -match ',') { $Arch = $Arch[0] -split ',' | ForEach-Object { $_.Trim() } }
+$fullRun = ($Build.Count -eq 0 -and $Arch.Count -eq 0)
 if ($Build.Count -eq 0) { $Build = $CFG.Keys | Sort-Object }
 if ($Arch.Count -eq 0) { $Arch = @("x64", "x86", "arm64") }
 # The README's advertised build per displayed version, read once up front: the per-arch rollback
@@ -1020,12 +1047,17 @@ if ($buildsStale) { Write-Host "  [README] build versions refreshed from a stale
 elseif ($metaChanged) { Write-Host "  [README] date updated to $today" -ForegroundColor Green }
 else { Write-Host "  [README] no meta4 changes, build versions already current" -ForegroundColor DarkGray }
 
-# Persist newly resolved KBs so the next run can skip the slow tiers for them.
-if ($buildCacheDirty -and -not $TestMode) {
+# Persist newly resolved KBs so the next run can skip the slow tiers for them. A full run also
+# prunes entries for KBs it no longer looks at, so the file stays one entry per current build.
+if (-not $TestMode) {
     $out = [ordered]@{}
-    foreach ($k in ($BUILD_CACHE.Keys | Sort-Object)) { $out[$k] = $BUILD_CACHE[$k] }
-    ($out | ConvertTo-Json) | Out-File $buildCachePath -Encoding ascii
-    Write-Host "  [CACHE] $($BUILD_CACHE.Count) entries written" -ForegroundColor DarkGray
+    foreach ($k in ($BUILD_CACHE.Keys | Sort-Object)) {
+        if (-not $fullRun -or $script:cacheSeen.ContainsKey($k)) { $out[$k] = $BUILD_CACHE[$k] }
+    }
+    if (($buildCacheDirty -or $fullRun) -and $out.Count -gt 0) {
+        ($out | ConvertTo-Json) | Out-File $buildCachePath -Encoding ascii
+        Write-Host "  [CACHE] $($out.Count) entries written" -ForegroundColor DarkGray
+    }
 }
 
 # A fallback release needs both signals for the same build/arch: the update vanished from the
