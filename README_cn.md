@@ -19,8 +19,8 @@
 |**Windows Server 2022**|**Build 20348.5773**|
 |**Windows 11 23H2**|**Build 22631.7654**|
 |**Windows Server 2025**|**Build 26100.33674**|
-|**Windows 11 26H1**|**Build 28000.3237（x64 版本不推荐）**|
-|**Windows 11 26H2、Windows 11 企业版 LTSC 2024**|**Build 26300.9725**|
+|**Windows 11 26H1**|**Build 28000.3365（x64 版本不推荐）**|
+|**Windows 11 26H2、Windows 11 企业版 LTSC 2024**|**Build 26300.9818**|
 
 ###### 一些设置（位于文件夹根目录 W10UI.ini）：
 |值（预设）|说明|
