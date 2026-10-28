@@ -595,9 +595,23 @@ if ($Build.Count -eq 1 -and $Build[0] -match ',') { $Build = $Build[0] -split ',
 if ($Arch.Count -eq 1 -and $Arch[0] -match ',') { $Arch = $Arch[0] -split ',' | ForEach-Object { $_.Trim() } }
 if ($Build.Count -eq 0) { $Build = $CFG.Keys | Sort-Object }
 if ($Arch.Count -eq 0) { $Arch = @("x64", "x86", "arm64") }
+# The README's advertised build per displayed version, read once up front: the per-arch rollback
+# check needs to know what the feed currently claims, not what this run writes.
+$readmeRev = @{}
+foreach ($readme in @("README.md", "README_cn.md")) {
+    $p = Join-Path $ScriptRoot $readme
+    if (-not (Test-Path $p)) { continue }
+    $t = [System.IO.File]::ReadAllText($p, [System.Text.Encoding]::UTF8)
+    foreach ($k in @($BUILD_DISP.Keys | ForEach-Object { $BUILD_DISP[$_].Disp } | Select-Object -Unique)) {
+        $m = [regex]::Match($t, "Build " + [regex]::Escape($k) + "\.(\d+)")
+        if ($m.Success) { $readmeRev[$k] = [int]$m.Groups[1].Value }
+    }
+}
+
 $gen = 0; $skip = 0; $BUILD_VERSIONS = @{}
 $RESOLVED = @{}        # "build|arch" -> @{Disp; Rev} for every arch that resolved a build
 $changedPairs = @{}    # "build|arch" -> "<label>|<arch>" for the meta4 files rewritten this run
+$deadPairs = @{}       # "build|arch" whose meta4 lost an entry to a dead URL this run
 
 foreach ($bn in $Build) {
     $c = $CFG[$bn]; if (-not $c) { continue }
@@ -882,10 +896,28 @@ foreach ($bn in $Build) {
             if ($e.Url -and -not $freshUrls.ContainsKey($e.Url) -and (Test-UrlLive $e.Url) -eq $false) { $deadFiles += $e }
             else { $liveFiles += $e }
         }
+        $pair = "$bn|$ar"
         if ($deadFiles.Count -gt 0) {
+            $deadPairs[$pair] = $true
             Write-Host "  [DEAD] dropped $($deadFiles.Count) entry(ies) whose URL is gone: $(($deadFiles | ForEach-Object { $_.FileName }) -join ', ')" -ForegroundColor Yellow
         }
         $all = $liveFiles
+
+        # Catalog lost the previous LCU but its file is still downloadable: keep that entry and do
+        # not add the older LCU the catalog hands us now — two LCUs of the same role must not
+        # coexist. Only a build/arch whose file really went 404 falls back (that is the tag case).
+        $r = $RESOLVED[$pair]
+        if ($lcuFile -and $r -and -not $deadPairs.ContainsKey($pair) -and
+            $readmeRev.ContainsKey($r.Disp) -and $r.Rev -lt $readmeRev[$r.Disp]) {
+            $carriedLcu = @($all | Where-Object {
+                $_.FileName -match '\.msu$' -and $_.FileName -notmatch 'ndp' -and
+                $_.FileName -ne $lcuFile.FileName -and $_.Url -and -not $freshUrls.ContainsKey($_.Url)
+            })
+            if ($carriedLcu.Count -gt 0) {
+                Write-Host "  [LCU] previous LCU is gone from the catalog but still downloadable; keeping it instead of adding older KB$($lcuFile.KB)" -ForegroundColor Yellow
+                $all = @($all | Where-Object { $_.FileName -ne $lcuFile.FileName })
+            }
+        }
 
         if ($TestMode) { Write-Host "  [TEST] $($all.Count) entries"; $gen++; continue }
 
@@ -966,11 +998,12 @@ if ($buildsStale) { Write-Host "  [README] build versions refreshed from a stale
 elseif ($metaChanged) { Write-Host "  [README] date updated to $today" -ForegroundColor Green }
 else { Write-Host "  [README] no meta4 changes, build versions already current" -ForegroundColor DarkGray }
 
-# A fallback release: this run rewrote a build's meta4 while that arch's own build went backwards
-# (a withdrawn update forced an older LCU onto the feed). The workflow tags those
-# <previous tag>_fallback_<label>_<arch> instead of opening a new cycle tag for an old build.
+# A fallback release needs both signals for the same build/arch: the update vanished from the
+# catalog (the resolved build went backwards) AND its file is gone (an entry was dropped as dead).
+# "Catalog lost it but the file still downloads" keeps the old entry and is not a fallback.
 $fallbackSuffixes = @()
 foreach ($pair in @($changedPairs.Keys)) {
+    if (-not $deadPairs.ContainsKey($pair)) { continue }
     $r = $RESOLVED[$pair]
     if (-not $r) { continue }
     if ($readmeRev.ContainsKey($r.Disp) -and $r.Rev -lt $readmeRev[$r.Disp]) {
