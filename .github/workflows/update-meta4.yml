@@ -129,7 +129,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add Scripts/ README.md README_cn.md
-          if (Test-Path .meta4-build-cache.json) { git add .meta4-build-cache.json }
           git commit -m "auto: update meta4 at $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
           git push
         shell: powershell
