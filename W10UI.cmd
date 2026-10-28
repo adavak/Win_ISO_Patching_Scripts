@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@set uiv=v10.65
+@set uiv=v10.66m
 @echo off
 :: enable debug mode, you must also set target and repo (if updates are not beside the script)
 set _Debug=0
@@ -26,7 +26,7 @@ set "Net35Source="
 :: Cleanup OS images to "compress" superseded components (might take long time to complete)
 set Cleanup=0
 
-:: Rebase OS images to "remove" superseded components (warning: break "Reset this PC" feature)
+:: Rebase OS images to "remove" superseded components (warning: break "Reset this PC" feature for Win10 v1809 or earlier)
 :: require first to set Cleanup=1
 :: change to 2 to run rebase after each LCU for builds 26052 and later
 set ResetBase=0
@@ -42,9 +42,10 @@ set LCUwinre=0
 :: Expand Cumulative Update and install from loose files via update.mum
 :: applicable only for builds 22621 and later
 :: for builds 26052 and later:
-:: auto enabled
-:: change to 2 or 3 to disable and add highest LCU msu only
-:: auto set to 3 for insider builds with baseline KB5122055
+:: - auto enabled
+:: - change to 2 or 3 to disable and add highest LCU msu only
+:: - auto set to 3 for insider builds with baseline KB5122055
+:: - auto set to 3 if LCU msu contain MumX v2
 set LCUmsuExpand=0
 
 :: update ISO boot files bootmgr/memtest/efisys.bin from Cumulative Update
@@ -466,6 +467,7 @@ set _skpp=0
 set uupboot=0
 set peTarget=0
 set pe_lcu=0
+set msumumx=0
 if not defined _all set _all=1
 if %_init%==1 if "!target!"=="" if exist "*.wim" (for /f "tokens=* delims=" %%# in ('dir /b /a:-d "*.wim" ^| findstr /i /v "Windows1.*\-KB"') do set "target=!_work!\%%~nx#")
 if "!target!"=="" set "target=%SystemDrive%"
@@ -673,6 +675,15 @@ if %_build% geq 26052 (
 if %LCUmsuExpand% equ 2 (set LCUmsuExpand=0) else if %LCUmsuExpand% equ 3 (set LCUmsuExpand=0) else if %LCUmsuExpand% equ 9 (set LCUmsuExpand=0) else (set LCUmsuExpand=1)
 if exist "!repo!\*Windows1*-KB5122055*.msu" (set LCUmsuExpand=0&set u_msulcu=3)
 )
+if %online%==0 if %_build% geq 26052 if exist "!repo!\*Windows1*-KB*%arch%*.msu" (
+if not exist "!_cabdir!\mum_x\" mkdir "!_cabdir!\mum_x"
+for /f "tokens=* delims=" %%# in ('dir /b /on "!repo!\*Windows1*-KB*%arch%*.msu"') do (set "package=%%#"&call :scanmsu)
+if exist "!_cabdir!\mum_x\" rmdir /s /q "!_cabdir!\mum_x\" %_Nul1%
+)
+if %msumumx% equ 1 (
+if %_embd% equ 0 if %LCUmsuExpand% equ 1 echo.&echo Turbo MumX v2 Container detected. LCUmsuExpand will be disabled.
+set LCUmsuExpand=0&set u_msulcu=3
+)
 if %_build% geq 26052 (
 if %u_msulcu% equ 2 if %ResetBase% equ 2 set ResetBase=1
 if %u_msulcu% equ 3 if %ResetBase% equ 2 set ResetBase=1
@@ -787,6 +798,35 @@ if %_wlib% equ 1 for /f %%# in ('^"!_wimlib! dir "!_w_!" 1 --path=Windows\Servic
 if exist "%SystemRoot%\temp\Package_for_RollupFix*.mum" findstr /i Baseline "%SystemRoot%\temp\Package_for_RollupFix*.mum" %_Nul1% || set pe_lcu=1
 if exist "%SystemRoot%\temp\Package_for_RollupFix*.mumx*" set pe_lcu=1
 del /f /q %SystemRoot%\temp\*.mum %_Nul3%
+goto :eof
+
+:scanmsu
+expand.exe -d -f:*Windows*.psf "!repo!\!package!" %_Nul2% | findstr /i %arch%\.psf %_Nul3% && goto :eof
+if %_wlib% equ 1 !_wimlib! dir "!repo!\!package!" %_Nul2% | findstr /i %arch%\.mumx %_Nul3% && (call :checkmsu)
+if %_wlib% equ 0 dism.exe /English /List-Image /ImageFile:"!repo!\!package!" /Index:1 %_Nul2% | findstr /i %arch%\.mumx %_Nul3% && (call :checkmsu)
+goto :eof
+
+:checkmsu
+if not defined msg_mumx if %_embd% equ 0 (
+echo.
+echo ============================================================
+echo Checking LCU MumX version...
+echo ============================================================
+echo.
+)
+set msg_mumx=1
+set loc_mumx=1
+if exist "!_cabdir!\mum_x\*.mumx*" del /f /q "!_cabdir!\mum_x\*.mumx*" %_Nul1%
+if %_wlib% equ 1 !_wimlib! extract "!repo!\!package!" 1 *Windows*.mumx* --dest-dir="!_cabdir!\mum_x" --nullglob %_Null%
+if %_wlib% equ 0 for /f "tokens=1 delims=\" %%# in ('dism.exe /English /List-Image /ImageFile:"!repo!\!package!" /Index:1 ^| findstr /i /r "%arch%\.mumx"') do %_psc% "$f=[IO.File]::ReadAllText('!_batp!') -split ':wimmsu\:.*';iex ($f[1]);E '!repo!\!package!' '%%#' '!_cabdir!\mum_x\%%#'"
+if exist "!_cabdir!\mum_x\*.mumx.???" for /f "tokens=* delims=" %%# in ('dir /b /on "!_cabdir!\mum_x\*.mumx.???"') do (
+if %_pwsh% equ 1 %_psc% "$bb = Get-Content '!_cabdir!\mum_x\%%#' -Encoding Byte -Total 216; if ('77 85 77 88' -eq $bb[208..211]) {$bb[215].ToString()} else {'1'}" | findstr 1 %_Nul1% || (set msumumx=1&set loc_mumx=2)
+if %_pwsh% equ 0 if %_wlib% equ 1 !_wimlib! info "!_cabdir!\mum_x\%%#" --header | findstr /i WIM_HDR_FLAG_COMPRESSION %_Nul1% || (set msumumx=1&set loc_mumx=2)
+)
+if exist "!_cabdir!\mum_x\*.mumx" for /f "tokens=* delims=" %%# in ('dir /b /on "!_cabdir!\mum_x\*.mumx"') do (
+if %_pwsh% equ 1 %_psc% "$bb = Get-Content '!_cabdir!\mum_x\%%#' -Encoding Byte -Total 8; $bb[7].ToString()" | findstr 1 %_Nul1% || (set msumumx=1&set loc_mumx=2)
+)
+if %_embd% equ 0 echo %package% [MumX v%loc_mumx%]
 goto :eof
 
 :igonline
@@ -3316,7 +3356,7 @@ set btx=%arch%
 if /i %arch%==x64 set btx=amd64
 if %wim%==1 set "_file=!target!"
 if %dvd%==1 set "_file=!target!\sources\boot.wim"
-set "_MSUdll=dpx.dll ReserveManager.dll TurboStack.dll UpdateAgent.dll UpdateCompression.dll wcp.dll"
+set "_MSUdll=dpx.dll ReserveManager.dll TurboContainer.dll TurboStack.dll UpdateAgent.dll UpdateCompression.dll wcp.dll"
 set "_MSUonf=onepackage.AggregatedMetadata.cab"
 set IncludeSSU=1
 set /a _rnd=%random%
@@ -3561,6 +3601,7 @@ exit /b
 (echo .Set SourceDir="%1"
 echo "dpx.dll"
 echo "ReserveManager.dll"
+echo "TurboContainer.dll"
 echo "TurboStack.dll"
 echo "UpdateAgent.dll"
 echo "wcp.dll"
