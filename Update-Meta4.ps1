@@ -25,7 +25,10 @@ $w10 = "windows10.0"; $w11 = "windows11.0"
 function BuildCfg($op, $lb, $ver=$null, $s3, $s1=$null, $s4=$null, $srvVer=$null) {
     $os = if ($op -eq $w11) { "Windows 11" } else { "Windows 10" }
     $pfx = if ($ver) { "$os Version $ver" } elseif ($srvVer) { "Microsoft server operating system version $srvVer" } else { "Microsoft server operating system version 21H2" }
-    $h = @{OP=$op; L=$lb; S1="Cumulative Update for $pfx"; S3=$s3; S5="Setup Dynamic Update for $pfx"; S6="Safe OS Dynamic Update for $pfx"}
+    # SEL is the string the catalog uses for this release in update titles; the chain needs it
+    # to pick the right entry when one KB is listed once per version (24H2/25H2/26H2).
+    $sel = if ($ver) { $ver } else { $srvVer }
+    $h = @{OP=$op; L=$lb; SEL=$sel; S1="Cumulative Update for $pfx"; S3=$s3; S5="Setup Dynamic Update for $pfx"; S6="Safe OS Dynamic Update for $pfx"}
     if ($s4)  { $h.S4 = $s4 }
     if ($srvVer) { $h.SRV = $true }
     return $h
@@ -92,15 +95,25 @@ function Get-Links { param($Guid)
 
 $chainCache = @{}
 $chainDegraded = $true    # cleared by Follow-Chain only when it resolves a real supersedence chain
-function Follow-Chain { param($OldKb, $ArchPat, $OsPref, [switch]$Server)
-    # Filters by server operating system when -Server is set.
-    $key = "$OldKb|$ArchPat|$Server"; if ($chainCache.ContainsKey($key)) { return $chainCache[$key] }
+function Follow-Chain { param($OldKb, $ArchPat, $OsPref, [switch]$Server, [string]$Ver)
+    # Filters by server operating system when -Server is set, and prefers the entry for this
+    # release when the catalog lists one KB once per version.
+    $key = "$OldKb|$ArchPat|$Server|$Ver"; if ($chainCache.ContainsKey($key)) { return $chainCache[$key] }
     $r = Search-Catalog "$OldKb"
     if ($Server) {
-        $first = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'server operating system' } | Select-Object -First 1
+        $cand = @($r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'server operating system' })
     } else {
-        $first = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -notmatch 'server operating system' } | Select-Object -First 1
+        $cand = @($r | Where-Object { $_.Title -match $ArchPat -and $_.Title -notmatch 'server operating system' })
     }
+    # The same KB is listed once per Windows version in no stable order, and only the target
+    # version's entry carries the supersedence link to the newest file. Taking the first arch
+    # match can land on another version's entry, which has no link, so the chain degrades and
+    # the old file is kept (e.g. KB5127650 x64 stayed while arm64 moved to KB5128977).
+    if ($Ver) {
+        $v = @($cand | Where-Object { $_.Title -match [regex]::Escape($Ver) })
+        if ($v.Count -gt 0) { $cand = $v }
+    }
+    $first = $cand | Select-Object -First 1
     if (-not $first) { $chainCache[$key] = $null; return $null }
     try { $sv = Retry-WebRequest -Url ("https://www.catalog.update.microsoft.com/v7/site/ScopedViewInline.aspx?updateid=" + $first.Guid)
     } catch { $chainCache[$key] = $null; return $null }
@@ -262,7 +275,7 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term, $PrimaryTerm=$null) {
     $nFiles = Get-ExistingFiles $nPath
     $nNdp = $nFiles | Where-Object { $_.FileName -match 'ndp.*\.msu$' } | Sort-Object KB -Descending | Select-Object -First 1
     if ($nNdp -and $nNdp.KB -gt 0) {
-        $cl = Follow-Chain -OldKb $nNdp.KB -ArchPat $ap -OsPref $c.OP
+        $cl = Follow-Chain -OldKb $nNdp.KB -ArchPat $ap -OsPref $c.OP -Ver $c.SEL
         $newNdp = Pick-File $cl "NET" $c.OP
         if ($newNdp -and $newNdp.KB -eq $nNdp.KB) { $newNdp = $null }
         if (-not $newNdp) {
@@ -685,7 +698,7 @@ foreach ($bn in $Build) {
             $chainDegraded = $true
             $okb = Get-OldKB $old "LCU" $ap
             if ($okb) {
-                $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP -Server:$isServer
+                $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP -Server:$isServer -Ver $c.SEL
                 $chain = Pick-File $cl "LCU" $c.OP
                 $newFiles += $cl | Where-Object { $_.FileName -match '\.msu$' }
             }
@@ -736,7 +749,7 @@ foreach ($bn in $Build) {
                 }
             }
             if ($ssuOldKb) {
-                $ssuChain = Follow-Chain -OldKb $ssuOldKb -ArchPat $ap -OsPref $c.OP
+                $ssuChain = Follow-Chain -OldKb $ssuOldKb -ArchPat $ap -OsPref $c.OP -Ver $c.SEL
                 $ssuNewFile = Pick-File $ssuChain "SSU" $c.OP
             }
             if ($ssuNewFile) {
@@ -752,7 +765,7 @@ foreach ($bn in $Build) {
         try {
             $chain = $null; $boot = $null
             $okb = Get-OldKB $old "NET"
-            if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP; $chain = Pick-File $cl "NET" $c.OP }
+            if ($okb) { $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP -Ver $c.SEL; $chain = Pick-File $cl "NET" $c.OP }
             $s3term = $c.S3
             if (-not $s3term -and $c.S4) { $s3term = $c.S4 }
             $boot = Bootstrap-Search -Term $s3term -ArchPat $ap -OsPref $c.OP -Kind "NET"
@@ -911,7 +924,7 @@ foreach ($bn in $Build) {
         foreach ($oc in $oldCabs) {
             $oldKb = Get-KB $oc
             if ($oldKb) {
-                $links = Follow-Chain -OldKb $oldKb -ArchPat $ap -OsPref $c.OP -Server:$isServer
+                $links = Follow-Chain -OldKb $oldKb -ArchPat $ap -OsPref $c.OP -Server:$isServer -Ver $c.SEL
                 $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
                 if ($cab -and $cab.FileName -ne $oc.FileName -and ($cab.Url -notin $newFiles.Url)) {
                     $cabType = Get-CabLabel $cab $ap
