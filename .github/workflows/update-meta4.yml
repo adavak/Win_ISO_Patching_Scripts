@@ -33,6 +33,7 @@ jobs:
         shell: powershell
 
       - name: Run Update-Meta4.ps1
+        id: meta4
         run: |
           .\Update-Meta4.ps1
         shell: powershell
@@ -73,15 +74,40 @@ jobs:
             $prev = $today.AddMonths(-1)
             $base = "v$($prev.Year).$($prev.Month)d"
           }
-          # Check existing tags for this period to determine suffix
-          git fetch --tags 2>$null
-          $existing = git tag -l "$base*" | Sort-Object -Descending
-          if (-not $existing -or $existing[0] -eq $base) {
-            $tag = $base
-          } else {
-            $last = $existing[0]
-            if ($last -match "${base}_(\d+)$") { $next = [int]$matches[1] + 1; $tag = "${base}_$next" }
-            else { $tag = "${base}_2" }
+          # A fallback release goes back to an older build because a withdrawn update 404'd,
+          # so it reuses the previous tag instead of opening a new cycle tag.
+          $fallback = '${{ steps.meta4.outputs.fallback }}' -eq 'true'
+          $suffix   = '${{ steps.meta4.outputs.fallback_suffix }}'
+          $tag = $null
+          if ($fallback) {
+            $ErrorActionPreference = 'Continue'
+            $lastTag = git describe --tags --abbrev=0 --match 'v*' HEAD 2>$null
+            $ErrorActionPreference = 'Stop'
+            if ($lastTag) {
+              $baseTag = $lastTag -replace '_fallback.*$', ''
+              $tagBase = "${baseTag}_fallback"
+              if ($suffix) { $tagBase = "${tagBase}_$suffix" }
+              $tag = $tagBase
+              $n = 2
+              while (git tag -l $tag) { $tag = "${tagBase}_$n"; $n++ }
+            }
+          }
+          if (-not $tag) {
+            # Check existing tags for this period to determine suffix
+            # git writes its summary ("From https://...") to stderr whenever the fetch has
+            # anything to report, and the runner's $ErrorActionPreference='Stop' turns native
+            # stderr into a terminating NativeCommandError. Keep it non-terminating here.
+            $ErrorActionPreference = 'Continue'
+            git fetch --tags --quiet 2>$null
+            $ErrorActionPreference = 'Stop'
+            $existing = git tag -l "$base*" | Sort-Object -Descending
+            if (-not $existing -or $existing[0] -eq $base) {
+              $tag = $base
+            } else {
+              $last = $existing[0]
+              if ($last -match "${base}_(\d+)$") { $next = [int]$matches[1] + 1; $tag = "${base}_$next" }
+              else { $tag = "${base}_2" }
+            }
           }
           Write-Host "Release tag: $tag"
           echo "tag=$tag" >> $env:GITHUB_OUTPUT

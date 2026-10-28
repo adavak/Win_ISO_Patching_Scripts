@@ -347,6 +347,44 @@ function Add-UnverifiedEntries($All, $OldPath) {
     return ,(@($All) + $unverified)
 }
 
+# Entries copied over from the old meta4 can point at a file the vendor has since pulled; the
+# catalog no longer lists them, so nothing else would notice. A meta4 entry whose file is gone
+# makes aria2 fail and Start.cmd abort the build, so those URLs are probed before writing. Only a
+# definite 404/410 drops an entry: timeouts and other errors stay "unknown" and keep it.
+$urlLiveCache = @{}
+function Test-UrlLive($Url) {
+    if (-not $Url) { return $null }
+    if ($urlLiveCache.ContainsKey($Url)) { return $urlLiveCache[$Url] }
+    $result = $null
+    try {
+        $r = Invoke-WebRequest $Url -Method Head -UseBasicParsing -TimeoutSec 25
+        if ([int]$r.StatusCode -ge 200 -and [int]$r.StatusCode -lt 300) { $result = $true }
+    } catch {
+        $resp = $_.Exception.Response
+        if ($resp -and $resp.StatusCode) {
+            $code = [int]$resp.StatusCode
+            if ($code -eq 404 -or $code -eq 410) { $result = $false }
+        }
+    }
+    if ($null -eq $result) {
+        # Some endpoints reject HEAD; a one-byte range GET tells live and gone apart.
+        try {
+            $r = Invoke-WebRequest $Url -UseBasicParsing -TimeoutSec 25 -Headers @{ Range = 'bytes=0-0' }
+            $code = [int]$r.StatusCode
+            if ($code -eq 200 -or $code -eq 206) { $result = $true }
+            elseif ($code -eq 404 -or $code -eq 410) { $result = $false }
+        } catch {
+            $resp = $_.Exception.Response
+            if ($resp -and $resp.StatusCode) {
+                $code = [int]$resp.StatusCode
+                if ($code -eq 404 -or $code -eq 410) { $result = $false }
+            }
+        }
+    }
+    $urlLiveCache[$Url] = $result
+    return $result
+}
+
 # --- README build version (three-tier lookup) ---
 # Tier 1: Update Catalog titles carry "(<base>.<rev>)" for the branches MS labels that way
 # Tier 2: support.microsoft.com KB article title, looked up by the KB number we just resolved
@@ -470,21 +508,30 @@ function Add-LcuBuild($Map, $Kb, $Url) {
     }
 }
 
-function Resolve-BuildVersions($Bn, $Kb, $MsuUrl) {
+function Resolve-BuildVersions($Bn, $Ar, $Kb, $MsuUrl) {
     $d = $BUILD_DISP[$Bn]
-    if (-not $d -or $BUILD_VERSIONS.ContainsKey($d.Disp)) { return }   # first arch wins, the value is arch independent
+    if (-not $d) { return }
     $map = @{}
     Add-CatalogBuilds $map $Kb
     $hit = Get-MapBuild $map $d.Pat
+    # The README value is arch independent (first arch wins), but a fallback is per arch, so keep
+    # each arch's own revision. A later arch whose catalog title lacks the build stops here: the
+    # slower tiers must not run twice for the same KB.
+    if (-not $hit -and $BUILD_VERSIONS.ContainsKey($d.Disp)) { return }
     if (-not $hit) { Add-SupportBuilds $map $Kb; $hit = Get-MapBuild $map $d.Pat }
     if (-not $hit) { Add-LcuBuild $map $Kb $MsuUrl; $hit = Get-MapBuild $map $d.Pat }
     if (-not $hit) {
         Write-Host "  [BUILD] $Bn : build version unresolved (catalog + support + LCU all missed)" -ForegroundColor Red
         return
     }
+    $RESOLVED["$Bn|$Ar"] = [PSCustomObject]@{ Disp = $d.Disp; Rev = [int]$hit.Rev }
+    if ($BUILD_VERSIONS.ContainsKey($d.Disp)) { return }   # first arch wins, the value is arch independent
     $BUILD_VERSIONS[$d.Disp] = "Build $($d.Disp).$($hit.Rev)"
     Write-Host "  [BUILD] $Bn -> Build $($d.Disp).$($hit.Rev) [$($hit.Src)]" -ForegroundColor Green
 }
+
+# Tag-safe lowercase slug: "26H1|x64" -> "26h1_x64"
+function Get-TagSlug($Text) { ($Text.ToLower() -replace '[^a-z0-9]+', '_').Trim('_') }
 
 function Get-OldMsus($Path) {
     if (-not (Test-Path $Path)) { return @() }
@@ -549,6 +596,8 @@ if ($Arch.Count -eq 1 -and $Arch[0] -match ',') { $Arch = $Arch[0] -split ',' | 
 if ($Build.Count -eq 0) { $Build = $CFG.Keys | Sort-Object }
 if ($Arch.Count -eq 0) { $Arch = @("x64", "x86", "arm64") }
 $gen = 0; $skip = 0; $BUILD_VERSIONS = @{}
+$RESOLVED = @{}        # "build|arch" -> @{Disp; Rev} for every arch that resolved a build
+$changedPairs = @{}    # "build|arch" -> "<label>|<arch>" for the meta4 files rewritten this run
 
 foreach ($bn in $Build) {
     $c = $CFG[$bn]; if (-not $c) { continue }
@@ -589,7 +638,7 @@ foreach ($bn in $Build) {
             else { Write-Host "  [LCU] SKIP"; $skip++; continue }
 
             # README build version - resolved from the LCU we just picked
-            Resolve-BuildVersions $bn $f.KB $f.Url
+            Resolve-BuildVersions $bn $ar $f.KB $f.Url
         } catch { Write-Host "  [LCU] ERROR: $_"; $skip++; continue }
         $lcuChainDegraded = $chainDegraded
 
@@ -821,6 +870,23 @@ foreach ($bn in $Build) {
         # A degraded chain (Follow-Chain fell back to the update's own file list) cannot tell a
         # baseline checkpoint from a superseded LCU, so the sweep may have dropped one.
         if ($lcuChainDegraded) { $all = Add-UnverifiedEntries $all $old }
+
+        # Only entries the catalog did not hand us this run can be stale: a URL returned by a
+        # DownloadDialog call is live at fetch time, so probing it would just burn requests.
+        # Everything carried over from the old meta4 (preserved MSUs, unchanged SSU/CABs) is fair
+        # game — that is exactly how a withdrawn update survives the sweep as an "expired KB".
+        $freshUrls = @{}
+        foreach ($v in $linksCache.Values) { foreach ($l in @($v)) { if ($l.Url) { $freshUrls[$l.Url] = 1 } } }
+        $liveFiles = @(); $deadFiles = @()
+        foreach ($e in @($all)) {
+            if ($e.Url -and -not $freshUrls.ContainsKey($e.Url) -and (Test-UrlLive $e.Url) -eq $false) { $deadFiles += $e }
+            else { $liveFiles += $e }
+        }
+        if ($deadFiles.Count -gt 0) {
+            Write-Host "  [DEAD] dropped $($deadFiles.Count) entry(ies) whose URL is gone: $(($deadFiles | ForEach-Object { $_.FileName }) -join ', ')" -ForegroundColor Yellow
+        }
+        $all = $liveFiles
+
         if ($TestMode) { Write-Host "  [TEST] $($all.Count) entries"; $gen++; continue }
 
         # Sort: all files by KB ascending
@@ -840,6 +906,7 @@ foreach ($bn in $Build) {
         $newMeta = New-Meta4 $sortedAll
         $newMetaStr = $newMeta.ToString()
         [System.IO.File]::WriteAllText($old, $newMetaStr, [System.Text.Encoding]::UTF8)
+        $changedPairs["$bn|$ar"] = "$($c.L)|$ar"
         Write-Host "  [OK] $($c.L) $ar ($($all.Count) files)" -ForegroundColor Green; $gen++
     }
 }
@@ -862,14 +929,29 @@ $todayCn = "$($d.Year)$([char]0x5E74)$($d.Month)$([char]0x6708)$($d.Day)$([char]
 $cnLabel = "$([char]0x6700)$([char]0x540E)$([char]0x66F4)$([char]0x65B0)$([char]0xFF1A)"
 $cnY = [char]0x5E74; $cnM = [char]0x6708; $cnD = [char]0x65E5
 $buildsStale = $false
+$readmeRev = @{}       # README's current build revision per displayed build
 foreach ($readme in @("README.md", "README_cn.md")) {
     $path = Join-Path $ScriptRoot $readme
     if (-not (Test-Path $path)) { continue }
     $content = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)
     $orig = $content
-    # Update build versions from the resolved values
+    # Update build versions from the resolved values. A rollback (resolved lower than what the
+    # README shows) leaves the row alone: a withdrawn update must not lower the advertised build.
     foreach ($key in $BUILD_VERSIONS.Keys) {
-        $content = $content -replace "Build $key.\d+", $BUILD_VERSIONS[$key]
+        $newText = $BUILD_VERSIONS[$key]
+        $newRev = [int]$newText.Substring($newText.LastIndexOf('.') + 1)
+        $reKey = [regex]("Build " + [regex]::Escape($key) + "\.(\d+)")
+        $cur = $reKey.Match($content)
+        if ($cur.Success) { $readmeRev[$key] = [int]$cur.Groups[1].Value }
+        $rollback = $cur.Success -and ($newRev -lt [int]$cur.Groups[1].Value)
+        $content = $reKey.Replace($content, [System.Text.RegularExpressions.MatchEvaluator]{
+            param($m)
+            if ($rollback) {
+                Write-Host "  [README] $key : keeping $($m.Groups[1].Value), resolved $newRev is a rollback" -ForegroundColor Yellow
+                return $m.Value
+            }
+            return $newText
+        })
     }
     if ($content -ne $orig) { $buildsStale = $true }
     if ($content -eq $orig -and -not $metaChanged) { continue }
@@ -883,5 +965,24 @@ foreach ($readme in @("README.md", "README_cn.md")) {
 if ($buildsStale) { Write-Host "  [README] build versions refreshed from a stale value" -ForegroundColor Yellow }
 elseif ($metaChanged) { Write-Host "  [README] date updated to $today" -ForegroundColor Green }
 else { Write-Host "  [README] no meta4 changes, build versions already current" -ForegroundColor DarkGray }
+
+# A fallback release: this run rewrote a build's meta4 while that arch's own build went backwards
+# (a withdrawn update forced an older LCU onto the feed). The workflow tags those
+# <previous tag>_fallback_<label>_<arch> instead of opening a new cycle tag for an old build.
+$fallbackSuffixes = @()
+foreach ($pair in @($changedPairs.Keys)) {
+    $r = $RESOLVED[$pair]
+    if (-not $r) { continue }
+    if ($readmeRev.ContainsKey($r.Disp) -and $r.Rev -lt $readmeRev[$r.Disp]) {
+        $fallbackSuffixes += (Get-TagSlug $changedPairs[$pair])
+    }
+}
+$fallbackSuffix = (@($fallbackSuffixes | Select-Object -Unique) -join '_')
+$fallbackText = ($fallbackSuffix -ne '').ToString().ToLower()
+Write-Host "  [RELEASE] fallback=$fallbackText suffix=$fallbackSuffix" -ForegroundColor DarkGray
+if ($env:GITHUB_OUTPUT -and -not $TestMode) {
+    echo "fallback=$fallbackText" >> $env:GITHUB_OUTPUT
+    echo "fallback_suffix=$fallbackSuffix" >> $env:GITHUB_OUTPUT
+}
 
 Write-Host "=== Done: $gen generated, $skip skipped ===" -ForegroundColor Cyan
