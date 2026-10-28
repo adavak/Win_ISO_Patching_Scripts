@@ -399,6 +399,17 @@ $BUILD_DISP = @{
     "26100-server" = @{ Disp = "26100"; Pat = "26100" }
     "28000"        = @{ Disp = "28000"; Pat = "28000" }
 }
+# Per-KB build cache. A KB maps to one build forever, so a successful resolution is reused across
+# runs and the slow tiers (support page, full LCU download) stay out of the normal path.
+$buildCachePath = Join-Path $ScriptRoot ".meta4-build-cache.json"
+$BUILD_CACHE = @{}
+if (Test-Path $buildCachePath) {
+    try {
+        $cached = Get-Content $buildCachePath -Raw | ConvertFrom-Json
+        foreach ($p in $cached.PSObject.Properties) { $BUILD_CACHE[$p.Name] = [string]$p.Value }
+    } catch { Write-Host "  [CACHE] unreadable, starting empty" -ForegroundColor DarkGray }
+}
+$script:buildCacheDirty = $false
 $lcuAttempted = @{}      # KB -> the LCU probe already ran (a failed download must not run twice)
 # 7-Zip handles every cab compression MS uses; expand.exe is the fallback
 $sevenZip = @("$env:ProgramFiles\7-Zip\7z.exe", "${env:ProgramFiles(x86)}\7-Zip\7z.exe") |
@@ -511,18 +522,29 @@ function Add-LcuBuild($Map, $Kb, $Url) {
 function Resolve-BuildVersions($Bn, $Ar, $Kb, $MsuUrl) {
     $d = $BUILD_DISP[$Bn]
     if (-not $d) { return }
-    $map = @{}
-    Add-CatalogBuilds $map $Kb
-    $hit = Get-MapBuild $map $d.Pat
-    # The README value is arch independent (first arch wins), but a fallback is per arch, so keep
-    # each arch's own revision. A later arch whose catalog title lacks the build stops here: the
-    # slower tiers must not run twice for the same KB.
-    if (-not $hit -and $BUILD_VERSIONS.ContainsKey($d.Disp)) { return }
-    if (-not $hit) { Add-SupportBuilds $map $Kb; $hit = Get-MapBuild $map $d.Pat }
-    if (-not $hit) { Add-LcuBuild $map $Kb $MsuUrl; $hit = Get-MapBuild $map $d.Pat }
+    $hit = $null
+    if ($BUILD_CACHE.ContainsKey("$Kb")) {
+        $v = "$($BUILD_CACHE["$Kb"])".Split('.')
+        if ($v.Count -eq 2) { $hit = [PSCustomObject]@{ Base = $v[0]; Rev = $v[1]; Src = 'cache' } }
+    }
+    if (-not $hit) {
+        $map = @{}
+        Add-CatalogBuilds $map $Kb
+        $hit = Get-MapBuild $map $d.Pat
+        # The README value is arch independent (first arch wins), but a fallback is per arch, so keep
+        # each arch's own revision. A later arch whose catalog title lacks the build stops here: the
+        # slower tiers must not run twice for the same KB.
+        if (-not $hit -and $BUILD_VERSIONS.ContainsKey($d.Disp)) { return }
+        if (-not $hit) { Add-SupportBuilds $map $Kb; $hit = Get-MapBuild $map $d.Pat }
+        if (-not $hit) { Add-LcuBuild $map $Kb $MsuUrl; $hit = Get-MapBuild $map $d.Pat }
+    }
     if (-not $hit) {
         Write-Host "  [BUILD] $Bn : build version unresolved (catalog + support + LCU all missed)" -ForegroundColor Red
         return
+    }
+    if ($hit.Src -ne 'cache') {
+        $BUILD_CACHE["$Kb"] = "$($hit.Base).$($hit.Rev)"
+        $script:buildCacheDirty = $true
     }
     $RESOLVED["$Bn|$Ar"] = [PSCustomObject]@{ Disp = $d.Disp; Rev = [int]$hit.Rev }
     if ($BUILD_VERSIONS.ContainsKey($d.Disp)) { return }   # first arch wins, the value is arch independent
@@ -997,6 +1019,14 @@ foreach ($readme in @("README.md", "README_cn.md")) {
 if ($buildsStale) { Write-Host "  [README] build versions refreshed from a stale value" -ForegroundColor Yellow }
 elseif ($metaChanged) { Write-Host "  [README] date updated to $today" -ForegroundColor Green }
 else { Write-Host "  [README] no meta4 changes, build versions already current" -ForegroundColor DarkGray }
+
+# Persist newly resolved KBs so the next run can skip the slow tiers for them.
+if ($buildCacheDirty -and -not $TestMode) {
+    $out = [ordered]@{}
+    foreach ($k in ($BUILD_CACHE.Keys | Sort-Object)) { $out[$k] = $BUILD_CACHE[$k] }
+    ($out | ConvertTo-Json) | Out-File $buildCachePath -Encoding ascii
+    Write-Host "  [CACHE] $($BUILD_CACHE.Count) entries written" -ForegroundColor DarkGray
+}
 
 # A fallback release needs both signals for the same build/arch: the update vanished from the
 # catalog (the resolved build went backwards) AND its file is gone (an entry was dropped as dead).
