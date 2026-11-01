@@ -61,17 +61,31 @@ function Retry-WebRequest {
     }
 }
 $searchCache = @{}
+# The catalog intermittently serves a machine-translated copy of a search page under the same
+# URL (the response does not vary on Accept-Language), and every caller below classifies results
+# by English keywords. Translated titles carry non-ASCII characters once their HTML entities are
+# decoded (German &uuml;, French &eacute;, CJK, ...), so a localized page is retried instead of
+# being handed to the callers. Only the English copy is cached.
+function Test-CatalogEnglish($Items) {
+    return -not ($Items | Where-Object { $_.Title -match '[^\x00-\x7F]' })
+}
 function Search-Catalog { param($Q)
     if ($searchCache.ContainsKey($Q)) { return $searchCache[$Q] }
-    $r = Retry-WebRequest -Url ("https://www.catalog.update.microsoft.com/v7/site/Search.aspx?q=" + [uri]::EscapeDataString($Q))
-    $h = $r.Content; $ret = @()
-    foreach ($m in $reCatId.Matches($h)) {
-        $g = $m.Groups[1].Value; $e = $h.IndexOf("</a>", $m.Index + $m.Length)
-        if ($e -le 0) { continue }
-        $r2 = $h.Substring($m.Index + $m.Length, $e - $m.Index - $m.Length)
-        $gt = $r2.IndexOf('>'); if ($gt -ge 0) { $r2 = $r2.Substring($gt + 1) }
-        $t = ($r2 -replace '<[^>]+>', '').Trim()
-        if ($t) { $ret += [PSCustomObject]@{Guid = $g; Title = $t} }
+    $ret = @()
+    for ($try = 1; $try -le 4; $try++) {
+        $r = Retry-WebRequest -Url ("https://www.catalog.update.microsoft.com/v7/site/Search.aspx?q=" + [uri]::EscapeDataString($Q))
+        $h = $r.Content; $ret = @()
+        foreach ($m in $reCatId.Matches($h)) {
+            $g = $m.Groups[1].Value; $e = $h.IndexOf("</a>", $m.Index + $m.Length)
+            if ($e -le 0) { continue }
+            $r2 = $h.Substring($m.Index + $m.Length, $e - $m.Index - $m.Length)
+            $gt = $r2.IndexOf('>'); if ($gt -ge 0) { $r2 = $r2.Substring($gt + 1) }
+            $t = [System.Net.WebUtility]::HtmlDecode(($r2 -replace '<[^>]+>', '')).Trim()
+            if ($t) { $ret += [PSCustomObject]@{Guid = $g; Title = $t} }
+        }
+        if (Test-CatalogEnglish $ret) { break }
+        Write-Host "  [CATALOG] $Q : localized page, retrying" -ForegroundColor DarkYellow
+        Start-Sleep -Milliseconds 400
     }
     $searchCache[$Q] = $ret
     return $ret
@@ -232,6 +246,11 @@ function Get-OldKB($Path, $Kind, $ArchPat = "") {
                     $ckb = [int]$matches[1]
                     try {
                         $r = Search-Catalog "kb$ckb"
+                        # Search-Catalog retries translated pages; if every attempt still came
+                        # back localized, skip the whole lookup rather than classifying against
+                        # English keywords that cannot match. The caller then falls back to the
+                        # bootstrap result instead of trusting an older checkpoint LCU.
+                        if (@($r | Where-Object { $_.Title -match '[^\x00-\x7F]' }).Count -gt 0) { return $null }
                         $t = ($r | Where-Object { $_.Title -match $ArchPat } | Select-Object -First 1).Title
                         if ($t -match 'Cumulative Update' -and $t -notmatch '\.NET') {
                             return $ckb
@@ -700,12 +719,24 @@ foreach ($bn in $Build) {
             if ($okb) {
                 $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP -Server:$isServer -Ver $c.SEL
                 $chain = Pick-File $cl "LCU" $c.OP
-                $newFiles += $cl | Where-Object { $_.FileName -match '\.msu$' }
             }
             $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
             $f, $tag = Cross-Validate $chain $boot
             $lcuFile = $f
             if ($f) {
+                # The chain's extra MSUs belong in the list only when the chain is the one we
+                # trust. Cross-Validate drops a chain that disagrees with the bootstrap (it can
+                # follow another release's track); keeping its files anyway re-added KB5134133
+                # after the old-LCU lookup degraded to the 5043080 baseline checkpoint.
+                if ($tag -eq 'verified' -or $tag -eq 'chain') {
+                    $newFiles += $cl | Where-Object { $_.FileName -match '\.msu$' }
+                } elseif ($chain) {
+                    # The chain followed a different release (Cross-Validate kept the bootstrap).
+                    # Its file list still carries the baseline checkpoint the LCU is built on, so
+                    # keep everything except the chain's own LCU.
+                    $chainKb = $chain.KB
+                    $newFiles += $cl | Where-Object { $_.FileName -match '\.msu$' -and $_.KB -ne $chainKb }
+                }
                 $newFiles += $f
                 if ($okb -and $okb -ne $f.KB) { Write-Host "  [LCU] $okb -> $($f.KB) ($($f.FileName))" -ForegroundColor Green }
                 elseif ($okb) { Write-Host "  [LCU] $okb (unchanged)" -ForegroundColor DarkGray }
