@@ -697,6 +697,9 @@ $deadPairs = @{}       # "build|arch" whose meta4 lost an entry to a dead URL th
 foreach ($bn in $Build) {
     $c = $CFG[$bn]; if (-not $c) { continue }
     $isServer = [bool]$c.SRV
+    # Server 2022 updates are titled "Microsoft server operating system ...", but the meta4 file
+    # name has no server_ prefix, so the title filter must not be tied to $isServer.
+    $srvTitles = $isServer -or ($bn -eq '20348')
     $baseBn = $bn -replace '-server$'
     foreach ($ar in $Arch) {
         $al = $ARCH_LABEL[$ar]
@@ -717,7 +720,7 @@ foreach ($bn in $Build) {
             $chainDegraded = $true
             $okb = Get-OldKB $old "LCU" $ap
             if ($okb) {
-                $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP -Server:$isServer -Ver $c.SEL
+                $cl = Follow-Chain -OldKb $okb -ArchPat $ap -OsPref $c.OP -Server:$srvTitles -Ver $c.SEL
                 $chain = Pick-File $cl "LCU" $c.OP
             }
             $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
@@ -955,7 +958,7 @@ foreach ($bn in $Build) {
         foreach ($oc in $oldCabs) {
             $oldKb = Get-KB $oc
             if ($oldKb) {
-                $links = Follow-Chain -OldKb $oldKb -ArchPat $ap -OsPref $c.OP -Server:$isServer -Ver $c.SEL
+                $links = Follow-Chain -OldKb $oldKb -ArchPat $ap -OsPref $c.OP -Server:$srvTitles -Ver $c.SEL
                 $cab = $links | Where-Object { $_.FileName -match '\.cab$' } | Select-Object -First 1
                 if ($cab -and $cab.FileName -ne $oc.FileName -and ($cab.Url -notin $newFiles.Url)) {
                     $cabType = Get-CabLabel $cab $ap
