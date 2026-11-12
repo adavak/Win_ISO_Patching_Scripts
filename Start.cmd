@@ -178,7 +178,7 @@ if exist "%~dp0%ISODir%\sources\install.esd" (
     echo.
     %zh%echo [3/4] 转换 ESD 为 WIM
     %en%echo [3/4] Converting ESD to WIM...
-    for /f "tokens=2 delims=: " %%# in ('"%dism%" /English /Get-WimInfo /WimFile:"%~dp0%ISODir%\sources\install.esd" ^| find /i "Index"') do (
+    for /f "tokens=2 delims=: " %%# in ('call "%dism%" /English /Get-WimInfo /WimFile:"%~dp0%ISODir%\sources\install.esd" ^| find /i "Index"') do (
         set imgcount=%%#
     )
     if exist "%~dp0%ISODir%\sources\install.wim" del /f /q "%~dp0%ISODir%\sources\install.wim"
