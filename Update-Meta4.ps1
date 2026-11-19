@@ -64,15 +64,18 @@ $searchCache = @{}
 # The catalog intermittently serves a machine-translated copy of a search page under the same
 # URL (the response does not vary on Accept-Language), and every caller below classifies results
 # by English keywords. Translated titles carry non-ASCII characters once their HTML entities are
-# decoded (German &uuml;, French &eacute;, CJK, ...), so a localized page is retried instead of
-# being handed to the callers. Only the English copy is cached.
+# decoded (German &uuml;, French &eacute;, CJK, ...). A localized page is never accepted and never
+# cached: keep retrying until the English copy comes back. A fixed attempt count was not enough —
+# on 2026-11-19 a page stayed translated through all four tries, the LCU lookup degraded, and the
+# degraded-chain guard restored every superseded entry. Empty results are valid (an expired KB
+# legitimately has no catalog hits) and count as English.
 function Test-CatalogEnglish($Items) {
     return -not ($Items | Where-Object { $_.Title -match '[^\x00-\x7F]' })
 }
 function Search-Catalog { param($Q)
     if ($searchCache.ContainsKey($Q)) { return $searchCache[$Q] }
-    $ret = @()
-    for ($try = 1; $try -le 4; $try++) {
+    $delay = 400
+    while ($true) {
         $r = Retry-WebRequest -Url ("https://www.catalog.update.microsoft.com/v7/site/Search.aspx?q=" + [uri]::EscapeDataString($Q))
         $h = $r.Content; $ret = @()
         foreach ($m in $reCatId.Matches($h)) {
@@ -84,8 +87,9 @@ function Search-Catalog { param($Q)
             if ($t) { $ret += [PSCustomObject]@{Guid = $g; Title = $t} }
         }
         if (Test-CatalogEnglish $ret) { break }
-        Write-Host "  [CATALOG] $Q : localized page, retrying" -ForegroundColor DarkYellow
-        Start-Sleep -Milliseconds 400
+        Write-Host "  [CATALOG] $Q : localized page, retrying in $($delay)ms" -ForegroundColor DarkYellow
+        Start-Sleep -Milliseconds $delay
+        if ($delay -lt 10000) { $delay = [Math]::Min($delay * 2, 10000) }
     }
     $searchCache[$Q] = $ret
     return $ret
@@ -152,7 +156,10 @@ function Follow-Chain { param($OldKb, $ArchPat, $OsPref, [switch]$Server, [strin
     $chainCache[$key] = $result; return $result
 }
 
+# LastBootstrapLinks is the full DownloadDialog file list behind the picked bootstrap result:
+# the LCU block keeps it so the degraded-chain guard knows which checkpoints the new LCU bundles.
 function Bootstrap-Search { param($Term, $ArchPat, $OsPref, $Kind)
+    $script:LastBootstrapLinks = @()
     $r = Search-Catalog $Term
     if ($Kind -eq "LCU") {
         $best = $r | Where-Object { $_.Title -match $ArchPat -and $_.Title -match 'Cumulative Update' -and $_.Title -notmatch '\.NET' } | Sort-Object Title -Descending | Select-Object -First 1
@@ -186,6 +193,7 @@ function Bootstrap-Search { param($Term, $ArchPat, $OsPref, $Kind)
             if (($altLinks | Where-Object { $_.FileName -match 'ndp.*\.msu$' }).Count -gt 0) { $links = $altLinks; $best = $alt; break }
         }
     }
+    $script:LastBootstrapLinks = @($links)
     $m = $links | Where-Object { $_.FileName -match [regex]::Escape($OsPref) }
     if (-not $m) { $m = $links }
     if ($Kind -eq "LCU") { return ($m | Where-Object { $_.FileName -match '\.msu$' -and $_ -notmatch 'ndp' } | Sort-Object KB -Descending | Select-Object -First 1) }
@@ -363,9 +371,12 @@ function Update-NetfxSubdir($Label, $Subdir, $S4Term, $PrimaryTerm=$null) {
 }
 
 # Re-add entries the old meta4 had but the rebuilt list lost, for runs where the chain lookup
-# degraded and a baseline checkpoint could have been mistaken for a superseded LCU. The next
-# healthy run re-evaluates them and drops them again.
-function Add-UnverifiedEntries($All, $OldPath) {
+# degraded and a baseline checkpoint could have been mistaken for a superseded LCU. Only the
+# checkpoints bundled with the new LCU may come back: a degraded chain cannot classify the other
+# old entries, and restoring those re-adds superseded LCUs/.NET/CABs next to their replacements
+# (2026-11-19: KB5132061 and two old CABs survived this way). Without the bundle list, fall back
+# to the old keep-everything behaviour.
+function Add-UnverifiedEntries($All, $OldPath, $BundleLinks) {
     if (-not (Test-Path $OldPath)) { return $All }
     $haveNames = @($All | ForEach-Object { $_.FileName })
     $haveUrls = @($All | ForEach-Object { $_.Url })
@@ -374,6 +385,11 @@ function Add-UnverifiedEntries($All, $OldPath) {
     # the comparison below (the same trap applies to any ,(...) helper used as a pipeline source).
     $oldEntries = Get-ExistingFiles $OldPath
     $unverified = @($oldEntries | Where-Object { $_.FileName -notin $haveNames -and $_.Url -notin $haveUrls })
+    $bundleKbs = @{}
+    foreach ($b in @($BundleLinks)) { if ($b -and $b.KB -gt 0) { $bundleKbs[$b.KB] = 1 } }
+    if ($bundleKbs.Count -gt 0) {
+        $unverified = @($unverified | Where-Object { $bundleKbs.ContainsKey($_.KB) })
+    }
     if ($unverified.Count -eq 0) { return $All }
     Write-Host "  [MSUs] chain degraded: kept $($unverified.Count) entry(ies) that could not be re-verified" -ForegroundColor Yellow
     return ,(@($All) + $unverified)
@@ -714,7 +730,7 @@ foreach ($bn in $Build) {
         # 1. LCU
         try {
             # Always run chain + bootstrap from Catalog (history may be stale)
-            $chain = $null; $boot = $null
+            $chain = $null; $boot = $null; $lcuBootLinks = @()
             # Assume the chain is unusable until Follow-Chain resolves one: a missing or failed
             # lookup leaves the sweep without the baseline info it needs.
             $chainDegraded = $true
@@ -724,6 +740,7 @@ foreach ($bn in $Build) {
                 $chain = Pick-File $cl "LCU" $c.OP
             }
             $boot = Bootstrap-Search -Term $c.S1 -ArchPat $ap -OsPref $c.OP -Kind "LCU"
+            $lcuBootLinks = $script:LastBootstrapLinks
             $f, $tag = Cross-Validate $chain $boot
             $lcuFile = $f
             if ($f) {
@@ -978,8 +995,9 @@ foreach ($bn in $Build) {
         $all = @($newFiles) | Sort-Object Url -Unique
 
         # A degraded chain (Follow-Chain fell back to the update's own file list) cannot tell a
-        # baseline checkpoint from a superseded LCU, so the sweep may have dropped one.
-        if ($lcuChainDegraded) { $all = Add-UnverifiedEntries $all $old }
+        # baseline checkpoint from a superseded LCU, so the sweep may have dropped one. Restore
+        # only what the new LCU bundles; everything else the chain could not classify is superseded.
+        if ($lcuChainDegraded) { $all = Add-UnverifiedEntries $all $old $lcuBootLinks }
 
         # Only entries the catalog did not hand us this run can be stale: a URL returned by a
         # DownloadDialog call is live at fetch time, so probing it would just burn requests.
